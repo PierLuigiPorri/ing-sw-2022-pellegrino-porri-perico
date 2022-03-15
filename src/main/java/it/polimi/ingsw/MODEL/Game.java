@@ -53,7 +53,7 @@ public class Game {
             this.gate3 = new Gate(player3);
             for(int i=0; i<4; i++)
                 this.characters[i] = new Character();
-            this.sacchetto = new Bag();
+            this.bag = new Bag();
             this.sala1 = new Hall();
             this.sala2 = new Hall();
             this.sala3 = new Hall();
@@ -81,7 +81,7 @@ public class Game {
                 this.personaggi[i] = new Character();
             for(int i=0; i<5; i++)
                 this.professori[i] = new Professore(i);
-            this.sacchetto = new Bag();
+            this.bag = new Bag();
             this.sala1 = new Hall();
             this.sala2 = new Hall();
             this.sala3 = new Hall();
@@ -94,8 +94,8 @@ public class Game {
                 this.isole[i] = new Island(i);
         }
     }
-}
 
-    public Game(Player player1, Player player2, Player player 3){
-
+    public void setMotherNature(int index){
+        islands[index].motherNature=true;
     }
+}
