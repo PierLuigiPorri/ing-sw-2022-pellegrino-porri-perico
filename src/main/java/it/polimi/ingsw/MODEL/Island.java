@@ -1,13 +1,13 @@
 package it.polimi.ingsw.MODEL;
 
-public class Isola {
+public class Island {
     public int id;
     public int influenza;
     public Player player;
-    public Studente studenti;
+    public Student studenti;
     public boolean madreNatura;
 
-    public Isola(int id) {
+    public Island(int id) {
         this.id = id;
         this.player = null;
         this.influenza = 0;

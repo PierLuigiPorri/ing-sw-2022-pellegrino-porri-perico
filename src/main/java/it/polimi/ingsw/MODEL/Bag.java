@@ -1,4 +1,4 @@
 package it.polimi.ingsw.MODEL;
 
-public class Personaggio {
+public class Bag {
 }

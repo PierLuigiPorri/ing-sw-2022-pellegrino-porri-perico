@@ -1,4 +1,4 @@
 package it.polimi.ingsw.MODEL;
 
-public class Sala {
+public class Character {
 }
