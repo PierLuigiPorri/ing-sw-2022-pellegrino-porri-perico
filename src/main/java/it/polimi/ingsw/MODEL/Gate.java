@@ -1,7 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
 public class Gate {
-    public Color students;
+    public Wizard students;
     public Player player;
 
 

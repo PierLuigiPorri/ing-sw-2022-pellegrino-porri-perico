@@ -1,14 +1,14 @@
 package it.polimi.ingsw.MODEL;
 
 public class Student {
-    private Color colore;
+    private Wizard colore;
     private int influenza;
 
-    public Student(Color colore){
+    public Student(Wizard colore){
         this.colore=colore;
     }
 
-    public Color getColore() {
+    public Wizard getColore() {
         return colore;
     }
 }
