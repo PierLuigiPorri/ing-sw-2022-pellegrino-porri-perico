@@ -1,10 +1,10 @@
 package it.polimi.ingsw.MODEL;
 
-public class Color {
+public class Wizard {
     protected Colors color;
     private Player player;
 
-    public Color(Colors color){
+    public Wizard(Colors color){
         this.color=color;
         this.player=null;
     }
