@@ -11,7 +11,7 @@ public class Game {
     public Hall hall1, hall2, hall3, hall4;
     public Student[] students;
     public Tower[] towers1, towers2, towers3;
-    public Island[] islands;
+    public static Island[] islands;
     public Wizard Green, Red, Blue, Yellow, Pink;
     public int four_players;
 
