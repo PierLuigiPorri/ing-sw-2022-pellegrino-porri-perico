@@ -33,7 +33,7 @@ public class Island {
         this.students = students;
     }
 
-    public void setMotherNature(boolean motherNature) {
-        this.motherNature = motherNature;
+    public void setMotherNature(boolean presence) {
+        this.motherNature = presence;
     }
 }

@@ -54,9 +54,9 @@ public class Game {
             for(int i=0; i<4; i++)
                 this.characters[i] = new Character();
             this.bag = new Bag();
-            this.sala1 = new Hall();
-            this.sala2 = new Hall();
-            this.sala3 = new Hall();
+            this.hall1 = new Hall();
+            this.hall2 = new Hall();
+            this.hall3 = new Hall();
             for(int i=0; i<131; i++)
                 this.studenti[i] = new Student();
             this.torre1 = new Tower();
@@ -73,20 +73,16 @@ public class Game {
             this.cloud1 = new Cloud();
             this.cloud2 = new Cloud();
 
-            this.madreNatura = new MotherNature();
+            this.motherNature = new MotherNature();
             this.gate1 = new Gate(player1);
             this.gate2 = new Gate(player2);
             this.gate3 = new Gate(player3);
             for(int i=0; i<4; i++)
-                this.personaggi[i] = new Character();
-            for(int i=0; i<5; i++)
-                this.professori[i] = new Professore(i);
+                this.characters[i] = new Character();
             this.bag = new Bag();
-            this.sala1 = new Hall();
-            this.sala2 = new Hall();
-            this.sala3 = new Hall();
-            for(int i=0; i<131; i++)
-                this.studenti[i] = new Student();
+            this.hall1 = new Hall();
+            this.hall2 = new Hall();
+            this.hall3 = new Hall();
             this.torre1 = new Tower();
             this.torre2 = new Tower();
             this.torre3 = new Tower();
@@ -94,8 +90,8 @@ public class Game {
                 this.isole[i] = new Island(i);
         }
     }
-    public int MotherNature(int index){
-        this.islands[index].motherNature=true;
+    public static int setMotherNature(int index){
+        islands[index].setMotherNature(true);
         return index;
     }
 }
