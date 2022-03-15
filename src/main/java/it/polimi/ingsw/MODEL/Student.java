@@ -1,8 +1,8 @@
 package it.polimi.ingsw.MODEL;
 
 public class Student {
-    public Color colore;
-    public int influenza;
+    private Color colore;
+    private int influenza;
 
     public Student(Color colore){
         this.colore=colore;

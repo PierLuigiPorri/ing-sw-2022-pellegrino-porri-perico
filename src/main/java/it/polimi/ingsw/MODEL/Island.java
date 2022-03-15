@@ -1,16 +1,16 @@
 package it.polimi.ingsw.MODEL;
 
 public class Island {
-    public int id;
-    public int influenza;
+    private int id;
+    private int influence;
     public Player player;
-    public Student studenti;
-    public boolean madreNatura;
+    public Student students;
+    public boolean motherNature;
 
     public Island(int id) {
         this.id = id;
         this.player = null;
-        this.influenza = 0;
+        this.influence = 0;
     }
 
     public void setPlayer(Player player) {
@@ -22,7 +22,7 @@ public class Island {
     }
 
     public int getInfluenza() {
-        return influenza;
+        return influence;
     }
 
     public Player getPlayer() {

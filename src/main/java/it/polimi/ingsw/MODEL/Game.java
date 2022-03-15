@@ -1,26 +1,25 @@
 package it.polimi.ingsw.MODEL;
 
 public class Game {
-    public Player player1, player2, player3, player4;
-    public Cloud cloud1, cloud2;
-    public MotherNature motherNature;
-    public Cards[] cards1, cards2, cards3, cards4;
-    public Gate gate1, gate2, gate3, gate4;
-    public Character[] characters;
-    public Professore[] wizards;
-    public Bag bag;
-    public Hall hall1, hall2, hall3, hall4;
-    public Student[] students;
-    public Tower[] towers1, towers2, towers3;
-    public Island[] islands;
-    public Color Green, Red, Blue, Yellow, Pink;
+    private Player player1, player2, player3, player4;
+    private Cloud cloud1, cloud2;
+    private MotherNature motherNature;
+    private Cards[] cards1, cards2, cards3, cards4;
+    private Gate gate1, gate2, gate3, gate4;
+    private Character[] characters;
+    private Bag bag;
+    private Hall hall1, hall2, hall3, hall4;
+    private Student[] students;
+    private Tower[] towers1, towers2, towers3;
+    private Island[] islands;
+    private Color Green, Red, Blue, Yellow, Pink;
 
     public Game(int player_count) {
-        Green= new Color(GREEN);
-        Red= new Color(RED);
-        Blue= new Color(BLUE);
-        Yellow= new Color(YELLOW);
-        Pink= new Color(PINK);
+        Green= new Color(Colors.GREEN);
+        Red= new Color(Colors.RED);
+        Blue= new Color(Colors.BLUE);
+        Yellow= new Color(Colors.YELLOW);
+        Pink= new Color(Colors.PINK);
         if(player_count==2){
             this.player1 = new Player();
             this.player2 = new Player();

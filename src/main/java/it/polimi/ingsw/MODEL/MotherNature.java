@@ -1,7 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
 public class MotherNature {
-    public Island island;
+    private Island island;
 
 
     public MotherNature(Island island){

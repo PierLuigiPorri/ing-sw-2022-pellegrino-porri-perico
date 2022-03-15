@@ -1,21 +1,21 @@
 package it.polimi.ingsw.MODEL;
 
 public class Cards {
-    private int movimento;
-    private int valore;
+    private int movement;
+    private int value;
     public Player player;
 
     public Cards(int movimento, int valore, Player player){
-        this.movimento = movimento;
-        this.valore = valore;
+        this.movement = movimento;
+        this.value = valore;
         this.player = player;
     }
 
-    public int getValore() {
-        return valore;
+    public int getValue() {
+        return value;
     }
 
-    public int getMovimento() {
-        return movimento;
+    public int getMovement() {
+        return movement;
     }
 }
