@@ -3,9 +3,9 @@ package it.polimi.ingsw.MODEL;
 public class Island {
     private int id;
     private int influence;
-    public Player player;
-    public Student students;
-    public boolean motherNature;
+    private Player player;
+    private Student students;
+    private boolean motherNature;
 
     public Island(int id) {
         this.id = id;
@@ -27,5 +27,13 @@ public class Island {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setStudents(Student students) {
+        this.students = students;
+    }
+
+    public void setMotherNature(boolean motherNature) {
+        this.motherNature = motherNature;
     }
 }

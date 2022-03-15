@@ -94,8 +94,8 @@ public class Game {
                 this.isole[i] = new Island(i);
         }
     }
-
-    public void setMotherNature(int index){
-        islands[index].motherNature=true;
+    public int MotherNature(int index){
+        this.islands[index].motherNature=true;
+        return index;
     }
 }

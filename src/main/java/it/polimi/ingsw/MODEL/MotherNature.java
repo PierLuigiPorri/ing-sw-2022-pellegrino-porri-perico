@@ -1,13 +1,14 @@
 package it.polimi.ingsw.MODEL;
+import java.util.Random;
 
 public class MotherNature {
-    private Island island;
+    private int island;
 
-
-    public MotherNature(Island island){
-        this.island = island;
-        island.studenti=null;
-        island.madreNatura=true;
+    public MotherNature(){
+        Random rand = new Random();
+        this.island=Game.setMotherNature(rand.nextInt(12));
+        island.students=null;
+        island.motherNature=true;
     }
 
     public Island getIsola() {
