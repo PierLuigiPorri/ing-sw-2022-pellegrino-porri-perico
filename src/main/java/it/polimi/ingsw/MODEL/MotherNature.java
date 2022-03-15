@@ -3,6 +3,7 @@ import java.util.Random;
 
 public class MotherNature {
     private int island;
+
     public MotherNature(){
         Random rand = new Random();
         this.island=Game.setMotherNature(rand.nextInt(12));

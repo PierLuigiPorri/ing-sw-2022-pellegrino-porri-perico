@@ -1,19 +1,26 @@
 package it.polimi.ingsw.MODEL;
 
 public class Cloud {
-    public Student students;
+    public Student[] students;
 
-    public Student getStudenti() {
+    public Student[] getStudenti() {
         return students;
     }
 
-    public void setStudenti(Student studenti) {
-        this.students = studenti;
+    public void setStudenti(Student studenti, int i) {
+        this.students[i] = studenti;
     }
+
     public Cloud(){
-        //costruttore per 2 o 4 giocatori
+        students=new Student[3];
     }
     public Cloud(int flag){
-        //costruttore per 3 giocatori
+        students=new Student[4];
     }
+
+
+    public void removeStudent(int i){
+        students[i]=null;
+    }
+
 }
