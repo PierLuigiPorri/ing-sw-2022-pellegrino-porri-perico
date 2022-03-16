@@ -4,13 +4,18 @@ public class Island {
     private int id;
     private int influence;
     private Player player;
-    private Student students;
+    private Student[] students;
     private boolean motherNature;
 
     public Island(int id) {
         this.id = id;
         this.player = null;
         this.influence = 0;
+        this.students=new Student[1];
+    }
+
+    public void setInfluence(int influence) {
+        this.influence = influence;
     }
 
     public void setPlayer(Player player) {
@@ -29,8 +34,9 @@ public class Island {
         return player;
     }
 
-    public void setStudents(Student students) {
-        this.students = students;
+    public void placeStudents(Student students) {
+        this.students=new Student[this.students.length+1];
+        this.students[this.students.length-1]=students;
     }
 
     public void setMotherNature(boolean presence) {
