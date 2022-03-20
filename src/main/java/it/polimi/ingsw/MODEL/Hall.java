@@ -6,13 +6,15 @@ public class Hall {
     private int green;
     private int pink;
     private int yellow;
+    private Player player;
 
-    public Hall() {
+    public Hall(Player p) {
         this.red = 0;
         this.blue = 0;
         this.green = 0;
         this.pink = 0;
         this.yellow = 0;
+        this.player= p;
     }
 
     public int getRed() {
@@ -21,6 +23,9 @@ public class Hall {
 
     public void setRed() {
         this.red++;
+        if(this.red%3==0){
+            this.player.addCoin();
+        }
     }
 
     public int getBlue() {

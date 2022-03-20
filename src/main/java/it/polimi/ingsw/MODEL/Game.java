@@ -28,13 +28,9 @@ public class Game {
             this.cloud2 = new Cloud();
 
             this.motherNature = new MotherNature();
-            this.gate1 = new Gate(player1);
-            this.gate2 = new Gate(player2);
             for(int i=0; i<4; i++)
                 this.characters[i] = new Character();
             this.bag = new Bag();
-            this.hall1 = new Hall();
-            this.hall2 = new Hall();
             /*for(int i=0; i<131; i++)
                 this.students[i] = new Student();    ----sta roba conviene metterla direttamente in bag*/
             for(int i=0; i<13; i++)
@@ -50,15 +46,9 @@ public class Game {
             this.cloud3 = new Cloud(pflag);
 
             this.motherNature = new MotherNature();
-            this.gate1 = new Gate(player1);
-            this.gate2 = new Gate(player2);
-            this.gate3 = new Gate(player3);
             for(int i=0; i<4; i++)
                 this.characters[i] = new Character();
             this.bag = new Bag();
-            this.hall1 = new Hall();
-            this.hall2 = new Hall();
-            this.hall3 = new Hall();
             for(int i=0; i<13; i++)
                 this.islands[i] = new Island(i);
         }
@@ -74,17 +64,9 @@ public class Game {
             this.cloud4 = new Cloud();
 
             this.motherNature = new MotherNature();
-            this.gate1 = new Gate(player1);
-            this.gate2 = new Gate(player2);
-            this.gate3 = new Gate(player3);
-            this.gate4 = new Gate(player4);
             for(int i=0; i<4; i++)
                 this.characters[i] = new Character();
             this.bag = new Bag();
-            this.hall1 = new Hall();
-            this.hall2 = new Hall();
-            this.hall3 = new Hall();
-            this.hall4 = new Hall();
             for(int i=0; i<13; i++)
                 this.islands[i] = new Island(i);
         }
