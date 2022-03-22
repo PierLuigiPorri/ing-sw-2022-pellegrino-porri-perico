@@ -6,7 +6,7 @@ public class MotherNature {
 
     public MotherNature(){
         Random rand = new Random();
-        this.island=Game.setMotherNature(rand.nextInt(12));
+        this.island= GameMaster.setMotherNature(rand.nextInt(12));
     }
 
     public int getIsola() {

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.MODEL;
 
-public class Game {
+public class GameMaster {
     public Player player1, player2, player3, player4;
     public Cloud cloud1, cloud2, cloud3, cloud4;
     public MotherNature motherNature;
@@ -15,7 +15,7 @@ public class Game {
     public Wizard Green, Red, Blue, Yellow, Pink;
     public int four_players;
 
-    public Game(int player_count) {
+    public GameMaster(int player_count) {
         Green= new Wizard(Colors.GREEN);
         Red= new Wizard(Colors.RED);
         Blue= new Wizard(Colors.BLUE);
