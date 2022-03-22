@@ -1,7 +1,11 @@
 package it.polimi.ingsw.MODEL;
 
-public class Tower {
+public class Tower implements Pawn{
     private Player player;
-    private Island island;
+    private IslandType islandType;
     private int influenza;
+    @Override
+    public void moveIntoIsland(int i){
+
+    }
 }

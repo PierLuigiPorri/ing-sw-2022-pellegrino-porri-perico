@@ -1,7 +1,7 @@
 package it.polimi.ingsw.MODEL;
 import java.util.Random;
 
-public class MotherNature {
+public class MotherNature implements Pawn{
     private int island;
 
     public MotherNature(){
@@ -15,5 +15,10 @@ public class MotherNature {
 
     public void setIsola(int island) {
         this.island = island;
+    }
+
+    @Override
+    public void moveIntoIsland(int i){
+
     }
 }

@@ -25,24 +25,24 @@ public class Bag {
                 if (r == 0) {
                     array=new int[array.length-1];
                 }
-                studenti[i] = new Student(Colors.RED);
+                studenti[i] = new Student(Color.RED);
 
             }
             if(x==1){
                 b--;
-                studenti[i]=new Student(Colors.BLUE);
+                studenti[i]=new Student(Color.BLUE);
             }
             if(x==2){
                 g--;
-                studenti[i]=new Student(Colors.GREEN);
+                studenti[i]=new Student(Color.GREEN);
             }
             if(x==3){
                 p--;
-                studenti[i]=new Student(Colors.PINK);
+                studenti[i]=new Student(Color.PINK);
             }
             if(x==4){
                 y--;
-                studenti[i]=new Student(Colors.YELLOW);
+                studenti[i]=new Student(Color.YELLOW);
             }
         }
     }

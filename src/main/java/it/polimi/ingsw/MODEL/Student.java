@@ -1,36 +1,36 @@
 package it.polimi.ingsw.MODEL;
 
 public class Student {
-    private Colors colore;
+    private Color colore;
     private int influenza;
 
-    public Student(Colors colore){
+    public Student(Color colore){
         this.colore=colore;
     }
 
-    public Colors getColore() {
+    public Color getColore() {
         return colore;
     }
 
-    public void placeInIsland(int i, Island[] islands, Gate gate){
-        islands[i].placeStudents(this);
+    public void placeInIsland(int i, IslandType[] islandTypes, Gate gate){
+        islandTypes[i].placeStudents(this);
         gate.removeFromGate(this);
     }
 
     public void placeInHall(Hall hall, Gate gate){
-        if(this.colore==Colors.RED){
+        if(this.colore== Color.RED){
             hall.setRed();
         }
-        if(this.colore==Colors.BLUE){
+        if(this.colore== Color.BLUE){
             hall.setBlue();
         }
-        if(this.colore==Colors.GREEN){
+        if(this.colore== Color.GREEN){
             hall.setGreen();
         }
-        if(this.colore==Colors.PINK){
+        if(this.colore== Color.PINK){
             hall.setPink();
         }
-        if(this.colore==Colors.YELLOW){
+        if(this.colore== Color.YELLOW){
             hall.setYellow();
         }
         gate.removeFromGate(this);

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.MODEL;
 
-public class Gate {
+public class Gate implements StudentSpace{
     public Student[] students;
     public Player player;
 
@@ -24,4 +24,8 @@ public class Gate {
         return player;
     }
 
+    @Override
+    public void addStudent(Color color) {
+
+    }
 }
