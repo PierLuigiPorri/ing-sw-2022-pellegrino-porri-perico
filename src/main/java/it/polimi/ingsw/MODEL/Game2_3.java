@@ -5,7 +5,7 @@ public class Game2_3 {
         if(pcount==2){
             Player p1=new Player();
             Player p2=new Player();
-            Board b=new board
+            Board b=new Board();
             Game game=new Game(p1,p2)
         }
     }
