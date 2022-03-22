@@ -3,10 +3,18 @@ package it.polimi.ingsw.MODEL;
 public class Gate implements StudentSpace{
     public Student[] students;
     public Player player;
+    private static int MAX;
 
-    public Gate(Player player) {
+    public Gate(int pcount, Player player) {
         this.player = player;
+        this.MAX=9;
         this.students = null;
+    }
+
+    public Gate(Player player){
+        this.player=player;
+        this.MAX=7;
+        this.students=null;
     }
 
     public Student[] getStudents() {
