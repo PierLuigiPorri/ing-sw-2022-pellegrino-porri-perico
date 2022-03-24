@@ -18,7 +18,7 @@ public class Board {
         for(int i=0; i<12;i++){
             islands.add(new Island(i));
         }
-        islands.get(11).               //sta roba non va. Va costruita una lista circolare ad hoc. Lo faccio dopo.
+        islands.get(11).               //sta roba non va. Va costruita una lista circolare ad hoc. Lo faccio dopo. -Doot
     }
 
     public Board(){

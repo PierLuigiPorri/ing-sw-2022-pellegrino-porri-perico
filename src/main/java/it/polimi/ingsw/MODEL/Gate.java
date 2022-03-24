@@ -21,14 +21,12 @@ public class Gate implements StudentSpace{
         return students;
     }
 
-    public Student removeStudent(Student student) {
+    public void removeStudent(Color color) {
+        //ricordiamoci di fare il controllo che il colore da rimuovere ci sia effettivamente, al lato controller
         int i=0;
-        Student tmp;
-        while(!students[i].equals(student))
+        while(!students[i].getColor().equals(color))
             i++;
-        tmp=students[i];
         students[i]=null;
-        return tmp;
     }
 
 

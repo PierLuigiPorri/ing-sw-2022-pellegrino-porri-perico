@@ -1,46 +1,46 @@
 package it.polimi.ingsw.MODEL;
 
 public class Student {
-    private Color colore;
-    private int influenza;
+    private Color color;
+    private int influence;
 
-    public Student(Color colore){
-        this.colore=colore;
+    public Student(Color color){
+        this.color = color;
     }
 
-    public Color getColore() {
-        return colore;
+    public Color getColor() {
+        return color;
     }
 
     public void placeInIsland(int i, IslandType[] islandTypes, Gate gate){
         islandTypes[i].placeStudents(this);
-        gate.removeStudent(this);
+        gate.removeStudent(this.color);
+        //da levare, non dovrebbe averli student i metodi per muoversi ma devono muoverlo gli altri  --Doot
     }
 
     public void placeInHall(Hall hall, Gate gate){
-        if(this.colore== Color.RED){
+        if(this.color == Color.RED){
             hall.setRed();
         }
-        if(this.colore== Color.BLUE){
+        if(this.color == Color.BLUE){
             hall.setBlue();
         }
-        if(this.colore== Color.GREEN){
+        if(this.color == Color.GREEN){
             hall.setGreen();
         }
-        if(this.colore== Color.PINK){
+        if(this.color == Color.PINK){
             hall.setPink();
         }
-        if(this.colore== Color.YELLOW){
+        if(this.color == Color.YELLOW){
             hall.setYellow();
         }
-        gate.removeStudent(this);
+        gate.removeStudent(this.color);
+        //da levare, non dovrebbe averli student i metodi per muoversi ma devono muoverlo gli altri --Doot
     }
 
 
-    public void takeFromCloud(Cloud cloud, Gate gate){
-        for (int i=0; i<gate.students.length; i++)
-            cloud.students[i]=gate.students[gate.students.length-i-1];
-        cloud.students=null;
+    public void CloudToGate(Cloud cloud, Gate gate){
+        //da levare, non dovrebbe averli student i metodi per muoversi ma devono muoverlo gli altri --Doot
     }
 
 }

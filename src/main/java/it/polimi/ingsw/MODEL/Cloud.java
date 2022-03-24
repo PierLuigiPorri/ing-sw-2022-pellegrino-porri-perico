@@ -13,7 +13,7 @@ public class Cloud implements StudentSpace{
         students=new Student[4];
     }
 
-    public Student[] getStudent() {
+    public Student[] getStudents() {
         return students;
     }
 
@@ -26,6 +26,10 @@ public class Cloud implements StudentSpace{
     }
     public void removeStudent(int i){
         students[i]=null;
+    }
+
+    public void emptyCloud(){
+        students=null;
     }
 
 }

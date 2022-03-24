@@ -6,6 +6,7 @@ public class Game2_3 {
             Player p1=new Player();
             Player p2=new Player();
             Board b=new Board();
+            Bag bg=new Bag();
             Game game=new Game(p1,p2);
         }
     }

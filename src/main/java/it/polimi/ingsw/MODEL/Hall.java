@@ -34,6 +34,9 @@ public class Hall {
 
     public void setBlue() {
         this.blue ++;
+        if(this.blue%3==0){
+            this.player.addCoin();
+        }
     }
 
     public int getGreen() {
@@ -42,6 +45,9 @@ public class Hall {
 
     public void setGreen() {
         this.green++;
+        if(this.green%3==0){
+            this.player.addCoin();
+        }
     }
 
     public int getPink() {
@@ -50,6 +56,9 @@ public class Hall {
 
     public void setPink() {
         this.pink++;
+        if(this.pink%3==0){
+            this.player.addCoin();
+        }
     }
 
     public int getYellow() {
@@ -58,5 +67,8 @@ public class Hall {
 
     public void setYellow() {
         this.yellow++;
+        if(this.yellow%3==0){
+            this.player.addCoin();
+        }
     }
 }

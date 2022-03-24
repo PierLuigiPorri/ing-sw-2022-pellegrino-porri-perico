@@ -1,50 +1,39 @@
 package it.polimi.ingsw.MODEL;
 
-public class IslandType implements StudentSpace{
-    private int id;
-    private int influence;
-    private Player player;
-    private Student[] students;
-    private boolean motherNature;
+import java.util.ArrayList;
 
-    public void IslandType(int id) {
-        this.id = id;
-        this.player = null;
-        this.influence = 0;
-        this.students=new Student[1];
-    }
+public abstract class IslandType implements StudentSpace{
+    protected int id;
+    protected int influence;
+    protected Player player;
+    protected ArrayList<Student> students;
+    protected boolean motherNature;
+    protected int islandCount=1;
+
 
     @Override
     public void addStudent(Color color){
-
+        this.students.add(new Student(color));
     }
 
-    public void setInfluence(int influence) {
-        this.influence = influence;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void removeStudent(Color color){
+        int i=0;
+        while(!this.students.get(i).getColor().equals(color))
+            i++;
+        this.students.remove(i);
     }
 
     public int getId() {
         return id;
     }
 
-    public int getInfluenza() {
+    public int getInfluence() {
         return influence;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void placeStudents(Student students) {
-        this.students=new Student[this.students.length+1];
-        this.students[this.students.length-1]=students;
     }
 
     public void setMotherNature(boolean presence) {
         this.motherNature = presence;
     }
+
+    public int getIslandCount(){return islandCount;};
 }
