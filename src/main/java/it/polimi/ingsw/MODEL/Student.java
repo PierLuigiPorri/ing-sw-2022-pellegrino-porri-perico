@@ -14,7 +14,7 @@ public class Student {
 
     public void placeInIsland(int i, IslandType[] islandTypes, Gate gate){
         islandTypes[i].placeStudents(this);
-        gate.removeFromGate(this);
+        gate.removeStudent(this);
     }
 
     public void placeInHall(Hall hall, Gate gate){
@@ -33,7 +33,7 @@ public class Student {
         if(this.colore== Color.YELLOW){
             hall.setYellow();
         }
-        gate.removeFromGate(this);
+        gate.removeStudent(this);
     }
 
 

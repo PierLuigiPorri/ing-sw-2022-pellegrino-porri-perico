@@ -6,16 +6,16 @@ public class MotherNature implements Pawn{
 
     public MotherNature(){
         Random rand = new Random();
-        this.island= GameMaster.setMotherNature(rand.nextInt(12));
+        this.island= rand.nextInt(12);
     }
 
     public int getIsola() {
         return island;
     }
 
-    public void setIsola(int island) {
-        this.island = island;
-    }
+    public void setIsola(int addition) {
+        this.island = this.island+addition;
+    } //QUANDO ISLAND SUPERA 11, VA FATTA TORNARE A ZERO
 
     @Override
     public void moveIntoIsland(int i){

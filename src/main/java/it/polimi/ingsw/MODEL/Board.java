@@ -8,7 +8,6 @@ public class Board {
     private LinkedList<IslandType> islands;
 
 
-
     public Board(int pcount){
         this.clouds=new Cloud[3];
         int flag=1;
@@ -23,6 +22,14 @@ public class Board {
     }
 
     public Board(){
-        this.clouds=new
+        this.clouds=new Cloud[2];
+        for(Cloud c:clouds){
+            c=new Cloud();
+        }
+        islands=new LinkedList<IslandType>();
+        for(int i=0; i<12;i++){
+            islands.add(new Island(i));
+        }
+
     }
 }
