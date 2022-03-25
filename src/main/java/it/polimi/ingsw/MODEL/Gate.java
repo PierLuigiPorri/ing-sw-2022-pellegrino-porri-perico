@@ -9,12 +9,15 @@ public class Gate implements StudentSpace{
         this.player = player;
         this.MAX=9;
         this.students = new Student[9];
+        //TODO: il gate va riempito una volta creato. Mi serve Bag per farlo, e non so come farlo altrimenti. -Doot
+
     }
 
     public Gate(Player player){
         this.player=player;
         this.MAX=7;
         this.students= new Student[7];
+        //TODO: il gate va riempito una volta creato. Mi serve Bag per farlo, e non so come farlo altrimenti. -Doot
     }
 
     public Student[] getStudents() {
