@@ -7,10 +7,17 @@ public class Hand {
 
     public Hand(Player player){
         this.player=player;
-        cards=new Card[10];
-        for(int i=0; i<10; i++){
-            //qui bisogna manualmente mettere le carte nel vettore. Se sono in ordine per movimento o valore, si può fare
-            //con un ciclo for. Altrimenti va fatto una a una a mano.
+        cards=new Card[11];
+        cards[0]=new Card(0,0); //CARD[0] serve in classe ROUND.
+        cards[1]=new Card(1, 1);
+        cards[2]=new Card(1, 2);
+        cards[3]=new Card(1, 3);
+        cards[4]=new Card(1, 4);
+        cards[5]=new Card(1, 5);
+        cards[6]=new Card(1, 6);
+        cards[7]=new Card(1, 7);
+        cards[8]=new Card(1, 8);
+        cards[9]=new Card(1, 9);
+        cards[10]=new Card(1, 10);
         }
-    }
 }

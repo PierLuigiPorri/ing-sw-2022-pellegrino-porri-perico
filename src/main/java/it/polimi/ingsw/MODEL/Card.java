@@ -1,7 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
 public class Card {
-    private int movement;
+    private final int movement;
     private int value;
 
     public Card(int movimento, int valore){
@@ -15,5 +15,15 @@ public class Card {
 
     public int getMovement() {
         return movement;
+    }
+
+    public Card compareTo(Card c1){
+        if(this.value< c1.value)
+            return this;
+        else return c1;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }

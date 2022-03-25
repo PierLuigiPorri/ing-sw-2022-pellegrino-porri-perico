@@ -1,18 +1,19 @@
 package it.polimi.ingsw.MODEL;
 
 public class Player {
-    public String nickname;
-    private Hand hand;
-    private Gate gate;
-    private Hall hall;
+    public final String nickname;
+    private final Hand hand;
+    private final Gate gate;
+    private final Hall hall;
     private int tower_count;
     private int coins;
     public int studentsMoved;
-    public static int maxMoves;
+    public int maxMoves;
     public int teamID=-1;
 
 
-    public Player(int pcount){
+    public Player(int pcount, String string){
+        this.nickname=string;
         this.tower_count=6;
         this.gate=new Gate(3, this);
         this.maxMoves=4;
@@ -21,7 +22,8 @@ public class Player {
         this.hand=new Hand(this);
     }
 
-    public Player(){
+    public Player(String string){
+        this.nickname=string;
         this.tower_count=8;
         this.gate=new Gate(this);
         this.maxMoves=3;
@@ -33,6 +35,13 @@ public class Player {
     public void addCoin(){
         this.coins++;
     }
+
+    public Card playCard(int index){
+        Card tmp=this.hand.cards[index];
+        this.hand.cards[index]=null;
+        return tmp;
+    }
+
 
     public void removeCoin(){
         if(this.coins>0) this.coins--;
