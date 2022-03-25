@@ -28,7 +28,7 @@ public class Game {
 
     public void gateToIsland(String color, String player, int index){}
 
-    public void gateToHall(String color, String player)(){}
+    public void gateToHall(String color, String player){}
 
     public void moveMotherNature(int movement){}
 
@@ -41,5 +41,7 @@ public class Game {
     public void playCard(String player, int index){}
 
     public void activateCharacter(String player, int id){}
+
+    public void turnPass(String player){}
 
 }

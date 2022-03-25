@@ -9,6 +9,7 @@ public abstract class IslandType implements StudentSpace{
     protected ArrayList<Student> students;
     protected boolean motherNature;
     protected int islandCount=1;
+    public IslandType next;
 
 
     @Override
