@@ -1,11 +1,8 @@
 package it.polimi.ingsw.MODEL;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 public class Board {
-    private Cloud[] clouds;
-    private Islands islands;
+    private final Cloud[] clouds;
+    private final Islands islands;
 
 
     public Board(int pcount){
@@ -19,12 +16,12 @@ public class Board {
             islands.add(new Island(i));
         }
         islands.getIsland(1).setMotherNature(true);
-        IslandType p=islands.head;
+        Island p=islands.head;
         do{
             if(p.getId()!=6){                       //non mettiamo niente sull'isola opposta a MN, come da regole.
-                /*TODO: qui va generato uno studente random tra 10 pescati all'inizio.
-                mi serve l'implementazione di bag per farlo, e non so come farlo da solo. -Doot*/
-                p.addStudent(//qui va messo il colore dello studente generato.);
+                //TODO: qui va generato uno studente random tra 10 pescati all'inizio.
+                //mi serve l'implementazione di bag per farlo, e non so come farlo da solo. -Doot
+                /*p.addStudent(qui va messo il colore dello studente generato.)*/
             }
         }while(p!= islands.tail);
     }
@@ -39,12 +36,12 @@ public class Board {
             islands.add(new Island(i));
         }
         islands.getIsland(1).setMotherNature(true);
-        IslandType p=islands.head;
+        Island p=islands.head;
         do{
             if(p.getId()!=6){                       //non mettiamo niente sull'isola opposta a MN, come da regole.
-                /*TODO: qui va generato uno studente random tra 10 pescati all'inizio.
-                mi serve l'implementazione di bag per farlo, e non so come farlo da solo. -Doot*/
-                p.addStudent(//qui va messo il colore dello studente generato.);
+                //TODO: qui va generato uno studente random tra 10 pescati all'inizio.
+                //mi serve l'implementazione di bag per farlo, e non so come farlo da solo. -Doot
+                /*p.addStudent(qui va messo il colore dello studente generato.)*/
             }
         }while(p!= islands.tail);
     }
