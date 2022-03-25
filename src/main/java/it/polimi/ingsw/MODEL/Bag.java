@@ -4,8 +4,7 @@ import java.util.Random;
 
 public class Bag {
     private Student[] studenti;
-    int count =0;
-    int size=129;
+    int size=119;
 
 
     public Bag() {
@@ -13,15 +12,15 @@ public class Bag {
         Student[] stud;
         Random rand;
 
-        studenti=new Student[130];
-        int lenght= studenti.length-1;
+        studenti=new Student[120];
+        int length= studenti.length-1;
         stud=create();
-        for (int i=0; i<130; i++){
+        for (int i=0; i<120; i++){
             rand = new Random();
-            x=rand.nextInt(lenght);
+            x=rand.nextInt(length);
             studenti[i] = stud[x];
-            stud[x]=stud[lenght];
-            lenght--;
+            stud[x]=stud[length];
+            length--;
         }
     }
 
@@ -41,24 +40,25 @@ public class Bag {
 
 
     private Student[] create(){
-        Student[] stud=new Student[130];
-        for (int i = 0; i < 26; i++) {
+        int count =0;
+        Student[] stud=new Student[120];
+        for (int i = 0; i < 24; i++) {
             stud[count] = new Student(Color.RED);
             count++;
         }
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < 24; i++) {
             stud[count] = new Student(Color.GREEN);
             count++;
         }
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < 24; i++) {
             stud[count] = new Student(Color.YELLOW);
             count++;
         }
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < 24; i++) {
             stud[count] = new Student(Color.BLUE);
             count++;
         }
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < 24; i++) {
             stud[count] = new Student(Color.PINK);
             count++;
         }

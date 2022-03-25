@@ -1,5 +1,9 @@
 package it.polimi.ingsw.MODEL;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Random;
+
 public class Board {
     private final Cloud[] clouds;
     private final Islands islands;
@@ -17,13 +21,30 @@ public class Board {
         }
         islands.getIsland(1).setMotherNature(true);
         Island p=islands.head;
+
+        //Scelta random di uno studente per isola (tranne che in 6) fra 10 studenti(2R, 2G, 2B, 2Y, 2P)
+        int x;
+        Student[] stud, studen;
+        Random rand;
+
+        studen=new Student[10];
+        int length= studen.length-1;
+        stud=create();
+        for (int i=0; i<10; i++){
+            rand = new Random();
+            x=rand.nextInt(length);
+            studen[i] = stud[x];
+            stud[x]=stud[length];
+            length--;
+        }
+        int k=9;
         do{
-            if(p.getId()!=6){                       //non mettiamo niente sull'isola opposta a MN, come da regole.
-                //TODO: qui va generato uno studente random tra 10 pescati all'inizio.
-                //mi serve l'implementazione di bag per farlo, e non so come farlo da solo. -Doot
-                /*p.addStudent(qui va messo il colore dello studente generato.)*/
-            }
-        }while(p!= islands.tail);
+            if(p.getId()!=6){
+                p.students.add(studen[k]);
+                k--;
+                p=p.next;
+                }
+        }while(!p.equals(islands.tail));
     }
 
     public Board(){
@@ -36,13 +57,60 @@ public class Board {
             islands.add(new Island(i));
         }
         islands.getIsland(1).setMotherNature(true);
+
         Island p=islands.head;
+        int x;
+        Student[] stud, studen;
+        Random rand;
+
+        studen=new Student[10];
+        int length= studen.length-1;
+        stud=create();
+        for (int i=0; i<10; i++){
+            rand = new Random();
+            x=rand.nextInt(length);
+            studen[i] = stud[x];
+            stud[x]=stud[length];
+            length--;
+        }
+
+        int k=9;
         do{
-            if(p.getId()!=6){                       //non mettiamo niente sull'isola opposta a MN, come da regole.
-                //TODO: qui va generato uno studente random tra 10 pescati all'inizio.
-                //mi serve l'implementazione di bag per farlo, e non so come farlo da solo. -Doot
-                /*p.addStudent(qui va messo il colore dello studente generato.)*/
+            if(p.getId()!=6){
+                p.students.add(studen[k]);
+                k--;
+                p=p.next;
             }
-        }while(p!= islands.tail);
+        }while(!p.equals(islands.tail));
     }
+
+
+
+    @NotNull
+    private Student[] create(){
+        int count =0;
+        Student[] stud=new Student[10];
+        for (int i = 0; i < 2; i++) {
+            stud[count] = new Student(Color.RED);
+            count++;
+        }
+        for (int i = 0; i < 2; i++) {
+            stud[count] = new Student(Color.GREEN);
+            count++;
+        }
+        for (int i = 0; i < 2; i++) {
+            stud[count] = new Student(Color.YELLOW);
+            count++;
+        }
+        for (int i = 0; i < 2; i++) {
+            stud[count] = new Student(Color.BLUE);
+            count++;
+        }
+        for (int i = 0; i < 2; i++) {
+            stud[count] = new Student(Color.PINK);
+            count++;
+        }
+        return stud;
+    }
+
 }
