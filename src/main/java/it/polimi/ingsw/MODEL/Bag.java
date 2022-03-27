@@ -68,6 +68,10 @@ public class Bag {
         return stud;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public Game getGame() {
         return game;
     }

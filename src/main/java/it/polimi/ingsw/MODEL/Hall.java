@@ -21,7 +21,19 @@ public class Hall {
         return red;
     }
 
-    public void setRed() {
+    public void setColor(Color color){
+        if (color.equals(Color.RED))
+            setRed();
+        else if (color.equals(Color.BLUE))
+            setBlue();
+        else if (color.equals(Color.GREEN))
+            setGreen();
+        else if (color.equals(Color.YELLOW))
+            setYellow();
+        else setPink();
+    }
+
+    private void setRed() {
         this.red++;
         if(this.red%3==0){
             this.player.addCoin();
@@ -32,7 +44,7 @@ public class Hall {
         return blue;
     }
 
-    public void setBlue() {
+    private void setBlue() {
         this.blue ++;
         if(this.blue%3==0){
             this.player.addCoin();
@@ -43,7 +55,7 @@ public class Hall {
         return green;
     }
 
-    public void setGreen() {
+    private void setGreen() {
         this.green++;
         if(this.green%3==0){
             this.player.addCoin();
@@ -54,7 +66,7 @@ public class Hall {
         return pink;
     }
 
-    public void setPink() {
+    private void setPink() {
         this.pink++;
         if(this.pink%3==0){
             this.player.addCoin();
@@ -65,7 +77,7 @@ public class Hall {
         return yellow;
     }
 
-    public void setYellow() {
+    private void setYellow() {
         this.yellow++;
         if(this.yellow%3==0){
             this.player.addCoin();

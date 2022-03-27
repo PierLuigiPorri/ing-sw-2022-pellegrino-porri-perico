@@ -24,8 +24,10 @@ public class Cloud implements StudentSpace{
             i++;
         students[i]=new Student(color);
     }
-    public void removeStudent(int i){
+    public Student removeStudent(int i){
+        Student tmp=students[i];
         students[i]=null;
+        return tmp;
     }
 
     public void emptyCloud(){

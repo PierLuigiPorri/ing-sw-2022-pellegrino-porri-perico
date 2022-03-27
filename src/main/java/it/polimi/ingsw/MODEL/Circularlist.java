@@ -1,6 +1,6 @@
 package it.polimi.ingsw.MODEL;
 
-public class Islands {
+public class Circularlist {
     public Island head=null;
     public Island tail=null;
 

@@ -24,5 +24,5 @@ public class ColorTracker {
 
     public void disableInfluence(){
         influence=0;
-    } // BISOGNA FARE IN MODO CHE QUESTO METODO DURI SOLO UN TURNO!
+    } //TODO: BISOGNA FARE IN MODO CHE QUESTO METODO DURI SOLO UN TURNO!
 }

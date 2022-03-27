@@ -19,6 +19,17 @@ public class Island implements StudentSpace{
         this.towers=new Tower[islandCount];
     }
 
+    public int getStudent_Influence(Color[] colors){
+        int count=0;
+        for (Color c:colors) {
+            for (Student s: students) {
+                if(s.getColor().equals(c))
+                    count++;
+            }
+        }
+        return count;
+    }
+
     @Override
     public void addStudent(Color color){
         this.students.add(new Student(color));
@@ -44,4 +55,6 @@ public class Island implements StudentSpace{
     public Player getPlayer(){
         return this.towers[0].getPlayer();
     }
+
+
 }

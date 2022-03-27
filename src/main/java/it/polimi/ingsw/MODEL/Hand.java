@@ -4,7 +4,7 @@ public class Hand {
     Player player;
     Card[] cards;
 
-
+//TODO: impostare il corretto valore di MOVIMENTO alle varie carte.
     public Hand(Player player){
         this.player=player;
         cards=new Card[11];

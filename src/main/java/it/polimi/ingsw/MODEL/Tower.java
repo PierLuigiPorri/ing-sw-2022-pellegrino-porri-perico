@@ -3,12 +3,13 @@ package it.polimi.ingsw.MODEL;
 public class Tower implements Pawn{
     private Player player;
     private Island island;
-    private final int influenza=1;
+    private final int influence=1;
 
     public Tower(Player p){
         this.player=p;
         this.island=null;
     }
+
     @Override
     public void moveIntoIsland(int i){
         this.island.id=i;
@@ -17,5 +18,17 @@ public class Tower implements Pawn{
     }
     public Player getPlayer(){
         return this.player;
+    }
+
+    public Island getIsland() {
+        return island;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public int getInfluence() {
+        return influence;
     }
 }

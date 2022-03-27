@@ -12,9 +12,6 @@ public class Gate implements StudentSpace{
         for(int i=0; i<9; i++){
             this.students[i]=player.getGame().getBg().extractStudent();
         }
-        //FATTO il TODO. controllare la validità.
-        //TODO: il gate va riempito una volta creato. Mi serve Bag per farlo, e non so come farlo altrimenti. -Doot
-
     }
 
     public Gate(Player player){
@@ -24,7 +21,6 @@ public class Gate implements StudentSpace{
         for(int i=0; i<7; i++){
             this.students[i]=player.getGame().getBg().extractStudent();
         }
-        //TODO: il gate va riempito una volta creato. Mi serve Bag per farlo, e non so come farlo altrimenti. -Doot
     }
 
     public Student[] getStudents() {
