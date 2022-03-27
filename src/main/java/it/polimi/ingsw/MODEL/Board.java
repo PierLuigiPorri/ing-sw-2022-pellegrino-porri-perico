@@ -16,7 +16,7 @@ public class Board {
             c=new Cloud(flag);
         }
         islands=new Islands();
-        for(int i=1; i<13;i++){
+        for(int i=1; i<=12;i++){
             islands.add(new Island(i));
         }
         islands.getIsland(1).setMotherNature(true);
@@ -87,7 +87,7 @@ public class Board {
 
 
     @NotNull
-    private Student[] create(){
+    private Student[] create(){ //TODO: unificare questo metodo con quello della Bag
         int count =0;
         Student[] stud=new Student[10];
         for (int i = 0; i < 2; i++) {

@@ -42,7 +42,7 @@ public class Bag {
 
 
 
-    private Student[] create(){
+    private Student[] create(){ //TODO: unificare questo metodo con quello della Board
         int count =0;
         Student[] stud=new Student[120];
         for (int i = 0; i < 24; i++) {

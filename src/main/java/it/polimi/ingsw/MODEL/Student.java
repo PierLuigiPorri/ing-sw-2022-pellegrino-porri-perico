@@ -1,6 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
 public class Student {
+    private int id;
     private Color color;
     private int influence;
 
@@ -12,35 +13,21 @@ public class Student {
         return color;
     }
 
-    /*public void placeInIsland(int i, Island[] islands, Gate gate){
-        islands[i].placeStudents(this);
-        gate.removeStudent(this.color);
-        //da levare, non dovrebbe averli student i metodi per muoversi ma devono muoverlo gli altri  --Doot
-    }*/
-
-    public void placeInHall(Hall hall, Gate gate){
-        if(this.color == Color.RED){
+    public void placeInHall(Hall hall, Gate gate) {
+        if (this.color == Color.RED) {
             hall.setRed();
         }
-        if(this.color == Color.BLUE){
+        if (this.color == Color.BLUE) {
             hall.setBlue();
         }
-        if(this.color == Color.GREEN){
+        if (this.color == Color.GREEN) {
             hall.setGreen();
         }
-        if(this.color == Color.PINK){
+        if (this.color == Color.PINK) {
             hall.setPink();
         }
-        if(this.color == Color.YELLOW){
+        if (this.color == Color.YELLOW) {
             hall.setYellow();
         }
-        gate.removeStudent(this.color);
-        //da levare, non dovrebbe averli student i metodi per muoversi ma devono muoverlo gli altri --Doot
     }
-
-
-    public void CloudToGate(Cloud cloud, Gate gate){
-        //da levare, non dovrebbe averli student i metodi per muoversi ma devono muoverlo gli altri --Doot
-    }
-
 }

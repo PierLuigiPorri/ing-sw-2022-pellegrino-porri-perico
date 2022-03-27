@@ -10,12 +10,10 @@ public class Controller implements Runnable{
     private String nick2;
     private String nick3;
     private String nick4;
+    //probabilmente qui ci saranno gli IP/socket
 
     public void run(){
         //gestione connessioni successive alla prima
         partita=new Game(numPlayers, gameType, nick1, nick2, nick3, nick4); //model
     };
-    public int getNumPlayers(){
-        return numPlayers;
-    }
 }
