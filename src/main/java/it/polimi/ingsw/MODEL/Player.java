@@ -1,6 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
 public class Player {
+    private Game game;
     public final String nickname;
     private final Hand hand;
     private final Gate gate;
@@ -22,7 +23,8 @@ public class Player {
         this.hand=new Hand(this);
     }
 
-    public Player(String string){
+    public Player(String string, Game game){
+        this.game=game;
         this.nickname=string;
         this.tower_count=8;
         this.gate=new Gate(this);
@@ -42,6 +44,33 @@ public class Player {
         return tmp;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public Hand getHand() {
+        return hand;
+    }
+
+    public Gate getGate() {
+        return gate;
+    }
+
+    public Hall getHall() {
+        return hall;
+    }
+
+    public int getTower_count() {
+        return tower_count;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
 
     public void removeCoin(){
         if(this.coins>0) this.coins--;

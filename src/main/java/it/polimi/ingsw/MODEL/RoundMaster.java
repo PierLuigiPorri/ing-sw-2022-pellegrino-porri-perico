@@ -9,19 +9,26 @@ public class RoundMaster {
         round=new Round(players);
     }
 
-    public void startRound(){
+    private void startRound(){
         round=new Round(players);
     }
 
-    public Player[] changePhase(int[] index){
-        players= round.nextAzione(index);
-        round.setCurrentPhase("Azione");
+    public Player[] changePhase(int[] index){  //restituisce l'ordine di gioco della fase successiva.
+        if(this.round.getCurrentPhase().equals("Pianificazione")) {
+            players = round.nextAzione(index);
+            round.setCurrentPhase("Azione");
+        }
+        else{
+            players[0]=endRound(index);
+        }
         return players;
     }
 
-    public void endRound(){
+    private Player endRound(int[] index){
         roundCount++;
+        Player p=round.nextPianificazione(index);
         startRound();
+        return p;
     }
 
     public int getRoundCount() {

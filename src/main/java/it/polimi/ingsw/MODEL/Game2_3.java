@@ -1,13 +1,29 @@
 package it.polimi.ingsw.MODEL;
 
 public class Game2_3 {
-    public Game2_3(int pcount){
-        if(pcount==2){
-            Player p1=new Player();
-            Player p2=new Player();
-            Board b=new Board();
-            Bag bg=new Bag();
-            Game game=new Game(p1,p2);
-        }
+    private Player p1, p2;
+    private Board b;
+    private Bag bg;
+    private Game game;
+
+
+    public Player getP1() {
+        return p1;
+    }
+
+    public Player getP2() {
+        return p2;
+    }
+
+    public Board getB() {
+        return b;
+    }
+
+    public Bag getBg() {
+        return bg;
+    }
+
+    public Game getGame() {
+        return game;
     }
 }

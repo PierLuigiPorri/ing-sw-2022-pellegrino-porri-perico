@@ -3,12 +3,16 @@ package it.polimi.ingsw.MODEL;
 public class Gate implements StudentSpace{
     public Student[] students;
     public Player player;
-    private final int MAX;
+    private int MAX;
 
     public Gate(int pcount, Player player) {
         this.player = player;
         this.MAX=9;
         this.students = new Student[9];
+        for(int i=0; i<9; i++){
+            this.students[i]=player.getGame().getBg().extractStudent();
+        }
+        //FATTO il TODO. controllare la validità.
         //TODO: il gate va riempito una volta creato. Mi serve Bag per farlo, e non so come farlo altrimenti. -Doot
 
     }
@@ -17,6 +21,9 @@ public class Gate implements StudentSpace{
         this.player=player;
         this.MAX=7;
         this.students= new Student[7];
+        for(int i=0; i<7; i++){
+            this.students[i]=player.getGame().getBg().extractStudent();
+        }
         //TODO: il gate va riempito una volta creato. Mi serve Bag per farlo, e non so come farlo altrimenti. -Doot
     }
 

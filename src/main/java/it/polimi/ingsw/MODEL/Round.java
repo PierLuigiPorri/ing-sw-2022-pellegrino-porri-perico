@@ -30,6 +30,7 @@ public class Round {
 
         if (index==null)
             return order;
+
         x=player[0].playCard(index[0]);
         y=player[1].playCard(index[1]);
         z=player[2].playCard(index[2]);
@@ -53,14 +54,13 @@ public class Round {
         k++;
         index[i]=0;
         if (index[0]==0 && index[1]==0 && index[2]==0 && index[3]==0)
-            order=null;
+            index=null;
 
         return nextAzione(index);
     }
 
     public Player nextPianificazione(int[] index){ //index:array che contiene "VALORE" delle carte giocate da tutti i giocatori
         Card x, y, z, w;
-
 
         x=player[0].playCard(index[0]);
         y=player[1].playCard(index[1]);

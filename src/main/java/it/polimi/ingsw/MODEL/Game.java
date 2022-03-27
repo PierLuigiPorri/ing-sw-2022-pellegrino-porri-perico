@@ -1,8 +1,20 @@
 package it.polimi.ingsw.MODEL;
 
 public class Game {
-    public int playerCount;
+    Player p1, p2;
+    Bag bg;
+    Board b;
 
+    public Game(int pcount, String string){
+        if(pcount==2){
+            this.p1=new Player(pcount, string);
+            this.p2=new Player(pcount, string);
+            this.b=new Board();
+            this.bg=new Bag(this);
+        }
+    }
+
+    public int playerCount;
 
     public void roundStart(){}
 
@@ -44,4 +56,23 @@ public class Game {
 
     public void turnPass(String player){}
 
+    public Player getP1() {
+        return p1;
+    }
+
+    public Player getP2() {
+        return p2;
+    }
+
+    public Board getB() {
+        return b;
+    }
+
+    public Bag getBg() {
+        return bg;
+    }
+
+    public Game getGame() {
+        return this;
+    }
 }

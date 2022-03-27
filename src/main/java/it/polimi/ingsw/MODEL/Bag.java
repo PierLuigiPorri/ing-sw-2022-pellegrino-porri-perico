@@ -5,9 +5,10 @@ import java.util.Random;
 public class Bag {
     private Student[] studenti;
     int size=119;
+    private final Game game;
 
-
-    public Bag() {
+    public Bag(Game game) {
+        this.game=game;
         int x;
         Student[] stud;
         Random rand;
@@ -24,9 +25,11 @@ public class Bag {
         }
     }
 
-    public void addStudent(Color color){
+    public void addStudent(Color color) {
         size++;
-        studenti[size]=new Student(color);
+        if (studenti[size] == null) {
+            studenti[size] = new Student(color);
+        }
     }
 
     public Student extractStudent(){
@@ -63,6 +66,10 @@ public class Bag {
             count++;
         }
         return stud;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
 }

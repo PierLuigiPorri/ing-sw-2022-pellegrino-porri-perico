@@ -13,12 +13,10 @@ public class MotherNature implements Pawn{
         return island;
     }
 
-    public void setIsola(int addition) {
-        this.island = this.island+addition;
-    } //QUANDO ISLAND SUPERA 11, VA FATTA TORNARE A ZERO
 
     @Override
-    public void moveIntoIsland(int i){
+    public void moveIntoIsland(int addition){
+        this.island = this.island+addition;
+    }//QUANDO ISLAND SUPERA 11, VA FATTA TORNARE A ZERO
 
-    }
 }
