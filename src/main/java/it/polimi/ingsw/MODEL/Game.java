@@ -1,6 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
 public class Game {
+    private int gameType; //0: regole semplificate, 1: regole esperto
     private Player p1, p2, p3, p4;
     private Card[] cardsplayed;
     private Bag bag;
