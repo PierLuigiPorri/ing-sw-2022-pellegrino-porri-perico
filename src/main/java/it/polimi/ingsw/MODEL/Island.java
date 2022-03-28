@@ -32,9 +32,10 @@ public class Island implements StudentSpace{
 
     @Override
     public void addStudent(Color color){
-        this.students.add(new Student(color));
+
     }
 
+    @Override
     public void removeStudent(Color color){
         int i=0;
         while(!this.students.get(i).getColor().equals(color))
