@@ -16,13 +16,13 @@ public class Board {
             c=new Cloud(flag);
         }
         islands=new Circularlist();
-        for(int i=1; i<=12;i++){
+        for(int i=1; i<13;i++){
             islands.add(new Island(i));
         }
         islands.getIsland(1).setMotherNature(true);
         Island p=islands.head;
 
-        //Scelta random di uno studente per isola (tranne che in 6) fra 10 studenti(2R, 2G, 2B, 2Y, 2P)
+        //Scelta random di uno studente per isola (tranne che in isola 6) fra 10 studenti(2R, 2G, 2B, 2Y, 2P)
         int x;
         Student[] stud, studen;
         Random rand;
@@ -42,8 +42,8 @@ public class Board {
             if(p.getId()!=6){
                 p.students.add(studen[k]);
                 k--;
-                p=p.next;
-                }
+            }
+            p=p.next;
         }while(!p.equals(islands.tail));
     }
 
@@ -79,15 +79,15 @@ public class Board {
             if(p.getId()!=6){
                 p.students.add(studen[k]);
                 k--;
-                p=p.next;
             }
+            p=p.next;
         }while(!p.equals(islands.tail));
     }
 
 
 
     @NotNull
-    private Student[] create(){ //TODO: unificare questo metodo con quello della Bag
+    private Student[] create(){
         int count =0;
         Student[] stud=new Student[10];
         for (int i = 0; i < 2; i++) {
@@ -113,4 +113,11 @@ public class Board {
         return stud;
     }
 
+    public Cloud[] getClouds() {
+        return clouds;
+    }
+
+    public Circularlist getIslands() {
+        return islands;
+    }
 }

@@ -36,7 +36,6 @@ public class Island implements StudentSpace, TDSpace{
 
     }
 
-    @Override
     public void removeStudent(Color color){
         int i=0;
         while(!this.students.get(i).getColor().equals(color))

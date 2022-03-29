@@ -79,7 +79,6 @@ public class Character implements StudentSpace, TDSpace{
 
     }
 
-    @Override
     public void removeStudent(Color color) {
 
     }
