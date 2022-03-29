@@ -40,7 +40,7 @@ public class Player {
     }
 
     public void addCoin(){
-        this.coins++;
+        if(this.getGame().getGameType()==1) this.coins++;
     }
 
     public Card playCard(int index){

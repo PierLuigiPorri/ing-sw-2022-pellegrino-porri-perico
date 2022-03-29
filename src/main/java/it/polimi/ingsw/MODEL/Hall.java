@@ -41,7 +41,7 @@ public class Hall {
 
     private void setRed() {
         this.red++;
-        if(this.red%3==0 && player.getGame().getGameType()==1){ //Check regole esperto
+        if(this.red%3==0){ //Check regole esperto
             this.player.addCoin();
         }
     }
@@ -52,7 +52,7 @@ public class Hall {
 
     private void setBlue() {
         this.blue ++;
-        if(this.blue%3==0&&player.getGame().getGameType()==1){ //Check regole esperto
+        if(this.blue%3==0){ //Check regole esperto
             this.player.addCoin();
         }
     }
@@ -63,7 +63,7 @@ public class Hall {
 
     private void setGreen() {
         this.green++;
-        if(this.green%3==0&&player.getGame().getGameType()==1){ //Check regole esperto
+        if(this.green%3==0){ //Check regole esperto
             this.player.addCoin();
         }
     }
@@ -74,7 +74,7 @@ public class Hall {
 
     private void setPink() {
         this.pink++;
-        if(this.pink%3==0&&player.getGame().getGameType()==1){ //Check regole esperto
+        if(this.pink%3==0){ //Check regole esperto
             this.player.addCoin();
         }
     }
@@ -85,7 +85,7 @@ public class Hall {
 
     private void setYellow() {
         this.yellow++;
-        if(this.yellow%3==0&&player.getGame().getGameType()==1){ //Check regole esperto
+        if(this.yellow%3==0){ //Check regole esperto
             this.player.addCoin();
         }
     }
