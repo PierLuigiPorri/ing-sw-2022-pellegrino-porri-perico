@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Board {
     private final Cloud[] clouds;
-    private final Islands islands;
+    private final Circularlist islands;
 
 
     public Board(int pcount){
@@ -15,7 +15,7 @@ public class Board {
         for(Cloud c:clouds){
             c=new Cloud(flag);
         }
-        islands=new Islands();
+        islands=new Circularlist();
         for(int i=1; i<=12;i++){
             islands.add(new Island(i));
         }
@@ -52,7 +52,7 @@ public class Board {
         for(Cloud c:clouds){
             c=new Cloud();
         }
-        islands=new Islands();
+        islands=new Circularlist();
         for(int i=0; i<12;i++){
             islands.add(new Island(i));
         }
