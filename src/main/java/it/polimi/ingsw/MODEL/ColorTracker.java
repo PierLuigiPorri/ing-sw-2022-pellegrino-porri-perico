@@ -10,6 +10,10 @@ public class ColorTracker {
         this.player=null;
     }
 
+    public void setPlayer(Player player){
+        this.player=player;
+    }
+
     public int getInfluence() {
         return influence;
     }

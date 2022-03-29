@@ -22,15 +22,21 @@ public class Hall {
     }
 
     public void setColor(Color color){
-        if (color.equals(Color.RED))
+        if (color.equals(Color.RED)) {
             setRed();
-        else if (color.equals(Color.BLUE))
+        }
+        else if (color.equals(Color.BLUE)) {
             setBlue();
-        else if (color.equals(Color.GREEN))
+           }
+        else if (color.equals(Color.GREEN)) {
             setGreen();
-        else if (color.equals(Color.YELLOW))
+        }
+        else if (color.equals(Color.YELLOW)) {
             setYellow();
-        else setPink();
+        }
+        else {
+            setPink();
+            }
     }
 
     private void setRed() {

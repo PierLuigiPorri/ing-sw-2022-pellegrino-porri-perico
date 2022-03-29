@@ -6,9 +6,11 @@ public class Controller {
     private Card[] cardsplayed;
     private Bag bag;
     private Board board;
+    private ColorTracker red, blue, green, yellow, pink;
     private RoundMaster roundMaster;
     public int playerCount;
     private Player winner;
+
     private MotherNature motherNature;
     private Character[] charaCards; //Se viene più comodo si può anche fare come ArrayList o 3 variabili singole eventualmente
     //L'inizializzazione chiama Character(random tra 1 e 12)
@@ -77,6 +79,7 @@ public class Controller {
 
         player1.getGate().removeStudent(color1);
         player1.getHall().setColor(color1);
+        checkColorChanges(player1);
     }
 
     public void addStudentToGate(String color, String player, int index){
@@ -118,9 +121,28 @@ public class Controller {
 
     public int determineInfluence(String player, int index){
         Player player1=playerTranslator(player);
-        Color[] colors;
-//TODO:
-        colors=player1.getColorDominated(p2, p3, p4);
+        Color[] colors=new Color[5];
+
+        if(red.getPlayer().equals(player1))
+            colors[0]=Color.RED;
+        else colors[0]=null;
+
+        if(blue.getPlayer().equals(player1))
+            colors[1]=Color.BLUE;
+        else colors[1]=null;
+
+        if(green.getPlayer().equals(player1))
+            colors[2]=Color.GREEN;
+        else colors[2]=null;
+
+        if(yellow.getPlayer().equals(player1))
+            colors[3]=Color.YELLOW;
+        else colors[3]=null;
+
+        if(pink.getPlayer().equals(player1))
+            colors[4]=Color.PINK;
+        else colors[4]=null;
+
         int influenceTowers=0;
         int i=0;
         while (board.getIslands().getIsland(index).towers[i]!=null) {
@@ -130,12 +152,15 @@ public class Controller {
         return influenceTowers + board.getIslands().getIsland(index).getStudent_Influence(colors);
     }
 
-
-    //TODO: non so come fare lo swap. -Pier
     public void swapTowers(int index, String playerTO){
-        Player p1=playerTranslator(playerTO);
+        Player player1=playerTranslator(playerTO);
 
-        board.getIslands().getIsland(index).towers[0].setPlayer(p1);
+        int i=0;
+        while (board.getIslands().getIsland(index).towers[i]!=null) {
+            board.getIslands().getIsland(index).towers[i].setPlayer(player1);
+            i++;
+        }
+
     }
 
     public void mergeIslands(int index1, int index2){}
@@ -201,5 +226,18 @@ public class Controller {
 
     public int getGameType() {
         return gameType;
+    }
+
+    private void checkColorChanges(Player player1){
+        if( p1.getHall().getRed()>p2.getHall().getRed() &&  p1.getHall().getRed()>p3.getHall().getRed())
+            red.setPlayer(player1);
+        if( p1.getHall().getBlue()>p2.getHall().getBlue() &&  p1.getHall().getBlue()>p3.getHall().getBlue())
+            blue.setPlayer(player1);
+        if( p1.getHall().getGreen()>p2.getHall().getGreen() &&  p1.getHall().getGreen()>p3.getHall().getGreen())
+            green.setPlayer(player1);
+        if( p1.getHall().getYellow()>p2.getHall().getYellow() &&  p1.getHall().getYellow()>p3.getHall().getYellow())
+            yellow.setPlayer(player1);
+        if( p1.getHall().getPink()>p2.getHall().getPink() &&  p1.getHall().getPink()>p3.getHall().getPink())
+            pink.setPlayer(player1);
     }
 }
