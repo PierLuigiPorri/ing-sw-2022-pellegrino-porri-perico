@@ -11,7 +11,6 @@ public class Player {
     private int coins;
     public int studentsMoved;
     public int maxMoves;
-    public int teamID=-1;
 
     public Player(int pcount, String string){
         this.nickname=string;

@@ -72,7 +72,7 @@ public class Controller {
     }
 
     public void addStudentToHall(String color, String player){
-        Color color1=colorTrnslator(color);
+        Color color1= colorTranslator(color);
         Player player1=playerTranslator(player);
 
         player1.getGate().removeStudent(color1);
@@ -80,7 +80,7 @@ public class Controller {
     }
 
     public void addStudentToGate(String color, String player, int index){
-        Color color1=colorTrnslator(color);
+        Color color1= colorTranslator(color);
         Player player1=playerTranslator(player);
 
         board.getClouds()[index].removeStudent(color1);
@@ -88,7 +88,7 @@ public class Controller {
     }
 
     public void addStudentToIsland(String color, int index, String player){
-        Color color1=colorTrnslator(color);
+        Color color1= colorTranslator(color);
         Player player1=playerTranslator(player);
 
         player1.getGate().removeStudent(color1);
@@ -102,7 +102,7 @@ public class Controller {
 
 
     public void removeStudentFromIsland(String color, int index){
-        Color color1=colorTrnslator(color);
+        Color color1= colorTranslator(color);
         board.getIslands().getIsland(index).removeStudent(color1);
     }
 
@@ -177,7 +177,7 @@ public class Controller {
             return p4;
     }
 
-    private Color colorTrnslator(String color){
+    private Color colorTranslator(String color){
         Color color1;
         switch (color) {
             case "RED":

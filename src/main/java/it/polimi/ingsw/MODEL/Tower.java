@@ -3,7 +3,7 @@ package it.polimi.ingsw.MODEL;
 public class Tower {
     private Player player;
     private Island island;
-    private final int influence=1;
+    private int influence=1;
 
     public Tower(Player p){
         this.player=p;

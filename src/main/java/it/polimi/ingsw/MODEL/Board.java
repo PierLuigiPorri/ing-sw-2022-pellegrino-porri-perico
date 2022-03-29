@@ -5,8 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 public class Board {
-    private final Cloud[] clouds;
-    private final Circularlist islands;
+    public final Cloud[] clouds;
+    public final Circularlist islands;
 
 
     public Board(int pcount){
@@ -112,12 +112,6 @@ public class Board {
         }
         return stud;
     }
-
-    public Cloud[] getClouds() {
-        return clouds;
-    }
-
-    public Circularlist getIslands() {
-        return islands;
-    }
 }
+
+
