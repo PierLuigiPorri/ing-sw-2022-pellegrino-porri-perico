@@ -5,9 +5,9 @@ import java.util.Random;
 public class Bag {
     private Student[] studenti;
     int size=119;
-    private final Game game;
+    private final Controller game;
 
-    public Bag(Game game) {
+    public Bag(Controller game) {
         this.game=game;
         int x;
         Student[] stud;
@@ -72,7 +72,7 @@ public class Bag {
         return size;
     }
 
-    public Game getGame() {
+    public Controller getGame() {
         return game;
     }
 

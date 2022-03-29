@@ -35,7 +35,7 @@ public class Hall {
 
     private void setRed() {
         this.red++;
-        if(this.red%3==0&&player.getGame().getGameType()==1){ //Check regole esperto
+        if(this.red%3==0 && player.getGame().getGameType()==1){ //Check regole esperto
             this.player.addCoin();
         }
     }

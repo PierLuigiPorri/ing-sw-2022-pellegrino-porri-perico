@@ -1,6 +1,6 @@
 package it.polimi.ingsw.MODEL;
 
-public class Tower implements Pawn{
+public class Tower {
     private Player player;
     private Island island;
     private final int influence=1;
@@ -10,12 +10,6 @@ public class Tower implements Pawn{
         this.island=null;
     }
 
-    @Override
-    public void moveIntoIsland(int i){
-        this.island.id=i;
-        //da levare, tower non dovrebbe avere i metodi che la spostano ma dobrebbe essere spostata dagli altri
-        //(ovvero in questo caso verrà direttamente creata in loco dall'isola) --Doot
-    }
     public Player getPlayer(){
         return this.player;
     }

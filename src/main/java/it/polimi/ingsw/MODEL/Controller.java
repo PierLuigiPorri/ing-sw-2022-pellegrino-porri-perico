@@ -1,6 +1,6 @@
 package it.polimi.ingsw.MODEL;
 
-public class Game {
+public class Controller {
     private int gameType; //0: regole semplificate, 1: regole esperto
     private Player p1, p2, p3, p4;
     private Card[] cardsplayed;
@@ -13,7 +13,7 @@ public class Game {
     private Character[] charaCards; //Se viene più comodo si può anche fare come ArrayList o 3 variabili singole eventualmente
     //L'inizializzazione chiama Character(random tra 1 e 12)
 
-    public Game(int pcount, String string){ //Qua dovrà essere considerato anche il GameType per sapere se inizializzare il Deck di carte personaggio o no
+    public Controller(int pcount, String string){ //Qua dovrà essere considerato anche il GameType per sapere se inizializzare il Deck di carte personaggio o no
         if(pcount==2){
             this.p1=new Player(pcount, string);
             this.p2=new Player(pcount, string);
@@ -34,12 +34,14 @@ public class Game {
         roundMaster=new RoundMaster(players);
     }
 
-    public void changePhase(){
+    public Player[] changePhase(){
         int[] tmp=new int[4];
+        Player[] players;
+
         for(int i=0; i<4; i++){
             tmp[i]=cardsplayed[i].getValue();
         }
-        roundMaster.changePhase(tmp);
+        players=roundMaster.changePhase(tmp);
         if (roundMaster.getRoundCount()>10 ||
                 p1.getTower_count()==0 ||
                 p2.getTower_count()==0 ||
@@ -47,6 +49,7 @@ public class Game {
                 p4.getTower_count()==0){
             winner=this.gameEnd();
         }
+        return players;
     }
 
     public Player gameEnd(){
@@ -76,12 +79,12 @@ public class Game {
         player1.getHall().setColor(color1);
     }
 
-    public void addStudentToGate(String color, String player, int index, int i ){
+    public void addStudentToGate(String color, String player, int index){
         Color color1=colorTrnslator(color);
         Player player1=playerTranslator(player);
 
-        board.getClouds()[index].removeStudent(i);
-        player1.getGate().addStudent(board.getClouds()[index].removeStudent(i).getColor());
+        board.getClouds()[index].removeStudent(color1);
+        player1.getGate().addStudent(color1);
     }
 
     public void addStudentToIsland(String color, int index, String player){
@@ -104,18 +107,27 @@ public class Game {
     }
 
     public void moveMotherNature(int movement){
-        board.getIslands().getIsland(motherNature.getIsola()).setMotherNature(false);
-        board.getIslands().getIsland(motherNature.getIsola()+movement).setMotherNature(true);
-        motherNature.moveIntoIsland(movement);
+        motherNature.getIsola().setMotherNature(false);
+        Island tmp=motherNature.getIsola();
+        for (int i=0; i<movement; i++){
+            tmp=tmp.next;
+        }
+        tmp.setMotherNature(true);
+        motherNature.setIsland(tmp);
     }
 
     public int determineInfluence(String player, int index){
         Player player1=playerTranslator(player);
         Color[] colors;
-
+//TODO:
         colors=player1.getColorDominated(p2, p3, p4);
-        return board.getIslands().getIsland(index).towers[0].getInfluence() +
-                board.getIslands().getIsland(index).getStudent_Influence(colors);
+        int influenceTowers=0;
+        int i=0;
+        while (board.getIslands().getIsland(index).towers[i]!=null) {
+            influenceTowers = influenceTowers + board.getIslands().getIsland(index).towers[i].getInfluence();
+            i++;
+        }
+        return influenceTowers + board.getIslands().getIsland(index).getStudent_Influence(colors);
     }
 
 
@@ -150,7 +162,7 @@ public class Game {
         return bag;
     }
 
-    public Game getGame() {
+    public Controller getGame() {
         return this;
     }
 

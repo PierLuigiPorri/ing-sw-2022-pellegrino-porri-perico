@@ -1,22 +1,22 @@
 package it.polimi.ingsw.MODEL;
 import java.util.Random;
 
-public class MotherNature implements Pawn{
-    private int island;
+public class MotherNature {
+    private Island island;
+    private Board board;
 
-    public MotherNature(){
+
+    public MotherNature(Island island){
         Random rand = new Random();
-        this.island= rand.nextInt(12);
+        this.island = island ;
     }
 
-    public int getIsola() {
-        return island;
+    public Island getIsola() {
+        return this.island;
     }
 
-
-    @Override
-    public void moveIntoIsland(int addition){
-        this.island = this.island+addition;
-    }//QUANDO ISLAND SUPERA 11, VA FATTA TORNARE A ZERO
+    public void setIsland(Island island){
+        this.island = island;
+    }
 
 }

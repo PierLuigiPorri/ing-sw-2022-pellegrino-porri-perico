@@ -3,12 +3,12 @@ package it.polimi.ingsw.CONTROLLER;
 import java.util.ArrayList;
 import java.net.*;
 
-public class Controller implements Runnable{
+public class Starter implements Runnable{
 
     private static ArrayList<Creation> partite; //Elenco di tutte le partite in fase di creazione (e quindi joinabili)
     private Socket clientSocket;
 
-    public Controller(Socket socket){
+    public Starter(Socket socket){
         this.clientSocket=socket;
     }
 

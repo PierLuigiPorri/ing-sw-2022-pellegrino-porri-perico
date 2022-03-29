@@ -25,7 +25,7 @@ public class Island implements StudentSpace, TDSpace{
         for (Color c:colors) {
             for (Student s: students) {
                 if(s.getColor().equals(c))
-                    count++;
+                    count=count+s.getInfluence();
             }
         }
         return count;

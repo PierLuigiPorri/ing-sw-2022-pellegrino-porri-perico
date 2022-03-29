@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.CONTROLLER.Controller;
+import it.polimi.ingsw.CONTROLLER.Starter;
 import java.net.*;
 
 
@@ -13,7 +13,7 @@ public class ServerApp
         while(true){
             //Attendo connessioni
             Socket sock = ssock.accept();
-            new Thread(new Controller(sock)).start();
+            new Thread(new Starter(sock)).start();
         }
     }
 }

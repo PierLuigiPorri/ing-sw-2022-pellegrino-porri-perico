@@ -24,10 +24,12 @@ public class Cloud implements StudentSpace{
             i++;
         students[i]=new Student(color);
     }
-    public Student removeStudent(int i){
-        Student tmp=students[i];
+    public void removeStudent(Color color){
+        int i=0;
+        while (!students[i].getColor().equals(color)) {
+            i++;
+        }
         students[i]=null;
-        return tmp;
     }
 
     public void emptyCloud(){
