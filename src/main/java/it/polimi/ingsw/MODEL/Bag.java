@@ -4,46 +4,76 @@ import java.util.Random;
 
 public class Bag {
     private Student[] studenti;
+    int size=119;
+    private final Controller game;
 
-    public Bag(){
-        int r=24;
-        int g=24;
-        int y=24;
-        int b=24;
-        int p=24;
+    public Bag(Controller game) {
+        this.game=game;
+        int x;
+        Student[] stud;
+        Random rand;
 
-        int[] array={
-                0,1,2,3,4};
-
-        studenti=new Student[130];
-        for(int i=0; i<130; i++){
-            Random rand = new Random();
-
-            int x = (rand.nextInt(array.length));
-            if(x==0) {
-                r--;
-                if (r == 0) {
-                    array=new int[array.length-1];
-                }
-                studenti[i] = new Student(Colors.RED);
-
-            }
-            if(x==1){
-                b--;
-                studenti[i]=new Student(Colors.BLUE);
-            }
-            if(x==2){
-                g--;
-                studenti[i]=new Student(Colors.GREEN);
-            }
-            if(x==3){
-                p--;
-                studenti[i]=new Student(Colors.PINK);
-            }
-            if(x==4){
-                y--;
-                studenti[i]=new Student(Colors.YELLOW);
-            }
+        studenti=new Student[120];
+        int length= studenti.length-1;
+        stud=create();
+        for (int i=0; i<120; i++){
+            rand = new Random();
+            x=rand.nextInt(length);
+            studenti[i] = stud[x];
+            stud[x]=stud[length];
+            length--;
         }
     }
+
+    public void addStudent(Color color) {
+        size++;
+        if (studenti[size] == null) {
+            studenti[size] = new Student(color);
+        }
+    }
+
+    public Student extractStudent(){
+        Student tmp;
+        tmp=studenti[size];
+        size--;
+        studenti[studenti.length-1]=null;
+        return tmp;
+    }
+
+
+
+    private Student[] create(){ //TODO: unificare questo metodo con quello della Board
+        int count =0;
+        Student[] stud=new Student[120];
+        for (int i = 0; i < 24; i++) {
+            stud[count] = new Student(Color.RED);
+            count++;
+        }
+        for (int i = 0; i < 24; i++) {
+            stud[count] = new Student(Color.GREEN);
+            count++;
+        }
+        for (int i = 0; i < 24; i++) {
+            stud[count] = new Student(Color.YELLOW);
+            count++;
+        }
+        for (int i = 0; i < 24; i++) {
+            stud[count] = new Student(Color.BLUE);
+            count++;
+        }
+        for (int i = 0; i < 24; i++) {
+            stud[count] = new Student(Color.PINK);
+            count++;
+        }
+        return stud;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Controller getGame() {
+        return game;
+    }
+
 }

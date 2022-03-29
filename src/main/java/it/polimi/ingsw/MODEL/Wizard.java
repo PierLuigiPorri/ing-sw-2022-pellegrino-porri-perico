@@ -1,14 +1,14 @@
 package it.polimi.ingsw.MODEL;
 
 public class Wizard {
-    protected Colors color;
+    protected Color color;
     private Player player;
 
-    public Wizard(Colors color){
-        this.color=color;
-        this.player=null;
+    public void changePlayer(Player player){
+        this.player=player;
     }
-    public Colors getColore() {
+
+    public Color getColor() {
         return color;
     }
 
@@ -16,9 +16,6 @@ public class Wizard {
         return player;
     }
 
-    public void changePlayer(Player player){
-        this.player=player;
-    }
 }
 
 

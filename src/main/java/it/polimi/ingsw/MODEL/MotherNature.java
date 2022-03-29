@@ -2,18 +2,21 @@ package it.polimi.ingsw.MODEL;
 import java.util.Random;
 
 public class MotherNature {
-    private int island;
+    private Island island;
+    private Board board;
 
-    public MotherNature(){
+
+    public MotherNature(Island island){
         Random rand = new Random();
-        this.island=Game.setMotherNature(rand.nextInt(12));
+        this.island = island ;
     }
 
-    public int getIsola() {
-        return island;
+    public Island getIsola() {
+        return this.island;
     }
 
-    public void setIsola(int island) {
+    public void setIsland(Island island){
         this.island = island;
     }
+
 }

@@ -1,45 +1,71 @@
 package it.polimi.ingsw.MODEL;
 
-public class Island {
-    private int id;
-    private int influence;
-    private Player player;
-    private Student[] students;
-    private boolean motherNature;
+import java.util.ArrayList;
 
-    public Island(int id) {
-        this.id = id;
-        this.player = null;
-        this.influence = 0;
-        this.students=new Student[1];
+public class Island implements StudentSpace, TDSpace{
+    protected int id;
+    protected Tower[] towers;
+    protected ArrayList<Student> students;
+    protected boolean motherNature;
+    protected int islandCount=1;
+    public Island next;
+    protected int TD=0; //0:No tessera divieto; 1:Tessera divieto presente
+
+
+    public Island(int index){
+        this.id=index;
+        this.students=null;
+        this.motherNature=false;
+        this.next=null;
+        this.towers=new Tower[islandCount];
     }
 
-    public void setInfluence(int influence) {
-        this.influence = influence;
+    public int getStudent_Influence(Color[] colors){
+        int count=0;
+        for (Color c:colors) {
+            for (Student s: students) {
+                if(s.getColor().equals(c))
+                    count=count+s.getInfluence();
+            }
+        }
+        return count;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    @Override
+    public void addStudent(Color color){
+
+    }
+
+    public void removeStudent(Color color){
+        int i=0;
+        while(!this.students.get(i).getColor().equals(color))
+            i++;
+        this.students.remove(i);
+    }
+
+    @Override
+    public void addTD() {
+        TD++;
+    }
+
+    @Override
+    public void removeTD() {
+        TD--;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getInfluenza() {
-        return influence;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void placeStudents(Student students) {
-        this.students=new Student[this.students.length+1];
-        this.students[this.students.length-1]=students;
-    }
-
     public void setMotherNature(boolean presence) {
         this.motherNature = presence;
     }
+
+    public int getIslandCount(){return islandCount;}
+
+    public Player getPlayer(){
+        return this.towers[0].getPlayer();
+    }
+
+
 }
