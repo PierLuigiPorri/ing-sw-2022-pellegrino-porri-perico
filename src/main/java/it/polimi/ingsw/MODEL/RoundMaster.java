@@ -2,7 +2,7 @@ package it.polimi.ingsw.MODEL;
 
 public class RoundMaster {
     private int roundCount;
-    Round round;
+    public Round round;
     private Player[] players;
 
     public RoundMaster(Player[] players){
