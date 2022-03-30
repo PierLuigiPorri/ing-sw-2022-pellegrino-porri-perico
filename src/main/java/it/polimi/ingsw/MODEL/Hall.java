@@ -39,6 +39,24 @@ public class Hall {
             }
     }
 
+    public void desetColor(Color color){
+        if (color.equals(Color.RED)) {
+            this.red--;
+        }
+        else if (color.equals(Color.BLUE)) {
+            this.blue--;
+        }
+        else if (color.equals(Color.GREEN)) {
+            this.green--;
+        }
+        else if (color.equals(Color.YELLOW)) {
+            this.yellow--;
+        }
+        else {
+            this.pink--;
+        }
+    }
+
     private void setRed() {
         this.red++;
         if(this.red%3==0){ //Check regole esperto
