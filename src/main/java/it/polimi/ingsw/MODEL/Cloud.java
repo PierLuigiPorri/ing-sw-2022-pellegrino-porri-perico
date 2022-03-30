@@ -1,35 +1,28 @@
 package it.polimi.ingsw.MODEL;
 
-public class Cloud implements StudentSpace{
-    private Student[] students;
-    private int max;
+import java.util.ArrayList;
 
-    public Cloud(){
-        max=3;
-        students=new Student[3];
-    }
-    public Cloud(int flag) {
-        max=4;
-        students=new Student[4];
+public class Cloud extends StudentSpace{
+    private final int MAX;
+
+    public Cloud(int size) {
+        MAX=size;
     }
 
-    public Student[] getStudents() {
+    public ArrayList<Student> getStudents() {
         return students;
     }
 
     @Override
     public void addStudent(Color color){
+        //TODO:controllare a lato controller che student.size()!=MAX -Doot
         int i=0;
-        while (students[i]!=null && i<=max-1)
+        while (students.get(i)!=null && i<=MAX-1)
             i++;
-        students[i]=new Student(color);
+        students.add(new Student(color));
     }
-    public void removeStudent(Color color){
-        int i=0;
-        while (!students[i].getColor().equals(color)) {
-            i++;
-        }
-        students[i]=null;
+    public void removeStudent(int index){
+        students.remove(index);
     }
 
     public void emptyCloud(){

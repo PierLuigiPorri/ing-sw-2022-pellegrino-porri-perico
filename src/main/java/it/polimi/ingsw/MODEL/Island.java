@@ -2,19 +2,17 @@ package it.polimi.ingsw.MODEL;
 
 import java.util.ArrayList;
 
-public class Island implements StudentSpace, TDSpace{
+public class Island extends StudentSpace implements TDSpace{
     protected int id;
     protected Tower[] towers;
-    protected ArrayList<Student> students;
     protected boolean motherNature;
     protected int islandCount=1;
     public Island next;
-    protected int TD=0; //0:No tessera divieto; 1:Tessera divieto presente
+    protected boolean TD=false; //0:No tessera divieto; 1:Tessera divieto presente
 
 
     public Island(int index){
         this.id=index;
-        this.students=null;
         this.motherNature=false;
         this.next=null;
         this.towers=new Tower[islandCount];
@@ -33,24 +31,21 @@ public class Island implements StudentSpace, TDSpace{
 
     @Override
     public void addStudent(Color color){
-
+        this.students.add(new Student(color));
     }
 
-    public void removeStudent(Color color){
-        int i=0;
-        while(!this.students.get(i).getColor().equals(color))
-            i++;
-        this.students.remove(i);
+    public void removeStudent(int index){
+       this.students.remove(index);
     }
 
     @Override
     public void addTD() {
-        TD++;
+        TD=true;
     }
 
     @Override
     public void removeTD() {
-        TD--;
+        TD=false;
     }
 
     public int getId() {

@@ -7,7 +7,6 @@ public class Player {
     private final Gate gate;
     private final Hall hall;
     private int tower_count;
-    private Board board;
     private int coins;
     public int studentsMoved;
     public int maxMoves;
@@ -33,7 +32,12 @@ public class Player {
         this.tower_count=8;
         this.gate=new Gate(this);
         this.maxMoves=3;
-        this.coins=0;
+        if(game.getGameType()==0){ //Regole semplificate attivate
+            this.coins=0;
+        }
+        else{ //Regole esperto attivate
+            this.coins=1;
+        }
         this.hall=new Hall(this);
         this.hand=new Hand(this);
     }
@@ -66,10 +70,6 @@ public class Player {
 
     public Hall getHall() {
         return hall;
-    }
-
-    public Board getBoard() {
-        return board;
     }
 
     public Color[] getColorDominated(Player p2, Player p3, Player p4){

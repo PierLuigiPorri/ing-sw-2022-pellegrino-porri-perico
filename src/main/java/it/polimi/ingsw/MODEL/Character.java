@@ -1,6 +1,6 @@
 package it.polimi.ingsw.MODEL;
 
-public class Character implements StudentSpace, TDSpace{
+public class Character extends StudentSpace implements TDSpace{
     private int costo;
     private int id; //Da 1 a 12
     private int maxStud;
@@ -79,7 +79,7 @@ public class Character implements StudentSpace, TDSpace{
 
     }
 
-    public void removeStudent(Color color) {
+    public void removeStudent(int index) {
 
     }
 

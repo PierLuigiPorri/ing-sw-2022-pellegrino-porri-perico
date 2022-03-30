@@ -29,4 +29,5 @@ public class ColorTracker {
     public void disableInfluence(){
         influence=0;
     } //TODO: BISOGNA FARE IN MODO CHE QUESTO METODO DURI SOLO UN TURNO!
+                                                    //lo faccio io nell'effetto della carta che chiamerà questo metodo. -Doot
 }

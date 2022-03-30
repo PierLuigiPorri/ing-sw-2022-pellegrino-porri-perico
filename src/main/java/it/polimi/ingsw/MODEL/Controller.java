@@ -77,36 +77,29 @@ public class Controller {
         Color color1= colorTranslator(color);
         Player player1=playerTranslator(player);
 
-        player1.getGate().removeStudent(color1);
         player1.getHall().setColor(color1);
         checkColorChanges(player1);
     }
 
-    public void addStudentToGate(String color, String player, int index){
-        Color color1= colorTranslator(color);
-        Player player1=playerTranslator(player);
+    public void CloudToGate(String player, int sIndex, int cIndex){ //TODO
+        Player p= playerTranslator(player);
+        //TODO: assert p.getGate().students.size()<p.getGate().MAX-2, ma con un try/catch
 
-        board.getClouds()[index].removeStudent(color1);
-        player1.getGate().addStudent(color1);
     }
 
-    public void addStudentToIsland(String color, int index, String player){
+    public void addStudentToIsland(String color, int index){
         Color color1= colorTranslator(color);
-        Player player1=playerTranslator(player);
-
-        player1.getGate().removeStudent(color1);
-        board.getIslands().getIsland(index).addStudent(color1);
+        board.islands.getIsland(index).addStudent(color1);
 
     }
 
     public void addStudentToCloud(int index){
-        board.getClouds()[index].addStudent(bag.extractStudent().getColor());
+        board.clouds.get(index).addStudent(bag.extractStudent().getColor());
     }
 
 
-    public void removeStudentFromIsland(String color, int index){
-        Color color1= colorTranslator(color);
-        board.getIslands().getIsland(index).removeStudent(color1);
+    public void removeStudentFromIsland(int sIndex, int index){
+        board.islands.getIsland(index).removeStudent(sIndex);
     }
 
     public void moveMotherNature(int movement){
@@ -145,19 +138,19 @@ public class Controller {
 
         int influenceTowers=0;
         int i=0;
-        while (board.getIslands().getIsland(index).towers[i]!=null) {
-            influenceTowers = influenceTowers + board.getIslands().getIsland(index).towers[i].getInfluence();
+        while (board.islands.getIsland(index).towers[i]!=null) {
+            influenceTowers = influenceTowers + board.islands.getIsland(index).towers[i].getInfluence();
             i++;
         }
-        return influenceTowers + board.getIslands().getIsland(index).getStudent_Influence(colors);
+        return influenceTowers + board.islands.getIsland(index).getStudent_Influence(colors);
     }
 
     public void swapTowers(int index, String playerTO){
         Player player1=playerTranslator(playerTO);
 
         int i=0;
-        while (board.getIslands().getIsland(index).towers[i]!=null) {
-            board.getIslands().getIsland(index).towers[i].setPlayer(player1);
+        while (board.islands.getIsland(index).towers[i]!=null) {
+            board.islands.getIsland(index).towers[i].setPlayer(player1);
             i++;
         }
 

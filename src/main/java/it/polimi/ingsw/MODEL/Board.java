@@ -2,18 +2,18 @@ package it.polimi.ingsw.MODEL;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Board {
-    public final Cloud[] clouds;
+    public ArrayList<Cloud> clouds;
     public final Circularlist islands;
 
 
     public Board(int pcount){
-        this.clouds=new Cloud[3];
-        int flag=1;
-        for(Cloud c:clouds){
-            c=new Cloud(flag);
+        clouds= new ArrayList<>();
+        for(int i=0; i<3; i++){
+            clouds.add(new Cloud(4));
         }
         islands=new Circularlist();
         for(int i=1; i<13;i++){
@@ -48,9 +48,9 @@ public class Board {
     }
 
     public Board(){
-        this.clouds=new Cloud[2];
-        for(Cloud c:clouds){
-            c=new Cloud();
+        clouds=new ArrayList<>();
+        for(int i=0; i<2; i++){
+            clouds.add(new Cloud(3));
         }
         islands=new Circularlist();
         for(int i=0; i<12;i++){

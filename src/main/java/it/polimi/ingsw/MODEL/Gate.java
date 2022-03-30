@@ -1,38 +1,34 @@
 package it.polimi.ingsw.MODEL;
 
-public class Gate implements StudentSpace{
-    public Student[] students;
+import java.util.ArrayList;
+
+public class Gate extends StudentSpace{
     public Player player;
-    private int MAX;
+    int MAX;
 
     public Gate(int pcount, Player player) {
         this.player = player;
         this.MAX=9;
-        this.students = new Student[9];
         for(int i=0; i<9; i++){
-            this.students[i]=player.getGame().getBg().extractStudent();
+            this.students.add(player.getGame().getBg().extractStudent());
         }
     }
 
     public Gate(Player player){
         this.player=player;
         this.MAX=7;
-        this.students= new Student[7];
         for(int i=0; i<7; i++){
-            this.students[i]=player.getGame().getBg().extractStudent();
+            this.students.add(player.getGame().getBg().extractStudent());
         }
     }
 
-    public Student[] getStudents() {
+    public ArrayList<Student> getStudents() {
         return students;
     }
 
-    public void removeStudent(Color color) {
-        //ricordiamoci di fare il controllo che il colore da rimuovere ci sia effettivamente, al lato controller
-        int i=0;
-        while(!students[i].getColor().equals(color))
-            i++;
-        students[i]=null;
+    public void removeStudent(int index) {
+        //TODO:ricordiamoci di fare il controllo che il colore da rimuovere ci sia effettivamente, al lato controller
+        students.remove(index);
     }
 
 
@@ -42,9 +38,10 @@ public class Gate implements StudentSpace{
 
     @Override
     public void addStudent(Color color) {
+        //TODO:controllare a lato controller che student.size()!=MAX -Doot
         int i=0;
-        while (students[i]!=null && i<=MAX-1)
+        while (students.get(i)!=null && i<=MAX-1)
             i++;
-        students[i]=new Student(color);
+        students.add(new Student(color));
     }
 }
