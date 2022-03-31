@@ -1,7 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
 public class Player {
-    private Controller game;
+    private Game game;
     public final String nickname;
     private final Hand hand;
     private final Gate gate;
@@ -26,7 +26,7 @@ public class Player {
         this.hand=new Hand(this);
     }
 
-    public Player(String string, Controller game){
+    public Player(String string, Game game){
         this.game=game;
         this.nickname=string;
         this.tower_count=8;
@@ -52,7 +52,7 @@ public class Player {
         return tmp;
     }
 
-    public Controller getGame() {
+    public Game getGame() {
         return game;
     }
 

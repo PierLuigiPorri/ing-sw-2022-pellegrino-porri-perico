@@ -6,9 +6,9 @@ import java.util.Collections;
 public class Bag {
     private ArrayList<Student> students;
     final int MAX=130;
-    private final Controller game;
+    private final Game game;
 
-    public Bag(Controller game) {
+    public Bag(Game game) {
         this.game=game;
         for (int i = 0; i < 24; i++) {
             this.students.add(new Student(Color.RED));
@@ -46,7 +46,7 @@ public class Bag {
         return this.students.size();
     }
 
-    public Controller getGame() {
+    public Game getGame() {
         return game;
     }
 

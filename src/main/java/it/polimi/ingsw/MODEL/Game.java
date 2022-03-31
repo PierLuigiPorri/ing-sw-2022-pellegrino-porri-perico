@@ -1,6 +1,8 @@
 package it.polimi.ingsw.MODEL;
 
-public class Controller {
+import it.polimi.ingsw.EXCEPTIONS.AdditionException;
+
+public class Game {
     private int gameType; //0: regole semplificate, 1: regole esperto
     private Player p1, p2, p3;
     private Card[] cardsplayed;
@@ -16,7 +18,7 @@ public class Controller {
     private Character[] charaCards; //Se viene più comodo si può anche fare come ArrayList o 3 variabili singole eventualmente
     //L'inizializzazione chiama Character(random tra 1 e 12)
 
-    public Controller(int pcount, String string){ //Qua dovrà essere considerato anche il GameType per sapere se inizializzare il Deck di carte personaggio o no
+    public Game(int pcount, String string){ //Qua dovrà essere considerato anche il GameType per sapere se inizializzare il Deck di carte personaggio o no
         if(pcount==2){
             this.p1=new Player(pcount, string);
             this.p2=new Player(pcount, string);
@@ -26,6 +28,7 @@ public class Controller {
             this.handP2=new Hand(p2);
             this.handP3=new Hand(p3);
             this.cardsplayed=new Card[3];
+            this.motherNature=new MotherNature(board.islands.getIsland(1));
 
             this.red=new ColorTracker(Color.RED);
             this.blue=new ColorTracker(Color.BLUE);
@@ -35,31 +38,31 @@ public class Controller {
         }
     }
 
-    public void Start(){
+    public void start(){
         Player[] players = new Player[3];
         players[0]=p1;
         players[1]=p2;
         if (p3!=null)
             players[2]=p3;
-
+        else players[2]=null;
         roundMaster=new RoundMaster(players);
     }
 
     public Player[] changePhase(){
-        int[] tmp=new int[3];
-        Player[] players;
+            int[] tmp = new int[3];
+            Player[] players;
 
-        for(int i=0; i<3; i++){
-            tmp[i]=cardsplayed[i].getValue();
-        }
-        players=roundMaster.changePhase(tmp);
-        if (roundMaster.getRoundCount()>10 ||
-                p1.getTower_count()==0 ||
-                p2.getTower_count()==0 ||
-                p3.getTower_count()==0 ){
-            winner=this.gameEnd();
-        }
-        return players;
+            for (int i = 0; i < 3; i++) {
+                tmp[i] = cardsplayed[i].getValue();
+            }
+            players = roundMaster.changePhase(tmp);
+            if (roundMaster.getRoundCount() > 10 ||
+                    p1.getTower_count() == 0 ||
+                    p2.getTower_count() == 0 ||
+                    p3.getTower_count() == 0) {
+                winner = this.gameEnd();
+            }
+            return players;
     }
 
     public Player gameEnd(){
@@ -77,47 +80,15 @@ public class Controller {
         else
             return p3;
     }
-    ///
-    public void addStudentToCloud(Color color, int index){
-        board.clouds.get(index).addStudent(color);
-    }
 
-    public void addStudentToHall(Color color, Player player){
-        player.getHall().setColor(color);
-        checkColorChanges(player);
-    }
-
-    public void addToGate(Player p1, Color color){
-        p1.getGate().addStudent(color);
-    }
-
-    public void addStudentToIsland(Color color, int index){
-        board.islands.getIsland(index).addStudent(color);
-    }
-    ///
-
-    public void removeFromIsland(int sIndex, int index) {
-        board.islands.getIsland(index).removeStudent(sIndex);
-    }
-
-    public void removeFromGate(Player p1, int index){
-        p1.getGate().removeStudent(index);
-    }
-
-    public void removeFromCloud(int indexCloud, int indexStudent){
-        board.clouds.get(indexCloud).removeStudent(indexStudent);
-    }
-
-    public void removeFromHall(Color color, Player player){
-        player.getHall().desetColor(color);
-    }
-    ///
-
-    public void bagToCloud(int index){
+    public void bagToCloud(int index) throws AdditionException {
+        if(index>0 && index <= 12 && board.clouds.get(index).students.size()<3)
         board.clouds.get(index).addStudent(bag.extractStudent().getColor());
+        else throw new AdditionException("\"Errror! INDEX OUT OF BOUND!\"");
     }
 
     public void gateToIsland(String name, int index, int indexIsland, String color){
+
         Player player1=playerTranslator(name);
         Color color1=colorTranslator(color);
 
@@ -233,7 +204,7 @@ public class Controller {
         return bag;
     }
 
-    public Controller getGame() {
+    public Game getGame() {
         return this;
     }
 
@@ -272,6 +243,42 @@ public class Controller {
         return gameType;
     }
 
+
+    ///
+    public void addStudentToCloud(Color color, int index) {
+        board.clouds.get(index).addStudent(color);
+    }
+
+    public void addStudentToHall(Color color, Player player) {
+        player.getHall().setColor(color);
+        checkColorChanges(player);
+    }
+
+    public void addToGate(Player p1, Color color) {
+        p1.getGate().addStudent(color);
+    }
+
+    public void addStudentToIsland(Color color, int index) {
+        board.islands.getIsland(index).addStudent(color);
+    }
+    ///
+
+    public void removeFromIsland(int sIndex, int index) {
+        board.islands.getIsland(index).removeStudent(sIndex);
+    }
+
+    public void removeFromGate(Player p1, int index) {
+        p1.getGate().removeStudent(index);
+    }
+
+    public void removeFromCloud(int indexCloud, int indexStudent) {
+        board.clouds.get(indexCloud).removeStudent(indexStudent);
+    }
+
+    public void removeFromHall(Color color, Player player) {
+        player.getHall().desetColor(color);
+    }
+    ///
     private void checkColorChanges(Player player1){
         if( p1.getHall().getRed()>p2.getHall().getRed() &&  p1.getHall().getRed()>p3.getHall().getRed())
             red.setPlayer(player1);
@@ -284,4 +291,5 @@ public class Controller {
         if( p1.getHall().getPink()>p2.getHall().getPink() &&  p1.getHall().getPink()>p3.getHall().getPink())
             pink.setPlayer(player1);
     }
+
 }
