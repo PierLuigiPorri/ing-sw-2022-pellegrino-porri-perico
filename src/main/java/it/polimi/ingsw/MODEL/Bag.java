@@ -1,75 +1,49 @@
 package it.polimi.ingsw.MODEL;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Bag {
-    private Student[] studenti;
-    int size=119;
+    private ArrayList<Student> students;
+    final int MAX=130;
     private final Controller game;
 
     public Bag(Controller game) {
         this.game=game;
-        int x;
-        Student[] stud;
-        Random rand;
-
-        studenti=new Student[120];
-        int length= studenti.length-1;
-        stud=create();
-        for (int i=0; i<120; i++){
-            rand = new Random();
-            x=rand.nextInt(length);
-            studenti[i] = stud[x];
-            stud[x]=stud[length];
-            length--;
+        for (int i = 0; i < 24; i++) {
+            this.students.add(new Student(Color.RED));
         }
+        for (int i = 0; i < 24; i++) {
+            this.students.add(new Student(Color.BLUE));
+        }
+        for (int i = 0; i < 24; i++) {
+            this.students.add(new Student(Color.YELLOW));
+        }
+        for (int i = 0; i < 24; i++) {
+            this.students.add(new Student(Color.GREEN));
+        }
+        for (int i = 0; i < 24; i++) {
+            this.students.add(new Student(Color.PINK));
+        }
+        Collections.shuffle(this.students);
     }
 
     public void addStudent(Color color) {
-        size++;
-        if (studenti[size] == null) {
-            studenti[size] = new Student(color);
-        }
+        //TODO:assert students.size()<MAX, non dovrebbe succedere ma non si sa mai
+        this.students.add(new Student(color));
+        Collections.shuffle(this.students);
     }
 
     public Student extractStudent(){
-        Student tmp;
-        tmp=studenti[size];
-        size--;
-        studenti[studenti.length-1]=null;
-        return tmp;
+        //TODO:assert che !students.isNull()
+        Student last=this.students.get(this.students.size()-1);
+        this.students.remove(this.students.size()-1);
+        return last;
     }
 
-
-
-    private Student[] create(){ //TODO: unificare questo metodo con quello della Board
-        int count =0;
-        Student[] stud=new Student[120];
-        for (int i = 0; i < 24; i++) {
-            stud[count] = new Student(Color.RED);
-            count++;
-        }
-        for (int i = 0; i < 24; i++) {
-            stud[count] = new Student(Color.GREEN);
-            count++;
-        }
-        for (int i = 0; i < 24; i++) {
-            stud[count] = new Student(Color.YELLOW);
-            count++;
-        }
-        for (int i = 0; i < 24; i++) {
-            stud[count] = new Student(Color.BLUE);
-            count++;
-        }
-        for (int i = 0; i < 24; i++) {
-            stud[count] = new Student(Color.PINK);
-            count++;
-        }
-        return stud;
-    }
 
     public int getSize() {
-        return size;
+        return this.students.size();
     }
 
     public Controller getGame() {

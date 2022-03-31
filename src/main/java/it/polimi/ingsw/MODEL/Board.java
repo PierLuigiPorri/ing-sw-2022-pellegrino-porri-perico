@@ -3,6 +3,7 @@ package it.polimi.ingsw.MODEL;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Board {
@@ -20,31 +21,33 @@ public class Board {
             islands.add(new Island(i));
         }
         islands.getIsland(1).setMotherNature(true);
-        Island p=islands.head;
+        Island p=islands.getIsland(2);
 
         //Scelta random di uno studente per isola (tranne che in isola 6) fra 10 studenti(2R, 2G, 2B, 2Y, 2P)
-        int x;
-        Student[] stud, studen;
-        Random rand;
-
-        studen=new Student[10];
-        int length= studen.length-1;
-        stud=create();
-        for (int i=0; i<10; i++){
-            rand = new Random();
-            x=rand.nextInt(length);
-            studen[i] = stud[x];
-            stud[x]=stud[length];
-            length--;
+        ArrayList<Student> firstSt=new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            firstSt.add(new Student(Color.RED));
         }
-        int k=9;
-        do{
-            if(p.getId()!=6){
-                p.students.add(studen[k]);
-                k--;
+        for (int i = 0; i < 2; i++) {
+            firstSt.add(new Student(Color.GREEN));
+        }
+        for (int i = 0; i < 2; i++) {
+            firstSt.add(new Student(Color.YELLOW));
+        }
+        for (int i = 0; i < 2; i++) {
+            firstSt.add(new Student(Color.BLUE));
+        }
+        for (int i = 0; i < 2; i++) {
+            firstSt.add(new Student(Color.PINK));
+        }
+        Collections.shuffle(firstSt);
+        while(!p.equals(islands.tail)) {
+            if (p.getId() != 6) {
+                p.students.add(firstSt.get(firstSt.size()-1));
+                firstSt.remove(firstSt.size()-1);
             }
-            p=p.next;
-        }while(!p.equals(islands.tail));
+            p = p.next;
+        }
     }
 
     public Board(){
@@ -58,60 +61,36 @@ public class Board {
         }
         islands.getIsland(1).setMotherNature(true);
 
-        Island p=islands.head;
-        int x;
-        Student[] stud, studen;
-        Random rand;
+        Island p=islands.getIsland(2);
 
-        studen=new Student[10];
-        int length= studen.length-1;
-        stud=create();
-        for (int i=0; i<10; i++){
-            rand = new Random();
-            x=rand.nextInt(length);
-            studen[i] = stud[x];
-            stud[x]=stud[length];
-            length--;
+        //Scelta random di uno studente per isola (tranne che in isola 6) fra 10 studenti(2R, 2G, 2B, 2Y, 2P)
+        ArrayList<Student> firstSt=new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            firstSt.add(new Student(Color.RED));
         }
-
-        int k=9;
-        do{
-            if(p.getId()!=6){
-                p.students.add(studen[k]);
-                k--;
+        for (int i = 0; i < 2; i++) {
+            firstSt.add(new Student(Color.GREEN));
+        }
+        for (int i = 0; i < 2; i++) {
+            firstSt.add(new Student(Color.YELLOW));
+        }
+        for (int i = 0; i < 2; i++) {
+            firstSt.add(new Student(Color.BLUE));
+        }
+        for (int i = 0; i < 2; i++) {
+            firstSt.add(new Student(Color.PINK));
+        }
+        Collections.shuffle(firstSt);
+        while(!p.equals(islands.tail)) {
+            if (p.getId() != 6) {
+                p.students.add(firstSt.get(firstSt.size()-1));
+                firstSt.remove(firstSt.size()-1);
             }
-            p=p.next;
-        }while(!p.equals(islands.tail));
+            p = p.next;
+        }
     }
 
 
-
-    @NotNull
-    private Student[] create(){
-        int count =0;
-        Student[] stud=new Student[10];
-        for (int i = 0; i < 2; i++) {
-            stud[count] = new Student(Color.RED);
-            count++;
-        }
-        for (int i = 0; i < 2; i++) {
-            stud[count] = new Student(Color.GREEN);
-            count++;
-        }
-        for (int i = 0; i < 2; i++) {
-            stud[count] = new Student(Color.YELLOW);
-            count++;
-        }
-        for (int i = 0; i < 2; i++) {
-            stud[count] = new Student(Color.BLUE);
-            count++;
-        }
-        for (int i = 0; i < 2; i++) {
-            stud[count] = new Student(Color.PINK);
-            count++;
-        }
-        return stud;
-    }
 }
 
 
