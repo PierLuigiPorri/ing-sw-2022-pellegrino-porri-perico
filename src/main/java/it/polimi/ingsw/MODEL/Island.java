@@ -34,6 +34,7 @@ public class Island extends StudentSpace implements TDSpace{
         this.students.add(new Student(color));
     }
 
+    @Override
     public void removeStudent(int index){
        this.students.remove(index);
     }

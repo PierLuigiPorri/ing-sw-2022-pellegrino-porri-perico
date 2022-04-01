@@ -45,7 +45,7 @@ public class Starter implements Runnable{
             }
 
             if(partite.get(index).getNgioc()==partite.get(index).getNjoinati()){
-                //Creo la partita chiamando la nostra classe Game
+                //Creo la partita chiamando la nostra classe Controller
                 //e passando gli attributi presenti in partite[index] al costruttore giusto
                 //usando gli appositi getter presenti in Creation
 

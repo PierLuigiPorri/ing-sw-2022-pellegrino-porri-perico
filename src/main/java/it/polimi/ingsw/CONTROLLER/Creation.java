@@ -7,7 +7,7 @@ public class Creation {
     private String nick1;
     private String nick2=null;
     private String nick3=null;
-    private String nick4=null;
+    //private String nick4=null;
 
     public Creation(int ng, int gt, String nick){
         ngioc=ng;

@@ -23,7 +23,7 @@ public class Game {
             this.p1=new Player(pcount, string);
             this.p2=new Player(pcount, string);
             this.board=new Board();
-            this.bag=new Bag(this);
+            this.bag=new Bag();
             this.handP1=new Hand(p1);
             this.handP2=new Hand(p2);
             this.handP3=new Hand(p3);
