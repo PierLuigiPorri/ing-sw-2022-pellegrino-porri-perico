@@ -6,10 +6,8 @@ import java.util.Collections;
 public class Bag {
     private ArrayList<Student> students;
     final int MAX=130;
-    private final Game game;
 
-    public Bag(Game game) {
-        this.game=game;
+    public Bag() {
         for (int i = 0; i < 24; i++) {
             this.students.add(new Student(Color.RED));
         }
@@ -44,10 +42,6 @@ public class Bag {
 
     public int getSize() {
         return this.students.size();
-    }
-
-    public Game getGame() {
-        return game;
     }
 
 }
