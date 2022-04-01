@@ -13,10 +13,10 @@ public class Game {
     public int playerCount;
     private Player winner;
     private Hand handP1, handP2, handP3;
+    private CharacterSelector characterSelector;
+
 
     private MotherNature motherNature;
-    private Character[] charaCards; //Se viene più comodo si può anche fare come ArrayList o 3 variabili singole eventualmente
-    //L'inizializzazione chiama Character(random tra 1 e 12)
 
     public Game(int pcount, String string){ //Qua dovrà essere considerato anche il GameType per sapere se inizializzare il Deck di carte personaggio o no
         if(pcount==2){
@@ -29,6 +29,7 @@ public class Game {
             this.handP3=new Hand(p3);
             this.cardsplayed=new Card[3];
             this.motherNature=new MotherNature(board.islands.getIsland(1));
+            this.characterSelector=new CharacterSelector(this);
 
             this.red=new ColorTracker(Color.RED);
             this.blue=new ColorTracker(Color.BLUE);

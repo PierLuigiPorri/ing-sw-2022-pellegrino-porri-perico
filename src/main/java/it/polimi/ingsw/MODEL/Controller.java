@@ -2,10 +2,10 @@ package it.polimi.ingsw.MODEL;
 
 import it.polimi.ingsw.EXCEPTIONS.AdditionException;
 
-public class Contoller {
+public class Controller {
     public Game game;
 
-    public Contoller(Game game){
+    public Controller(Game game){
         this.game=game;
     }
 
