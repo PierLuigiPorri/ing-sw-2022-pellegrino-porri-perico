@@ -6,6 +6,7 @@ public class RoundMaster {
     private Player[] players;
 
     public RoundMaster(Player[] players){
+        this.roundCount=0;
         round=new Round(players);
     }
 
@@ -15,7 +16,7 @@ public class RoundMaster {
 
     public Player[] changePhase(int[] index){  //restituisce l'ordine di gioco della fase successiva.
         if(this.round.getCurrentPhase().equals("Pianificazione")) {
-            players = round.nextAzione(index);
+            players = round.nextAzione(index, 0);
             round.setCurrentPhase("Azione");
         }
         else{

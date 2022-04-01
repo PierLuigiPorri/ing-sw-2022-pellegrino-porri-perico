@@ -1,6 +1,9 @@
 package it.polimi.ingsw.MODEL;
 
-import it.polimi.ingsw.EXCEPTIONS.AdditionException;
+import it.polimi.ingsw.EXCEPTIONS.BoundException;
+import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
+import it.polimi.ingsw.EXCEPTIONS.GameException;
+import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 public class Controller {
     public Game game;
@@ -9,8 +12,12 @@ public class Controller {
         this.game=game;
     }
 
-    public void Start(){
-        game.start();
+    public void Start() {
+        try {
+            game.start();
+        }catch (GameException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public Player[] changePhase(){
@@ -24,39 +31,62 @@ public class Controller {
     public void bagToCloud(int index) {
         try {
             game.bagToCloud(index);
-        } catch (AdditionException c){
+        } catch (BoundException c){
             System.out.println(c.getMessage());
         }
     }
 
-    public void gateToIsland(String name, int index, int indexIsland, String color){
-        game.gateToIsland(name, index, indexIsland, color);
+    public void gateToIsland(String name, int index, int indexIsland, String color) {
+        try {
+            game.gateToIsland(name, index, indexIsland, color);
+        }catch (BoundException e){
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void CloudToGate(String player, String color, int sIndex, int cIndex){ //TODO
-        game.CloudToGate(player, color, sIndex, cIndex);
-        //TODO: assert p.getGate().students.size()<p.getGate().MAX-2, ma con un try/catch
+    public void CloudToGate(String player, String color, int sIndex, int cIndex) {
+        try {
+            game.CloudToGate(player, color, sIndex, cIndex);
+        }catch (BoundException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     ///
 
-    public void moveMotherNature(int movement){
-        game.moveMotherNature(movement);
+    public void moveMotherNature(int movement) {
+        try {
+            game.moveMotherNature(movement);
+        }catch (ImpossibleActionException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public int determineInfluence(String player, int index){
         return game.determineInfluence(player, index);
     }
 
-    public void swapTowers(int index, String playerTO){
-        game.swapTowers(index, playerTO);
+    public void swapTowers(int index, String playerTO) {
+        try {
+            game.swapTowers(index, playerTO);
+        }catch (ImpossibleActionException e){
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void mergeIslands(int index1, int index2){
-        game.mergeIslands(index1, index2);
+    public void mergeIslands(int index1, int index2) {
+        try {
+            game.mergeIslands(index1, index2);
+        }catch (ConsecutiveIslandException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void playCard(String player, int index){
-        game.playCard(player, index);
+        try{
+            game.playCard(player, index);
+        }catch (ImpossibleActionException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

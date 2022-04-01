@@ -17,10 +17,6 @@ public class Hall {
         this.player= p;
     }
 
-    public int getRed() {
-        return red;
-    }
-
     public void setColor(Color color){
         if (color.equals(Color.RED)) {
             setRed();
@@ -55,6 +51,10 @@ public class Hall {
         else {
             this.pink--;
         }
+    }
+
+    public int getRed() {
+        return red;
     }
 
     private void setRed() {

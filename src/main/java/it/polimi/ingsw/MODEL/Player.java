@@ -72,21 +72,6 @@ public class Player {
         return hall;
     }
 
-    public Color[] getColorDominated(Player p2, Player p3, Player p4){
-        Color[] color=new Color[5];
-        if(this.hall.getRed()==Math.max(Math.max(this.hall.getRed(), p2.hall.getRed()), Math.max(p3.hall.getRed(), p4.hall.getRed())))
-            color[0]=Color.RED;
-        if(this.hall.getBlue()==Math.max(Math.max(this.hall.getBlue(), p2.hall.getBlue()), Math.max(p3.hall.getBlue(), p4.hall.getBlue())))
-            color[1]=Color.BLUE;
-        if(this.hall.getYellow()==Math.max(Math.max(this.hall.getYellow(), p2.hall.getYellow()), Math.max(p3.hall.getYellow(), p4.hall.getYellow())))
-            color[2]=Color.YELLOW;
-        if(this.hall.getGreen()==Math.max(Math.max(this.hall.getGreen(), p2.hall.getGreen()), Math.max(p3.hall.getGreen(), p4.hall.getGreen())))
-            color[3]=Color.GREEN;
-        if(this.hall.getRed()==Math.max(Math.max(this.hall.getPink(), p2.hall.getPink()), Math.max(p3.hall.getPink(), p4.hall.getPink())))
-            color[4]=Color.PINK;
-        return color;
-    }
-
     public int getTower_count() {
         return tower_count;
     }
