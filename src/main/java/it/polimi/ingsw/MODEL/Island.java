@@ -9,7 +9,6 @@ public class Island extends StudentSpace implements TDSpace{
     protected int islandCount=1;
     public Island next;
     protected boolean TD=false; //0:No tessera divieto; 1:Tessera divieto presente
-    protected ArrayList<Student> students;
 
     public Island(int index){
         this.id=index;
@@ -18,19 +17,9 @@ public class Island extends StudentSpace implements TDSpace{
         this.towers=new Tower[islandCount];
     }
 
-    public int getStudent_Influence(ArrayList<Color> colors){
-        int count=0;
-        for (Color c:colors) {
-            for (Student s: students) {
-                if(s.getColor().equals(c))
-                    count=count+s.getInfluence();
-            }
-        }
-        return count;
-    }
 
     @Override
-    public void addStudent(Color color){
+    public void addStudent(ColorTracker color){
         this.students.add(new Student(color));
     }
 

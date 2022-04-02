@@ -4,14 +4,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class Board {
     public ArrayList<Cloud> clouds;
     public final Circularlist islands;
+    private Game game;
 
 
-    public Board(int pcount){
+    public Board(int pcount, Game game){
+        this.game=game;
         clouds= new ArrayList<>();
         for(int i=0; i<3; i++){
             clouds.add(new Cloud(4));
@@ -26,19 +27,19 @@ public class Board {
         //Scelta random di uno studente per isola (tranne che in isola 6) fra 10 studenti(2R, 2G, 2B, 2Y, 2P)
         ArrayList<Student> firstSt=new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(Color.RED));
+            firstSt.add(new Student(game.red));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(Color.GREEN));
+            firstSt.add(new Student(game.green));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(Color.YELLOW));
+            firstSt.add(new Student(game.yellow));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(Color.BLUE));
+            firstSt.add(new Student(game.blue));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(Color.PINK));
+            firstSt.add(new Student(game.pink));
         }
         Collections.shuffle(firstSt);
         while(!p.equals(islands.tail)) {
@@ -50,7 +51,8 @@ public class Board {
         }
     }
 
-    public Board(){
+    public Board(Game game){
+        this.game=game;
         clouds=new ArrayList<>();
         for(int i=0; i<2; i++){
             clouds.add(new Cloud(3));
@@ -66,19 +68,19 @@ public class Board {
         //Scelta random di uno studente per isola (tranne che in isola 6) fra 10 studenti(2R, 2G, 2B, 2Y, 2P)
         ArrayList<Student> firstSt=new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(Color.RED));
+            firstSt.add(new Student(game.red));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(Color.GREEN));
+            firstSt.add(new Student(game.green));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(Color.YELLOW));
+            firstSt.add(new Student(game.yellow));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(Color.BLUE));
+            firstSt.add(new Student(game.blue));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(Color.PINK));
+            firstSt.add(new Student(game.pink));
         }
         Collections.shuffle(firstSt);
         while(!p.equals(islands.tail)) {

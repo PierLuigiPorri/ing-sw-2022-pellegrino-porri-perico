@@ -2,20 +2,14 @@ package it.polimi.ingsw.MODEL;
 
 public class Tower {
     private Player player;
-    private Island island;
-    private int influence=1;
+    private static int influence=1;
 
     public Tower(Player p){
         this.player=p;
-        this.island=null;
     }
 
     public Player getPlayer(){
         return this.player;
-    }
-
-    public Island getIsland() {
-        return island;
     }
 
     public void setPlayer(Player player) {
@@ -25,4 +19,12 @@ public class Tower {
     public int getInfluence() {
         return influence;
     }
+
+    public static void disable(){
+        Tower.influence=0;
+    }
+    public static void enable(){
+        Tower.influence=1;
+    }
+
 }

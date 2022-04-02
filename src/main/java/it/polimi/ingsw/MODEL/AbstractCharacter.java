@@ -1,6 +1,9 @@
 package it.polimi.ingsw.MODEL;
 
-public class AbstractCharacter implements CharacterType {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class AbstractCharacter implements CharacterType{
     private int cost;
     private final int index;
     private boolean used=false;
@@ -23,4 +26,10 @@ public class AbstractCharacter implements CharacterType {
             this.used=true;
         }
     }
+
+    @Override
+    public int getCost() {
+        return cost;
+    }
+
 }

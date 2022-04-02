@@ -11,17 +11,12 @@ public class Player {
     public int studentsMoved;
     public int maxMoves;
 
-    public Player(int pcount, String string){
+    public Player(int pcount, String string, Game game){
+        this.game=game;
         this.nickname=string;
         this.tower_count=6;
-        this.gate=new Gate(3, this);
+        this.gate=new Gate(pcount, this);
         this.maxMoves=4;
-        if(game.getGameType()==0){ //Regole semplificate attivate
-            this.coins=0;
-        }
-        else{ //Regole esperto attivate
-            this.coins=1;
-        }
         this.hall=new Hall(this);
         this.hand=new Hand(this);
     }
@@ -32,12 +27,6 @@ public class Player {
         this.tower_count=8;
         this.gate=new Gate(this);
         this.maxMoves=3;
-        if(game.getGameType()==0){ //Regole semplificate attivate
-            this.coins=0;
-        }
-        else{ //Regole esperto attivate
-            this.coins=1;
-        }
         this.hall=new Hall(this);
         this.hand=new Hand(this);
     }
@@ -83,4 +72,6 @@ public class Player {
     public void removeCoin(){
         if(this.coins>0) this.coins--;
     }
+
+    public void removeTower(){this.tower_count--;}
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.MODEL;
 
+
 import java.util.ArrayList;
 
 public final class Effects{
@@ -24,25 +25,21 @@ public final class Effects{
     public static void apply(int index, Game game, Player player){
         //TODO scrivere tutti gli effetti
         switch(index){
-            case 1: //TODO costruire la carta corrispondente
+            case 1: //TODO: prima di attivare questo effetto, nel caso in cui il giocatore non abbia lo stesso numero di studenti
+                    //di chi ha il professore, di conseguenza la carta non avrà effetto immediato, chiedere se davvero vuole attivarla
                 break;
             case 2: //TODO costruire la carta corrispondente
                 break;
             case 3: //TODO costruire la carta corrispondente
                 break;
-            case 4: //TODO costruire la carta corrispondente
-                break;
-            case 5: //TODO costruire la carta corrispondente
-                break;
-            case 6: //TODO costruire la carta corrispondente
+            case 5:
+                Tower.disable();
                 break;
             case 7: //TODO costruire la carta corrispondente
                 break;
             case 8: //TODO costruire la carta corrispondente
                 break;
             case 9: //TODO costruire la carta corrispondente
-                break;
-            case 10://TODO costruire la carta corrispondente
                 break;
             case 11://TODO costruire la carta corrispondente
                 break;
@@ -55,7 +52,7 @@ public final class Effects{
             case 0:
                 int i = 0; //TODO:l'indice e l'isola vanno chiesti al giocatore dopo aver attivato la carta
                 int island = 0;
-                game.addStudentToIsland(c.students.get(i).color, island);
+                game.addStudentToIsland(c.students.get(i).getColor(), island);
                 c.students.remove(i);
                 c.students.add(game.getBg().extractStudent());
                 break;
@@ -65,7 +62,7 @@ public final class Effects{
                 c.removeTD(); //TODO:aggiungere al calcolo dell'influenza il caso in cui esiste una TD, e rimetterla sulla carta
             case 10:
                 int stud = 0; //TODO:chiedere al player quale prendere
-                game.addStudentToHall(c.students.get(stud).color, player);
+                game.addStudentToHall(c.students.get(stud).getColor(), player);
                 c.setMAX(4);
                 c.students.add(game.getBg().extractStudent());
                 break;
@@ -81,5 +78,10 @@ public final class Effects{
                 break;
             default:break;
         }
+    }
+
+    public static void restore(){
+        Tower.enable();
+
     }
 }

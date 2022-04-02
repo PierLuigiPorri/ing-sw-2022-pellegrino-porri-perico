@@ -1,14 +1,17 @@
 package it.polimi.ingsw.MODEL;
 
-public class Student extends ColorTracker{
-    //prova
-    private int id;
+public class Student{
+    private ColorTracker color;
 
-    public Student(Color color){
-        super(color);
+    public Student(ColorTracker color){
+        this.color=color;;
     }
 
-    public Color getColor() {
+    public ColorTracker getColor() {
         return color;
+    }
+
+    public int getInfluence(){
+        return this.color.getInfluence();
     }
 }

@@ -6,27 +6,29 @@ import java.util.Collections;
 public class Bag {
     private ArrayList<Student> students;
     final int MAX=130;
+    private final Game game;
 
-    public Bag() {
+    public Bag(Game game) {
+        this.game=game;
         for (int i = 0; i < 24; i++) {
-            this.students.add(new Student(Color.RED));
+            this.students.add(new Student(game.red));
         }
         for (int i = 0; i < 24; i++) {
-            this.students.add(new Student(Color.BLUE));
+            this.students.add(new Student(game.blue));
         }
         for (int i = 0; i < 24; i++) {
-            this.students.add(new Student(Color.YELLOW));
+            this.students.add(new Student(game.yellow));
         }
         for (int i = 0; i < 24; i++) {
-            this.students.add(new Student(Color.GREEN));
+            this.students.add(new Student(game.green));
         }
         for (int i = 0; i < 24; i++) {
-            this.students.add(new Student(Color.PINK));
+            this.students.add(new Student(game.pink));
         }
         Collections.shuffle(this.students);
     }
 
-    public void addStudent(Color color) {
+    public void addStudent(ColorTracker color) {
         //TODO:assert students.size()<MAX, non dovrebbe succedere ma non si sa mai
         this.students.add(new Student(color));
         Collections.shuffle(this.students);

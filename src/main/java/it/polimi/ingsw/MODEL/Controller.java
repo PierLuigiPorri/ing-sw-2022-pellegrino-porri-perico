@@ -62,17 +62,7 @@ public class Controller {
         }
     }
 
-    public int determineInfluence(String player, int index){
-        return game.determineInfluence(player, index);
-    }
 
-    public void swapTowers(int index, String playerTO) {
-        try {
-            game.swapTowers(index, playerTO);
-        }catch (ImpossibleActionException e){
-            System.out.println(e.getMessage());
-        }
-    }
 
     public void mergeIslands(int index1, int index2) {
         try {

@@ -17,17 +17,17 @@ public class Hall {
         this.player= p;
     }
 
-    public void setColor(Color color){
-        if (color.equals(Color.RED)) {
+    public void setColor(ColorTracker color){
+        if (color.equals(player.getGame().red)) {
             setRed();
         }
-        else if (color.equals(Color.BLUE)) {
+        else if (color.equals(player.getGame().blue)) {
             setBlue();
            }
-        else if (color.equals(Color.GREEN)) {
+        else if (color.equals(player.getGame().green)) {
             setGreen();
         }
-        else if (color.equals(Color.YELLOW)) {
+        else if (color.equals(player.getGame().yellow)) {
             setYellow();
         }
         else {
@@ -35,17 +35,17 @@ public class Hall {
             }
     }
 
-    public void desetColor(Color color){
-        if (color.equals(Color.RED)) {
+    public void desetColor(ColorTracker color){
+        if (color.equals(player.getGame().red)) {
             this.red--;
         }
-        else if (color.equals(Color.BLUE)) {
+        else if (color.equals(player.getGame().blue)) {
             this.blue--;
         }
-        else if (color.equals(Color.GREEN)) {
+        else if (color.equals(player.getGame().green)) {
             this.green--;
         }
-        else if (color.equals(Color.YELLOW)) {
+        else if (color.equals(player.getGame().yellow)) {
             this.yellow--;
         }
         else {
