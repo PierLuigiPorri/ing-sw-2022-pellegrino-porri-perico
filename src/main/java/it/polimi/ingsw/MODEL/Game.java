@@ -5,12 +5,14 @@ import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game {
     private int gameType; //0: regole semplificate, 1: regole esperto
     private final ArrayList<Player> players;
+    private ArrayList<Controller> controllers;
     private Card[] cardsPlayed;
     private final Bag bag;
     private final Board board;
@@ -22,7 +24,17 @@ public class Game {
     private final CharacterSelector characterSelector;
     private final MotherNature motherNature;
 
-    public Game(int pcount, String string){
+    public Game(int pcount, int gt, String nick1, Socket sock1, String nick2, Socket sock2, String nick3, Socket sock3){
+        //Parameters: num of players, gametype, nickname and socket for every player
+        controllers.add(new Controller(this, sock1));
+        controllers.add(new Controller(this, sock2));
+        if(pcount==3){
+            controllers.add(new Controller(this, sock3));
+        }
+        for(Controller c: controllers){
+            new Thread(c).start();
+        }
+
         this.players=new ArrayList<>();
         this.hands=new ArrayList<>();
         this.bag=new Bag(this);
