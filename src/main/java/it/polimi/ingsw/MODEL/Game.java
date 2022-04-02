@@ -205,13 +205,13 @@ public class Game {
             }
             ArrayList<Integer> tmp = p;
             Collections.sort(tmp);
-            if (!tmp.get(0).equals(tmp.get(1))) {
+            if (!tmp.get(tmp.size()-1).equals(tmp.get(tmp.size()-2))) {
                 if (this.board.islands.getIsland(index).towers.isEmpty()) {
-                    this.board.islands.getIsland(index).addTower(players.get(p.indexOf(tmp.get(0))));
-                    players.get(p.indexOf(tmp.get(0))).removeTower();
-                } else if (!players.get(p.indexOf(tmp.get(0))).equals(this.board.islands.getIsland(index).getPlayer())) {
-                    swapTowers(index, players.get(p.indexOf(tmp.get(0))));
-                    players.get(p.indexOf(tmp.get(0))).removeTower();
+                    this.board.islands.getIsland(index).addTower(players.get(p.indexOf(tmp.get(tmp.size()-1))));
+                    players.get(p.indexOf(tmp.get(tmp.size()-1))).removeTower();
+                } else if (!players.get(p.indexOf(tmp.get(tmp.size()-1))).equals(this.board.islands.getIsland(index).getPlayer())) {
+                    swapTowers(index, players.get(p.indexOf(tmp.get(tmp.size()-1))));
+                    players.get(p.indexOf(tmp.get(tmp.size()-1))).removeTower();
                 }
             }
         }
