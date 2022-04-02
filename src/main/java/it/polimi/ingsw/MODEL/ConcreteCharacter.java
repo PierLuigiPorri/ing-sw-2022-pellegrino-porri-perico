@@ -34,6 +34,11 @@ public class ConcreteCharacter extends StudentSpace implements CharacterType{
     }
 
     @Override
+    public int getIndex() {
+        return this.index;
+    }
+
+    @Override
     public void addStudent(ColorTracker color) {
         //TODO:assert che ci sia spazio
         this.students.add(new Student(color));

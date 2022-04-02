@@ -63,4 +63,12 @@ public class CharacterSelector {
     public ArrayList<CharacterType> getCharacters(){
         return this.selectedCharacters;
     }
+
+    public void restoreTD(){
+        for(CharacterType c:this.selectedCharacters){
+            if(c.getIndex()==4){
+                Effects.setTD((ConcreteCharacter) c);
+            }
+        }
+    }
 }

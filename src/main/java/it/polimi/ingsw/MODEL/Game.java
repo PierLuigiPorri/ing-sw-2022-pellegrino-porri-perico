@@ -6,6 +6,7 @@ import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Game {
     private int gameType; //0: regole semplificate, 1: regole esperto
@@ -168,24 +169,48 @@ public class Game {
         }else throw new ImpossibleActionException("No card has this movement value.");
     }
 
-    public int determineInfluence(int index){
+    public int determineInfluence(int index) throws ImpossibleActionException {
         /*TODO: scrivere le eccezioni.
            Prima va definito bene il calcolo dell'influenza.*/
-        ArrayList<Integer> p=new ArrayList<>();
-        for(int i=0; i<playerCount; i++){
-            int x=0;
-            p.add(x);
+        if(this.board.islands.getIsland(index).TD){
+            this.board.islands.getIsland(index).removeTD();
+            characterSelector.restoreTD();
         }
-
+        else {
+            ArrayList<Integer> p = new ArrayList<>();
+            for (int i = 0; i < playerCount; i++) {
+                int x = 0;
+                p.add(x);
+            }
+            for (Tower t : this.board.islands.getIsland(index).towers) {
+                for (int z = 0; z < playerCount; z++) {
+                    if (t.getPlayer().equals(this.players.get(z)))
+                        p.set(z, p.get(z) + Tower.getInfluence());
+                }
+            }
+            for (Student s : this.board.islands.getIsland(index).students) {
+                p.set(players.indexOf(s.getColor().getPlayer()), p.get(players.indexOf(s.getColor().getPlayer())) + s.getInfluence());
+            }
+            ArrayList<Integer> tmp = p;
+            Collections.sort(tmp);
+            if (!tmp.get(0).equals(tmp.get(1))) {
+                if (this.board.islands.getIsland(index).towers.isEmpty()) {
+                    this.board.islands.getIsland(index).addTower(players.get(p.indexOf(tmp.get(0))));
+                    players.get(p.indexOf(tmp.get(0))).removeTower();
+                } else if (!players.get(p.indexOf(tmp.get(0))).equals(this.board.islands.getIsland(index).getPlayer())) {
+                    swapTowers(index, players.get(p.indexOf(tmp.get(0))));
+                    players.get(p.indexOf(tmp.get(0))).removeTower();
+                }
+            }
+        }
     }
 
-    public void swapTowers(int index, String playerTO) throws ImpossibleActionException{
+    public void swapTowers(int index, Player player1) throws ImpossibleActionException{
         try {
-            Player player1 = playerTranslator(playerTO);
-            if(board.islands.getIsland(index).towers[0]!=null) {
+            if(board.islands.getIsland(index).towers!=null) {
                 int i = 0;
-                while (board.islands.getIsland(index).towers[i] != null) {
-                    board.islands.getIsland(index).towers[i].setPlayer(player1);
+                while (board.islands.getIsland(index).towers.get(i) != null) {
+                    board.islands.getIsland(index).towers.get(i).setPlayer(player1);
                     i++;
                 }
             } else throw new ImpossibleActionException("No towers in this island.\n");

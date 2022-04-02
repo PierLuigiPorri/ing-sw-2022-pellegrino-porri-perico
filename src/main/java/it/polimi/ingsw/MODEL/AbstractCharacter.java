@@ -32,4 +32,10 @@ public class AbstractCharacter implements CharacterType{
         return cost;
     }
 
+    @Override
+    public int getIndex() {
+        return this.index;
+    }
+
+
 }

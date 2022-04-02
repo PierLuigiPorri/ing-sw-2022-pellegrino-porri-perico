@@ -84,4 +84,8 @@ public final class Effects{
         Tower.enable();
 
     }
+
+    public static void setTD(ConcreteCharacter c){
+        c.addTD();
+    }
 }

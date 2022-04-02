@@ -43,7 +43,7 @@ public class Circularlist {
         i.students.addAll(i1.students);
         i.students.addAll(i2.students);
         for(int j=0; j<i.islandCount; j++){
-            i.towers[j]=new Tower(i1.getPlayer());
+            i.towers.add(new Tower(i1.getPlayer()));
         }
         Island first;
         if(i1.getId()<i2.getId()) first=i1;

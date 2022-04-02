@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Island extends StudentSpace implements TDSpace{
     protected int id;
-    protected Tower[] towers;
+    protected ArrayList<Tower> towers;
     protected boolean motherNature;
     protected int islandCount=1;
     public Island next;
@@ -14,7 +14,7 @@ public class Island extends StudentSpace implements TDSpace{
         this.id=index;
         this.motherNature=false;
         this.next=null;
-        this.towers=new Tower[islandCount];
+        this.towers=new ArrayList<>();
     }
 
 
@@ -49,7 +49,13 @@ public class Island extends StudentSpace implements TDSpace{
     public int getIslandCount(){return islandCount;}
 
     public Player getPlayer(){
-        return this.towers[0].getPlayer();
+        return this.towers.get(0).getPlayer();
+    }
+
+    public void addTower(Player p){
+        if(this.towers.isEmpty()){
+            this.towers.add(new Tower(p));
+        }
     }
 
 

@@ -16,7 +16,7 @@ public class Tower {
         this.player = player;
     }
 
-    public int getInfluence() {
+    public static int getInfluence() {
         return influence;
     }
 

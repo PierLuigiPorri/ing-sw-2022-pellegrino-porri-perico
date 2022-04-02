@@ -7,6 +7,6 @@ public class SuperIsland extends Island {
     public SuperIsland(int count){
         super(0);
         this.islandCount=count;
-        this.towers=new Tower[islandCount];
+        this.towers=new ArrayList<>();
     }
 }
