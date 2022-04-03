@@ -1,5 +1,8 @@
 package it.polimi.ingsw.MODEL;
 
+import it.polimi.ingsw.EXCEPTIONS.GameException;
+import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
+
 public class Hall {
     private int red;
     private int blue;
@@ -18,16 +21,16 @@ public class Hall {
     }
 
     public void setColor(ColorTracker color){
-        if (color.equals(player.getGame().red)) {
+        if (color.getColor().equals(Color.RED)) {
             setRed();
         }
-        else if (color.equals(player.getGame().blue)) {
+        else if (color.getColor().equals(Color.BLUE)) {
             setBlue();
            }
-        else if (color.equals(player.getGame().green)) {
+        else if (color.getColor().equals(Color.GREEN)) {
             setGreen();
         }
-        else if (color.equals(player.getGame().yellow)) {
+        else if (color.getColor().equals(Color.YELLOW)) {
             setYellow();
         }
         else {
@@ -35,25 +38,41 @@ public class Hall {
             }
     }
 
-    public void desetColor(ColorTracker color){
-        if (color.equals(player.getGame().red)) {
-            this.red--;
+    public void desetColor(ColorTracker color) throws ImpossibleActionException {
+        if(getColor(color.getColor())>0) {
+            if (color.getColor().equals(Color.RED)) {
+                this.red--;
+            } else if (color.getColor().equals(Color.BLUE)) {
+                this.blue--;
+            } else if (color.getColor().equals(Color.GREEN)) {
+                this.green--;
+            } else if (color.getColor().equals(Color.YELLOW)) {
+                this.yellow--;
+            } else {
+                this.pink--;
+            }
+        }else throw new ImpossibleActionException("Impossible to delete "+color.getColor()+" from Hall, it's alredy zero.\n");
+    }
+
+    public int getColor(Color color){
+        if (color.equals(Color.RED)) {
+            return getRed();
         }
-        else if (color.equals(player.getGame().blue)) {
-            this.blue--;
+        else if (color.equals(Color.BLUE)) {
+            return getBlue();
         }
-        else if (color.equals(player.getGame().green)) {
-            this.green--;
+        else if (color.equals(Color.GREEN)) {
+            return getGreen();
         }
-        else if (color.equals(player.getGame().yellow)) {
-            this.yellow--;
+        else if (color.equals(Color.YELLOW)) {
+            return getYellow();
         }
         else {
-            this.pink--;
+            return getPink();
         }
     }
 
-    public int getRed() {
+    private int getRed() {
         return red;
     }
 
@@ -64,18 +83,18 @@ public class Hall {
         }
     }
 
-    public int getBlue() {
+    private int getBlue() {
         return blue;
     }
 
     private void setBlue() {
         this.blue ++;
-        if(this.blue%3==0){ //Check regole esperto
+        if(this.blue%3==0){
             this.player.addCoin();
         }
     }
 
-    public int getGreen() {
+    private int getGreen() {
         return green;
     }
 
@@ -86,7 +105,7 @@ public class Hall {
         }
     }
 
-    public int getPink() {
+    private int getPink() {
         return pink;
     }
 
@@ -97,7 +116,7 @@ public class Hall {
         }
     }
 
-    public int getYellow() {
+    private int getYellow() {
         return yellow;
     }
 

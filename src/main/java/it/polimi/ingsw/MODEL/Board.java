@@ -12,6 +12,7 @@ public class Board {
 
 
     public Board(int pcount, Game game){
+
         this.game=game;
         clouds= new ArrayList<>();
         for(int i=0; i<3; i++){
@@ -44,7 +45,7 @@ public class Board {
         Collections.shuffle(firstSt);
         while(!p.equals(islands.tail)) {
             if (p.getId() != 6) {
-                p.students.add(firstSt.get(firstSt.size()-1));
+                p.getStudents().add(firstSt.get(firstSt.size()-1));
                 firstSt.remove(firstSt.size()-1);
             }
             p = p.next;
@@ -85,7 +86,7 @@ public class Board {
         Collections.shuffle(firstSt);
         while(!p.equals(islands.tail)) {
             if (p.getId() != 6) {
-                p.students.add(firstSt.get(firstSt.size()-1));
+                p.getStudents().add(firstSt.get(firstSt.size()-1));
                 firstSt.remove(firstSt.size()-1);
             }
             p = p.next;

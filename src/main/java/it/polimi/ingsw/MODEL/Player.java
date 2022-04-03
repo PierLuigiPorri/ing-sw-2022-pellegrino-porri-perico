@@ -1,7 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
 public class Player {
-    private Game game;
+    private final Game game;
     public final String nickname;
     private final Hand hand;
     private final Gate gate;

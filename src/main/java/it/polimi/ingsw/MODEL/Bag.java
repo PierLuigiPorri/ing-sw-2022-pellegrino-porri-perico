@@ -1,5 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
+import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -10,6 +12,7 @@ public class Bag {
 
     public Bag(Game game) {
         this.game=game;
+        this.students=new ArrayList<>();
         for (int i = 0; i < 24; i++) {
             this.students.add(new Student(game.red));
         }
@@ -28,17 +31,21 @@ public class Bag {
         Collections.shuffle(this.students);
     }
 
-    public void addStudent(ColorTracker color) {
-        //TODO:assert students.size()<MAX, non dovrebbe succedere ma non si sa mai
-        this.students.add(new Student(color));
-        Collections.shuffle(this.students);
+    public void addStudent(ColorTracker color) throws ImpossibleActionException {
+        if(this.students.size()<MAX) {
+            //TODO:assert students.size()<MAX, non dovrebbe succedere ma non si sa mai
+            this.students.add(new Student(color));
+            //Collections.shuffle(this.students);
+        }else throw new ImpossibleActionException("The Bag is full, impossible to add students");
     }
 
-    public Student extractStudent(){
+    public Student extractStudent() throws ImpossibleActionException {
         //TODO:assert che !students.isNull()
-        Student last=this.students.get(this.students.size()-1);
-        this.students.remove(this.students.size()-1);
-        return last;
+        if(!this.students.isEmpty()) {
+            Student last = this.students.get(this.students.size() - 1);
+            this.students.remove(this.students.size() - 1);
+            return last;
+        }else throw new ImpossibleActionException("The bag is empty!");
     }
 
 
