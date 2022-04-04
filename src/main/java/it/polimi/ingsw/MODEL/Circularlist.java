@@ -40,8 +40,8 @@ public class Circularlist {
     public void mergeIslands(Island i1, Island i2){
         //TODO:controllare che i1 e i2 siano consecutive, che abbiano entrambe una torre sopra e che sia dello stesso player -Doot
         SuperIsland i=new SuperIsland(i1.islandCount+i2.islandCount);
-        i.students.addAll(i1.students);
-        i.students.addAll(i2.students);
+        i.getStudents().addAll(i1.getStudents());
+        i.getStudents().addAll(i2.getStudents());
         for(int j=0; j<i.islandCount; j++){
             i.towers.add(new Tower(i1.getPlayer()));
         }

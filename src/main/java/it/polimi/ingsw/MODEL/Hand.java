@@ -2,7 +2,7 @@ package it.polimi.ingsw.MODEL;
 
 public class Hand {
     Player player;
-    Card[] cards;
+    Card[] cards; //TODO: Questa roba dev'essere un'Array List
 
 //TODO: impostare il corretto valore di MOVIMENTO alle varie carte.
     public Hand(Player player){

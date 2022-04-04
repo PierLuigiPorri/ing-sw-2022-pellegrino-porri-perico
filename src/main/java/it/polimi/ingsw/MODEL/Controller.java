@@ -5,27 +5,24 @@ import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
-public class Controller {
+import java.net.Socket;
+
+public class Controller implements Runnable{
     public Game game;
+    public Socket clientSocket;
 
-    public Controller(Game game){
-        this.game=game;
-    }
-
-    public void Start() {
-        try {
-            game.start();
-        }catch (GameException e){
-            System.out.println(e.getMessage());
+    @Override
+    public void run() {
+        while(true){
+            //Gestione della comunicazione con il client
+            //Chiamerà i suoi metodi che rappresentano le azioni che il Player può aver richiesto
         }
+        //Game userà il metodo send di questa classe per chiedere cose al giocatore (es: quale colore disattivare per il calcolo dell'influenza)
     }
 
-    public Player[] changePhase(){
-        return game.changePhase();
-    }
-
-    public Player gameEnd(){
-        return game.gameEnd();
+    public Controller(Game game, Socket s){
+        this.game=game;
+        clientSocket=s;
     }
 
     public void bagToCloud(int index) {

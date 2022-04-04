@@ -1,24 +1,37 @@
 package it.polimi.ingsw.MODEL;
 
+import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
+
 import java.util.ArrayList;
 
 public class Gate extends StudentSpace{
     public Player player;
-    int MAX;
+    public int MAX;
+    public ArrayList<Student> students;
 
     public Gate(int pcount, Player player) {
         this.player = player;
         this.MAX=9;
+        this.students=new ArrayList<>();
         for(int i=0; i<9; i++){
-            this.students.add(player.getGame().getBg().extractStudent());
+            try {
+                this.students.add(player.getGame().getBg().extractStudent());
+            }catch (ImpossibleActionException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
     public Gate(Player player){
         this.player=player;
         this.MAX=7;
-        for(int i=0; i<7; i++){
-            this.students.add(player.getGame().getBg().extractStudent());
+        this.students=new ArrayList<>();
+        for(int i=0; i<7; i++) {
+            try {
+                this.students.add(player.getGame().getBg().extractStudent());
+            }catch (ImpossibleActionException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 

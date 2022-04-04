@@ -8,6 +8,7 @@ public class Island extends StudentSpace implements TDSpace{
     protected boolean motherNature;
     protected int islandCount=1;
     public Island next;
+    private ArrayList<Student> students;
     protected boolean TD=false; //0:No tessera divieto; 1:Tessera divieto presente
 
     public Island(int index){
@@ -15,6 +16,7 @@ public class Island extends StudentSpace implements TDSpace{
         this.motherNature=false;
         this.next=null;
         this.towers=new ArrayList<>();
+        this.students=new ArrayList<>();
     }
 
 
@@ -57,6 +59,8 @@ public class Island extends StudentSpace implements TDSpace{
             this.towers.add(new Tower(p));
         }
     }
-
+    public ArrayList<Student> getStudents(){
+        return students;
+    }
 
 }

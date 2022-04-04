@@ -11,6 +11,7 @@ import java.util.Collections;
 public class Game {
     private int gameType; //0: regole semplificate, 1: regole esperto
     private final ArrayList<Player> players;
+    private ArrayList<Controller> controllers;
     private Card[] cardsPlayed;
     private final Bag bag;
     private final Board board;
@@ -25,7 +26,18 @@ public class Game {
     private int InfluenceBonus=0;
     private Player PwBonus;
 
-    public Game(int pcount, String string){
+    public Game(int pcount, int gt, String nick1, Socket sock1, String nick2, Socket sock2, String nick3, Socket sock3){
+        //Parameters: num of players, gametype, nickname and socket for every player
+        controllers=new ArrayList<>();
+        controllers.add(new Controller(this, sock1));
+        controllers.add(new Controller(this, sock2));
+        if(pcount==3){
+            controllers.add(new Controller(this, sock3));
+        }
+        for(Controller c: controllers){
+            new Thread(c).start();
+        }
+
         this.players=new ArrayList<>();
         this.hands=new ArrayList<>();
         this.bag=new Bag(this);
@@ -34,21 +46,20 @@ public class Game {
         this.green=new ColorTracker(Color.GREEN);
         this.yellow=new ColorTracker(Color.YELLOW);
         this.pink=new ColorTracker(Color.PINK);
-        Effects.setGame(this);
         this.characterSelector=new CharacterSelector(this);
         if(pcount==2){
             this.board=new Board(this);
-            this.players.add(new Player(string, this));
-            this.players.add(new Player(string, this));
+            this.players.add(new Player(nick1, this));
+            this.players.add(new Player(nick2, this));
             this.hands.add(new Hand(players.get(0)));
             this.hands.add(new Hand(players.get(1)));
             this.cardsPlayed =new Card[3];
         }
         else{
             this.board=new Board(pcount, this);
-            this.players.add(new Player(pcount, string, this));
-            this.players.add(new Player(pcount, string, this));
-            this.players.add(new Player(pcount, string, this));
+            this.players.add(new Player(pcount, nick1, this));
+            this.players.add(new Player(pcount, nick2, this));
+            this.players.add(new Player(pcount, nick3, this));
             this.hands.add(new Hand(players.get(0)));
             this.hands.add(new Hand(players.get(1)));
             this.hands.add(new Hand(players.get(2)));
@@ -121,8 +132,13 @@ public class Game {
     public void bagToCloud(int index) throws BoundException{
         if(bag.getSize()==0)
             throw new BoundException("The bag is empty!\n");
-        if(index>0 && index <= 2 && board.clouds.get(index).students.size()<3)
-            board.clouds.get(index).addStudent(bag.extractStudent().getColor());
+        if(index>0 && index <= 2 && board.clouds.get(index).students.size()<3) {
+            try{
+                board.clouds.get(index).addStudent(bag.extractStudent().getColor());
+            }catch (ImpossibleActionException e){
+                System.out.println(e.getMessage());
+            }
+        }
 
         else throw new BoundException("INDEX OUT OF BOUND!\n");
     }
@@ -174,7 +190,7 @@ public class Game {
         }else throw new ImpossibleActionException("No card has this movement value.");
     }
 
-    public int determineInfluence(int index) throws ImpossibleActionException {
+    public void determineInfluence(int index) throws ImpossibleActionException {
         /*TODO: scrivere le eccezioni.
            Prima va definito bene il calcolo dell'influenza.*/
         if(this.board.islands.getIsland(index).TD){
@@ -195,18 +211,17 @@ public class Game {
                         p.set(z, p.get(z) + InfluenceBonus);
                 }
             }
-            for (Student s : this.board.islands.getIsland(index).students) {
+            for (Student s : this.board.islands.getIsland(index).getStudents()) {
                 p.set(players.indexOf(s.getColor().getPlayer()), p.get(players.indexOf(s.getColor().getPlayer())) + s.getInfluence());
             }
-            ArrayList<Integer> tmp = p;
-            Collections.sort(tmp);
-            if (!tmp.get(0).equals(tmp.get(1))) {
+            Collections.sort(p);
+            if (!p.get(p.size()-1).equals(p.get(p.size()-2))) {
                 if (this.board.islands.getIsland(index).towers.isEmpty()) {
-                    this.board.islands.getIsland(index).addTower(players.get(p.indexOf(tmp.get(0))));
-                    players.get(p.indexOf(tmp.get(0))).removeTower();
-                } else if (!players.get(p.indexOf(tmp.get(0))).equals(this.board.islands.getIsland(index).getPlayer())) {
-                    swapTowers(index, players.get(p.indexOf(tmp.get(0))));
-                    players.get(p.indexOf(tmp.get(0))).removeTower();
+                    this.board.islands.getIsland(index).addTower(players.get(p.indexOf(p.get(p.size()-1))));
+                    players.get(p.indexOf(p.get(p.size()-1))).removeTower();
+                } else if (!players.get(p.indexOf(p.get(p.size()-1))).equals(this.board.islands.getIsland(index).getPlayer())) {
+                    swapTowers(index, players.get(p.indexOf(p.get(p.size()-1))));
+                    players.get(p.indexOf(p.get(p.size()-1))).removeTower();
                 }
             }
         }
@@ -327,30 +342,34 @@ public class Game {
     }
 
     public void removeFromHall(ColorTracker color, Player player) {
-        player.getHall().desetColor(color);
+        try {
+            player.getHall().desetColor(color);
+        }catch (ImpossibleActionException e){
+            System.out.println(e.getMessage());
+        }
     }
     ///
     private void checkColorChanges(Player player1){
-        if( p1.getHall().getRed()>p2.getHall().getRed() &&  p1.getHall().getRed()>p3.getHall().getRed())
+        if( players.get(1).getHall().getColor(Color.RED)>players.get(2).getHall().getColor(Color.RED) &&  players.get(1).getHall().getColor(Color.RED)>players.get(3).getHall().getColor(Color.RED))
             red.setPlayer(player1);
-        if( p1.getHall().getBlue()>p2.getHall().getBlue() &&  p1.getHall().getBlue()>p3.getHall().getBlue())
+        if( players.get(1).getHall().getColor(Color.BLUE)>players.get(2).getHall().getColor(Color.BLUE) &&  players.get(1).getHall().getColor(Color.BLUE)>players.get(3).getHall().getColor(Color.BLUE))
             blue.setPlayer(player1);
-        if( p1.getHall().getGreen()>p2.getHall().getGreen() &&  p1.getHall().getGreen()>p3.getHall().getGreen())
+        if( players.get(1).getHall().getColor(Color.GREEN)>players.get(2).getHall().getColor(Color.GREEN) &&  players.get(1).getHall().getColor(Color.GREEN)>players.get(3).getHall().getColor(Color.GREEN))
             green.setPlayer(player1);
-        if( p1.getHall().getYellow()>p2.getHall().getYellow() &&  p1.getHall().getYellow()>p3.getHall().getYellow())
+        if( players.get(1).getHall().getColor(Color.YELLOW)>players.get(2).getHall().getColor(Color.YELLOW) &&  players.get(1).getHall().getColor(Color.YELLOW)>players.get(3).getHall().getColor(Color.YELLOW))
             yellow.setPlayer(player1);
-        if( p1.getHall().getPink()>p2.getHall().getPink() &&  p1.getHall().getPink()>p3.getHall().getPink())
+        if( players.get(1).getHall().getColor(Color.PINK)>players.get(2).getHall().getColor(Color.PINK) &&  players.get(1).getHall().getColor(Color.PINK)>players.get(3).getHall().getColor(Color.PINK))
             pink.setPlayer(player1);
     }
 
-    public Player playerTranslator(String name) throws IllegalArgumentException{
-        if (name.equals(p1.nickname) || name.equals(p2.nickname) || name.equals(p3.nickname)) {
-            if (p1.nickname.equals(name))
-                return p1;
-            else if (p2.nickname.equals(name))
-                return p2;
+    private Player playerTranslator(String name) throws IllegalArgumentException{
+        if (name.equals(players.get(1).nickname) || name.equals(players.get(2).nickname) || name.equals(players.get(3).nickname)) {
+            if (players.get(1).nickname.equals(name))
+                return players.get(1);
+            else if (players.get(2).nickname.equals(name))
+                return players.get(2);
             else
-                return p3;
+                return players.get(3);
         } else throw new IllegalArgumentException(name +" does not exists as a nickname.\n");
     }
 

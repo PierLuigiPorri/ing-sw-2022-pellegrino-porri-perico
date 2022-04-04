@@ -4,22 +4,36 @@ package it.polimi.ingsw.MODEL;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.util.ArrayList;
+
 public final class Effects{
 
     private static Game game;
 
     public static void initializeConcrete(int index, ConcreteCharacter c){
+        c.students=new ArrayList<>();
+        // RIGA (9) [c.students=new ArrayList<>();] è STATA SCRITTA DA PIER!!
+        // è SOLO UNA ISTANZA PER FAR GIRARE IL TEST, NON SO SE SIA CORRETTO. I TEST PER ORA LI PASSA.
         switch(index){
             case 0:
             case 10:
                 c.setMAX(4);
-                    for(int i=0; i<c.getMAX(); i++)
-                        c.students.add(game.getBg().extractStudent());
+                    for(int i=0; i<c.getMAX(); i++) {
+                        try {
+                            c.students.add(game.getBg().extractStudent());
+                        }catch (ImpossibleActionException e){
+                            System.out.println(e.getMessage());
+                        }
+                    }
                 break;
             case 6: c.setMAX(6);
-                    for(int i=0; i<c.getMAX(); i++)
-                        c.students.add(game.getBg().extractStudent());
-                break;
+                    for(int i=0; i<c.getMAX(); i++) {
+                        try{
+                            c.students.add(game.getBg().extractStudent());
+                        }catch (ImpossibleActionException e){
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                    break;
             default:break;
         }
     }
@@ -81,7 +95,11 @@ public final class Effects{
                 int island = 0;
                 game.addStudentToIsland(c.students.get(i).getColor(), island);
                 c.students.remove(i);
-                c.students.add(game.getBg().extractStudent());
+                try {
+                    c.students.add(game.getBg().extractStudent());
+                }catch (ImpossibleActionException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
             case 4:
                 int isl = 0; //TODO:l'indice va chiesto al giocatore
@@ -91,7 +109,11 @@ public final class Effects{
                 int stud = 0; //TODO:chiedere al player quale prendere
                 game.addStudentToHall(c.students.get(stud).getColor(), player);
                 c.setMAX(4);
-                c.students.add(game.getBg().extractStudent());
+                try {
+                    c.students.add(game.getBg().extractStudent());
+                }catch (ImpossibleActionException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
             case 6:
                 ArrayList<Integer> card = new ArrayList<>(), gate= new ArrayList<>();
