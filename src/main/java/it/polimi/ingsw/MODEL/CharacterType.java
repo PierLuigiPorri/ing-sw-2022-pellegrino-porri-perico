@@ -1,7 +1,9 @@
 package it.polimi.ingsw.MODEL;
 
+import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
+
 public interface CharacterType {
-    void applyEffect(Game game, Player player);
+    void applyEffect(Player player) throws ImpossibleActionException;
     void effectUsed();
     int getCost();
     int getIndex();

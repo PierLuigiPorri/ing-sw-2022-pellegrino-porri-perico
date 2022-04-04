@@ -69,8 +69,8 @@ public class Player {
         return coins;
     }
 
-    public void removeCoin(){
-        if(this.coins>0) this.coins--;
+    public void removeCoin(int cost){
+        if(this.coins>0) this.coins=this.coins-cost;
     }
 
     public void removeTower(){this.tower_count--;}

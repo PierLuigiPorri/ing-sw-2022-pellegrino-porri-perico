@@ -1,5 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
+import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -29,7 +31,7 @@ public class CharacterSelector {
             switch(i){
                 case 0:                                                                     //piazza stud da carta su isola
                 case 6:                                                                     //scambia fino a 3 stud da carta a gate
-                        this.selectedCharacters.add(new ConcreteCharacter(i, 1, game));
+                        this.selectedCharacters.add(new ConcreteCharacter(i, 1));
                         break;
                 case 1:                                                                     //controlla prof con stud uguali
                 case 7:                                                                     //influenza +2
@@ -47,7 +49,7 @@ public class CharacterSelector {
                         break;
                 case 4:                                                                     //tessere divieto
                 case 10:                                                                    //piazza stud da carta a hall
-                        this.selectedCharacters.add(new ConcreteCharacter(i, 2, game));
+                        this.selectedCharacters.add(new ConcreteCharacter(i, 2));
                         break;
 
                 default:break;
@@ -55,9 +57,8 @@ public class CharacterSelector {
         }
     }
 
-    public void applyEffect(int index, Player player){
-        //TODO:assert che il giocatore abbia il soldo -Doot
-        this.selectedCharacters.get(index).applyEffect(this.game, player);
+    public void applyEffect(int index, Player player) throws ImpossibleActionException {
+        this.selectedCharacters.get(index).applyEffect(player);
     }
 
     public ArrayList<CharacterType> getCharacters(){
@@ -70,5 +71,9 @@ public class CharacterSelector {
                 Effects.setTD((ConcreteCharacter) c);
             }
         }
+    }
+
+    public int getCost(int index){
+        return this.selectedCharacters.get(index).getCost();
     }
 }

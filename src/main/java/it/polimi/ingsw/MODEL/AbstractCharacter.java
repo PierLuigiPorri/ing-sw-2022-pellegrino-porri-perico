@@ -1,7 +1,7 @@
 package it.polimi.ingsw.MODEL;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
+
 
 public class AbstractCharacter implements CharacterType{
     private int cost;
@@ -14,8 +14,8 @@ public class AbstractCharacter implements CharacterType{
     }
 
     @Override
-    public void applyEffect(Game game, Player player) {
-        Effects.apply(this.index, game, player);
+    public void applyEffect(Player player) throws ImpossibleActionException {
+        Effects.apply(this.index, player);
         effectUsed();
     }
 

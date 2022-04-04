@@ -1,11 +1,14 @@
 package it.polimi.ingsw.MODEL;
 
 
-import java.util.ArrayList;
+import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
+import java.util.ArrayList;
 public final class Effects{
 
-    public static void initializeConcrete(int index, ConcreteCharacter c, Game game){
+    private static Game game;
+
+    public static void initializeConcrete(int index, ConcreteCharacter c){
         switch(index){
             case 0:
             case 10:
@@ -22,32 +25,56 @@ public final class Effects{
     }
 
 
-    public static void apply(int index, Game game, Player player){
+    public static void apply(int index, Player player) throws ImpossibleActionException {
         //TODO scrivere tutti gli effetti
         switch(index){
             case 1: //TODO: prima di attivare questo effetto, nel caso in cui il giocatore non abbia lo stesso numero di studenti
                     //di chi ha il professore, di conseguenza la carta non avrà effetto immediato, chiedere se davvero vuole attivarla
                 break;
-            case 2: //TODO costruire la carta corrispondente
+            case 2:
+                //TODO:chiedere l'isola al player
+                int ind = 0;
+                game.determineInfluence(ind);
                 break;
-            case 3: //TODO costruire la carta corrispondente
+            case 3:
+                game.setMNbonus();
                 break;
             case 5:
                 Tower.disable();
                 break;
-            case 7: //TODO costruire la carta corrispondente
+            case 7:
+                game.enableInfluenceBonus(player);
                 break;
-            case 8: //TODO costruire la carta corrispondente
+            case 8:
+                //TODO:chiedere al player quale colore vuole eliminare
+                String c = "";
+                game.colorTranslator(c).disableInfluence();
                 break;
-            case 9: //TODO costruire la carta corrispondente
+            case 9:
+                //TODO:chiedere al player quali selezionare nel suo Gate, e quale/i colore/i selezionare nel suo Hall
+                ArrayList<Integer> studens=new ArrayList<>();
+                ArrayList<String> colors = new ArrayList<>();
+                for(int g=0; g<studens.size(); g++){
+                    game.removeFromHall(game.colorTranslator(colors.get(g)), player);
+                    game.addStudentToHall(player.getGate().students.get(studens.get(g)).getColor(), player);
+                    game.removeFromGate(player, studens.get(g));
+                    game.addToGate(player, game.colorTranslator(colors.get(g)));
+                }
                 break;
-            case 11://TODO costruire la carta corrispondente
+            case 11:
+                //TODO:chiedere al giocatore quale colore
+                ColorTracker q = null;
+                for(Player pl:game.getPlayers()){
+                    for(int u=0; u<3&&pl.getHall().getColor(q)!=0; u++){
+                        game.removeFromHall(q, pl);
+                    }
+                }
                 break;
             default:break;
         }
     }
 
-    public static void applyConcrete(int index, Game game, Player player, ConcreteCharacter c){
+    public static void applyConcrete(int index, Player player, ConcreteCharacter c){
         switch(index){
             case 0:
                 int i = 0; //TODO:l'indice e l'isola vanno chiesti al giocatore dopo aver attivato la carta
@@ -82,10 +109,20 @@ public final class Effects{
 
     public static void restore(){
         Tower.enable();
-
+        game.disableMNbonus();
+        game.disableInfluenceBonus();
+        game.red.restoreInfluence();
+        game.blue.restoreInfluence();
+        game.yellow.restoreInfluence();
+        game.green.restoreInfluence();
+        game.pink.restoreInfluence();
     }
 
     public static void setTD(ConcreteCharacter c){
         c.addTD();
+    }
+
+    public static void setGame(Game g){
+        game=g;
     }
 }

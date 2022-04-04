@@ -6,7 +6,7 @@ public class Hall {
     private int green;
     private int pink;
     private int yellow;
-    private Player player;
+    private final Player player;
 
     public Hall(Player p) {
         this.red = 0;
@@ -53,15 +53,31 @@ public class Hall {
         }
     }
 
+    public int getColor(ColorTracker color){
+        if (color.equals(player.getGame().red)) {
+            return getRed();
+        }
+        else if (color.equals(player.getGame().blue)) {
+            return getBlue();
+        }
+        else if (color.equals(player.getGame().green)) {
+            return getGreen();
+        }
+        else if (color.equals(player.getGame().yellow)) {
+            return getYellow();
+        }
+        else {
+            return getPink();
+        }
+    }
+
     public int getRed() {
         return red;
     }
 
     private void setRed() {
         this.red++;
-        if(this.red%3==0){ //Check regole esperto
-            this.player.addCoin();
-        }
+        this.player.addCoin();
     }
 
     public int getBlue() {
@@ -70,9 +86,7 @@ public class Hall {
 
     private void setBlue() {
         this.blue ++;
-        if(this.blue%3==0){ //Check regole esperto
-            this.player.addCoin();
-        }
+        this.player.addCoin();
     }
 
     public int getGreen() {
@@ -81,9 +95,7 @@ public class Hall {
 
     private void setGreen() {
         this.green++;
-        if(this.green%3==0){ //Check regole esperto
-            this.player.addCoin();
-        }
+        this.player.addCoin();
     }
 
     public int getPink() {
@@ -92,9 +104,7 @@ public class Hall {
 
     private void setPink() {
         this.pink++;
-        if(this.pink%3==0){ //Check regole esperto
-            this.player.addCoin();
-        }
+        this.player.addCoin();
     }
 
     public int getYellow() {
@@ -103,8 +113,6 @@ public class Hall {
 
     private void setYellow() {
         this.yellow++;
-        if(this.yellow%3==0){ //Check regole esperto
-            this.player.addCoin();
-        }
+        this.player.addCoin();
     }
 }

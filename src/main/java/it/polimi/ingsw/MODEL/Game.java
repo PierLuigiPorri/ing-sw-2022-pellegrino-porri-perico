@@ -21,6 +21,9 @@ public class Game {
     private final ArrayList<Hand> hands;
     private final CharacterSelector characterSelector;
     private final MotherNature motherNature;
+    private int MNbonus=0;
+    private int InfluenceBonus=0;
+    private Player PwBonus;
 
     public Game(int pcount, String string){
         this.players=new ArrayList<>();
@@ -31,6 +34,7 @@ public class Game {
         this.green=new ColorTracker(Color.GREEN);
         this.yellow=new ColorTracker(Color.YELLOW);
         this.pink=new ColorTracker(Color.PINK);
+        Effects.setGame(this);
         this.characterSelector=new CharacterSelector(this);
         if(pcount==2){
             this.board=new Board(this);
@@ -158,6 +162,7 @@ public class Game {
     ///
 
     public void moveMotherNature(int movement) throws ImpossibleActionException {
+        //TODO:determinare chi chiede al player quanto deve muovere, perché MNbonus (anche se 0)dovrà essere aggiunto al massimo movimento
         if (movement < 7) {
             motherNature.getIsola().setMotherNature(false);
             Island tmp = motherNature.getIsola();
@@ -178,14 +183,16 @@ public class Game {
         }
         else {
             ArrayList<Integer> p = new ArrayList<>();
+            int x = 0;
             for (int i = 0; i < playerCount; i++) {
-                int x = 0;
                 p.add(x);
             }
             for (Tower t : this.board.islands.getIsland(index).towers) {
                 for (int z = 0; z < playerCount; z++) {
                     if (t.getPlayer().equals(this.players.get(z)))
                         p.set(z, p.get(z) + Tower.getInfluence());
+                    if(this.players.get(z).equals(this.PwBonus))
+                        p.set(z, p.get(z) + InfluenceBonus);
                 }
             }
             for (Student s : this.board.islands.getIsland(index).students) {
@@ -252,8 +259,16 @@ public class Game {
         } else throw new ImpossibleActionException("No card with "+index+" as value\n");
     }
 
-    public void activateCharacter(String player, int id){
+    public void activateCharacter(String player, int id) throws ImpossibleActionException {
+        Player p=playerTranslator(player);
+        if(p.getCoins()>= characterSelector.getCost(id)){
+            p.removeCoin(characterSelector.getCost(id));
+            characterSelector.applyEffect(id, p);
+        }else throw new ImpossibleActionException("Not enough coins!\n")
+    }
 
+    public ArrayList<Player> getPlayers(){
+        return this.players;
     }
 
     public Player getP1() {
@@ -328,7 +343,7 @@ public class Game {
             pink.setPlayer(player1);
     }
 
-    private Player playerTranslator(String name) throws IllegalArgumentException{
+    public Player playerTranslator(String name) throws IllegalArgumentException{
         if (name.equals(p1.nickname) || name.equals(p2.nickname) || name.equals(p3.nickname)) {
             if (p1.nickname.equals(name))
                 return p1;
@@ -339,7 +354,7 @@ public class Game {
         } else throw new IllegalArgumentException(name +" does not exists as a nickname.\n");
     }
 
-    private ColorTracker colorTranslator(String color) throws IllegalArgumentException {
+    public ColorTracker colorTranslator(String color) throws IllegalArgumentException {
         ColorTracker color1;
         if (color.equals("RED") || color.equals("BLUE") || color.equals("YELLOW") || color.equals("GREEN") || color.equals("PINK")) {
             switch (color) {
@@ -361,6 +376,23 @@ public class Game {
             }
             return color1;
         }else throw new IllegalArgumentException(color + " does not exist as a color in this game.\n");
+    }
+
+    public void setMNbonus(){
+        this.MNbonus=2;
+    }
+
+    public void disableMNbonus(){
+        this.MNbonus=0;
+    }
+
+    public void enableInfluenceBonus(Player p){
+        this.PwBonus=p;
+        this.InfluenceBonus=2;
+    }
+
+    public void disableInfluenceBonus(){
+        this.InfluenceBonus=0;
     }
 
 }
