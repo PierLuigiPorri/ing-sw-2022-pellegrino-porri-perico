@@ -27,7 +27,7 @@ public class Starter implements Runnable{
 
             //TODO: Sincronizzazione per fare in modo che partite sia acceduto da 1 thread per volta
             partite.add(new Creation(ng, gt, nick, clientSocket));
-            //Va messo in attesa il thread
+            //TODO:Va messo in attesa il thread
 
         }
         else if(g==1){

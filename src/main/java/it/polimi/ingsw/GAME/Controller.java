@@ -14,7 +14,7 @@ public class Controller implements Runnable{
     public void run() {
         while(true){
             //Gestione della comunicazione con il client
-            //Chiamerà i suoi metodi che rappresentano le azioni che il Player può aver richiesto
+            //Chiamerà i suoi stessi metodi che rappresentano le azioni che il Player può aver richiesto
         }
         //Game userà il metodo send di questa classe per chiedere cose al giocatore (es: quale colore disattivare per il calcolo dell'influenza)
     }
