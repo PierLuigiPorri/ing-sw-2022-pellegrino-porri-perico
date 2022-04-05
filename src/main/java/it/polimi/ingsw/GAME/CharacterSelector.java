@@ -9,10 +9,10 @@ import java.util.Random;
 public class CharacterSelector {
 
     private final ArrayList<CharacterType> selectedCharacters;
-    private final Game game;
+    //private final Game game;
 
-    public CharacterSelector(Game game){
-        this.game=game;
+    public CharacterSelector(){
+        //this.game=game;
         ArrayList<Integer> selectedIDs = new ArrayList<>();
         this.selectedCharacters=new ArrayList<>();
         Random rand= new Random();

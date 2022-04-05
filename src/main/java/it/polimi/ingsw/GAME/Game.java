@@ -20,7 +20,7 @@ public class Game {
     public RoundMaster roundMaster;
     public int playerCount;
     private Player winner;
-    private final ArrayList<Hand> hands;
+    //private final ArrayList<Hand> hands;
     private final CharacterSelector characterSelector;
     private final MotherNature motherNature;
     private int MNbonus=0;
@@ -40,30 +40,30 @@ public class Game {
         }
 
         this.players=new ArrayList<>();
-        this.hands=new ArrayList<>();
-        this.bag=new Bag(this);
+        //this.hands=new ArrayList<>();
         this.red=new ColorTracker(Color.RED);
         this.blue=new ColorTracker(Color.BLUE);
         this.green=new ColorTracker(Color.GREEN);
         this.yellow=new ColorTracker(Color.YELLOW);
         this.pink=new ColorTracker(Color.PINK);
-        this.characterSelector=new CharacterSelector(this);
+        this.bag=new Bag(this);
+        this.characterSelector=new CharacterSelector();
+        this.board=new Board(pcount,this);
         if(pcount==2){
-            this.board=new Board(this);
+
             this.players.add(new Player(nick1, this));
             this.players.add(new Player(nick2, this));
-            this.hands.add(new Hand(players.get(0)));
-            this.hands.add(new Hand(players.get(1)));
+            //this.hands.add(new Hand(players.get(0)));
+            //this.hands.add(new Hand(players.get(1)));
             this.cardsPlayed =new Card[3];
         }
         else{
-            this.board=new Board(pcount, this);
             this.players.add(new Player(pcount, nick1, this));
             this.players.add(new Player(pcount, nick2, this));
             this.players.add(new Player(pcount, nick3, this));
-            this.hands.add(new Hand(players.get(0)));
-            this.hands.add(new Hand(players.get(1)));
-            this.hands.add(new Hand(players.get(2)));
+            //this.hands.add(new Hand(players.get(0)));
+            //this.hands.add(new Hand(players.get(1)));
+            //this.hands.add(new Hand(players.get(2)));
         }
         this.motherNature=new MotherNature(board.islands.getIsland(1));
         if(this.gameType==1){

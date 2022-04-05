@@ -24,14 +24,6 @@ public class Controller implements Runnable{
         clientSocket=s;
     }
 
-    public void bagToCloud(int index) {
-        try {
-            game.bagToCloud(index);
-        } catch (BoundException c){
-            System.out.println(c.getMessage());
-        }
-    }
-
     public void gateToIsland(String name, int index, int indexIsland, String color) {
         try {
             game.gateToIsland(name, index, indexIsland, color);
@@ -54,16 +46,6 @@ public class Controller implements Runnable{
         try {
             game.moveMotherNature(movement);
         }catch (ImpossibleActionException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-
-
-    public void mergeIslands(int index1, int index2) {
-        try {
-            game.mergeIslands(index1, index2);
-        }catch (ConsecutiveIslandException e){
             System.out.println(e.getMessage());
         }
     }
