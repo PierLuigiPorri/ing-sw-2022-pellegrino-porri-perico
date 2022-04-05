@@ -1,9 +1,8 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
-import it.polimi.ingsw.MODEL.*;
+import it.polimi.ingsw.GAME.*;
 
-import junit.framework.TestCase;
 import org.junit.*;
 
 public class HallTest {

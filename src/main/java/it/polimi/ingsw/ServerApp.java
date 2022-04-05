@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.CONTROLLER.Starter;
+import it.polimi.ingsw.GAME.Starter;
 import java.net.*;
 import java.net.ServerSocket;
 
