@@ -321,6 +321,7 @@ public class Game {
     public void addStudentToHall(ColorTracker color, Player player) {
         player.getHall().setColor(color);
         //checkColorChanges(cardActivated); Questa linea era in Hall ma va qui
+        //TODO:Qui va anche controllato se va chiamato addCoin facendo player.gethall.getcolor...
     }
 
     public void addToGate(Player p1, ColorTracker color) {

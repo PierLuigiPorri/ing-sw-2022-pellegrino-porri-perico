@@ -24,7 +24,7 @@ public class Player {
         }
         this.gate=new Gate(pcount);
 
-        this.hall=new Hall(this);
+        this.hall=new Hall();
         this.hand=new Hand(this);
     }
 

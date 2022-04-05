@@ -8,16 +8,15 @@ public class Hall {
     private int green;
     private int pink;
     private int yellow;
-    private final Player player;
+    //private final Player player;
     private boolean cardActivated=false;
 
-    public Hall(Player p) {
+    public Hall() {
         this.red = 0;
         this.blue = 0;
         this.green = 0;
         this.pink = 0;
         this.yellow = 0;
-        this.player= p;
     }
 
     public void setColor(ColorTracker color){
@@ -47,7 +46,6 @@ public class Hall {
 
     private void setRed() {
         this.red++;
-        this.player.addCoin();
     }
 
     public void desetRed(){
@@ -60,7 +58,6 @@ public class Hall {
 
     private void setBlue() {
         this.blue ++;
-        this.player.addCoin();
     }
 
     public void desetBlue(){
@@ -73,7 +70,6 @@ public class Hall {
 
     private void setGreen() {
         this.green++;
-        this.player.addCoin();
     }
 
     public void desetGreen(){
@@ -86,7 +82,6 @@ public class Hall {
 
     private void setPink() {
         this.pink++;
-        this.player.addCoin();
     }
 
     public void desetPink(){
@@ -99,7 +94,6 @@ public class Hall {
 
     private void setYellow() {
         this.yellow++;
-        this.player.addCoin();
     }
 
     public void desetYellow(){

@@ -105,7 +105,7 @@ public class HallTest {
     public void setUp() throws Exception {
         game=new Game(2, 0, "Pier", null, "Paolo", null, null, null);
         player=new Player("Pier", game);
-        hall=new Hall(player);
+        hall=new Hall();
     }
 
     @After
