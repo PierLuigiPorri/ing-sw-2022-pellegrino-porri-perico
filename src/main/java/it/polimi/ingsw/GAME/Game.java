@@ -29,6 +29,7 @@ public class Game {
 
     public Game(int pcount, int gt, String nick1, Socket sock1, String nick2, Socket sock2, String nick3, Socket sock3){
         //Parameters: num of players, gametype, nickname and socket for every player
+        this.playerCount=pcount;
         this.gameType=gt;
         controllers=new ArrayList<>();
         controllers.add(new Controller(this, sock1));
@@ -53,9 +54,6 @@ public class Game {
         if(pcount==2){
             this.players.add(new Player(pcount, nick1, this));
             this.players.add(new Player(pcount, nick2, this));
-            //this.hands.add(new Hand(players.get(0)));
-            //this.hands.add(new Hand(players.get(1)));
-            this.cardsPlayed =new ArrayList<>();
         }
         else{
             this.players.add(new Player(pcount, nick1, this));
