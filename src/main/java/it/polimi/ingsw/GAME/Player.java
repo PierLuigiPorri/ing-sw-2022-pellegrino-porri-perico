@@ -38,10 +38,6 @@ public class Player {
         return tmp;
     }
 
-    public Game getGame() {
-        return game;
-    }
-
     public String getNickname() {
         return nickname;
     }

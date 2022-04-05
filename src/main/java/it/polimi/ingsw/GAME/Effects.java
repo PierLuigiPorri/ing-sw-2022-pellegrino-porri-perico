@@ -70,7 +70,7 @@ public final class Effects{
                 ArrayList<Integer> studens=new ArrayList<>();
                 ArrayList<String> colors = new ArrayList<>();
                 for(int g=0; g<studens.size(); g++){
-                    game.removeFromHall(game.colorTranslator(colors.get(g)), player);
+                    game.removeFromHall(player, game.colorTranslator(colors.get(g)));
                     game.addStudentToHall(player.getGate().students.get(studens.get(g)).getColor(), player);
                     game.removeFromGate(player, studens.get(g));
                     game.addToGate(player, game.colorTranslator(colors.get(g)));
@@ -81,8 +81,8 @@ public final class Effects{
                 //TODO:chiedere al giocatore quale colore
                 ColorTracker q = null;
                 for(Player pl:game.getPlayers()){
-                    for(int u=0; u<3&&pl.getHall().getColor(q)!=0; u++){
-                        game.removeFromHall(q, pl);
+                    for(int u=0; u<3&&game.getColor(pl, q)!=0; u++){
+                        game.removeFromHall(pl, q);
                     }
                 }
                 game.checkColorChanges(false);

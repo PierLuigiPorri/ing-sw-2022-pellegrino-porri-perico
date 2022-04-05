@@ -344,14 +344,38 @@ public class Game {
         board.clouds.get(indexCloud).removeStudent(indexStudent);
     }
 
-    public void removeFromHall(ColorTracker color, Player player) {
-        try {
-            player.getHall().desetColor(color);
-        }catch (ImpossibleActionException e){
-            System.out.println(e.getMessage());
+    public void removeFromHall(Player p, ColorTracker color){
+        if (color.equals(red)) {
+            p.getHall().desetRed();
+        } else if (color.equals(blue)) {
+            p.getHall().desetBlue();
+        } else if (color.equals(green)) {
+            p.getHall().desetGreen();
+        } else if (color.equals(yellow)) {
+            p.getHall().desetYellow();
+        } else {
+            p.getHall().desetPink();
         }
     }
     ///
+    public int getColor(Player player, ColorTracker color){
+        if (color.equals(red)) {
+            return player.getHall().getRed();
+        }
+        else if (color.equals(blue)) {
+            return player.getHall().getBlue();
+        }
+        else if (color.equals(green)) {
+            return player.getHall().getGreen();
+        }
+        else if (color.equals(yellow)) {
+            return player.getHall().getYellow();
+        }
+        else {
+            return player.getHall().getPink();
+        }
+    }
+
     public void checkColorChanges(boolean rule){
         ArrayList<ColorTracker> colors=new ArrayList<>();
         colors.add(red);
@@ -363,13 +387,13 @@ public class Game {
             Player max=ct.getPlayer();
             if(rule){
                 for(Player pl:players){
-                    if(pl.getHall().getColor(ct)>=max.getHall().getColor(ct) && !pl.equals(max))
+                    if(getColor(pl, ct)>=getColor(max, ct) && !pl.equals(max))
                         max=pl;
                 }
             }
             else{
                 for(Player pl:players){
-                    if(pl.getHall().getColor(ct)>max.getHall().getColor(ct) && !pl.equals(max))
+                    if(getColor(pl, ct)>getColor(max, ct) && !pl.equals(max))
                         max=pl;
                 }
             }

@@ -41,40 +41,6 @@ public class Hall {
         //TODO: PER DAVIDE: Questa linea di codice non va qui, va in game dove segnalato (metodo addStudentToHall)
     }
 
-    public void desetColor(ColorTracker color) throws ImpossibleActionException {
-        if(getColor(color)>0) {
-            if (color.getColor().equals(Color.RED)) {
-                this.red--;
-            } else if (color.getColor().equals(Color.BLUE)) {
-                this.blue--;
-            } else if (color.getColor().equals(Color.GREEN)) {
-                this.green--;
-            } else if (color.getColor().equals(Color.YELLOW)) {
-                this.yellow--;
-            } else {
-                this.pink--;
-            }
-        }else throw new ImpossibleActionException("Impossible to delete "+color.getColor()+" from Hall, it's alredy zero.\n");
-    }
-
-    public int getColor(ColorTracker color){
-        if (color.equals(player.getGame().red)) {
-            return getRed();
-        }
-        else if (color.equals(player.getGame().blue)) {
-            return getBlue();
-        }
-        else if (color.equals(player.getGame().green)) {
-            return getGreen();
-        }
-        else if (color.equals(player.getGame().yellow)) {
-            return getYellow();
-        }
-        else {
-            return getPink();
-        }
-    }
-
     public int getRed() {
         return red;
     }
@@ -84,7 +50,11 @@ public class Hall {
         this.player.addCoin();
     }
 
-    private int getBlue() {
+    public void desetRed(){
+        this.red--;
+    }
+
+    public int getBlue() {
         return blue;
     }
 
@@ -93,7 +63,11 @@ public class Hall {
         this.player.addCoin();
     }
 
-    private int getGreen() {
+    public void desetBlue(){
+        this.blue--;
+    }
+
+    public int getGreen() {
         return green;
     }
 
@@ -102,7 +76,11 @@ public class Hall {
         this.player.addCoin();
     }
 
-    private int getPink() {
+    public void desetGreen(){
+        this.green--;
+    }
+
+    public int getPink() {
         return pink;
     }
 
@@ -111,13 +89,21 @@ public class Hall {
         this.player.addCoin();
     }
 
-    private int getYellow() {
+    public void desetPink(){
+        this.pink--;
+    }
+
+    public int getYellow() {
         return yellow;
     }
 
     private void setYellow() {
         this.yellow++;
         this.player.addCoin();
+    }
+
+    public void desetYellow(){
+        this.yellow--;
     }
 
     public void activateCard(){
