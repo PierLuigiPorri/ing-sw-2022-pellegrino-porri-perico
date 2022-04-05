@@ -7,6 +7,7 @@ import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.net.Socket;
 
 public class Game {
     private int gameType; //0: regole semplificate, 1: regole esperto
