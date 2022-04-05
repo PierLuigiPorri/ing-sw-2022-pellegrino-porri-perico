@@ -13,7 +13,7 @@ public class Game {
     private int gameType; //0: regole semplificate, 1: regole esperto
     private final ArrayList<Player> players;
     private ArrayList<Controller> controllers;
-    private Card[] cardsPlayed;
+    private ArrayList<Card> cardsPlayed;
     private final Bag bag;
     private final Board board;
     public final ColorTracker red, blue, green, yellow, pink;
@@ -56,7 +56,7 @@ public class Game {
             this.players.add(new Player(nick2, this));
             //this.hands.add(new Hand(players.get(0)));
             //this.hands.add(new Hand(players.get(1)));
-            this.cardsPlayed =new Card[3];
+            this.cardsPlayed =new ArrayList<>();
         }
         else{
             this.players.add(new Player(pcount, nick1, this));
@@ -78,31 +78,31 @@ public class Game {
         if(playerCount>1 && playerCount<4) {
             if (playerCount == 2) {
                 if (roundMaster.getRoundCount() == 0) {
-                    Player[] players = new Player[2];
-                    players[0] = this.players.get(0);
-                    players[1] = this.players.get(1);
+                    ArrayList <Player> players= new ArrayList<>();
+                    players.add(this.players.get(0));
+                    players.add(this.players.get(1));
                     roundMaster = new RoundMaster(players);
                 } else throw new GameException("Game already started!\n");
             }
             if (playerCount == 3) {
                 if (roundMaster.getRoundCount() == 0) {
-                    Player[] players = new Player[3];
-                    players[0] = this.players.get(0);
-                    players[1] = this.players.get(1);
-                    players[2] = this.players.get(2);
+                    ArrayList <Player> players= new ArrayList<>();
+                    players.add(this.players.get(0));
+                    players.add(this.players.get(1));
+                    players.add(this.players.get(2));
                     roundMaster = new RoundMaster(players);
                 } else throw new GameException("Game already started!\n");
             }
         } else throw new GameException("Number of players not allowed.\n");
     }
 
-    public Player[] changePhase(){
+    public ArrayList<Player> changePhase(){
             int[] tmp = new int[3];
-            Player[] players;
+            ArrayList<Player> players;
 
             for (int i = 0; i < 3; i++) {
-                if(cardsPlayed[i]!=null)
-                    tmp[i] = cardsPlayed[i].getValue();
+                if(cardsPlayed.get(i)!=null)
+                    tmp[i] = cardsPlayed.get(i).getValue();
                 else tmp[i]=11;
             }
             players = roundMaster.changePhase(tmp);
@@ -129,6 +129,17 @@ public class Game {
             return this.players.get(1);
         else
             return this.players.get(2);
+    }
+
+    public void gateToHall(String name, String color){
+        Player player1 = playerTranslator(name);
+        ColorTracker color1 = colorTranslator(color);
+        addStudentToHall(color1, player1);
+        int i=0;
+        while(!player1.getGate().students.get(i).getColor().equals(color1)){
+            i++;
+        }
+        removeFromGate(player1, i);
     }
 
     public void bagToCloud(int index) throws BoundException{
@@ -257,19 +268,12 @@ public class Game {
         if(index>0 && index<=10) {
             try {
                 Player player1 = playerTranslator(player);
+                int i=0;
+                while(!players.get(i).equals(player1)){
+                    i++;
+                }
+                cardsPlayed.add(this.players.get(i).playCard(index));
 
-                if (this.hands.get(0).player.equals(player1)) {
-                    cardsPlayed[0] = this.hands.get(0).cards[index];
-                    this.hands.get(0).cards[index] = null;
-                }
-                if (this.hands.get(1).player.equals(player1)) {
-                    cardsPlayed[1] = this.hands.get(1).cards[index];
-                    this.hands.get(1).cards[index] = null;
-                }
-                if (this.hands.get(2).player.equals(player1)) {
-                    cardsPlayed[2] = this.hands.get(2).cards[index];
-                    this.hands.get(2).cards[index] = null;
-                }
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -281,7 +285,7 @@ public class Game {
         if(p.getCoins()>= characterSelector.getCost(id)){
             p.removeCoin(characterSelector.getCost(id));
             characterSelector.applyEffect(id, p);
-        }else throw new ImpossibleActionException("Not enough coins!\n")
+        }else throw new ImpossibleActionException("Not enough coins!\n");
     }
 
     public ArrayList<Player> getPlayers(){

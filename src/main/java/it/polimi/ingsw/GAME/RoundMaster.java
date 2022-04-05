@@ -1,13 +1,13 @@
 package it.polimi.ingsw.GAME;
 
+import java.util.ArrayList;
+
 public class RoundMaster{
     private int roundCount;
     public Round round;
-    private Player[] players;
+    private ArrayList<Player> players;
 
-
-
-    public RoundMaster(Player[] players) {
+    public RoundMaster(ArrayList<Player> players) {
         this.roundCount = 0;
         round = new Round(players);
     }
@@ -17,12 +17,12 @@ public class RoundMaster{
         Effects.restore();
     }
 
-    public Player[] changePhase(int[] index) {  //restituisce l'ordine di gioco della fase successiva.
+    public ArrayList<Player> changePhase(int[] index) {  //restituisce l'ordine di gioco della fase successiva.
         if (this.round.getCurrentPhase().equals("Pianificazione")) {
-            players = round.nextAzione(index, 0);
+            players = round.nextAzione(index);
             round.setCurrentPhase("Azione");
         } else {
-            players[0] = endRound(index);
+            players.add(endRound(index));
         }
         return players;
     }
@@ -38,7 +38,7 @@ public class RoundMaster{
         return roundCount;
     }
 
-    public Player[] getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 

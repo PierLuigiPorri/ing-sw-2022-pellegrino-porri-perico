@@ -36,8 +36,8 @@ public class Player {
     }
 
     public Card playCard(int index){
-        Card tmp=this.hand.cards[index];
-        this.hand.cards[index]=null;
+        Card tmp=this.hand.cards.get(index);
+        this.hand.cards.remove(index);
         return tmp;
     }
 

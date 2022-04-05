@@ -32,6 +32,10 @@ public class Controller implements Runnable{
         }
     }
 
+    public void gateToHall(String name, String color){
+        game.gateToHall(name, color);
+    }
+
     public void CloudToGate(String player, String color, int sIndex, int cIndex) {
         try {
             game.CloudToGate(player, color, sIndex, cIndex);
