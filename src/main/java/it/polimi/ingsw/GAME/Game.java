@@ -27,7 +27,7 @@ public class Game {
     private int InfluenceBonus=0;
     private Player PwBonus;
 
-    public Game(int pcount, int gt, String nick1, Socket sock1, String nick2, Socket sock2, String nick3, Socket sock3){
+    public Game(int pcount, int gt, String nick1, Socket sock1, String nick2, Socket sock2, String nick3, Socket sock3) throws GameException {
         //Parameters: num of players, gametype, nickname and socket for every player
         this.playerCount=pcount;
         this.gameType=gt;
@@ -75,16 +75,13 @@ public class Game {
                 p.addCoin();
             }
         }
-    }
-
-    public void start() throws GameException {
+        roundMaster = new RoundMaster(players);
         if(playerCount>1 && playerCount<4) {
             if (playerCount == 2) {
                 if (roundMaster.getRoundCount() == 0) {
                     ArrayList <Player> players= new ArrayList<>();
                     players.add(this.players.get(0));
                     players.add(this.players.get(1));
-                    roundMaster = new RoundMaster(players);
                 } else throw new GameException("Game already started!\n");
             }
             if (playerCount == 3) {
@@ -93,10 +90,10 @@ public class Game {
                     players.add(this.players.get(0));
                     players.add(this.players.get(1));
                     players.add(this.players.get(2));
-                    roundMaster = new RoundMaster(players);
                 } else throw new GameException("Game already started!\n");
             }
         } else throw new GameException("Number of players not allowed.\n");
+
     }
 
     public ArrayList<Player> changePhase(){
@@ -318,8 +315,11 @@ public class Game {
 
     public void addStudentToHall(ColorTracker color, Player player) {
         player.getHall().setColor(color);
-        //checkColorChanges(cardActivated); Questa linea era in Hall ma va qui
-        //TODO:Qui va anche controllato se va chiamato addCoin facendo player.gethall.getcolor...
+        //TODO per Davide:
+        // checkColorChanges(cardActivated); Questa linea era in Hall ma va qui
+        if(getColor(player, color)%3==0){
+            player.addCoin();
+        }
     }
 
     public void addToGate(Player p1, ColorTracker color) {

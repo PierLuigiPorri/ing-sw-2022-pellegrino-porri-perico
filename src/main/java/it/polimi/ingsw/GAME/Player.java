@@ -37,6 +37,7 @@ public class Player {
         return tmp;
     }
 
+
     public String getNickname() {
         return nickname;
     }

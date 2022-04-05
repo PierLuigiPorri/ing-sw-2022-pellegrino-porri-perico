@@ -12,11 +12,11 @@ public class BagTest {
 
     @Test
     public void addStudent () {
-        ColorTracker color1= new ColorTracker(Color.RED);
-        ColorTracker color2= new ColorTracker(Color.BLUE);
-        ColorTracker color3= new ColorTracker(Color.GREEN);
-        ColorTracker color4= new ColorTracker(Color.YELLOW);
-        ColorTracker color5= new ColorTracker(Color.PINK);
+        ColorTracker color1= game.red;
+        ColorTracker color2= game.blue;
+        ColorTracker color3= game.green;
+        ColorTracker color4= game.yellow;
+        ColorTracker color5= game.pink;
 
         Assert.assertEquals(120, bag.getSize());
 

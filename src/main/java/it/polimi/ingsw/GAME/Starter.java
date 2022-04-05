@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GAME;
 
+import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.GAME.Creation;
 import it.polimi.ingsw.GAME.Game;
 
@@ -52,8 +53,11 @@ public class Starter implements Runnable{
                 //Creo la partita chiamando la nostra classe Game
                 //e passando gli attributi presenti in partite[index] al costruttore giusto
                 //usando gli appositi getter presenti in Creation
-                Game game=new Game(partite.get(index).getNgioc(), partite.get(index).getGametype(), partite.get(index).getNick1(), partite.get(index).getSock1(), partite.get(index).getNick2(), partite.get(index).getSock2(), partite.get(index).getNick3(), partite.get(index).getSock3());
-
+                try {
+                    Game game = new Game(partite.get(index).getNgioc(), partite.get(index).getGametype(), partite.get(index).getNick1(), partite.get(index).getSock1(), partite.get(index).getNick2(), partite.get(index).getSock2(), partite.get(index).getNick3(), partite.get(index).getSock3());
+                } catch(GameException e){
+                    System.out.println(e.getMessage());
+                }
                 //Se va tutto a buon fine:
                 //TODO: Sincronizzazione per fare in modo che partite sia acceduto da 1 thread per volta
                 partite.remove(index); //Rimozione della partita da quelle in fase di creazione

@@ -19,11 +19,11 @@ public class HallTest {
 
     @Test
     public void setColor() {
-        ColorTracker color1= new ColorTracker(Color.RED);
-        ColorTracker color2= new ColorTracker(Color.BLUE);
-        ColorTracker color3= new ColorTracker(Color.GREEN);
-        ColorTracker color4= new ColorTracker(Color.YELLOW);
-        ColorTracker color5= new ColorTracker(Color.PINK);
+        ColorTracker color1= game.red;
+        ColorTracker color2= game.blue;
+        ColorTracker color3= game.green;
+        ColorTracker color4= game.yellow;
+        ColorTracker color5= game.pink;
         hall.setColor(color1);
         hall.setColor(color1);
         hall.setColor(color2);
@@ -32,11 +32,11 @@ public class HallTest {
         hall.setColor(color3);
         hall.setColor(color1);
 
-        r= hall.getColor(Color.RED);
-        b= hall.getColor(Color.BLUE);
-        g= hall.getColor(Color.GREEN);
-        y= hall.getColor(Color.YELLOW);
-        p= hall.getColor(Color.PINK);
+        r= game.getColor(player, game.red);
+        b= game.getColor(player, game.blue);
+        g= game.getColor(player, game.green);
+        y= game.getColor(player, game.yellow);
+        p= game.getColor(player, game.pink);
 
         Assert.assertEquals(0, y);
         Assert.assertEquals(3, r);
@@ -48,11 +48,12 @@ public class HallTest {
 
     @Test
     public void desetColor() {
-        ColorTracker color1= new ColorTracker(Color.RED);
-        ColorTracker color2= new ColorTracker(Color.BLUE);
-        ColorTracker color3= new ColorTracker(Color.GREEN);
-        ColorTracker color4= new ColorTracker(Color.YELLOW);
-        ColorTracker color5= new ColorTracker(Color.PINK);
+        ColorTracker color1= game.red;
+        ColorTracker color2= game.blue;
+        ColorTracker color3= game.green;
+        ColorTracker color4= game.yellow;
+        ColorTracker color5= game.pink;
+
         hall.setColor(color5);
         hall.setColor(color1);
         hall.setColor(color1);
@@ -75,23 +76,21 @@ public class HallTest {
         hall.setColor(color4);
         hall.setColor(color4);
         hall.setColor(color4);
-        try {
-            hall.desetColor(color1);
-            hall.desetColor(color1);
-            hall.desetColor(color2);
-            hall.desetColor(color3);
-            hall.desetColor(color3);
-            hall.desetColor(color3);
-            hall.desetColor(color1);
-            hall.desetColor(color5);
-        }catch (ImpossibleActionException e){
-            System.out.println(e.getMessage());
-        }
-        r= hall.getColor(Color.RED);
-        b= hall.getColor(Color.BLUE);
-        g= hall.getColor(Color.GREEN);
-        y= hall.getColor(Color.YELLOW);
-        p= hall.getColor(Color.PINK);
+
+        game.removeFromHall(player, color1);
+        game.removeFromHall(player, color1);
+        game.removeFromHall(player, color2);
+        game.removeFromHall(player, color3);
+        game.removeFromHall(player, color3);
+        game.removeFromHall(player, color3);
+        game.removeFromHall(player, color1);
+        game.removeFromHall(player, color5);
+
+        r= game.getColor(player, game.red);
+        b= game.getColor(player, game.blue);
+        g= game.getColor(player, game.green);
+        y= game.getColor(player, game.yellow);
+        p= game.getColor(player, game.pink);
 
         Assert.assertEquals(5, y);
         Assert.assertEquals(2, r);
@@ -104,7 +103,7 @@ public class HallTest {
     @Before
     public void setUp() throws Exception {
         game=new Game(2, 0, "Pier", null, "Paolo", null, null, null);
-        player=new Player("Pier", game);
+        player=new Player(2, "Pier", game);
         hall=new Hall();
     }
 
