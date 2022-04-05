@@ -41,7 +41,7 @@ public class Game {
         }
 
         this.players=new ArrayList<>();
-        //this.hands=new ArrayList<>();
+        this.cardsPlayed=new ArrayList<>();
         this.red=new ColorTracker(Color.RED);
         this.blue=new ColorTracker(Color.BLUE);
         this.green=new ColorTracker(Color.GREEN);
@@ -51,9 +51,8 @@ public class Game {
         this.characterSelector=new CharacterSelector();
         this.board=new Board(pcount,this);
         if(pcount==2){
-
-            this.players.add(new Player(nick1, this));
-            this.players.add(new Player(nick2, this));
+            this.players.add(new Player(pcount, nick1, this));
+            this.players.add(new Player(pcount, nick2, this));
             //this.hands.add(new Hand(players.get(0)));
             //this.hands.add(new Hand(players.get(1)));
             this.cardsPlayed =new ArrayList<>();
@@ -62,9 +61,15 @@ public class Game {
             this.players.add(new Player(pcount, nick1, this));
             this.players.add(new Player(pcount, nick2, this));
             this.players.add(new Player(pcount, nick3, this));
-            //this.hands.add(new Hand(players.get(0)));
-            //this.hands.add(new Hand(players.get(1)));
-            //this.hands.add(new Hand(players.get(2)));
+        }
+        for (Player p: players) {
+            for(int i=0; i< p.getGate().getMAX(); i++){
+                try {
+                    p.getGate().addInitialStud(bag.extractStudent());
+                }catch (ImpossibleActionException e){
+                    System.out.println(e.getMessage());
+                }
+            }
         }
         this.motherNature=new MotherNature(board.islands.getIsland(1));
         if(this.gameType==1){
@@ -315,6 +320,7 @@ public class Game {
 
     public void addStudentToHall(ColorTracker color, Player player) {
         player.getHall().setColor(color);
+        //checkColorChanges(cardActivated); Questa linea era in Hall ma va qui
     }
 
     public void addToGate(Player p1, ColorTracker color) {

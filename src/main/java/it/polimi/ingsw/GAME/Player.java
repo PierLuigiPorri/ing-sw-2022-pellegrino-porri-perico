@@ -1,7 +1,7 @@
 package it.polimi.ingsw.GAME;
 
 public class Player {
-    private final Game game;
+    //private final Game game;
     public final String nickname;
     private final Hand hand;
     private final Gate gate;
@@ -12,27 +12,24 @@ public class Player {
     public int maxMoves;
 
     public Player(int pcount, String string, Game game){
-        this.game=game;
+        //this.game=game;
         this.nickname=string;
-        this.tower_count=6;
-        this.gate=new Gate(pcount, this);
-        this.maxMoves=4;
-        this.hall=new Hall(this);
-        this.hand=new Hand(this);
-    }
+        if(pcount==2){
+            this.tower_count=8;
+            this.maxMoves=3;
+        }
+        else{
+            this.tower_count=6;
+            this.maxMoves=4;
+        }
+        this.gate=new Gate(pcount);
 
-    public Player(String string, Game game){
-        this.game=game;
-        this.nickname=string;
-        this.tower_count=8;
-        this.gate=new Gate(this);
-        this.maxMoves=3;
         this.hall=new Hall(this);
         this.hand=new Hand(this);
     }
 
     public void addCoin(){
-        if(this.getGame().getGameType()==1) this.coins++;
+        this.coins++;
     }
 
     public Card playCard(int index){

@@ -5,34 +5,25 @@ import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import java.util.ArrayList;
 
 public class Gate extends StudentSpace{
-    public Player player;
+    //public Player player;
     public int MAX;
-    public ArrayList<Student> students;
 
-    public Gate(int pcount, Player player) {
-        this.player = player;
-        this.MAX=9;
-        this.students=new ArrayList<>();
-        for(int i=0; i<9; i++){
-            try {
-                this.students.add(player.getGame().getBg().extractStudent());
-            }catch (ImpossibleActionException e){
-                System.out.println(e.getMessage());
-            }
+    public Gate(int pcount) {
+        if(pcount==2){
+            this.MAX=7;
         }
+        else {
+            this.MAX = 9;
+        }
+        this.students=new ArrayList<>();
     }
 
-    public Gate(Player player){
-        this.player=player;
-        this.MAX=7;
-        this.students=new ArrayList<>();
-        for(int i=0; i<7; i++) {
-            try {
-                this.students.add(player.getGame().getBg().extractStudent());
-            }catch (ImpossibleActionException e){
-                System.out.println(e.getMessage());
-            }
-        }
+    public void addInitialStud(Student student){
+        this.students.add(student);
+    }
+
+    public int getMAX() {
+        return MAX;
     }
 
     public ArrayList<Student> getStudents() {
@@ -42,11 +33,6 @@ public class Gate extends StudentSpace{
     public void removeStudent(int index) {
         //TODO:ricordiamoci di fare il controllo che il colore da rimuovere ci sia effettivamente, al lato controller
         students.remove(index);
-    }
-
-
-    public Player getPlayer() {
-        return player;
     }
 
     @Override

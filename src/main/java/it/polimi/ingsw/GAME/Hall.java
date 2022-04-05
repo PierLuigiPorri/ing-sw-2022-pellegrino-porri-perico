@@ -37,7 +37,8 @@ public class Hall {
             setPink();
             }
 
-        player.getGame().checkColorChanges(cardActivated);
+        //player.getGame().checkColorChanges(cardActivated);
+        //TODO: PER DAVIDE: Questa linea di codice non va qui, va in game dove segnalato (metodo addStudentToHall)
     }
 
     public void desetColor(ColorTracker color) throws ImpossibleActionException {
