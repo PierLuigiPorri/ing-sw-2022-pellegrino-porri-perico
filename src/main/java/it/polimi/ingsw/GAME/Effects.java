@@ -44,6 +44,7 @@ public final class Effects{
         switch(index){
             case 1: //TODO: prima di attivare questo effetto, nel caso in cui il giocatore non abbia lo stesso numero di studenti
                     //di chi ha il professore, di conseguenza la carta non avrà effetto immediato, chiedere se davvero vuole attivarla
+                player.getHall().activateCard();
                 break;
             case 2:
                 //TODO:chiedere l'isola al player
@@ -74,6 +75,7 @@ public final class Effects{
                     game.removeFromGate(player, studens.get(g));
                     game.addToGate(player, game.colorTranslator(colors.get(g)));
                 }
+                game.checkColorChanges(false);
                 break;
             case 11:
                 //TODO:chiedere al giocatore quale colore
@@ -83,6 +85,7 @@ public final class Effects{
                         game.removeFromHall(q, pl);
                     }
                 }
+                game.checkColorChanges(false);
                 break;
             default:break;
         }
@@ -138,6 +141,9 @@ public final class Effects{
         game.yellow.restoreInfluence();
         game.green.restoreInfluence();
         game.pink.restoreInfluence();
+        for(Player p:game.getPlayers()){
+            p.getHall().disableCard();
+        }
     }
 
     public static void setTD(ConcreteCharacter c){

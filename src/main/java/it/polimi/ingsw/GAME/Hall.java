@@ -8,7 +8,8 @@ public class Hall {
     private int green;
     private int pink;
     private int yellow;
-    private Player player;
+    private final Player player;
+    private boolean cardActivated=false;
 
     public Hall(Player p) {
         this.red = 0;
@@ -35,10 +36,12 @@ public class Hall {
         else {
             setPink();
             }
+
+        player.getGame().checkColorChanges(cardActivated);
     }
 
     public void desetColor(ColorTracker color) throws ImpossibleActionException {
-        if(getColor(color.getColor())>0) {
+        if(getColor(color)>0) {
             if (color.getColor().equals(Color.RED)) {
                 this.red--;
             } else if (color.getColor().equals(Color.BLUE)) {
@@ -114,5 +117,13 @@ public class Hall {
     private void setYellow() {
         this.yellow++;
         this.player.addCoin();
+    }
+
+    public void activateCard(){
+        this.cardActivated=true;
+    }
+
+    public void disableCard(){
+        this.cardActivated=false;
     }
 }

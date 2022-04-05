@@ -287,14 +287,6 @@ public class Game {
         return this.players;
     }
 
-    public Player getP1() {
-        return this.players.get(0);
-    }
-
-    public Player getP2() {
-        return this.players.get(1);
-    }
-
     public Board getB() {
         return board;
     }
@@ -318,7 +310,6 @@ public class Game {
 
     public void addStudentToHall(ColorTracker color, Player player) {
         player.getHall().setColor(color);
-        checkColorChanges(player);
     }
 
     public void addToGate(Player p1, ColorTracker color) {
@@ -350,17 +341,29 @@ public class Game {
         }
     }
     ///
-    private void checkColorChanges(Player player1){
-        if( players.get(1).getHall().getColor(Color.RED)>players.get(2).getHall().getColor(Color.RED) &&  players.get(1).getHall().getColor(Color.RED)>players.get(3).getHall().getColor(Color.RED))
-            red.setPlayer(player1);
-        if( players.get(1).getHall().getColor(Color.BLUE)>players.get(2).getHall().getColor(Color.BLUE) &&  players.get(1).getHall().getColor(Color.BLUE)>players.get(3).getHall().getColor(Color.BLUE))
-            blue.setPlayer(player1);
-        if( players.get(1).getHall().getColor(Color.GREEN)>players.get(2).getHall().getColor(Color.GREEN) &&  players.get(1).getHall().getColor(Color.GREEN)>players.get(3).getHall().getColor(Color.GREEN))
-            green.setPlayer(player1);
-        if( players.get(1).getHall().getColor(Color.YELLOW)>players.get(2).getHall().getColor(Color.YELLOW) &&  players.get(1).getHall().getColor(Color.YELLOW)>players.get(3).getHall().getColor(Color.YELLOW))
-            yellow.setPlayer(player1);
-        if( players.get(1).getHall().getColor(Color.PINK)>players.get(2).getHall().getColor(Color.PINK) &&  players.get(1).getHall().getColor(Color.PINK)>players.get(3).getHall().getColor(Color.PINK))
-            pink.setPlayer(player1);
+    public void checkColorChanges(boolean rule){
+        ArrayList<ColorTracker> colors=new ArrayList<>();
+        colors.add(red);
+        colors.add(blue);
+        colors.add(yellow);
+        colors.add(green);
+        colors.add(pink);
+        for(ColorTracker ct:colors){
+            Player max=ct.getPlayer();
+            if(rule){
+                for(Player pl:players){
+                    if(pl.getHall().getColor(ct)>=max.getHall().getColor(ct) && !pl.equals(max))
+                        max=pl;
+                }
+            }
+            else{
+                for(Player pl:players){
+                    if(pl.getHall().getColor(ct)>max.getHall().getColor(ct) && !pl.equals(max))
+                        max=pl;
+                }
+            }
+            ct.setPlayer(max);
+        }
     }
 
     private Player playerTranslator(String name) throws IllegalArgumentException{
