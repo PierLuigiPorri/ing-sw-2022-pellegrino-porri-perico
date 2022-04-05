@@ -23,9 +23,8 @@ public class Player {
             this.maxMoves=4;
         }
         this.gate=new Gate(pcount);
-
         this.hall=new Hall();
-        this.hand=new Hand(this);
+        this.hand=new Hand();
     }
 
     public void addCoin(){

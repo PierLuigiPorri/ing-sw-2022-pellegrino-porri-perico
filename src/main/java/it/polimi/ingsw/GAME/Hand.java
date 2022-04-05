@@ -3,12 +3,10 @@ package it.polimi.ingsw.GAME;
 import java.util.ArrayList;
 
 public class Hand {
-    public Player player;
     public ArrayList<Card> cards; //TODO: Questa roba dev'essere un'Array List
 
 //TODO: impostare il corretto valore di MOVIMENTO alle varie carte.
-    public Hand(Player player){
-        this.player=player;
+    public Hand(){
         cards=new ArrayList<>();
         cards.add(new Card(0,0)); //CARD[0] serve in classe ROUND.
         cards.add(new Card(1, 1));
