@@ -29,6 +29,7 @@ public class Game {
 
     public Game(int pcount, int gt, String nick1, Socket sock1, String nick2, Socket sock2, String nick3, Socket sock3){
         //Parameters: num of players, gametype, nickname and socket for every player
+        this.gameType=gt;
         controllers=new ArrayList<>();
         controllers.add(new Controller(this, sock1));
         controllers.add(new Controller(this, sock2));
