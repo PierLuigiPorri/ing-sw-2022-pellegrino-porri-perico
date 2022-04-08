@@ -21,7 +21,7 @@ public class Island extends StudentSpace implements TDSpace{
 
 
     @Override
-    public void addStudent(ColorTracker color){
+    public void addStudent(String color){
         this.students.add(new Student(color));
     }
 

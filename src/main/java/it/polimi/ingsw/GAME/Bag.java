@@ -14,28 +14,28 @@ public class Bag {
         this.game=game;
         this.students=new ArrayList<>();
         for (int i = 0; i < 24; i++) {
-            this.students.add(new Student(game.red));
+            this.students.add(new Student("RED"));
         }
         for (int i = 0; i < 24; i++) {
-            this.students.add(new Student(game.blue));
+            this.students.add(new Student("BLUE"));
         }
         for (int i = 0; i < 24; i++) {
-            this.students.add(new Student(game.yellow));
+            this.students.add(new Student("YELLOW"));
         }
         for (int i = 0; i < 24; i++) {
-            this.students.add(new Student(game.green));
+            this.students.add(new Student("GREEN"));
         }
         for (int i = 0; i < 24; i++) {
-            this.students.add(new Student(game.pink));
+            this.students.add(new Student("PINK"));
         }
         Collections.shuffle(this.students);
     }
 
-    public void addStudent(ColorTracker color) throws ImpossibleActionException {
+    public void addStudent(String color) throws ImpossibleActionException {
         if(this.students.size()<MAX) {
             //TODO:assert students.size()<MAX, non dovrebbe succedere ma non si sa mai
             this.students.add(new Student(color));
-            //Collections.shuffle(this.students);
+            Collections.shuffle(this.students);
         }else throw new ImpossibleActionException("The Bag is full, impossible to add students");
     }
 

@@ -26,19 +26,19 @@ public class Board {
         //Scelta random di uno studente per isola (tranne che in isola 6) fra 10 studenti(2R, 2G, 2B, 2Y, 2P)
         ArrayList<Student> firstSt=new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(game.red));
+            firstSt.add(new Student("RED"));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(game.green));
+            firstSt.add(new Student("GREEN"));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(game.yellow));
+            firstSt.add(new Student("YELLOW"));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(game.blue));
+            firstSt.add(new Student("BLUE"));
         }
         for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student(game.pink));
+            firstSt.add(new Student("PINK"));
         }
         Collections.shuffle(firstSt);
         while(!p.equals(islands.tail)) {

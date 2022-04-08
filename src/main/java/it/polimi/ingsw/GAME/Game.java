@@ -10,17 +10,16 @@ import java.util.Collections;
 import java.net.Socket;
 
 public class Game {
+    public int playerCount;
     private int gameType; //0: regole semplificate, 1: regole esperto
     private final ArrayList<Player> players;
     private ArrayList<Controller> controllers;
-    private ArrayList<Card> cardsPlayed;
+    private ArrayList<Card> cardsPlayed;  //Cards played in this round
     private final Bag bag;
     private final Board board;
     public final ColorTracker red, blue, green, yellow, pink;
     public RoundMaster roundMaster;
-    public int playerCount;
     private Player winner;
-    //private final ArrayList<Hand> hands;
     private final CharacterSelector characterSelector;
     private final MotherNature motherNature;
     private int MNbonus=0;
@@ -133,10 +132,9 @@ public class Game {
 
     public void gateToHall(String name, String color){
         Player player1 = playerTranslator(name);
-        ColorTracker color1 = colorTranslator(color);
-        addStudentToHall(color1, player1);
+        addStudentToHall(color, player1);
         int i=0;
-        while(!player1.getGate().students.get(i).getColor().equals(color1)){
+        while(!(player1.getGate().students.get(i).getColor()==color)){
             i++;
         }
         removeFromGate(player1, i);
@@ -159,10 +157,9 @@ public class Game {
     public void gateToIsland(String name, int index, int indexIsland, String color) throws BoundException{
         try {
             Player player1 = playerTranslator(name);
-            ColorTracker color1 = colorTranslator(color);
 
             if(player1.getGate().students.size() >= player1.getGate().MAX - 2) {
-                addStudentToIsland(color1, indexIsland);
+                addStudentToIsland(color, indexIsland);
                 removeFromGate(player1, index);
             } else  throw new BoundException(player1 + " can't place anymore students.\n");
 
@@ -175,10 +172,9 @@ public class Game {
 
         try {
             Player p = playerTranslator(player);
-            ColorTracker color1 = colorTranslator(color);
 
             if (p.getGate().students.size() < p.getGate().MAX - 2 && !board.clouds.get(sIndex).students.isEmpty()) {
-                addToGate(p, color1);
+                addToGate(p, color);
                 removeFromCloud(cIndex, sIndex);
             } else throw new BoundException("Not enough space in" +p+ "gate, or the cloud is empty.\n");
 
@@ -225,7 +221,7 @@ public class Game {
                 }
             }
             for (Student s : this.board.islands.getIsland(index).getStudents()) {
-                p.set(players.indexOf(s.getColor().getPlayer()), p.get(players.indexOf(s.getColor().getPlayer())) + s.getInfluence());
+                p.set(players.indexOf(colorTranslator(s.getColor()).getPlayer()), p.get(players.indexOf(colorTranslator(s.getColor()).getPlayer())) + colorTranslator(s.getColor()).getInfluence());
             }
             Collections.sort(p);
             if (!p.get(p.size()-1).equals(p.get(p.size()-2))) {
@@ -309,24 +305,42 @@ public class Game {
     }
 
     ///
-    public void addStudentToCloud(ColorTracker color, int index) {
+    public void addStudentToCloud(String color, int index) {
         board.clouds.get(index).addStudent(color);
     }
 
-    public void addStudentToHall(ColorTracker color, Player player) {
+    public void addStudentToHall(String color, Player player) {
         player.getHall().setColor(color);
         //TODO per Davide:
         // checkColorChanges(cardActivated); Questa linea era in Hall ma va qui
-        if(getColor(player, color)%3==0){
+        if(player.getHall().getColor(color)%3==0){
             player.addCoin();
         }
     }
 
-    public void addToGate(Player p1, ColorTracker color) {
+    /*public int getColor(Player player, String color){
+        if (color.equals(red)) {
+            return player.getHall().getRed();
+        }
+        else if (color.equals(blue)) {
+            return player.getHall().getBlue();
+        }
+        else if (color.equals(green)) {
+            return player.getHall().getGreen();
+        }
+        else if (color.equals(yellow)) {
+            return player.getHall().getYellow();
+        }
+        else {
+            return player.getHall().getPink();
+        }
+    }*/
+
+    public void addToGate(Player p1, String color) {
         p1.getGate().addStudent(color);
     }
 
-    public void addStudentToIsland(ColorTracker color, int index) {
+    public void addStudentToIsland(String color, int index) {
         board.islands.getIsland(index).addStudent(color);
     }
     ///
@@ -343,60 +357,34 @@ public class Game {
         board.clouds.get(indexCloud).removeStudent(indexStudent);
     }
 
-    public void removeFromHall(Player p, ColorTracker color){
-        if (color.equals(red)) {
-            p.getHall().desetRed();
-        } else if (color.equals(blue)) {
-            p.getHall().desetBlue();
-        } else if (color.equals(green)) {
-            p.getHall().desetGreen();
-        } else if (color.equals(yellow)) {
-            p.getHall().desetYellow();
-        } else {
-            p.getHall().desetPink();
-        }
+    public void removeFromHall(Player p, String color){ //Probabilmente con le modifiche a Student questo metodo diventa inutile
+        p.getHall().desetColor(color);
     }
     ///
-    public int getColor(Player player, ColorTracker color){
-        if (color.equals(red)) {
-            return player.getHall().getRed();
-        }
-        else if (color.equals(blue)) {
-            return player.getHall().getBlue();
-        }
-        else if (color.equals(green)) {
-            return player.getHall().getGreen();
-        }
-        else if (color.equals(yellow)) {
-            return player.getHall().getYellow();
-        }
-        else {
-            return player.getHall().getPink();
-        }
-    }
+
 
     public void checkColorChanges(boolean rule){
-        ArrayList<ColorTracker> colors=new ArrayList<>();
-        colors.add(red);
-        colors.add(blue);
-        colors.add(yellow);
-        colors.add(green);
-        colors.add(pink);
-        for(ColorTracker ct:colors){
-            Player max=ct.getPlayer();
+        ArrayList<String> colors=new ArrayList<>();
+        colors.add("RED");
+        colors.add("BLUE");
+        colors.add("YELLOW");
+        colors.add("GREEN");
+        colors.add("PINK");
+        for(String ct:colors){
+            Player max=colorTranslator(ct).getPlayer();
             if(rule){
                 for(Player pl:players){
-                    if(getColor(pl, ct)>=getColor(max, ct) && !pl.equals(max))
+                    if(pl.getHall().getColor(ct)>=max.getHall().getColor(ct) && !pl.equals(max))
                         max=pl;
                 }
             }
             else{
                 for(Player pl:players){
-                    if(getColor(pl, ct)>getColor(max, ct) && !pl.equals(max))
+                    if(pl.getHall().getColor(ct)>pl.getHall().getColor(ct) && !pl.equals(max))
                         max=pl;
                 }
             }
-            ct.setPlayer(max);
+            colorTranslator(ct).setPlayer(max);
         }
     }
 

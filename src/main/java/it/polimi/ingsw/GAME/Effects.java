@@ -67,22 +67,22 @@ public final class Effects{
                 break;
             case 9:
                 //TODO:chiedere al player quali selezionare nel suo Gate, e quale/i colore/i selezionare nel suo Hall
-                ArrayList<Integer> studens=new ArrayList<>();
+                ArrayList<Integer> students=new ArrayList<>();
                 ArrayList<String> colors = new ArrayList<>();
-                for(int g=0; g<studens.size(); g++){
-                    game.removeFromHall(player, game.colorTranslator(colors.get(g)));
-                    game.addStudentToHall(player.getGate().students.get(studens.get(g)).getColor(), player);
-                    game.removeFromGate(player, studens.get(g));
-                    game.addToGate(player, game.colorTranslator(colors.get(g)));
+                for(int g=0; g<students.size(); g++){
+                    game.removeFromHall(player, colors.get(g));
+                    game.addStudentToHall(player.getGate().students.get(students.get(g)).getColor(), player);
+                    game.removeFromGate(player, students.get(g));
+                    game.addToGate(player, colors.get(g));
                 }
                 game.checkColorChanges(false);
                 break;
             case 11:
                 //TODO:chiedere al giocatore quale colore
-                ColorTracker q = null;
+                String q = null; //Colore scelto dal giocatore
                 for(Player pl:game.getPlayers()){
-                    for(int u=0; u<3&&game.getColor(pl, q)!=0; u++){
-                        game.removeFromHall(pl, q);
+                    for(int u=0; u<3&&pl.getHall().getColor(q)!=0; u++){
+                        pl.getHall().desetColor(q);
                     }
                 }
                 game.checkColorChanges(false);

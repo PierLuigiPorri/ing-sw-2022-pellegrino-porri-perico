@@ -1,17 +1,17 @@
 package it.polimi.ingsw.GAME;
 
 public class Student{
-    private ColorTracker color;
+    private String color;
 
-    public Student(ColorTracker color){
-        this.color=color;;
+    public Student(String color){
+        this.color=color;
     }
 
-    public ColorTracker getColor() {
+    public String getColor() {
         return color;
     }
 
-    public int getInfluence(){
+    /*public int getInfluence(){
         return this.color.getInfluence();
-    }
+    }*/
 }

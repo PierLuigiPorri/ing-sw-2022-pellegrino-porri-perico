@@ -19,17 +19,17 @@ public class Hall {
         this.yellow = 0;
     }
 
-    public void setColor(ColorTracker color){
-        if (color.getColor().equals(Color.RED)) {
+    public void setColor(String color){
+        if (color=="RED") {
             setRed();
         }
-        else if (color.getColor().equals(Color.BLUE)) {
+        else if (color=="BLUE") {
             setBlue();
            }
-        else if (color.getColor().equals(Color.GREEN)) {
+        else if (color=="GREEN") {
             setGreen();
         }
-        else if (color.getColor().equals(Color.YELLOW)) {
+        else if (color=="YELLOW") {
             setYellow();
         }
         else {
@@ -40,7 +40,43 @@ public class Hall {
         //TODO: PER DAVIDE: Questa linea di codice non va qui, va in game dove segnalato (metodo addStudentToHall)
     }
 
-    public int getRed() {
+    public void desetColor(String color){
+        if (color=="RED") {
+            desetRed();
+        }
+        else if (color=="BLUE") {
+            desetBlue();
+        }
+        else if (color=="GREEN") {
+            desetGreen();
+        }
+        else if (color=="YELLOW") {
+            desetYellow();
+        }
+        else {
+            desetPink();
+        }
+    }
+
+    public int getColor(String color){
+        if (color=="RED") {
+            return getRed();
+        }
+        else if (color=="BLUE") {
+            return getBlue();
+        }
+        else if (color=="GREEN") {
+            return getGreen();
+        }
+        else if (color=="YELLOW") {
+            return getYellow();
+        }
+        else {
+            return getPink();
+        }
+    }
+
+    private int getRed() {
         return red;
     }
 
@@ -48,11 +84,11 @@ public class Hall {
         this.red++;
     }
 
-    public void desetRed(){
+    private void desetRed(){
         this.red--;
     }
 
-    public int getBlue() {
+    private int getBlue() {
         return blue;
     }
 
@@ -60,11 +96,11 @@ public class Hall {
         this.blue ++;
     }
 
-    public void desetBlue(){
+    private void desetBlue(){
         this.blue--;
     }
 
-    public int getGreen() {
+    private int getGreen() {
         return green;
     }
 
@@ -72,11 +108,11 @@ public class Hall {
         this.green++;
     }
 
-    public void desetGreen(){
+    private void desetGreen(){
         this.green--;
     }
 
-    public int getPink() {
+    private int getPink() {
         return pink;
     }
 
@@ -84,11 +120,11 @@ public class Hall {
         this.pink++;
     }
 
-    public void desetPink(){
+    private void desetPink(){
         this.pink--;
     }
 
-    public int getYellow() {
+    private int getYellow() {
         return yellow;
     }
 
@@ -96,7 +132,7 @@ public class Hall {
         this.yellow++;
     }
 
-    public void desetYellow(){
+    private void desetYellow(){
         this.yellow--;
     }
 
