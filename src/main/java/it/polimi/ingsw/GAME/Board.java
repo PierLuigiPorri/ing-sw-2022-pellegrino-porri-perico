@@ -6,12 +6,8 @@ import java.util.Collections;
 public class Board {
     public ArrayList<Cloud> clouds;
     public final Circularlist islands;
-    private Game game;
 
-
-    public Board(int pcount, Game game){
-
-        this.game=game;
+    public Board(int pcount){
         clouds= new ArrayList<>();
         for(int i=0; i<=pcount; i++){
             clouds.add(new Cloud(pcount+1));
@@ -24,23 +20,8 @@ public class Board {
         Island p=islands.getIsland(2);
 
         //Scelta random di uno studente per isola (tranne che in isola 6) fra 10 studenti(2R, 2G, 2B, 2Y, 2P)
-        ArrayList<Student> firstSt=new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student("RED"));
-        }
-        for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student("GREEN"));
-        }
-        for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student("YELLOW"));
-        }
-        for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student("BLUE"));
-        }
-        for (int i = 0; i < 2; i++) {
-            firstSt.add(new Student("PINK"));
-        }
-        Collections.shuffle(firstSt);
+        ArrayList<Student> firstSt;
+        firstSt=Game.randomStudGenerator(10);
         while(!p.equals(islands.tail)) {
             if (p.getId() != 6) {
                 p.getStudents().add(firstSt.get(firstSt.size()-1));

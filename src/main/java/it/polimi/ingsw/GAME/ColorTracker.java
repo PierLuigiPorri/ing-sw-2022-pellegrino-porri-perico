@@ -1,7 +1,7 @@
 package it.polimi.ingsw.GAME;
 
 public class ColorTracker {
-    protected Color color;
+    private Color color;
     private Player player;
     private int influence=1;
 

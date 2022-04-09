@@ -69,7 +69,7 @@ public class BagTest {
     @Before
     public void setUp() throws Exception {
         game=new Game(2, 0, "Pier", null, "Paolo", null, null, null);
-        bag=new Bag(game);
+        bag=new Bag();
     }
 
     @After

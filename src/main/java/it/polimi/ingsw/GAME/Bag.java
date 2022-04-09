@@ -8,27 +8,10 @@ import java.util.Collections;
 public class Bag {
     private ArrayList<Student> students;
     final int MAX=130;
-    private final Game game;
 
-    public Bag(Game game) {
-        this.game=game;
+    public Bag() {
         this.students=new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            this.students.add(new Student("RED"));
-        }
-        for (int i = 0; i < 24; i++) {
-            this.students.add(new Student("BLUE"));
-        }
-        for (int i = 0; i < 24; i++) {
-            this.students.add(new Student("YELLOW"));
-        }
-        for (int i = 0; i < 24; i++) {
-            this.students.add(new Student("GREEN"));
-        }
-        for (int i = 0; i < 24; i++) {
-            this.students.add(new Student("PINK"));
-        }
-        Collections.shuffle(this.students);
+        this.students=Game.randomStudGenerator(120);
     }
 
     public void addStudent(String color) throws ImpossibleActionException {

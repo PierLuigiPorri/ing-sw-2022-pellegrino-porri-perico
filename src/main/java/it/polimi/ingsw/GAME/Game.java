@@ -47,17 +47,17 @@ public class Game {
         this.green=new ColorTracker(Color.GREEN);
         this.yellow=new ColorTracker(Color.YELLOW);
         this.pink=new ColorTracker(Color.PINK);
-        this.bag=new Bag(this);
+        this.bag=new Bag();
         this.characterSelector=new CharacterSelector();
-        this.board=new Board(pcount,this);
+        this.board=new Board(playerCount);
         if(pcount==2){
-            this.players.add(new Player(pcount, nick1, this));
-            this.players.add(new Player(pcount, nick2, this));
+            this.players.add(new Player(playerCount, nick1, this));
+            this.players.add(new Player(playerCount, nick2, this));
         }
         else{
-            this.players.add(new Player(pcount, nick1, this));
-            this.players.add(new Player(pcount, nick2, this));
-            this.players.add(new Player(pcount, nick3, this));
+            this.players.add(new Player(playerCount, nick1, this));
+            this.players.add(new Player(playerCount, nick2, this));
+            this.players.add(new Player(playerCount, nick3, this));
         }
         for (Player p: players) {
             for(int i=0; i< p.getGate().getMAX(); i++){
@@ -93,6 +93,29 @@ public class Game {
             }
         } else throw new GameException("Number of players not allowed.\n");
 
+    }
+
+    public static ArrayList<Student> randomStudGenerator(int numStud){
+        //This STATIC method generates a shuffled array of Students, equally distributed between colors
+        int numColors=5;
+        ArrayList<Student> students=new ArrayList<>();
+        for (int i = 0; i < numStud/numColors; i++) {
+            students.add(new Student("RED"));
+        }
+        for (int i = 0; i < numStud/numColors; i++) {
+            students.add(new Student("BLUE"));
+        }
+        for (int i = 0; i < numStud/numColors; i++) {
+            students.add(new Student("YELLOW"));
+        }
+        for (int i = 0; i < numStud/numColors; i++) {
+            students.add(new Student("GREEN"));
+        }
+        for (int i = 0; i < numStud/numColors; i++) {
+            students.add(new Student("PINK"));
+        }
+        Collections.shuffle(students);
+        return students;
     }
 
     public ArrayList<Player> changePhase(){
