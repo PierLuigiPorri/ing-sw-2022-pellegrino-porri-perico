@@ -30,16 +30,6 @@ public class Game {
         //Parameters: num of players, gametype, nickname and socket for every player
         this.playerCount=pcount;
         this.gameType=gt;
-        controllers=new ArrayList<>();
-        controllers.add(new Controller(this, sock1));
-        controllers.add(new Controller(this, sock2));
-        if(pcount==3){
-            controllers.add(new Controller(this, sock3));
-        }
-        for(Controller c: controllers){
-            new Thread(c).start();
-        }
-
         this.players=new ArrayList<>();
         this.cardsPlayed=new ArrayList<>();
         this.red=new ColorTracker("RED");
@@ -50,15 +40,13 @@ public class Game {
         this.bag=new Bag();
         this.characterSelector=new CharacterSelector();
         this.board=new Board(playerCount);
-        if(pcount==2){
-            this.players.add(new Player(playerCount, nick1, this));
-            this.players.add(new Player(playerCount, nick2, this));
-        }
-        else{
-            this.players.add(new Player(playerCount, nick1, this));
-            this.players.add(new Player(playerCount, nick2, this));
+
+        this.players.add(new Player(playerCount, nick1, this));
+        this.players.add(new Player(playerCount, nick2, this));
+        if(pcount==3){
             this.players.add(new Player(playerCount, nick3, this));
         }
+
         for (Player p: players) {
             for(int i=0; i< p.getGate().getMAX(); i++){
                 try {
@@ -93,6 +81,15 @@ public class Game {
             }
         } else throw new GameException("Number of players not allowed.\n");
 
+        controllers=new ArrayList<>();
+        controllers.add(new Controller(this, sock1));
+        controllers.add(new Controller(this, sock2));
+        if(playerCount==3){
+            controllers.add(new Controller(this, sock3));
+        }
+        for(Controller c: controllers){
+            new Thread(c).start();
+        }
     }
 
     public static ArrayList<Student> randomStudGenerator(int numStud){
@@ -157,7 +154,7 @@ public class Game {
         Player player1 = playerTranslator(name);
         addStudentToHall(color, player1);
         int i=0;
-        while(!(player1.getGate().students.get(i).getColor()==color)){
+        while(!(player1.getGate().students.get(i).getColor().equals(color))){
             i++;
         }
         removeFromGate(player1, i);

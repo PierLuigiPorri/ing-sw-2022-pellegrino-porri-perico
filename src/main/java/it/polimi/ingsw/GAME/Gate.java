@@ -5,7 +5,6 @@ import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import java.util.ArrayList;
 
 public class Gate extends StudentSpace{
-    //public Player player;
     public int MAX;
 
     public Gate(int pcount) {
