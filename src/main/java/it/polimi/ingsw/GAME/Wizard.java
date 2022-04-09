@@ -2,7 +2,7 @@ package it.polimi.ingsw.GAME;
 
 public class Wizard extends ColorTracker{
 
-    public Wizard(Color color) {
+    public Wizard(String color) {
         super(color);
     }
 

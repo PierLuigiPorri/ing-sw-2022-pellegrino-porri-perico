@@ -42,11 +42,11 @@ public class Game {
 
         this.players=new ArrayList<>();
         this.cardsPlayed=new ArrayList<>();
-        this.red=new ColorTracker(Color.RED);
-        this.blue=new ColorTracker(Color.BLUE);
-        this.green=new ColorTracker(Color.GREEN);
-        this.yellow=new ColorTracker(Color.YELLOW);
-        this.pink=new ColorTracker(Color.PINK);
+        this.red=new ColorTracker("RED");
+        this.blue=new ColorTracker("BLUE");
+        this.green=new ColorTracker("GREEN");
+        this.yellow=new ColorTracker("YELLOW");
+        this.pink=new ColorTracker("PINK");
         this.bag=new Bag();
         this.characterSelector=new CharacterSelector();
         this.board=new Board(playerCount);

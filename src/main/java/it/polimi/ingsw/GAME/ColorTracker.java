@@ -1,11 +1,11 @@
 package it.polimi.ingsw.GAME;
 
 public class ColorTracker {
-    private Color color;
+    private String color;
     private Player player;
     private int influence=1;
 
-    public ColorTracker(Color color){
+    public ColorTracker(String color){
         this.color=color;
         this.player=null;
     }
@@ -18,7 +18,7 @@ public class ColorTracker {
         return influence;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 
