@@ -29,6 +29,7 @@ public class Gate extends StudentSpace{
         return students;
     }
 
+    @Override
     public void removeStudent(int index) {
         //TODO:ricordiamoci di fare il controllo che il colore da rimuovere ci sia effettivamente, al lato controller
         students.remove(index);

@@ -21,6 +21,7 @@ public class Cloud extends StudentSpace{
             i++;
         students.add(new Student(color));
     }
+    @Override
     public void removeStudent(int index){
         students.remove(index);
     }
