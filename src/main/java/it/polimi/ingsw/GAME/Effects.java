@@ -7,9 +7,13 @@ import java.util.ArrayList;
 
 public final class Effects{
 
-    private static Game game;
+    private final Game game;
 
-    public static void initializeConcrete(int index, ConcreteCharacter c){
+    public Effects(Game game){
+        this.game=game;
+    }
+
+    public void initializeConcrete(int index, ConcreteCharacter c){
         c.students=new ArrayList<>();
         // RIGA (9) [c.students=new ArrayList<>();] è STATA SCRITTA DA PIER!!
         // è SOLO UNA ISTANZA PER FAR GIRARE IL TEST, NON SO SE SIA CORRETTO. I TEST PER ORA LI PASSA.
@@ -19,7 +23,7 @@ public final class Effects{
                 c.setMAX(4);
                     for(int i=0; i<c.getMAX(); i++) {
                         try {
-                            c.students.add(game.getBg().extractStudent());
+                            c.students.add(this.game.getBg().extractStudent());
                         }catch (ImpossibleActionException e){
                             System.out.println(e.getMessage());
                         }
@@ -39,7 +43,7 @@ public final class Effects{
     }
 
 
-    public static void apply(int index, Player player) throws ImpossibleActionException {
+    public void apply(int index, Player player) throws ImpossibleActionException {
         //TODO scrivere tutti gli effetti
         switch(index){
             case 1: //TODO: prima di attivare questo effetto, nel caso in cui il giocatore non abbia lo stesso numero di studenti
@@ -91,7 +95,7 @@ public final class Effects{
         }
     }
 
-    public static void applyConcrete(int index, Player player, ConcreteCharacter c){
+    public void applyConcrete(int index, Player player, ConcreteCharacter c){
         switch(index){
             case 0:
                 int i = 0; //TODO:l'indice e l'isola vanno chiesti al giocatore dopo aver attivato la carta
@@ -132,7 +136,7 @@ public final class Effects{
         }
     }
 
-    public static void restore(){
+    public void restore(){     //TODO:capire dove cazzo mettere questo metodo
         Tower.enable();
         game.disableMNbonus();
         game.disableInfluenceBonus();
@@ -146,11 +150,7 @@ public final class Effects{
         }
     }
 
-    public static void setTD(ConcreteCharacter c){
+    public void setTD(ConcreteCharacter c){
         c.addTD();
-    }
-
-    public static void setGame(Game g){
-        game=g;
     }
 }

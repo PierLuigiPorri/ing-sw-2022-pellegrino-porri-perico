@@ -6,17 +6,19 @@ public class ConcreteCharacter extends StudentSpace implements CharacterType{
     private boolean used=false;
     private int TD=4;
     private int MAX;
+    private final Effects effects;
 
-    public ConcreteCharacter(int index, int cost){
+    public ConcreteCharacter(int index, int cost, Effects effects){
+        this.effects=effects;
         this.cost=cost;
         this.index=index;
-        Effects.initializeConcrete(index, this);
+        effects.initializeConcrete(index, this);
     }
 
 
     @Override
     public void applyEffect(Player player) {
-        Effects.applyConcrete(this.index, player, this);
+        effects.applyConcrete(this.index, player, this);
         effectUsed();
     }
 

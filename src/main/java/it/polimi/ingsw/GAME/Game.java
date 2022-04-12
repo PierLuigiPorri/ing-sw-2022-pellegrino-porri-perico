@@ -38,7 +38,7 @@ public class Game {
         this.yellow=new ColorTracker("YELLOW");
         this.pink=new ColorTracker("PINK");
         this.bag=new Bag();
-        this.characterSelector=new CharacterSelector();
+        this.characterSelector=new CharacterSelector(this);
         this.board=new Board(playerCount);
 
         this.players.add(new Player(playerCount, nick1, this));
@@ -331,8 +331,7 @@ public class Game {
 
     public void addStudentToHall(String color, Player player) {
         player.getHall().setColor(color);
-        //TODO per Davide:
-        // checkColorChanges(cardActivated); Questa linea era in Hall ma va qui
+        checkColorChanges(player.getHall().getCardState());
         if(player.getHall().getColor(color)%3==0){
             player.addCoin();
         }

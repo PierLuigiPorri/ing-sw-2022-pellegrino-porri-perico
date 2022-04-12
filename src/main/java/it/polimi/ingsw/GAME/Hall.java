@@ -1,6 +1,7 @@
 package it.polimi.ingsw.GAME;
 
-import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
+
+import java.util.Objects;
 
 public class Hall {
     private int red;
@@ -20,37 +21,34 @@ public class Hall {
     }
 
     public void setColor(String color){
-        if (color=="RED") {
+        if (Objects.equals(color, "RED")) {
             setRed();
         }
-        else if (color=="BLUE") {
+        else if (Objects.equals(color, "BLUE")) {
             setBlue();
            }
-        else if (color=="GREEN") {
+        else if (Objects.equals(color, "GREEN")) {
             setGreen();
         }
-        else if (color=="YELLOW") {
+        else if (Objects.equals(color, "YELLOW")) {
             setYellow();
         }
         else {
             setPink();
             }
-
-        //player.getGame().checkColorChanges(cardActivated);
-        //TODO: PER DAVIDE: Questa linea di codice non va qui, va in game dove segnalato (metodo addStudentToHall)
     }
 
     public void desetColor(String color){
-        if (color=="RED") {
+        if (Objects.equals(color, "RED")) {
             desetRed();
         }
-        else if (color=="BLUE") {
+        else if (Objects.equals(color, "BLUE")) {
             desetBlue();
         }
-        else if (color=="GREEN") {
+        else if (Objects.equals(color, "GREEN")) {
             desetGreen();
         }
-        else if (color=="YELLOW") {
+        else if (Objects.equals(color, "YELLOW")) {
             desetYellow();
         }
         else {
@@ -59,16 +57,16 @@ public class Hall {
     }
 
     public int getColor(String color){
-        if (color=="RED") {
+        if (Objects.equals(color, "RED")) {
             return getRed();
         }
-        else if (color=="BLUE") {
+        else if (Objects.equals(color, "BLUE")) {
             return getBlue();
         }
-        else if (color=="GREEN") {
+        else if (Objects.equals(color, "GREEN")) {
             return getGreen();
         }
-        else if (color=="YELLOW") {
+        else if (Objects.equals(color, "YELLOW")) {
             return getYellow();
         }
         else {
@@ -142,5 +140,9 @@ public class Hall {
 
     public void disableCard(){
         this.cardActivated=false;
+    }
+
+    public boolean getCardState(){
+        return cardActivated;
     }
 }

@@ -7,15 +7,17 @@ public class AbstractCharacter implements CharacterType{
     private int cost;
     private final int index;
     private boolean used=false;
+    private final Effects effects;
 
-    public AbstractCharacter(int index, int cost){
+    public AbstractCharacter(int index, int cost, Effects effects){
+        this.effects=effects;
         this.cost=cost;
         this.index=index;
     }
 
     @Override
     public void applyEffect(Player player) throws ImpossibleActionException {
-        Effects.apply(this.index, player);
+        effects.apply(this.index, player);
         effectUsed();
     }
 

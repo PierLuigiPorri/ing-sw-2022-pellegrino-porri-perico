@@ -14,7 +14,6 @@ public class RoundMaster{
 
     private void startRound() {
         round = new Round(players);
-        Effects.restore();
     }
 
     public ArrayList<Player> changePhase(int[] index) {  //restituisce l'ordine di gioco della fase successiva.
