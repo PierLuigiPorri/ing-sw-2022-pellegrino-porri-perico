@@ -4,6 +4,7 @@ import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Controller implements Runnable{
     public Game game;
@@ -28,24 +29,26 @@ public class Controller implements Runnable{
     public void gateToIsland(String name, int index, int indexIsland, String color) {
         try {
             game.gateToIsland(name, index, indexIsland, color);
-        }catch (BoundException e){
+        }catch (BoundException | ImpossibleActionException e){
             System.out.println(e.getMessage());
         }
     }
 
-    public void gateToHall(String name, String color){
-        game.gateToHall(name, color);
+    public void gateToHall(String name, String color) {
+        try {
+            game.gateToHall(name, color);
+        }catch (ImpossibleActionException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void CloudToGate(String player, String color, int sIndex, int cIndex) {
         try {
             game.CloudToGate(player, color, sIndex, cIndex);
-        }catch (BoundException e){
+        }catch (BoundException | ImpossibleActionException e){
             System.out.println(e.getMessage());
         }
     }
-
-    ///
 
     public void moveMotherNature(int movement) {
         try {

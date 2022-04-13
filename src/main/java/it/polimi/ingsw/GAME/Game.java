@@ -11,18 +11,19 @@ import java.net.Socket;
 
 public class Game {
     public int playerCount;
-    private int gameType; //0: regole semplificate, 1: regole esperto
-    private final ArrayList<Player> players;
-    private ArrayList<Controller> controllers;
+    private int gameType; //0: regole semplificate, 1: regole esperto.
+    private final ArrayList<Player> players; //array of all players.
+    private ArrayList<Player> order; // says the order of each turn in which the players are going to play.
+    private ArrayList<Controller> controllers; // a controllor each player.
     private ArrayList<Card> cardsPlayed;  //Cards played in this round
     private final Bag bag;
     private final Board board;
-    public final ColorTracker red, blue, green, yellow, pink;
-    public RoundMaster roundMaster;
+    public final ColorTracker red, blue, green, yellow, pink; // professors.
+    public RoundMaster roundMaster; //rounds manager.
     private Player winner;
     private final CharacterSelector characterSelector;
     private final MotherNature motherNature;
-    private int MNbonus=0;
+    private int MNbonus=0; // additional movement to Mother Nature; is called by a Character.
     private int InfluenceBonus=0;
     private Player PwBonus;
 
@@ -40,6 +41,7 @@ public class Game {
         this.bag=new Bag();
         this.characterSelector=new CharacterSelector(this);
         this.board=new Board(playerCount);
+        this.order=new ArrayList<>();
 
         this.players.add(new Player(playerCount, nick1, this));
         this.players.add(new Player(playerCount, nick2, this));
@@ -115,23 +117,40 @@ public class Game {
         return students;
     }
 
-    public ArrayList<Player> changePhase(){
+    public void changePhase(){
             int[] tmp = new int[3];
-            ArrayList<Player> players;
 
-            for (int i = 0; i < 3; i++) {
-                if(cardsPlayed.get(i)!=null)
-                    tmp[i] = cardsPlayed.get(i).getValue();
-                else tmp[i]=11;
+            for (int i = 0; i < cardsPlayed.size(); i++) {
+                tmp[i] = cardsPlayed.get(i).getValue();
             }
-            players = roundMaster.changePhase(tmp);
+            this.order = roundMaster.changePhase(tmp);
+
+// If the current phase is Pianificazione, then the clouds need to be restored.
+            if(roundMaster.round.getCurrentPhase().equals("Pianificazione")) {
+                for (int i = 0; i < playerCount+1; i++) {
+                    try {
+                        bagToCloud(1);
+                        bagToCloud(2);
+                        if(playerCount==3){
+                            bagToCloud(3);
+                        }
+                    } catch (BoundException | ImpossibleActionException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            }
+
+//reset the maxmoves of all players.
+        for (Player p: players) {
+                p.maxMoves = playerCount + 1;
+            }
             if (roundMaster.getRoundCount() > 10 ||
                     this.players.get(0).getTower_count() == 0 ||
                     this.players.get(1).getTower_count() == 0 ||
                     this.players.get(2).getTower_count() == 0) {
                 winner = this.gameEnd();
             }
-            return players;
+            cardsPlayed=new ArrayList<>();
     }
 
     public Player gameEnd(){
@@ -150,73 +169,112 @@ public class Game {
             return this.players.get(2);
     }
 
-    public void gateToHall(String name, String color){
-        Player player1 = playerTranslator(name);
-        addStudentToHall(color, player1);
-        int i=0;
-        while(!(player1.getGate().students.get(i).getColor().equals(color))){
-            i++;
-        }
-        removeFromGate(player1, i);
+    public void gateToHall(String name, String color) throws ImpossibleActionException {
+        if(roundMaster.round.getCurrentPhase().equals("Azione")) {
+            Player player1 = playerTranslator(name);
+            addStudentToHall(color, player1);
+            int i = 0;
+            while (!(player1.getGate().students.get(i).getColor().equals(color))) {
+                i++;
+            }
+            removeFromGate(player1, i);
+            player1.maxMoves--;
+        }else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
     }
 
-    public void bagToCloud(int index) throws BoundException{
-        if(bag.getSize()==0)
-            throw new BoundException("The bag is empty!\n");
-        if(index>0 && index <= 2 && board.clouds.get(index).students.size()<3) {
-            try{
-                board.clouds.get(index).addStudent(bag.extractStudent().getColor());
-            }catch (ImpossibleActionException e){
+    public void bagToCloud(int index) throws BoundException, ImpossibleActionException {
+        if (roundMaster.round.getCurrentPhase().equals("Azione")) {
+            if (bag.getSize() == 0)
+                throw new BoundException("The bag is empty!\n");
+            if (index > 0 && index <= 3 && board.clouds.get(index).students.size() < playerCount + 1) {
+                try {
+                    board.clouds.get(index).addStudent(bag.extractStudent().getColor());
+                } catch (ImpossibleActionException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else throw new BoundException("INDEX OUT OF BOUND!\n");
+        }else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
+    }
+
+    public void gateToIsland(String name, int index, int indexIsland, String color) throws BoundException, ImpossibleActionException {
+        if(roundMaster.round.getCurrentPhase().equals("Azione")) {
+            try {
+                Player player1 = playerTranslator(name);
+
+                if (player1.getGate().students.size() >= player1.getGate().MAX - 2) {
+                    addStudentToIsland(color, indexIsland);
+                    removeFromGate(player1, index);
+                    player1.maxMoves--;
+                } else throw new BoundException(player1 + " can't place anymore students.\n");
+
+                if (player1.maxMoves == 0) {
+// TODO:L'utente ha finito le mosse possibili nella fase di azione,
+//  quindi deve scegliere da quale nuvola prendere gli studenti.
+//  waitforInput(....); CloudtoGate(....)
+                }
+
+            } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
-        }
+        }else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
 
-        else throw new BoundException("INDEX OUT OF BOUND!\n");
     }
 
-    public void gateToIsland(String name, int index, int indexIsland, String color) throws BoundException{
-        try {
-            Player player1 = playerTranslator(name);
+    public void CloudToGate(String player, String color, int sIndex, int cIndex) throws BoundException, ImpossibleActionException { //TODO
+        if(roundMaster.round.getCurrentPhase().equals("Azione")) {
+            try {
+                Player p = playerTranslator(player);
 
-            if(player1.getGate().students.size() >= player1.getGate().MAX - 2) {
-                addStudentToIsland(color, indexIsland);
-                removeFromGate(player1, index);
-            } else  throw new BoundException(player1 + " can't place anymore students.\n");
+                if (p.getGate().students.size() < p.getGate().MAX - 2 && !board.clouds.get(sIndex).students.isEmpty()) {
+                    addToGate(p, color);
+                    removeFromCloud(cIndex, sIndex);
+                } else throw new BoundException("Not enough space in" + p + "gate, or the cloud is empty.\n");
 
-        }catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void CloudToGate(String player, String color, int sIndex, int cIndex) throws BoundException { //TODO
-
-        try {
-            Player p = playerTranslator(player);
-
-            if (p.getGate().students.size() < p.getGate().MAX - 2 && !board.clouds.get(sIndex).students.isEmpty()) {
-                addToGate(p, color);
-                removeFromCloud(cIndex, sIndex);
-            } else throw new BoundException("Not enough space in" +p+ "gate, or the cloud is empty.\n");
-
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
     }
 
     ///
 
     public void moveMotherNature(int movement) throws ImpossibleActionException {
         //TODO:determinare chi chiede al player quanto deve muovere, perché MNbonus (anche se 0)dovrà essere aggiunto al massimo movimento
-        if (movement < 7) {
-            motherNature.getIsola().setMotherNature(false);
-            Island tmp = motherNature.getIsola();
-            for (int i = 0; i < movement; i++) {
-                tmp = tmp.next;
-            }
-            tmp.setMotherNature(true);
-            motherNature.setIsland(tmp);
-        }else throw new ImpossibleActionException("No card has this movement value.");
+        if(roundMaster.round.getCurrentPhase().equals("Azione")) {
+            if (movement < 7) {
+                motherNature.getIsola().setMotherNature(false);
+                Island tmp = motherNature.getIsola();
+                for (int i = 0; i < movement + MNbonus; i++) {
+                    tmp = tmp.next;
+                }
+                tmp.setMotherNature(true);
+                motherNature.setIsland(tmp);
+
+//At the end of Mother Nature's movement, it's time to calculate influence on the island in which She stopped.
+                determineInfluence(tmp.getId());
+
+//Islands need to be merged if and only if, once the Influence is determined,
+//the next or the previous island is controlled by the same player.
+                Island r=tmp;
+                while (!r.next.equals(tmp))
+                    r=r.next;
+                if (r.getPlayer().equals(tmp.getPlayer())){
+                    try {
+                        mergeIslands(tmp.getId(), tmp.next.getId());
+                    } catch (ConsecutiveIslandException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                if(tmp.getPlayer().equals(tmp.next.getPlayer())) {
+                    try {
+                        mergeIslands(tmp.getId(), tmp.next.getId());
+                    } catch (ConsecutiveIslandException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+
+            } else throw new ImpossibleActionException("No card has this movement value.");
+        }else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
     }
 
     public void determineInfluence(int index) throws ImpossibleActionException {
@@ -281,19 +339,33 @@ public class Game {
     }
 
     public void playCard(String player, int index) throws ImpossibleActionException {
-        if(index>0 && index<=10) {
-            try {
-                Player player1 = playerTranslator(player);
-                int i=0;
-                while(!players.get(i).equals(player1)){
-                    i++;
-                }
-                cardsPlayed.add(this.players.get(i).playCard(index));
+        if (roundMaster.round.getCurrentPhase().equals("Pianificazione")) {
+            if (index > 0 && index <= 10) {
+                try {
+                    Player player1 = playerTranslator(player);
+                    int i = 0;
+                    while (!players.get(i).equals(player1)) {
+                        i++;
+                    }
 
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        } else throw new ImpossibleActionException("No card with "+index+" as value\n");
+//TODO: da testare!! l'idea è che nell'arraylist ORDER ci sia l'ordine di gioco dei player.
+// Order viene settato dal metodo ChangePhase.
+// L'utente che deve fare la mossa sarà sempre in posizione Order[0].
+// Facendo la remove, l'array slitta a sinistra e quindi si avrà sempre in posizione 0 l'utente a cui spetta il turno.
+                    if (order.get(0) != null) {
+                        if (order.get(0).equals(this.players.get(i))) {
+                            cardsPlayed.add(this.players.get(i).playCard(index));
+                            order.remove(0);
+                        } else throw new ImpossibleActionException("Not your turn!\n");
+
+//When Order.get(0) is equal to NULL, means every player has played. So is time to change phase into "Azione";
+                    }else changePhase();
+
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else throw new ImpossibleActionException("No card with " + index + " as value\n");
+        }
     }
 
     public void activateCharacter(String player, int id) throws ImpossibleActionException {
@@ -453,6 +525,10 @@ public class Game {
     public void enableInfluenceBonus(Player p){
         this.PwBonus=p;
         this.InfluenceBonus=2;
+    }
+
+    public ArrayList<Card> getCardsPlayed(){
+        return cardsPlayed;
     }
 
     public void disableInfluenceBonus(){

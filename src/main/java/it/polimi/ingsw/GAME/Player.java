@@ -1,7 +1,6 @@
 package it.polimi.ingsw.GAME;
 
 public class Player {
-    //private final Game game;
     public final String nickname;
     private final Hand hand;
     private final Gate gate;
@@ -12,16 +11,14 @@ public class Player {
     public int maxMoves;
 
     public Player(int pcount, String string, Game game){
-        //this.game=game;
         this.nickname=string;
         if(pcount==2){
             this.tower_count=8;
-            this.maxMoves=3;
         }
         else{
             this.tower_count=6;
-            this.maxMoves=4;
         }
+        this.maxMoves=pcount+1;
         this.gate=new Gate(pcount);
         this.hall=new Hall();
         this.hand=new Hand();

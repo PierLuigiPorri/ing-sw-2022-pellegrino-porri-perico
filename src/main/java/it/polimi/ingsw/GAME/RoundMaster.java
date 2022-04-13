@@ -6,9 +6,11 @@ public class RoundMaster{
     private int roundCount;
     public Round round;
     private ArrayList<Player> players;
+    public final ArrayList<Player> order;
 
     public RoundMaster(ArrayList<Player> players) {
         this.roundCount = 0;
+        this.order=players;
         round = new Round(players);
     }
 
@@ -21,17 +23,21 @@ public class RoundMaster{
             players = round.nextAzione(index);
             round.setCurrentPhase("Azione");
         } else {
-            players.add(endRound(index));
+            roundCount++;
+            players.remove(players.size()-1);
+            players.remove(players.size()-1);
+            if(!players.isEmpty())
+                players.remove(0);
+            players.add(round.nextPianificazione(index));
+            for (int i=0; i< players.size(); i++) {
+                if(!players.get(0).equals(order.get(i)))
+                    players.add(order.get(i));
+            }
+            startRound();
         }
         return players;
     }
 
-    private Player endRound(int[] index) {
-        roundCount++;
-        Player p = round.nextPianificazione(index);
-        startRound();
-        return p;
-    }
 
     public int getRoundCount() {
         return roundCount;
