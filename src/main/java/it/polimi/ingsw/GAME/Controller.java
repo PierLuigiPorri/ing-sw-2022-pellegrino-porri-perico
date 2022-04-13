@@ -1,7 +1,6 @@
 package it.polimi.ingsw.GAME;
 
 import it.polimi.ingsw.EXCEPTIONS.BoundException;
-import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.net.Socket;

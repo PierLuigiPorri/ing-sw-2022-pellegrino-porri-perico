@@ -3,9 +3,9 @@ package it.polimi.ingsw.GAME;
 import java.net.Socket;
 
 public class Creation {
-    private int ngioc;
-    private int gametype; //0: regole semplificate, 1: regole esperto
-    private int njoinati;
+    private int nPlayers;
+    private int gametype; //0: simplified rules, 1: expert rules
+    private int nJoined;
     private String nick1;
     private String nick2=null;
     private String nick3=null;
@@ -14,15 +14,15 @@ public class Creation {
     private Socket sock3=null;
 
     public Creation(int ng, int gt, String nick, Socket sock){
-        ngioc=ng;
+        nPlayers =ng;
         gametype=gt;
-        njoinati=1;
+        nJoined =1;
         nick1=nick;
         sock1=sock;
     }
 
-    public void setNjoinati() {
-        this.njoinati++;
+    public void setnJoined() {
+        this.nJoined++;
     }
 
     public void setNick2(String nick) {
@@ -33,16 +33,16 @@ public class Creation {
         this.nick3 = nick;
     }
 
-    public int getNgioc(){
-        return ngioc;
+    public int getnPlayers(){
+        return nPlayers;
     }
 
     public int getGametype() {
         return gametype;
     }
 
-    public int getNjoinati() {
-        return njoinati;
+    public int getnJoined() {
+        return nJoined;
     }
 
     public String getNick1() {

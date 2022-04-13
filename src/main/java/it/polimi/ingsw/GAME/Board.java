@@ -1,7 +1,6 @@
 package it.polimi.ingsw.GAME;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Board {
     public ArrayList<Cloud> clouds;

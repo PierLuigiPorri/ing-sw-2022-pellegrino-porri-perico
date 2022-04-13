@@ -1,8 +1,6 @@
 package it.polimi.ingsw.GAME;
 
 import it.polimi.ingsw.EXCEPTIONS.GameException;
-import it.polimi.ingsw.GAME.Creation;
-import it.polimi.ingsw.GAME.Game;
 
 import java.util.ArrayList;
 import java.net.Socket;
@@ -40,21 +38,21 @@ public class Starter implements Runnable{
             //TODO:Scelta nick con controllo se il nick è già usato nella partita
 
             synchronized (partite) {
-                partite.get(index).setNjoinati(); //njoinati++
-                if (partite.get(index).getNjoinati() == 2) {
+                partite.get(index).setnJoined(); //njoinati++
+                if (partite.get(index).getnJoined() == 2) {
                     partite.get(index).setNick2(nick);
                     partite.get(index).setSock2(clientSocket);
-                } else if (partite.get(index).getNjoinati() == 3) {
+                } else if (partite.get(index).getnJoined() == 3) {
                     partite.get(index).setNick3(nick);
                     partite.get(index).setSock3(clientSocket);
                 }
 
-                if (partite.get(index).getNgioc() == partite.get(index).getNjoinati()) {
+                if (partite.get(index).getnPlayers() == partite.get(index).getnJoined()) {
                     //Creo la partita chiamando la nostra classe Game
                     //e passando gli attributi presenti in partite[index] al costruttore giusto
                     //usando gli appositi getter presenti in Creation
                     try {
-                        Game game = new Game(partite.get(index).getNgioc(), partite.get(index).getGametype(), partite.get(index).getNick1(), partite.get(index).getSock1(), partite.get(index).getNick2(), partite.get(index).getSock2(), partite.get(index).getNick3(), partite.get(index).getSock3());
+                        Game game = new Game(partite.get(index).getnPlayers(), partite.get(index).getGametype(), partite.get(index).getNick1(), partite.get(index).getSock1(), partite.get(index).getNick2(), partite.get(index).getSock2(), partite.get(index).getNick3(), partite.get(index).getSock3());
                         //Se va tutto a buon fine:
                         partite.remove(index); //Rimozione della partita da quelle in fase di creazione
                     } catch (GameException e) {
