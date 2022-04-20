@@ -13,7 +13,7 @@ public class Game {
     public int playerCount;
     private int gameType; //0: regole semplificate, 1: regole esperto.
     private final ArrayList<Player> players; //array of all players.
-    private ArrayList<Player> order; // says the order of each turn in which the players are going to play.
+    public ArrayList<Player> order; // says the order of each turn in which the players are going to play.
     private ArrayList<Controller> controllers; // a controllor each player.
     private ArrayList<Card> cardsPlayed;  //Cards played in this round
     private final Bag bag;
@@ -22,7 +22,7 @@ public class Game {
     public RoundMaster roundMaster; //rounds manager.
     private Player winner;
     private final CharacterSelector characterSelector;
-    private final MotherNature motherNature;
+    public final MotherNature motherNature;
     private int MNbonus=0; // additional movement to Mother Nature; is called by a Character.
     private int InfluenceBonus=0;
     private Player PwBonus;
@@ -41,7 +41,7 @@ public class Game {
         this.bag=new Bag();
         this.characterSelector=new CharacterSelector(this);
         this.board=new Board(playerCount);
-        this.order=new ArrayList<>();
+        this.order = players;
 
         this.players.add(new Player(playerCount, nick1, this));
         this.players.add(new Player(playerCount, nick2, this));
@@ -138,19 +138,16 @@ public class Game {
                         System.out.println(e.getMessage());
                     }
                 }
+            }else {
+                cardsPlayed=new ArrayList<>();
             }
+
 
 //reset the maxmoves of all players.
         for (Player p: players) {
                 p.maxMoves = playerCount + 1;
             }
-            if (roundMaster.getRoundCount() > 10 ||
-                    this.players.get(0).getTower_count() == 0 ||
-                    this.players.get(1).getTower_count() == 0 ||
-                    this.players.get(2).getTower_count() == 0) {
-                winner = this.gameEnd();
-            }
-            cardsPlayed=new ArrayList<>();
+
     }
 
     public Player gameEnd(){
@@ -225,7 +222,7 @@ public class Game {
             try {
                 Player p = playerTranslator(player);
 
-                if (p.getGate().students.size() < p.getGate().MAX - 2 && !board.clouds.get(sIndex).students.isEmpty()) {
+                if (!board.clouds.get(sIndex).students.isEmpty() && p.getGate().students.size() < p.getGate().MAX - 2 ) {
                     addToGate(p, color);
                     removeFromCloud(cIndex, sIndex);
                 } else throw new BoundException("Not enough space in" + p + "gate, or the cloud is empty.\n");
@@ -347,19 +344,21 @@ public class Game {
                     while (!players.get(i).equals(player1)) {
                         i++;
                     }
-
+                    ArrayList<Player> tmp= order;
 //TODO: da testare!! l'idea è che nell'arraylist ORDER ci sia l'ordine di gioco dei player.
 // Order viene settato dal metodo ChangePhase.
 // L'utente che deve fare la mossa sarà sempre in posizione Order[0].
 // Facendo la remove, l'array slitta a sinistra e quindi si avrà sempre in posizione 0 l'utente a cui spetta il turno.
-                    if (order.get(0) != null) {
+                    while (!order.isEmpty()) {
                         if (order.get(0).equals(this.players.get(i))) {
                             cardsPlayed.add(this.players.get(i).playCard(index));
                             order.remove(0);
                         } else throw new ImpossibleActionException("Not your turn!\n");
 
 //When Order.get(0) is equal to NULL, means every player has played. So is time to change phase into "Azione";
-                    }else changePhase();
+                    }
+                    order=tmp;
+                    changePhase();
 
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
@@ -409,23 +408,9 @@ public class Game {
         }
     }
 
-    /*public int getColor(Player player, String color){
-        if (color.equals(red)) {
-            return player.getHall().getRed();
-        }
-        else if (color.equals(blue)) {
-            return player.getHall().getBlue();
-        }
-        else if (color.equals(green)) {
-            return player.getHall().getGreen();
-        }
-        else if (color.equals(yellow)) {
-            return player.getHall().getYellow();
-        }
-        else {
-            return player.getHall().getPink();
-        }
-    }*/
+    public int getColor(Player player, String color){
+        return player.getHall().getColor(color);
+    }
 
     public void addToGate(Player p1, String color) {
         p1.getGate().addStudent(color);
@@ -479,14 +464,14 @@ public class Game {
         }
     }
 
-    private Player playerTranslator(String name) throws IllegalArgumentException{
-        if (name.equals(players.get(1).nickname) || name.equals(players.get(2).nickname) || name.equals(players.get(3).nickname)) {
-            if (players.get(1).nickname.equals(name))
-                return players.get(1);
-            else if (players.get(2).nickname.equals(name))
-                return players.get(2);
+    public Player playerTranslator(String name) throws IllegalArgumentException{
+        if (name.equals(order.get(0).nickname) || name.equals(order.get(1).nickname) || name.equals(order.get(2).nickname)) {
+            if (order.get(0).nickname.equals(name))
+                return order.get(0);
+            else if (order.get(1).nickname.equals(name))
+                return order.get(1);
             else
-                return players.get(3);
+                return order.get(2);
         } else throw new IllegalArgumentException(name +" does not exists as a nickname.\n");
     }
 

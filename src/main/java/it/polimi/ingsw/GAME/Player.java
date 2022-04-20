@@ -9,6 +9,7 @@ public class Player {
     private int coins;
     public int studentsMoved;
     public int maxMoves;
+    private Card lastCardPlayed;
 
     public Player(int pcount, String string, Game game){
         this.nickname=string;
@@ -30,10 +31,13 @@ public class Player {
 
     public Card playCard(int index){
         Card tmp=this.hand.cards.get(index);
-        this.hand.cards.remove(index);
+        this.lastCardPlayed=this.hand.cards.remove(index);
         return tmp;
     }
 
+    public Card getLastCardPlayed() {
+        return lastCardPlayed;
+    }
 
     public String getNickname() {
         return nickname;

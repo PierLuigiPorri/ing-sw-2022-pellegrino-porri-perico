@@ -7,40 +7,35 @@ import org.junit.*;
 
 public class BagTest {
     private Bag bag;
-    private Game game;
 
 
     @Test
     public void addStudent () {
-        ColorTracker color1= game.red;
-        ColorTracker color2= game.blue;
-        ColorTracker color3= game.green;
-        ColorTracker color4= game.yellow;
-        ColorTracker color5= game.pink;
+
 
         Assert.assertEquals(120, bag.getSize());
 
-        Student student1=new Student(color1);
-        Student student2=new Student(color2);
-        Student student3=new Student(color3);
-        Student student4=new Student(color4);
-        Student student5=new Student(color5);
+        Student student1=new Student("RED");
+        Student student2=new Student("BLUE");
+        Student student3=new Student("GREEN");
+        Student student4=new Student("YELLOW");
+        Student student5=new Student("PINK");
 
         try {
-            bag.addStudent(color1);
-            bag.addStudent(color1);
-            Assert.assertEquals(bag.extractStudent().getColor().getColor(), student1.getColor().getColor());
-            bag.addStudent(color2);
-            Assert.assertEquals(bag.extractStudent().getColor().getColor(), student2.getColor().getColor());
-            bag.addStudent(color3);
-            Assert.assertEquals(bag.extractStudent().getColor().getColor(), student3.getColor().getColor());
-            bag.addStudent(color5);
-            Assert.assertEquals(bag.extractStudent().getColor().getColor(), student5.getColor().getColor());
-            bag.addStudent(color4);
-            Assert.assertEquals(bag.extractStudent().getColor().getColor(), student4.getColor().getColor());
-            bag.addStudent(color4);
-            bag.addStudent(color4);
-            Assert.assertEquals(bag.extractStudent().getColor().getColor(), student4.getColor().getColor());
+            bag.addStudent("RED");
+            bag.addStudent("RED");
+            Assert.assertEquals(bag.extractStudent().getColor(), student1.getColor());
+            bag.addStudent("BLUE");
+            Assert.assertEquals(bag.extractStudent().getColor(), student2.getColor());
+            bag.addStudent("GREEN");
+            Assert.assertEquals(bag.extractStudent().getColor(), student3.getColor());
+            bag.addStudent("PINK");
+            Assert.assertEquals(bag.extractStudent().getColor(), student5.getColor());
+            bag.addStudent("YELLOW");
+            Assert.assertEquals(bag.extractStudent().getColor(), student4.getColor());
+            bag.addStudent("YELLOW");
+            bag.addStudent("YELLOW");
+            Assert.assertEquals(bag.extractStudent().getColor(), student4.getColor());
             Assert.assertEquals(122, bag.getSize());
         }catch (ImpossibleActionException e){
             System.out.println(e.getMessage());
@@ -67,13 +62,12 @@ public class BagTest {
     }
 
     @Before
-    public void setUp() throws Exception {
-        game=new Game(2, 0, "Pier", null, "Paolo", null, null, null);
+    public void setUp()  {
         bag=new Bag();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown()  {
 
     }
 }

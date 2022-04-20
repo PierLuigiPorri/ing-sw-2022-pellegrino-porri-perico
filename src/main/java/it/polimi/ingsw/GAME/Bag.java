@@ -18,7 +18,7 @@ public class Bag {
         if(this.students.size()<MAX) {
             //TODO:assert students.size()<MAX, non dovrebbe succedere ma non si sa mai
             this.students.add(new Student(color));
-            Collections.shuffle(this.students);
+            //Collections.shuffle(this.students);
         }else throw new ImpossibleActionException("The Bag is full, impossible to add students");
     }
 

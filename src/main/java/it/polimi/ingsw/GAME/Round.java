@@ -8,7 +8,12 @@ public class Round {
 
 
     public Round(ArrayList<Player> players){
-        this.player=players;
+        this.player=new ArrayList<>();
+        int i=0;
+        while(i<players.size()) {
+            this.player.add(players.get(i));
+            i++;
+        }
 
         this.currentPhase="Pianificazione";
     }
@@ -23,61 +28,48 @@ public class Round {
 
     public ArrayList<Player> nextAzione(int[] index) {
         Card x, y, z, tmp;
+        ArrayList<Player> order = new ArrayList<>();
+
         if (player.size() == 3) {
-            ArrayList<Player> order = new ArrayList<>();
 
             if (index == null)
                 return order;
 
-            x = player.get(0).playCard(index[0]);
-            y = player.get(1).playCard(index[1]);
-            z = player.get(2).playCard(index[2]);
+            x = player.get(0).getLastCardPlayed();
+            y = player.get(1).getLastCardPlayed();
+            z = player.get(2).getLastCardPlayed();
 
-            if (index[0] == 0)
-                x.setValue(11);
-            if (index[1] == 0)
-                y.setValue(11);
-            if (index[2] == 0)
-                z.setValue(11);
-
-            tmp = x.compareTo(y).compareTo(z);
-            int i = 0;
-            while (!player.get(i).playCard(index[i]).equals(tmp)) {
-                i++;
+            int k=0;
+            while (k<3) {
+                int i = Math.max(Math.max(x.getValue(), y.getValue()), z.getValue());
+                if (i == x.getValue())
+                    order.add(player.get(0));
+                else if (i == y.getValue())
+                    order.add(player.get(1));
+                else
+                    order.add(player.get(2));
+                k++;
             }
-            order.add(player.get(i));
-            index[i] = 0;
-            if (index[0] == 0 && index[1] == 0 && index[2] == 0)
-                index = null;
 
-            return nextAzione(index);
+            return order;
         }
 
         else {
-            ArrayList<Player> order = new ArrayList<>();
 
-            if (index == null)
-                return order;
+            x = player.get(0).getLastCardPlayed();
+            y = player.get(1).getLastCardPlayed();
 
-            x = player.get(0).playCard(index[0]);
-            y = player.get(0).playCard(index[1]);
+            int k = 0;
+            while (k < 3) {
+                int i = Math.max(x.getValue(), y.getValue());
+                if (i == x.getValue())
+                    order.add(player.get(0));
+                else order.add(player.get(1));
 
-            if (index[0] == 0)
-                x.setValue(11);
-            if (index[1] == 0)
-                y.setValue(11);
-
-            tmp = x.compareTo(y);
-            int i = 0;
-            while (!player.get(i).playCard(index[i]).equals(tmp)) {
-                i++;
+                k++;
             }
-            order.add(player.get(i));
-            index[i] = 0;
-            if (index[0] == 0 && index[1] == 0 && index[2] == 0)
-                index = null;
+            return order;
 
-            return nextAzione(index);
         }
     }
 

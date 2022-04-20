@@ -7,6 +7,7 @@ public class Cloud extends StudentSpace{
 
     public Cloud(int size) {
         MAX=size;
+        students=new ArrayList<>();
     }
 
     public ArrayList<Student> getStudents() {
@@ -26,8 +27,8 @@ public class Cloud extends StudentSpace{
         students.remove(index);
     }
 
-    public void emptyCloud(){
-        students=null;
+    public boolean emptyCloud(){
+        return this.students.isEmpty();
     }
 
 }

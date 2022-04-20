@@ -57,16 +57,16 @@ public class Hall {
     }
 
     public int getColor(String color){
-        if (Objects.equals(color, "RED")) {
+        if (color.equals("RED")) {
             return getRed();
         }
-        else if (Objects.equals(color, "BLUE")) {
+        else if (color.equals( "BLUE")) {
             return getBlue();
         }
-        else if (Objects.equals(color, "GREEN")) {
+        else if (color.equals("GREEN")) {
             return getGreen();
         }
-        else if (Objects.equals(color, "YELLOW")) {
+        else if (color.equals("YELLOW")) {
             return getYellow();
         }
         else {
