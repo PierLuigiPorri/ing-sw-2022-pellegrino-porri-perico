@@ -3,7 +3,7 @@ package it.polimi.ingsw.GAME;
 import java.util.ArrayList;
 
 public class Hand {
-    public ArrayList<Card> cards; //TODO: Questa roba dev'essere un'Array List
+    public ArrayList<Card> cards;
 
 //TODO: impostare il corretto valore di MOVIMENTO alle varie carte.
     public Hand(){

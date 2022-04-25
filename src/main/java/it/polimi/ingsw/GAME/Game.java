@@ -21,7 +21,7 @@ public class Game {
     public final ColorTracker red, blue, green, yellow, pink; // professors.
     public RoundMaster roundMaster; //rounds manager.
     private Player winner;
-    private final CharacterSelector characterSelector;
+    private CharacterSelector characterSelector= null;
     public final MotherNature motherNature;
     private int MNbonus=0; // additional movement to Mother Nature; is called by a Character.
     private int InfluenceBonus=0;
@@ -39,7 +39,6 @@ public class Game {
         this.yellow=new ColorTracker("YELLOW");
         this.pink=new ColorTracker("PINK");
         this.bag=new Bag();
-        this.characterSelector=new CharacterSelector(this);
         this.board=new Board(playerCount);
         this.order = players;
 
@@ -92,6 +91,8 @@ public class Game {
         for(Controller c: controllers){
             new Thread(c).start();
         }
+        if(gameType==1)
+            this.characterSelector=new CharacterSelector(this);
     }
 
     public static ArrayList<Student> randomStudGenerator(int numStud){
@@ -296,7 +297,8 @@ public class Game {
                 }
             }
             for (Student s : this.board.islands.getIsland(index).getStudents()) {
-                p.set(players.indexOf(colorTranslator(s.getColor()).getPlayer()), p.get(players.indexOf(colorTranslator(s.getColor()).getPlayer())) + colorTranslator(s.getColor()).getInfluence());
+                if(colorTranslator(s.getColor()).getPlayer() != null)
+                    p.set(players.indexOf(colorTranslator(s.getColor()).getPlayer()), p.get(players.indexOf(colorTranslator(s.getColor()).getPlayer())) + colorTranslator(s.getColor()).getInfluence());
             }
             Collections.sort(p);
             if (!p.get(p.size()-1).equals(p.get(p.size()-2))) {
