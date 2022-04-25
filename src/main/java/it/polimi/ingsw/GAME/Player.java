@@ -6,7 +6,7 @@ public class Player {
     private final Gate gate;
     private final Hall hall;
     private int tower_count;
-    private int coins;
+    private int coins=0;
     public int studentsMoved;
     public int maxMoves;
     private Card lastCardPlayed;
@@ -23,6 +23,8 @@ public class Player {
         this.gate=new Gate(pcount);
         this.hall=new Hall();
         this.hand=new Hand();
+        if(game.getGameType()==1)
+            addCoin();
     }
 
     public void addCoin(){

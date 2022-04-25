@@ -21,7 +21,7 @@ public class Game {
     public final ColorTracker red, blue, green, yellow, pink; // professors.
     public RoundMaster roundMaster; //rounds manager.
     private Player winner;
-    private CharacterSelector characterSelector= null;
+    public CharacterSelector characterSelector= null;
     public final MotherNature motherNature;
     private int MNbonus=0; // additional movement to Mother Nature; is called by a Character.
     private int InfluenceBonus=0;
@@ -405,7 +405,7 @@ public class Game {
     public void addStudentToHall(String color, Player player) {
         player.getHall().setColor(color);
         checkColorChanges(player.getHall().getCardState());
-        if(player.getHall().getColor(color)%3==0){
+        if(player.getHall().getColor(color)%3==0 && gameType==1){
             player.addCoin();
         }
     }
