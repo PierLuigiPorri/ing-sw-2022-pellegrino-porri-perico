@@ -1,13 +1,16 @@
 package it.polimi.ingsw.GAME;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Round {
     private final ArrayList<Player> player;
+    private ArrayList<Player> order;
     private String currentPhase;
 
 
     public Round(ArrayList<Player> players){
+        order=new ArrayList<>();
         this.player=new ArrayList<>();
         int i=0;
         while(i<players.size()) {
@@ -27,7 +30,7 @@ public class Round {
     }
 
     public ArrayList<Player> nextAzione(int[] index) {
-        Card x, y, z, tmp;
+        Card x, y, z;
         ArrayList<Player> order = new ArrayList<>();
 
         if (player.size() == 3) {
@@ -39,19 +42,22 @@ public class Round {
             y = player.get(1).getLastCardPlayed();
             z = player.get(2).getLastCardPlayed();
 
-            int k=0;
-            while (k<3) {
-                int i = Math.max(Math.max(x.getValue(), y.getValue()), z.getValue());
-                if (i == x.getValue())
-                    order.add(player.get(0));
-                else if (i == y.getValue())
-                    order.add(player.get(1));
-                else
-                    order.add(player.get(2));
-                k++;
-            }
+            int i = Math.max(Math.max(x.getValue(), y.getValue()), z.getValue());
+            if (i == x.getValue())
+                this.order.add(player.get(0));
+            else if (i == y.getValue())
+                this.order.add(player.get(1));
+            else
+                this.order.add(player.get(2));
+            order.addAll(player);
+            order.sort((o1, o2) -> {
+                if(o1.getLastCardPlayed().getValue()==o2.getLastCardPlayed().getValue()){
+                    return 0;
+                }
+                else return 1;
+            });
 
-            return order;
+            return this.order;
         }
 
         else {
@@ -59,16 +65,21 @@ public class Round {
             x = player.get(0).getLastCardPlayed();
             y = player.get(1).getLastCardPlayed();
 
-            int k = 0;
-            while (k < 3) {
-                int i = Math.max(x.getValue(), y.getValue());
-                if (i == x.getValue())
-                    order.add(player.get(0));
-                else order.add(player.get(1));
+            int i = Math.max(x.getValue(), y.getValue());
 
-                k++;
-            }
-            return order;
+            if (i == x.getValue())
+                this.order.add(player.get(0));
+            else this.order.add(player.get(1));
+
+            if(this.order.contains(player.get(0)))
+                this.order.add(player.get(1));
+            else this.order.add(player.get(0));
+
+            /*order.add(player.get(0));
+            order.add(player.get(1));
+            order.sort((o1, o2) -> Integer.compare(o2.getLastCardPlayed().getValue(), o1.getLastCardPlayed().getValue()));
+            */
+            return this.order;
 
         }
     }
