@@ -2,6 +2,9 @@ package it.polimi.ingsw.GAME;
 
 import it.polimi.ingsw.EXCEPTIONS.GameException;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.net.Socket;
 
@@ -16,16 +19,46 @@ public class Starter implements Runnable{
 
     @Override
     public void run() {
-        int g=0;//0=New Game, 1=Join Game
-        //TODO:New Game o Join Game?
-        if(g==0){
-            int ng=0; //Number of players
-            int gt=0; //Game Type
-            String nick="AO";
-            //TODO: Richiesta ngioc, gt e nick
+        int g;//0=New Game, 1=Join Game
+        PrintWriter out=null;
+        BufferedReader in=null;
+        Boolean inv=true; //Input Not Valid
+        String input=null;
 
+        try {
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        }
+        catch (Exception e){
+            System.out.println("Connection failed");
+        }
+        //New Game or Join Game?
+        g=getCorrectInput(out, in, "Digit 0 to start a new game or 1 to join a game and press enter", 0, 1);
+        if(g==0){
+            int np; //Number of players
+            int gt; //Game Type
+            String nick;
+            //Nickname request
+            while(inv){
+                out.println("Enter your nickname");
+                try {
+                    input = in.readLine();
+                    inv=false;
+                }
+                catch (Exception e){
+                    out.println("Input is not valid");
+                }
+            }
+            inv=true; //Reset of inv
+            nick=input;
+            //Game Type request
+            gt=getCorrectInput(out, in, "Digit 0 to select normal game or 1 to select expert game and press enter", 0, 1);
+            //Request of number of players
+            np=getCorrectInput(out, in, "Digit 2 to select a two-player game or 3 for a three-player game and press enter", 2, 3);
+
+            //Creation phase of the game
             synchronized (partite) {
-                partite.add(new Creation(ng, gt, nick, clientSocket));
+                partite.add(new Creation(np, gt, nick, clientSocket));
             }
             System.out.println("In attesa degli altri giocatori e della creazione della partita");
 
@@ -61,5 +94,26 @@ public class Starter implements Runnable{
                 }
             }
         }
+    }
+    private int getCorrectInput(PrintWriter out, BufferedReader in, String request, int a, int b){
+        //This method gets correct input from the client of 2 possible integer values: a, b while asking the "request"
+        Boolean inv=true; //Input Not Valid
+        String input=null;
+        while(inv) {
+            out.println(request);
+            try {
+                input = in.readLine();
+                if(Integer.parseInt(input)==a || Integer.parseInt(input)==b) {
+                    inv = false;
+                }
+                else{
+                    out.println("Input is not valid");
+                }
+            }
+            catch (Exception e){
+                out.println("Input is not valid");
+            }
+        }
+        return Integer.parseInt(input);
     }
 }

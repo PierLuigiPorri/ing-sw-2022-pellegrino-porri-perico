@@ -9,22 +9,22 @@ public class ServerApp
 {
     public static void main()
     {
-        int porta=4000; //Porta di connessione; numero da modificare
+        int port=4000; //Connection port
         ServerSocket ssock=null;
         Socket sock=null;
         try {
-            ssock = new ServerSocket(porta);
+            ssock = new ServerSocket(port);
         }
         catch (Exception e){
-
+            System.out.println("Server Socket creation failed");
         }
         while(true){
-            //Attendo connessioni
+            //Waiting for client connections
             try {
                 sock = ssock.accept();
             }
             catch (Exception e){
-
+                System.out.println("Client connection failed");
             }
             new Thread(new Starter(sock)).start();
         }
