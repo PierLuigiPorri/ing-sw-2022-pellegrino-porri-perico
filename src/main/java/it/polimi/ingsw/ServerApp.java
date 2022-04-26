@@ -7,7 +7,7 @@ import java.net.ServerSocket;
 
 public class ServerApp
 {
-    public static void main()
+    public static void main(String args[])
     {
         int port=4000; //Connection port
         ServerSocket ssock=null;

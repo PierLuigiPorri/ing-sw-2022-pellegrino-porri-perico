@@ -3,7 +3,7 @@ package it.polimi.ingsw;
 import java.net.Socket;
 
 public class ClientApp {
-    public static void main(){
+    public static void main(String args[]){
         try {
             Socket socket = new Socket("127.0.0.1", 4000);
             System.out.println("Connected!");
@@ -11,14 +11,14 @@ public class ClientApp {
         catch(Exception e){
             System.out.println("Connection failed");
         }
-        while(true){
+        /*while(true){
             //Ricevi dal server "Che azione vuoi fare?"
-            /*if(azione==...){
+            if(azione==...){
                 TcpSend(String Azione, String Player...
             }
             else if(...){
 
-            }*/
-        }
+            }
+        }*/
     }
 }
