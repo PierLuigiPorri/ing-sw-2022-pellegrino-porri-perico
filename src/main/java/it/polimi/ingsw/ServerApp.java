@@ -14,6 +14,7 @@ public class ServerApp
         Socket sock=null;
         try {
             ssock = new ServerSocket(port);
+            System.out.println("Server Socket creation successful");
         }
         catch (Exception e){
             System.out.println("Server Socket creation failed");
@@ -22,6 +23,7 @@ public class ServerApp
             //Waiting for client connections
             try {
                 sock = ssock.accept();
+                System.out.println("Client connection accepted");
             }
             catch (Exception e){
                 System.out.println("Client connection failed");

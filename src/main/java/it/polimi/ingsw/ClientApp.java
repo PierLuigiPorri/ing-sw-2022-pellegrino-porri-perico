@@ -11,14 +11,15 @@ public class ClientApp {
         catch(Exception e){
             System.out.println("Connection failed");
         }
-        /*while(true){
+        while(true){
             //Ricevi dal server "Che azione vuoi fare?"
-            if(azione==...){
+            /*if(azione==...){
                 TcpSend(String Azione, String Player...
             }
             else if(...){
 
-            }
-        }*/
+            }*/
+
+        }
     }
 }
