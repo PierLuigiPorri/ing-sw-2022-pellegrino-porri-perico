@@ -7,11 +7,11 @@ import it.polimi.ingsw.GAME.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Objects;
+import java.util.Scanner;
+
 import static org.junit.Assert.*;
 
-/**
- * Unit test for simple App.
- */
 public class CardsTest
 {
     public Game game;
@@ -25,6 +25,41 @@ public class CardsTest
         assertEquals(3, game.characterSelector.getCharacters().size());
         assertFalse(game.characterSelector.getCharacters().contains(null));
         assertTrue(p1.getCoins()==1&&p2.getCoins()==1);
+    }
+
+    @Test
+    public void concreteSetup(){
+        for(CharacterType c:game.characterSelector.getCharacters()){
+            if(c.getIndex()==0 || c.getIndex()==10 || c.getIndex()==6){
+                ConcreteCharacter w=(ConcreteCharacter) c;
+                assertNotNull(w.getStudents());
+                assertFalse(w.getStudents().contains(null));
+                assertEquals(w.getStudents().size(), w.getMAX());
+            }
+            else if(c.getIndex()==4){
+                ConcreteCharacter w=(ConcreteCharacter) c;
+                assertEquals(w.getTD(), 4);
+                Island t=game.getB().islands.head;
+                while(t!=game.getB().islands.tail){
+                    assertFalse(t.TD);
+                }
+            }
+        }
+
+    }
+
+    @Test
+    public void EffectsTest() throws ImpossibleActionException {
+        for (int x = 0; x < 30; x++) {
+                game.getPlayers().get(0).addCoin();
+            }
+            for (int i = 0; i < 3; i++) {
+                game.activateCharacter("FRANCO", i);
+            /*switch(c.getIndex()){
+                case 0:
+
+            }*/
+        }
     }
 
 

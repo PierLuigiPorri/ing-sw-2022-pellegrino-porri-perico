@@ -9,7 +9,7 @@ public class Island extends StudentSpace implements TDSpace{
     protected int islandCount=1;
     public Island next;
     private ArrayList<Student> students;
-    protected boolean TD=false; //0:No tessera divieto; 1:Tessera divieto presente
+    public boolean TD=false; //0:No tessera divieto; 1:Tessera divieto presente
 
     public Island(int index){
         this.id=index;
