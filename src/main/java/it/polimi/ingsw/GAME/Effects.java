@@ -44,18 +44,15 @@ public final class Effects{
     }
 
 
-    public void apply(int index, Player player) throws ImpossibleActionException {
+    public void apply(int index, Player player, int par1, String par2, ArrayList<Integer> par3, ArrayList<String> par4) throws ImpossibleActionException {
         //TODO scrivere tutti gli effetti
-        Scanner s=new Scanner(System.in);
         switch(index){
             case 1: //TODO: prima di attivare questo effetto, nel caso in cui il giocatore non abbia lo stesso numero di studenti
                     //di chi ha il professore, di conseguenza la carta non avrà effetto immediato, chiedere se davvero vuole attivarla
                 player.getHall().activateCard();
                 break;
             case 2:
-                System.out.println("indice isola? 1-12");
-                int ind = s.nextInt();
-                game.determineInfluence(ind);
+                game.determineInfluence(par1);
                 break;
             case 3:
                 game.setMNbonus();
@@ -67,37 +64,21 @@ public final class Effects{
                 game.enableInfluenceBonus(player);
                 break;
             case 8:
-                System.out.println("colore da eliminare? In caps grazie :)");
-                String c = s.nextLine();
-                game.colorTranslator(c).disableInfluence();
+                game.colorTranslator(par2).disableInfluence();
                 break;
             case 9:
-                ArrayList<Integer> students=new ArrayList<>();
-                ArrayList<String> colors = new ArrayList<>();
-                int line=0;
-                while(line!=-1){
-                    System.out.println("indice gate? -1 per uscire");
-                    line=s.nextInt();
-                    if(line!=-1) {
-                        students.add(line);
-                        System.out.println("colore gate?");
-                        colors.add(s.nextLine());
-                    }
-                }
-                for(int g=0; g<students.size(); g++){
-                    game.removeFromHall(player, colors.get(g));
-                    game.addStudentToHall(player.getGate().students.get(students.get(g)).getColor(), player);
-                    game.removeFromGate(player, students.get(g));
-                    game.addToGate(player, colors.get(g));
+                for(int g=0; g<par3.size(); g++){
+                    game.removeFromHall(player, par4.get(g));
+                    game.addStudentToHall(player.getGate().students.get(par3.get(g)).getColor(), player);
+                    game.removeFromGate(player, par3.get(g));
+                    game.addToGate(player, par4.get(g));
                 }
                 game.checkColorChanges(false);
                 break;
             case 11:
-                System.out.println("colore?");
-                String q = s.nextLine();
                 for(Player pl:game.getPlayers()){
-                    for(int u=0; u<3&&pl.getHall().getColor(q)!=0; u++){
-                        pl.getHall().desetColor(q);
+                    for(int u=0; u<3&&pl.getHall().getColor(par2)!=0; u++){
+                        pl.getHall().desetColor(par2);
                     }
                 }
                 game.checkColorChanges(false);
@@ -106,16 +87,12 @@ public final class Effects{
         }
     }
 
-    public void applyConcrete(int index, Player player, ConcreteCharacter c){
+    public void applyConcrete(int index, Player player, ConcreteCharacter c, int par1, int par2, ArrayList<Integer> par3, ArrayList<Integer> par4){
         Scanner s=new Scanner(System.in);
         switch(index){
             case 0:
-                System.out.println("indice studente? 0-3");
-                int i = s.nextInt();
-                System.out.println("indice isola? 1-12");
-                int island = s.nextInt();
-                game.addStudentToIsland(c.students.get(i).getColor(), island);
-                c.students.remove(i);
+                game.addStudentToIsland(c.students.get(par1).getColor(), par2);
+                c.students.remove(par1);
                 try {
                     c.students.add(game.getBg().extractStudent());
                 }catch (ImpossibleActionException e){
@@ -123,15 +100,11 @@ public final class Effects{
                 }
                 break;
             case 4:
-                System.out.println("indice isola? 1-12");
-                int isl = s.nextInt();
-                game.getB().islands.getIsland(isl).addTD();
+                game.getB().islands.getIsland(par1).addTD();
                 c.removeTD();
             case 10:
-                System.out.println("indice studente? 0-3");
-                int stud = s.nextInt();
-                game.addStudentToHall(c.students.get(stud).getColor(), player);
-                c.getStudents().remove(stud);
+                game.addStudentToHall(c.students.get(par1).getColor(), player);
+                c.getStudents().remove(par1);
                 try {
                     c.students.add(game.getBg().extractStudent());
                 }catch (ImpossibleActionException e){
@@ -139,22 +112,11 @@ public final class Effects{
                 }
                 break;
             case 6:
-                ArrayList<Integer> card = new ArrayList<>(), gate= new ArrayList<>();
-                int line=0;
-                while(line!=-1){
-                    System.out.println("indice studente? 0-5, -1 per uscire");
-                    line=s.nextInt();
-                    if(line!=-1) {
-                        card.add(line);
-                        System.out.println("indice gate?");
-                        gate.add(s.nextInt());
-                    }
-                }
                 Student tmp;
-                for(int x=0; x<card.size(); x++){
-                    tmp=c.students.get(card.get(x));
-                    c.students.set(card.get(x), player.getGate().students.get(gate.get(x)));
-                    player.getGate().students.set((gate.get(x)), tmp);
+                for(int x=0; x<par3.size(); x++){
+                    tmp=c.students.get(par3.get(x));
+                    c.students.set(par3.get(x), player.getGate().students.get(par4.get(x)));
+                    player.getGate().students.set((par4.get(x)), tmp);
                 }
                 break;
             default:break;

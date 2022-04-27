@@ -7,6 +7,7 @@ import it.polimi.ingsw.GAME.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -53,8 +54,16 @@ public class CardsTest
         for (int x = 0; x < 30; x++) {
                 game.getPlayers().get(0).addCoin();
             }
-            for (int i = 0; i < 3; i++) {
-                game.activateCharacter("FRANCO", i);
+        ArrayList<Integer> a=new ArrayList<>(), b=new ArrayList<>();
+        ArrayList<String> c=new ArrayList<>();
+        for(int t=0; t<2; t++){
+            a.add(t);
+            b.add(t);
+            c.add("RED");
+        }
+        for (int i = 0; i < 3; i++) {
+            System.out.println("\n "+ game.characterSelector.getCharacters().get(i).getIndex());
+            game.activateCharacter("FRANCO", i, 1, "RED", a, c, 1, b);
             /*switch(c.getIndex()){
                 case 0:
 

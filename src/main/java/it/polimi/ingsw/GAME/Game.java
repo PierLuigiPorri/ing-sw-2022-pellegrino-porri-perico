@@ -374,11 +374,13 @@ public class Game {
         }
     }
 
-    public void activateCharacter(String player, int id) throws ImpossibleActionException {
+    public void activateCharacter(String player, int id, int parAC1, String parA2, ArrayList<Integer> parAC3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) throws ImpossibleActionException {
+        //Keep the unused parameters null, and always use the first parameter in numeric order by type.
+        //Parameters will be filled client-side. Parameters marked with "A" are used by AbstractCharacters, with "C" by ConcreteCharacters, and with "AC" by both.
         Player p=playerTranslator(player);
         if(p.getCoins()>= characterSelector.getCost(id)){
             p.removeCoin(characterSelector.getCost(id));
-            characterSelector.applyEffect(id, p);
+            characterSelector.applyEffect(id, p, parAC1, parA2, parAC3, parA4, parC2, parC4);
         }else throw new ImpossibleActionException("Not enough coins!\n");
     }
 
