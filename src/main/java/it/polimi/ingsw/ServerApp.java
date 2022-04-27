@@ -7,24 +7,26 @@ import java.net.ServerSocket;
 
 public class ServerApp
 {
-    public static void main()
+    public static void main(String args[])
     {
-        int porta=4000; //Porta di connessione; numero da modificare
+        int port=4000; //Connection port
         ServerSocket ssock=null;
         Socket sock=null;
         try {
-            ssock = new ServerSocket(porta);
+            ssock = new ServerSocket(port);
+            System.out.println("Server Socket creation successful");
         }
         catch (Exception e){
-
+            System.out.println("Server Socket creation failed");
         }
         while(true){
-            //Attendo connessioni
+            //Waiting for client connections
             try {
                 sock = ssock.accept();
+                System.out.println("Client connection accepted");
             }
             catch (Exception e){
-
+                System.out.println("Client connection failed");
             }
             new Thread(new Starter(sock)).start();
         }

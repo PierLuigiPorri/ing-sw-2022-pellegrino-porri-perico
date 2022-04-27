@@ -16,16 +16,20 @@ public class Starter implements Runnable{
 
     @Override
     public void run() {
+        System.out.println("Thread started");
         int g=0;//0=New Game, 1=Join Game
-        //TODO:New Game o Join Game?
+        //TODO: New Game or Join Game?
         if(g==0){
-            int ng=0; //Number of players
+            int np=0; //Number of players
             int gt=0; //Game Type
             String nick="AO";
-            //TODO: Richiesta ngioc, gt e nick
+            //TODO: Nickname request
+            //TODO: Game Type request
+            //TODO: Request of number of players
 
+            //Creation phase of the game
             synchronized (partite) {
-                partite.add(new Creation(ng, gt, nick, clientSocket));
+                partite.add(new Creation(np, gt, nick, clientSocket));
             }
             System.out.println("In attesa degli altri giocatori e della creazione della partita");
 

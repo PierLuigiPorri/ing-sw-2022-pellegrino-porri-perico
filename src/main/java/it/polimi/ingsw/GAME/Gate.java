@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GAME;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Gate extends StudentSpace{
@@ -31,6 +32,14 @@ public class Gate extends StudentSpace{
     public void removeStudent(int index) {
         //TODO:ricordiamoci di fare il controllo che il colore da rimuovere ci sia effettivamente, al lato controller
         students.remove(index);
+    }
+
+    public ArrayList<String> getColorsInGate(){
+        ArrayList<String> tmp= new ArrayList<>();
+        for (Student student : students) {
+            tmp.add(student.getColor());
+        }
+        return tmp;
     }
 
     @Override

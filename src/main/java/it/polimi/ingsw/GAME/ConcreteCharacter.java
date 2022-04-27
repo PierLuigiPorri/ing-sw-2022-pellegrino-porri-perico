@@ -1,5 +1,7 @@
 package it.polimi.ingsw.GAME;
 
+import java.util.ArrayList;
+
 public class ConcreteCharacter extends StudentSpace implements CharacterType{
     private int cost;
     private final int index;
@@ -52,6 +54,10 @@ public class ConcreteCharacter extends StudentSpace implements CharacterType{
         this.students.remove(index);
     }
 
+    public ArrayList<Student> getStudents(){
+        return this.students;
+    }
+
     public void setMAX(int val){
         this.MAX=val;
     }
@@ -66,5 +72,9 @@ public class ConcreteCharacter extends StudentSpace implements CharacterType{
     public void removeTD(){
         //TODO: assert che non siano 0
         if(this.index==4) this.TD--;
+    }
+
+    public int getTD(){
+        return this.TD;
     }
 }

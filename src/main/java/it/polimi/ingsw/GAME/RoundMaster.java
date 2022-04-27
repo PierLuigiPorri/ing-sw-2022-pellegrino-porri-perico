@@ -6,17 +6,15 @@ public class RoundMaster{
     private int roundCount;
     public Round round;
     private ArrayList<Player> players;
-    public final ArrayList<Player> order;
+    public final ArrayList<Player> initialOrder;
 
     public RoundMaster(ArrayList<Player> players) {
         this.roundCount = 0;
-        this.order=players;
+        this.initialOrder =players;
         round = new Round(players);
     }
 
-    private void startRound() {
-        round = new Round(players);
-    }
+   private void startRound() {round = new Round(players);}
 
     public ArrayList<Player> changePhase(int[] index) {  //restituisce l'ordine di gioco della fase successiva.
         if (this.round.getCurrentPhase().equals("Pianificazione")) {
@@ -30,8 +28,8 @@ public class RoundMaster{
                 players.remove(0);
             players.add(round.nextPianificazione(index));
             for (int i=0; i< players.size(); i++) {
-                if(!players.get(0).equals(order.get(i)))
-                    players.add(order.get(i));
+                if(!players.get(0).equals(initialOrder.get(i)))
+                    players.add(initialOrder.get(i));
             }
             startRound();
         }

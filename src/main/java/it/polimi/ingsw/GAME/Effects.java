@@ -4,6 +4,7 @@ package it.polimi.ingsw.GAME;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public final class Effects{
 
@@ -45,14 +46,15 @@ public final class Effects{
 
     public void apply(int index, Player player) throws ImpossibleActionException {
         //TODO scrivere tutti gli effetti
+        Scanner s=new Scanner(System.in);
         switch(index){
             case 1: //TODO: prima di attivare questo effetto, nel caso in cui il giocatore non abbia lo stesso numero di studenti
                     //di chi ha il professore, di conseguenza la carta non avrà effetto immediato, chiedere se davvero vuole attivarla
                 player.getHall().activateCard();
                 break;
             case 2:
-                //TODO:chiedere l'isola al player
-                int ind = 0;
+                System.out.println("indice isola? 1-12");
+                int ind = s.nextInt();
                 game.determineInfluence(ind);
                 break;
             case 3:
@@ -65,14 +67,23 @@ public final class Effects{
                 game.enableInfluenceBonus(player);
                 break;
             case 8:
-                //TODO:chiedere al player quale colore vuole eliminare
-                String c = "";
+                System.out.println("colore da eliminare? In caps grazie :)");
+                String c = s.nextLine();
                 game.colorTranslator(c).disableInfluence();
                 break;
             case 9:
-                //TODO:chiedere al player quali selezionare nel suo Gate, e quale/i colore/i selezionare nel suo Hall
                 ArrayList<Integer> students=new ArrayList<>();
                 ArrayList<String> colors = new ArrayList<>();
+                int line=0;
+                while(line!=-1){
+                    System.out.println("indice gate? -1 per uscire");
+                    line=s.nextInt();
+                    if(line!=-1) {
+                        students.add(line);
+                        System.out.println("colore gate?");
+                        colors.add(s.nextLine());
+                    }
+                }
                 for(int g=0; g<students.size(); g++){
                     game.removeFromHall(player, colors.get(g));
                     game.addStudentToHall(player.getGate().students.get(students.get(g)).getColor(), player);
@@ -82,8 +93,8 @@ public final class Effects{
                 game.checkColorChanges(false);
                 break;
             case 11:
-                //TODO:chiedere al giocatore quale colore
-                String q = null; //Colore scelto dal giocatore
+                System.out.println("colore?");
+                String q = s.nextLine();
                 for(Player pl:game.getPlayers()){
                     for(int u=0; u<3&&pl.getHall().getColor(q)!=0; u++){
                         pl.getHall().desetColor(q);
@@ -96,10 +107,13 @@ public final class Effects{
     }
 
     public void applyConcrete(int index, Player player, ConcreteCharacter c){
+        Scanner s=new Scanner(System.in);
         switch(index){
             case 0:
-                int i = 0; //TODO:l'indice e l'isola vanno chiesti al giocatore dopo aver attivato la carta
-                int island = 0;
+                System.out.println("indice studente? 0-3");
+                int i = s.nextInt();
+                System.out.println("indice isola? 1-12");
+                int island = s.nextInt();
                 game.addStudentToIsland(c.students.get(i).getColor(), island);
                 c.students.remove(i);
                 try {
@@ -109,13 +123,15 @@ public final class Effects{
                 }
                 break;
             case 4:
-                int isl = 0; //TODO:l'indice va chiesto al giocatore
+                System.out.println("indice isola? 1-12");
+                int isl = s.nextInt();
                 game.getB().islands.getIsland(isl).addTD();
-                c.removeTD(); //TODO:aggiungere al calcolo dell'influenza il caso in cui esiste una TD, e rimetterla sulla carta
+                c.removeTD();
             case 10:
-                int stud = 0; //TODO:chiedere al player quale prendere
+                System.out.println("indice studente? 0-3");
+                int stud = s.nextInt();
                 game.addStudentToHall(c.students.get(stud).getColor(), player);
-                c.setMAX(4);
+                c.getStudents().remove(stud);
                 try {
                     c.students.add(game.getBg().extractStudent());
                 }catch (ImpossibleActionException e){
@@ -124,7 +140,16 @@ public final class Effects{
                 break;
             case 6:
                 ArrayList<Integer> card = new ArrayList<>(), gate= new ArrayList<>();
-                //TODO: chiedere al player di selezionare MAX 3 stud dalla carta e dal suo gate, e mettere gli indici negli array
+                int line=0;
+                while(line!=-1){
+                    System.out.println("indice studente? 0-5, -1 per uscire");
+                    line=s.nextInt();
+                    if(line!=-1) {
+                        card.add(line);
+                        System.out.println("indice gate?");
+                        gate.add(s.nextInt());
+                    }
+                }
                 Student tmp;
                 for(int x=0; x<card.size(); x++){
                     tmp=c.students.get(card.get(x));
