@@ -84,7 +84,7 @@ public class Round {
         }
     }
 
-    public Player nextPianificazione(int[] index) { //index:array che contiene "VALORE" delle carte giocate da tutti i giocatori
+    public ArrayList<Player> nextPianificazione(int[] index) { //index:array che contiene "VALORE" delle carte giocate da tutti i giocatori
         if (player.size() == 3) {
             Card x, y, z;
 
@@ -97,7 +97,7 @@ public class Round {
             while (!player.get(i).playCard(index[i]).equals(tmp)) {
                 i++;
             }
-            return player.get(i);
+            return this.order;
         }
         else{
             Card x, y;
@@ -105,12 +105,16 @@ public class Round {
             x = player.get(0).playCard(index[0]);
             y = player.get(1).playCard(index[1]);
 
-            Card tmp = x.compareTo(y);
-            int i = 0;
-            while (!player.get(i).playCard(index[i]).equals(tmp)) {
-                i++;
-            }
-            return player.get(i);
+            int i= Math.max(x.getValue(), y.getValue());
+
+            if (i == x.getValue())
+                this.order.add(player.get(0));
+            else this.order.add(player.get(1));
+            if(this.order.contains(player.get(0)))
+                this.order.add(player.get(1));
+            else this.order.add(player.get(0));
+
+            return this.order;
         }
     }
 }

@@ -45,9 +45,6 @@ public class Gate extends StudentSpace{
     @Override
     public void addStudent(String color) {
         //TODO:controllare a lato controller che student.size()!=MAX -Doot
-        int i=0;
-        while (students.get(i)!=null && i<=MAX-1)
-            i++;
         students.add(new Student(color));
     }
 }

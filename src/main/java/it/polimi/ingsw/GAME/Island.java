@@ -50,7 +50,7 @@ public class Island extends StudentSpace implements TDSpace{
 
     public int getIslandCount(){return islandCount;}
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return this.towers.get(0).getPlayer();
     }
 
