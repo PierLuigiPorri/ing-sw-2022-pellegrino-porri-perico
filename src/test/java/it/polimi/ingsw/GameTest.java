@@ -128,13 +128,16 @@ public class GameTest {
         Assert.assertEquals(12, game.getB().islands.size());
         game.mergeIslands(1,2);
         Assert.assertEquals(12, game.getB().islands.size());
-        game.getB().islands.getIsland(1).addTower(player);
-        game.getB().islands.getIsland(2).addTower(player);
-        game.mergeIslands(1, 2);
+        game.getB().islands.getIsland(11).addTower(player);
+        game.getB().islands.getIsland(12).addTower(player);
+        game.mergeIslands(11, 12);
         //Assert.assertFalse(game.getB().islands.contains( game.getB().islands.getIsland(2)));
         //Assert.assertFalse(game.getB().islands.contains( game.getB().islands.getIsland(1)));
         Assert.assertEquals(11, game.getB().islands.size());
-
+        game.getB().islands.getIsland(1).addTower(player);
+        game.mergeIslands(1,11);
+        Assert.assertEquals(10, game.getB().islands.size());
+        Assert.assertEquals(game.getB().islands.getIsland(10).getIslandCount(), 3);
     }
 
     @Before

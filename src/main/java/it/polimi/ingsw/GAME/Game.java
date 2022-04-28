@@ -243,7 +243,7 @@ public class Game {
     public void moveMotherNature(int movement) throws ImpossibleActionException {
         //TODO:determinare chi chiede al player quanto deve muovere, perché MNbonus (anche se 0)dovrà essere aggiunto al massimo movimento
         if(roundMaster.round.getCurrentPhase().equals("Azione")) {
-            if (movement < 7) {
+            if (movement < 7+MNbonus) {
                 motherNature.getIsola().setMotherNature(false);
                 Island tmp = motherNature.getIsola();
                 for (int i = 0; i < movement + MNbonus; i++) {
@@ -336,12 +336,12 @@ public class Game {
 
     public void mergeIslands(int index1, int index2) throws ConsecutiveIslandException {
         //TODO: restituire la nuova isola creata. Controllare MoveMotherNature.
-        if(board.islands.getIsland(index1).next.equals(board.islands.getIsland(index2))) {
+        if(board.islands.getIsland(index1).next.equals(board.islands.getIsland(index2))||board.islands.getIsland(index2).next.equals(board.islands.getIsland(index1))) {
             Island i1, i2;
             i1 = board.islands.getIsland(index1);
             i2 = board.islands.getIsland(index2);
             if(!i1.towers.isEmpty() && !i2.towers.isEmpty() && i1.towers.get(0).getPlayer().equals(i2.towers.get(0).getPlayer()))
-            board.islands.mergeIslands(i1, i2);
+                board.islands.mergeIslands(i1, i2);
         }else throw new ConsecutiveIslandException("The islands are not consecutive, impossible to merge!");
     }
 

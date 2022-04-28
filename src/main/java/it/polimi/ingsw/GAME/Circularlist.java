@@ -23,18 +23,13 @@ public class Circularlist {
         do{
             if(p.getId()==index) return p;
             p=p.next;
-        }while(p!=tail);
+        }while(p!=tail.next);
         return null;
     }
 
     public int size(){
         if(head==null) return 0;
-        Island p=head;
-        int i;
-        for(i=1; p!=tail; i++){
-            p=p.next;
-        }
-        return i;
+        return tail.getId();
     }
 
     public void mergeIslands(Island i1, Island i2){
@@ -45,24 +40,51 @@ public class Circularlist {
         for(int j=0; j<i.islandCount; j++){
             i.towers.add(new Tower(i1.getPlayer()));
         }
-        Island first;
-        if(i1.getId()<i2.getId()) first=i1;
-        else first=i2;
+        Island first, second;
+        if((head==i1&&tail==i2)||(head==i2&&tail==i1)){
+            first=tail;
+            second=head;
+        }
+        else if(i1.getId()<i2.getId()){
+            first=i1;
+            second=i2;
+        }
+        else{
+            first=i2;
+            second=i1;
+        }
         i.id=first.id;
         Island p=head;
         while(p.next!=first){
             p=p.next;
         }
-        i.next=first.next.next;
+        i.next=second.next;
         p.next=i;
         p=i.next;
-        if(i.getId()==1)
-            head=i;
-        if(i.getId()==this.size())
+        if(first == head) {
+            head = i;
+            while(p!=tail){
+                p.id--;
+                p=p.next;
+            }
+        }
+        else if(second==head){
             tail=i;
-        while(p!=tail){
-            p.id--;
-            p=p.next;
+            head=i.next;
+            i.id--;
+            while(p!=tail){
+                p.id--;
+                p=p.next;
+            }
+        }
+        else if(second==tail){
+            tail=i;
+        }
+        else{
+            while(p!=tail){
+                p.id--;
+                p=p.next;
+            }
         }
     }
 
