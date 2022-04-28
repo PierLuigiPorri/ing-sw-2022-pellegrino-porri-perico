@@ -133,7 +133,7 @@ public class GameTest {
         game.mergeIslands(1, 2);
         //Assert.assertFalse(game.getB().islands.contains( game.getB().islands.getIsland(2)));
         //Assert.assertFalse(game.getB().islands.contains( game.getB().islands.getIsland(1)));
-        //Assert.assertEquals(11, game.getB().islands.size());
+        Assert.assertEquals(11, game.getB().islands.size());
 
     }
 

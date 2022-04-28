@@ -56,6 +56,10 @@ public class Circularlist {
         i.next=first.next.next;
         p.next=i;
         p=i.next;
+        if(i.getId()==1)
+            head=i;
+        if(i.getId()==this.size())
+            tail=i;
         while(p!=tail){
             p.id--;
             p=p.next;
