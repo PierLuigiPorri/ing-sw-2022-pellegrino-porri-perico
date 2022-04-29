@@ -8,12 +8,12 @@ import java.net.ServerSocket;
 public class ServerApp
 {
     private static int port=4000; //Connection port
-    private static ServerSocket ssock=null;
-    private static Socket sock=null;
     private static int connectedClients=0;
 
     public static void main(String args[])
     {
+        ServerSocket ssock=null;
+        Socket sock=null;
         try {
             ssock = new ServerSocket(port);
             System.out.println("Server Socket creation successful");

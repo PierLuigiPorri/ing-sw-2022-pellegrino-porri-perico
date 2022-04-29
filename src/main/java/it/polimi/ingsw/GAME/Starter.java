@@ -23,16 +23,24 @@ public class Starter implements Runnable{
     public void run() {
         System.out.println("Thread started");
         try {
-            in = new ObjectInputStream(clientSocket.getInputStream());
             out = new ObjectOutputStream(clientSocket.getOutputStream());
+            in = new ObjectInputStream(clientSocket.getInputStream());
         }
         catch (Exception e){
             System.out.println("Stream connection failed");
-            System.exit(0);
+            //TODO: Kill this thread
         }
-
         //TODO: Wait for New Game or Join Game
+        try {
+            g = in.readInt();
+            System.out.println("g:"+g);
+        }
+        catch (Exception e){
+            System.out.println("Invalid input");
+            //TODO: Kill this thread
+        }
         if(g==0){
+            System.out.println("So 0");
             int np=0; //Number of players
             int gt=0; //Game Type
             String nick="AO";
@@ -48,6 +56,7 @@ public class Starter implements Runnable{
 
         }
         else if(g==1){
+            System.out.println("So 1");
             int index=0; //Indice della partita che il giocatore vuole joinare
             String nick="AO";
             //TODO:Sync che ti inserisce nella prima partita disponibile
