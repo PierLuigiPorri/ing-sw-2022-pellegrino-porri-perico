@@ -10,15 +10,19 @@ import org.junit.*;
 
 public class GameTest {
     public Game game;
+    public Game game3;
     public Player player;
     Student[] tmp1;
     Student[] tmp2;
+    Student[] tmp3;
     Student[] tm1;
     Student[] tm2;
+    Student[] tm3;
 
     @Test
     public void GameSimulation () {
         try {
+            Assert.assertEquals(2, game.getPlayers().size());
             Assert.assertEquals("Pianificazione", game.roundMaster.round.getCurrentPhase());
             Assert.assertEquals(game.roundMaster.getRoundCount(), 0);
 
@@ -121,6 +125,72 @@ public class GameTest {
     }
 
     @Test
+    public void game3Simulation() {
+        Assert.assertEquals(3, game3.getPlayers().size());
+        Assert.assertEquals(12, game3.getB().islands.size());
+        Assert.assertEquals(3, game3.getB().clouds.size());
+        Assert.assertEquals(0, game3.getB().islands.getIsland(1).getStudents().size());
+        Assert.assertEquals(0, game3.getB().islands.getIsland(6).getStudents().size());
+        Assert.assertEquals(0, game3.roundMaster.getRoundCount());
+        try {
+            Assert.assertEquals("Pianificazione", game.roundMaster.round.getCurrentPhase());
+            game3.playCard("PIER", 2);
+            Assert.assertEquals("Pianificazione", game.roundMaster.round.getCurrentPhase());
+            game3.playCard("PAOLO", 7);
+            Assert.assertEquals("Pianificazione", game.roundMaster.round.getCurrentPhase());
+            game3.playCard("Gandalf", 5);
+            Assert.assertEquals("Azione", game3.roundMaster.round.getCurrentPhase());
+
+            for (int i=0; i<3; i++){
+                tmp1[i]=game3.getPlayers().get(0).getGate().getStudents().get(i);
+                tmp2[i]=game3.getPlayers().get(1).getGate().getStudents().get(i);
+                tmp3[i]=game3.getPlayers().get(2).getGate().getStudents().get(i);
+            }
+            game3.gateToHall("PIER", tmp1[0].getColor() );
+            game3.gateToIsland("PIER", 3, 7, tmp1[1].getColor());
+            game3.gateToIsland("PIER", 2, 7, tmp1[2].getColor());
+
+            game3.moveMotherNature(game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
+            Assert.assertEquals(game3.motherNature.getIsola().getId(), game3.getCardsPlayed().remove(game3.getCardsPlayed().size()-1).getMovement() + 1);
+
+            for (int i=0; i<3; i++){
+                tm1[i]=game3.getB().clouds.get(0).getStudents().get(i);
+                tm2[i]=game3.getB().clouds.get(1).getStudents().get(i);
+                tm3[i]=game3.getB().clouds.get(2).getStudents().get(i);
+            }
+
+            game3.CloudToGate("PIER", tm2[0].getColor(), 0, 1);
+            game3.CloudToGate("PIER", tm2[1].getColor(), 0, 1);
+            game3.CloudToGate("PIER", tm2[2].getColor(), 0, 1);
+
+            game3.gateToHall("Gandalf", tmp3[0].getColor() );
+            game3.gateToIsland("Gandalf", 3, 7, tmp3[1].getColor());
+            game3.gateToIsland("Gandalf", 2, 7, tmp3[2].getColor());
+
+            game3.CloudToGate("Gandalf", tm2[0].getColor(), 0, 2);
+            game3.CloudToGate("Gandalf", tm2[1].getColor(), 0, 2);
+            game3.CloudToGate("Gandalf", tm2[2].getColor(), 0, 2);
+
+            game3.moveMotherNature(game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
+            Assert.assertEquals(game3.motherNature.getIsola().getId(), 3);
+
+            game3.gateToHall("PAOLO", tmp2[0].getColor() );
+            game3.gateToIsland("PAOLO", 3, 7, tmp2[1].getColor());
+            game3.gateToIsland("PAOLO", 2, 7, tmp2[2].getColor());
+            game3.moveMotherNature(game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
+            Assert.assertEquals(game3.motherNature.getIsola().getId(), 4);
+
+            game3.CloudToGate("PAOLO", tm1[0].getColor(), 0, 0);
+            game3.CloudToGate("PAOLO", tm1[1].getColor(), 0, 0);
+            game3.CloudToGate("PAOLO", tm1[2].getColor(), 0, 0);
+
+
+        }catch (ImpossibleActionException | BoundException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
     public void mergeIslandsTest() throws ConsecutiveIslandException {
         Assert.assertEquals(12, game.getB().islands.size());
         //game.mergeIslands(1, 3); returns the correct exceptions. it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException:
@@ -131,8 +201,8 @@ public class GameTest {
         game.getB().islands.getIsland(11).addTower(player);
         game.getB().islands.getIsland(12).addTower(player);
         game.mergeIslands(11, 12);
-        //Assert.assertFalse(game.getB().islands.contains( game.getB().islands.getIsland(2)));
-        //Assert.assertFalse(game.getB().islands.contains( game.getB().islands.getIsland(1)));
+        Assert.assertFalse(game.getB().islands.contains( game.getB().islands.getIsland(12)));
+        //Assert.assertFalse(game.getB().islands.contains( game.getB().islands.getIsland(11)));
         Assert.assertEquals(11, game.getB().islands.size());
         game.getB().islands.getIsland(1).addTower(player);
         game.mergeIslands(1,11);
@@ -144,6 +214,7 @@ public class GameTest {
     public void setUp() throws Exception {
         try{
             game = new Game(2, 1, "PIER", null, "PAOLO", null, null, null);
+            game3 = new Game(3, 1, "PIER", null, "PAOLO", null, "Gandalf", null);
         }catch (GameException e){
             System.out.println(e.getMessage());}
         player= new Player(2,"Pier", game);
@@ -151,13 +222,22 @@ public class GameTest {
         tmp2= new Student[3];
         tm1 = new Student[3];
         tm2 = new Student[3];
+        tmp3= new Student[3];
+        tm3 = new Student[3];
     }
 
     @After
     public void tearDown() {
         try{
             game = new Game(2, 1, "PIER", null, "PAOLO", null, null, null);
+            game3 = new Game(3, 1, "PIER", null, "PAOLO", null, "Gandalf", null);
         }catch (GameException e){
             System.out.println(e.getMessage());}
+        tmp1= new Student[3];
+        tmp2= new Student[3];
+        tm1 = new Student[3];
+        tm2 = new Student[3];
+        tmp3= new Student[3];
+        tm3 = new Student[3];
     }
 }

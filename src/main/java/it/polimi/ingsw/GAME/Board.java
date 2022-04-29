@@ -10,7 +10,7 @@ public class Board {
 
     public Board(int pcount){
         clouds= new ArrayList<>();
-        for(int i=0; i<=pcount; i++){
+        for(int i=0; i<pcount; i++){
             clouds.add(new Cloud(pcount+1));
         }
         islands=new Circularlist();
