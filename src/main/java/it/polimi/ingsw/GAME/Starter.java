@@ -2,6 +2,8 @@ package it.polimi.ingsw.GAME;
 
 import it.polimi.ingsw.EXCEPTIONS.GameException;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.net.Socket;
 
@@ -9,6 +11,9 @@ public class Starter implements Runnable{
 
     private static ArrayList<Creation> partite=new ArrayList<>(); //Elenco di tutte le partite in fase di creazione (e quindi joinabili)
     private Socket clientSocket;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
+    private int g; //0=New Game, 1=Join Game
 
     public Starter(Socket socket){
         this.clientSocket=socket;
@@ -17,8 +22,16 @@ public class Starter implements Runnable{
     @Override
     public void run() {
         System.out.println("Thread started");
-        int g=0;//0=New Game, 1=Join Game
-        //TODO: New Game or Join Game?
+        try {
+            in = new ObjectInputStream(clientSocket.getInputStream());
+            out = new ObjectOutputStream(clientSocket.getOutputStream());
+        }
+        catch (Exception e){
+            System.out.println("Stream connection failed");
+            System.exit(0);
+        }
+
+        //TODO: Wait for New Game or Join Game
         if(g==0){
             int np=0; //Number of players
             int gt=0; //Game Type
@@ -31,13 +44,13 @@ public class Starter implements Runnable{
             synchronized (partite) {
                 partite.add(new Creation(np, gt, nick, clientSocket));
             }
-            System.out.println("In attesa degli altri giocatori e della creazione della partita");
+            //System.out.println("In attesa degli altri giocatori e della creazione della partita");
 
         }
         else if(g==1){
             int index=0; //Indice della partita che il giocatore vuole joinare
             String nick="AO";
-            //TODO:Scelta partita da Joinare, anche qui dovrà essere sync se no l'indice potrebbe cambiare
+            //TODO:Sync che ti inserisce nella prima partita disponibile
 
             //TODO:Scelta nick con controllo se il nick è già usato nella partita
 
