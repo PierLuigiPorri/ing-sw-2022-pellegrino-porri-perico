@@ -30,33 +30,24 @@ public class Starter implements Runnable{
             System.out.println("Stream connection failed");
             //TODO: Kill this thread
         }
-        //TODO: Wait for New Game or Join Game
+        //Wait for New Game or Join Game
         try {
             g = in.readInt();
-            System.out.println("g:"+g);
+            //System.out.println("g:"+g);
         }
         catch (Exception e){
             System.out.println("Invalid input");
             //TODO: Kill this thread
         }
         if(g==0){
-            System.out.println("So 0");
-            int np=0; //Number of players
-            int gt=0; //Game Type
-            String nick="AO";
-            //TODO: Nickname request
-            //TODO: Game Type request
-            //TODO: Request of number of players
-
-            //Creation phase of the game
-            synchronized (partite) {
-                partite.add(new Creation(np, gt, nick, clientSocket));
-            }
-            //System.out.println("In attesa degli altri giocatori e della creazione della partita");
-
+            NewGame();
+            //System.out.println("gt: "+partite.get(0).getGametype());
+            //System.out.println("np: "+partite.get(0).getnPlayers());
+            //System.out.println("nj: "+partite.get(0).getnJoined());
+            //System.out.println("nick: "+partite.get(0).getNick1());
         }
         else if(g==1){
-            System.out.println("So 1");
+            //System.out.println("So 1");
             int index=0; //Indice della partita che il giocatore vuole joinare
             String nick="AO";
             //TODO:Sync che ti inserisce nella prima partita disponibile
@@ -86,6 +77,40 @@ public class Starter implements Runnable{
                     }
                 }
             }
+        }
+    }
+
+    private void NewGame(){
+        String nick=null;
+        int gt=-1; //Game Type
+        int np=-1; //Number of players
+        //Wait for nickname
+        try {
+            nick = in.readObject().toString();
+        }
+        catch (Exception e){
+            System.out.println("Invalid input from client");
+            //TODO: Kill this thread
+        }
+        //Wait for Game Type
+        try {
+            gt = in.readInt();
+        }
+        catch (Exception e){
+            System.out.println("Invalid input from client");
+            //TODO: Kill this thread
+        }
+        //Wait for Number of players
+        try {
+            np = in.readInt();
+        }
+        catch (Exception e){
+            System.out.println("Invalid input from client");
+            //TODO: Kill this thread
+        }
+        //Creation phase of the game
+        synchronized (partite) {
+            partite.add(new Creation(np, gt, nick, clientSocket));
         }
     }
 }
