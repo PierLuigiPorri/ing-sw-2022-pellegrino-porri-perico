@@ -8,7 +8,7 @@ public class Hand {
 //TODO: impostare il corretto valore di MOVIMENTO alle varie carte.
     public Hand(){
         cards=new ArrayList<>();
-        cards.add(new Card(0,0)); //CARD[0] serve in classe ROUND.
+        cards.add(new Card(0, 0));
         cards.add(new Card(1, 1));
         cards.add(new Card(1, 2));
         cards.add(new Card(1, 3));

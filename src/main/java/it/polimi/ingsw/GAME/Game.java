@@ -64,7 +64,8 @@ public class Game {
             }
         }
         roundMaster = new RoundMaster(players);
-        if(playerCount>1 && playerCount<4) {
+
+        /*if(playerCount>1 && playerCount<4) {
             if (playerCount == 2) {
                 if (roundMaster.getRoundCount() == 0) {
                     ArrayList <Player> players= new ArrayList<>();
@@ -80,7 +81,8 @@ public class Game {
                     players.add(this.players.get(2));
                 } else throw new GameException("Game already started!\n");
             }
-        } else throw new GameException("Number of players not allowed.\n");
+        } else throw new GameException("Number of players not allowed.\n");*/
+
 
         controllers=new ArrayList<>();
         controllers.add(new Controller(this, sock1));
@@ -206,13 +208,6 @@ public class Game {
                         player1.maxMoves--;
                     }else throw new BoundException(player1.nickname + " can't place anymore students.\n");
                 } else throw new ImpossibleActionException("Not such color in " +player1.nickname+ "'s gate");
-
-                if (player1.maxMoves == 0) {
-// TODO:L'utente ha finito le mosse possibili nella fase di azione,
-//  quindi deve scegliere da quale nuvola prendere gli studenti.
-//  waitforInput(....); CloudtoGate(....) controller.sendmessaggio
-                }
-
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -263,7 +258,9 @@ public class Game {
                 if(!r.towers.isEmpty() && !tmp.towers.isEmpty()) {
                     if (r.getPlayer().equals(tmp.getPlayer())) {
                         try {
-                            mergeIslands(tmp.getId(), tmp.next.getId());
+                            int min=Math.min(tmp.getId(), r.getId());
+                            mergeIslands(tmp.getId(), r.getId());
+                            tmp=getB().islands.getIsland(min);
                         } catch (ConsecutiveIslandException e) {
                             System.out.println(e.getMessage());
                         }

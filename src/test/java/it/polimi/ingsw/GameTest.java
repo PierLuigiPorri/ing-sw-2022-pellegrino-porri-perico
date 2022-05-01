@@ -25,7 +25,9 @@ public class GameTest {
             Assert.assertEquals(2, game.getPlayers().size());
             Assert.assertEquals("Pianificazione", game.roundMaster.round.getCurrentPhase());
             Assert.assertEquals(game.roundMaster.getRoundCount(), 0);
-
+            Assert.assertEquals(11, game.getPlayers().get(0).getHand().cards.size());
+            Assert.assertEquals("PIER", game.getPlayers().get(0).getNickname());
+            Assert.assertEquals(8, game.getPlayers().get(0).getTower_count());
             game.playCard("PIER", 2);
             Assert.assertEquals("Pianificazione", game.roundMaster.round.getCurrentPhase());
 
@@ -41,8 +43,8 @@ public class GameTest {
             }
 
             game.gateToHall("PIER", tmp1[0].getColor() );
-            game.gateToIsland("PIER", 3, 7, tmp1[1].getColor());
-            game.gateToIsland("PIER", 2, 7, tmp1[2].getColor());
+            game.gateToIsland("PIER", 0, 7, tmp1[1].getColor());
+            game.gateToIsland("PIER", 0, 7, tmp1[2].getColor());
 
             game.moveMotherNature(game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
             Assert.assertEquals(game.motherNature.getIsola().getId(), game.getCardsPlayed().remove(game.getCardsPlayed().size()-1).getMovement() + 1);
@@ -60,8 +62,8 @@ public class GameTest {
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
             game.gateToHall("PAOLO", tmp2[0].getColor());
-            game.gateToIsland("PAOLO", 1, 11, tmp2[1].getColor());
-            game.gateToIsland("PAOLO", 4, 4, tmp2[2].getColor());
+            game.gateToIsland("PAOLO", 0, 11, tmp2[1].getColor());
+            game.gateToIsland("PAOLO", 0, 4, tmp2[2].getColor());
 
             game.moveMotherNature(game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
 
@@ -91,10 +93,10 @@ public class GameTest {
                 tmp2[i]=game.getPlayers().get(0).getGate().getStudents().get(i);
             }
             game.gateToHall("PIER", tmp1[0].getColor() );
-            game.gateToIsland("PIER", 3, 7, tmp1[1].getColor());
-            game.gateToIsland("PIER", 2, 7, tmp1[2].getColor());
+            game.gateToIsland("PIER", 0, 7, tmp1[1].getColor());
+            game.gateToIsland("PIER", 0, 7, tmp1[2].getColor());
             game.moveMotherNature(game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
-            Assert.assertEquals(4, game.motherNature.getIsola().getId());
+            Assert.assertEquals(3, game.motherNature.getIsola().getId());
             for (int i=0; i<3; i++){
                 tm1[i]=game.getB().clouds.get(0).getStudents().get(i);
                 tm2[i]=game.getB().clouds.get(1).getStudents().get(i);
@@ -105,8 +107,8 @@ public class GameTest {
             Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
             game.gateToHall("PAOLO", tmp2[0].getColor());
-            game.gateToIsland("PAOLO", 1, 11, tmp2[1].getColor());
-            game.gateToIsland("PAOLO", 4, 4, tmp2[2].getColor());
+            game.gateToIsland("PAOLO", 0, 9, tmp2[1].getColor());
+            game.gateToIsland("PAOLO", 0, 4, tmp2[2].getColor());
             game.moveMotherNature(game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
             Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
@@ -147,8 +149,8 @@ public class GameTest {
                 tmp3[i]=game3.getPlayers().get(2).getGate().getStudents().get(i);
             }
             game3.gateToHall("PIER", tmp1[0].getColor() );
-            game3.gateToIsland("PIER", 3, 7, tmp1[1].getColor());
-            game3.gateToIsland("PIER", 2, 7, tmp1[2].getColor());
+            game3.gateToIsland("PIER", 0, 7, tmp1[1].getColor());
+            game3.gateToIsland("PIER", 0, 7, tmp1[2].getColor());
 
             game3.moveMotherNature(game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
             Assert.assertEquals(game3.motherNature.getIsola().getId(), game3.getCardsPlayed().remove(game3.getCardsPlayed().size()-1).getMovement() + 1);
@@ -163,22 +165,22 @@ public class GameTest {
             game3.CloudToGate("PIER", tm2[1].getColor(), 0, 1);
             game3.CloudToGate("PIER", tm2[2].getColor(), 0, 1);
 
-            game3.gateToHall("Gandalf", tmp3[0].getColor() );
-            game3.gateToIsland("Gandalf", 3, 7, tmp3[1].getColor());
-            game3.gateToIsland("Gandalf", 2, 7, tmp3[2].getColor());
+            game3.gateToHall("Gandalf", tmp2[0].getColor() );
+            game3.gateToIsland("Gandalf", 0, 7, tmp2[1].getColor());
+            game3.gateToIsland("Gandalf", 0, 7, tmp2[2].getColor());
 
-            game3.CloudToGate("Gandalf", tm2[0].getColor(), 0, 2);
-            game3.CloudToGate("Gandalf", tm2[1].getColor(), 0, 2);
-            game3.CloudToGate("Gandalf", tm2[2].getColor(), 0, 2);
+            game3.CloudToGate("Gandalf", tm3[0].getColor(), 0, 2);
+            game3.CloudToGate("Gandalf", tm3[1].getColor(), 0, 2);
+            game3.CloudToGate("Gandalf", tm3[2].getColor(), 0, 2);
 
             game3.moveMotherNature(game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
             Assert.assertEquals(game3.motherNature.getIsola().getId(), 3);
 
             game3.gateToHall("PAOLO", tmp2[0].getColor() );
-            game3.gateToIsland("PAOLO", 3, 7, tmp2[1].getColor());
-            game3.gateToIsland("PAOLO", 2, 7, tmp2[2].getColor());
+            game3.gateToIsland("PAOLO", 0, 7, tmp2[1].getColor());
+            game3.gateToIsland("PAOLO", 0, 7, tmp2[2].getColor());
             game3.moveMotherNature(game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
-            Assert.assertEquals(game3.motherNature.getIsola().getId(), 4);
+            Assert.assertEquals(game3.motherNature.getIsola().getId(), 3);
 
             game3.CloudToGate("PAOLO", tm1[0].getColor(), 0, 0);
             game3.CloudToGate("PAOLO", tm1[1].getColor(), 0, 0);
