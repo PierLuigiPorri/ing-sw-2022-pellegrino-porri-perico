@@ -62,12 +62,53 @@ public class CardsTest
             c.add("RED");
         }
         for (int i = 0; i < 3; i++) {
+            String temp = null;
+            int quant=0;
             System.out.println("\n "+ game.characterSelector.getCharacters().get(i).getIndex());
-            game.activateCharacter("FRANCO", i, 1, "RED", a, c, 1, b);
-            /*switch(c.getIndex()){
+            switch(game.characterSelector.getCharacters().get(i).getIndex()){
                 case 0:
-
-            }*/
+                    ConcreteCharacter car= (ConcreteCharacter) game.characterSelector.getCharacters().get(i);
+                    temp=car.getStudents().get(1).getColor();
+                    for(Student st: game.getB().islands.getIsland(1).getStudents()){
+                        if(Objects.equals(st.getColor(), temp))
+                            quant++;
+                    }
+                    break;
+                case 1:
+                    for(Player ps:game.getPlayers())
+                        assertFalse(ps.getHall().cardActivated);
+                    break;
+                case 2:
+                    assertTrue(game.getB().islands.getIsland(1).getTowers().isEmpty());
+                    if(game.getB().islands.getIsland(1).getStudents().isEmpty()) {
+                        game.addStudentToIsland("RED", 1);
+                        game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
+                    }
+            }
+            game.activateCharacter("FRANCO", i, 1, "RED", a, c, 1, b);
+            switch(game.characterSelector.getCharacters().get(i).getIndex()){
+                case 0:
+                    ConcreteCharacter car2= (ConcreteCharacter) game.characterSelector.getCharacters().get(i);
+                    assertEquals(car2.getStudents().size(), 4);
+                    for(Student st:game.getB().islands.getIsland(1).getStudents()){
+                        if(Objects.equals(st.getColor(), temp))
+                            quant--;
+                    }
+                    assertEquals(quant, -1);
+                    break;
+                case 1:
+                    boolean pass=false;
+                    for(Player ps:game.getPlayers()) {
+                        if (ps.getHall().cardActivated) {
+                            pass = true;
+                            break;
+                        }
+                    }
+                    assertTrue(pass);
+                    break;
+                case 2:
+                    assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
+            }
         }
     }
 

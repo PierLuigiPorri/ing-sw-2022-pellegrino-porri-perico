@@ -461,13 +461,13 @@ public class Game {
             Player max=colorTranslator(ct).getPlayer();
             if(rule){
                 for(Player pl:players){
-                    if(pl.getHall().getColor(ct)>=max.getHall().getColor(ct) && !pl.equals(max))
+                    if(max==null||(pl.getHall().getColor(ct)>=max.getHall().getColor(ct) && !pl.equals(max)))
                         max=pl;
                 }
             }
             else{
                 for(Player pl:players){
-                    if(pl.getHall().getColor(ct)>pl.getHall().getColor(ct) && !pl.equals(max))
+                    if(max==null||(pl.getHall().getColor(ct)>pl.getHall().getColor(ct) && !pl.equals(max)))
                         max=pl;
                 }
             }

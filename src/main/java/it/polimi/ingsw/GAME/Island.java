@@ -63,4 +63,7 @@ public class Island extends StudentSpace implements TDSpace{
         return students;
     }
 
+    public ArrayList<Tower> getTowers() {
+        return towers;
+    }
 }

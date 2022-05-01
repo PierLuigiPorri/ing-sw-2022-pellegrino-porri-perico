@@ -102,6 +102,7 @@ public final class Effects{
             case 4:
                 game.getB().islands.getIsland(par1).addTD();
                 c.removeTD();
+                break;
             case 10:
                 game.addStudentToHall(c.students.get(par1).getColor(), player);
                 c.getStudents().remove(par1);

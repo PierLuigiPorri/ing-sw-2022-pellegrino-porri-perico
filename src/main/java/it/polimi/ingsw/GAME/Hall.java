@@ -10,7 +10,7 @@ public class Hall {
     private int pink;
     private int yellow;
     //private final Player player;
-    private boolean cardActivated=false;
+    public boolean cardActivated=false;
 
     public Hall() {
         this.red = 0;
