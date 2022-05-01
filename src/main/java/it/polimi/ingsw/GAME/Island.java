@@ -8,7 +8,7 @@ public class Island extends StudentSpace implements TDSpace{
     protected boolean motherNature;
     protected int islandCount=1;
     public Island next;
-    private ArrayList<Student> students;
+    private final ArrayList<Student> students;
     public boolean TD=false; //0:No tessera divieto; 1:Tessera divieto presente
 
     public Island(int index){
@@ -51,7 +51,10 @@ public class Island extends StudentSpace implements TDSpace{
     public int getIslandCount(){return islandCount;}
 
     public Player getPlayer() {
-        return this.towers.get(0).getPlayer();
+        if (this.towers.isEmpty())
+            return null;
+        else
+            return this.towers.get(0).getPlayer();
     }
 
     public void addTower(Player p){

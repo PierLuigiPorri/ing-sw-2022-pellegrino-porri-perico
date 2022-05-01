@@ -88,7 +88,6 @@ public final class Effects{
     }
 
     public void applyConcrete(int index, Player player, ConcreteCharacter c, int par1, int par2, ArrayList<Integer> par3, ArrayList<Integer> par4){
-        Scanner s=new Scanner(System.in);
         switch(index){
             case 0:
                 game.addStudentToIsland(c.students.get(par1).getColor(), par2);
