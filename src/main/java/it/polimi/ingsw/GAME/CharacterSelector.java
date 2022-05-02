@@ -9,7 +9,7 @@ import java.util.Random;
 public class CharacterSelector {
 
     private final ArrayList<CharacterType> selectedCharacters;
-    private final Effects effects;
+    public final Effects effects;
 
     public CharacterSelector(Game game){
         this.effects= new Effects(game);

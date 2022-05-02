@@ -1,7 +1,7 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.GAME.MessageHandler;
-import it.polimi.ingsw.GAME.Starter;
+import it.polimi.ingsw.NETWORK.MessageHandler;
+
 import java.net.*;
 import java.net.ServerSocket;
 

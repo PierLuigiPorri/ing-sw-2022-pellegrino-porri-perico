@@ -4,6 +4,7 @@ import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
+import it.polimi.ingsw.NETWORK.Controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -299,19 +300,18 @@ public class Game {
                 }
             }
             for (Student s : this.board.islands.getIsland(index).getStudents()) {
-                //TODO: indexOf restituisce -1
-                //p.set(players.indexOf(colorTranslator(s.getColor()).getPlayer()), p.get(players.indexOf(colorTranslator(s.getColor()).getPlayer())) + colorTranslator(s.getColor()).getInfluence());
                 if(colorTranslator(s.getColor()).getPlayer() != null)
                     p.set(players.indexOf(colorTranslator(s.getColor()).getPlayer()), p.get(players.indexOf(colorTranslator(s.getColor()).getPlayer())) + colorTranslator(s.getColor()).getInfluence());
             }
+            ArrayList<Integer> q = new ArrayList<>(p);
             Collections.sort(p);
             if (!p.get(p.size()-1).equals(p.get(p.size()-2))) {
                 if (this.board.islands.getIsland(index).towers.isEmpty()) {
-                    this.board.islands.getIsland(index).addTower(players.get(p.indexOf(p.get(p.size()-1))));
-                    players.get(p.indexOf(p.get(p.size()-1))).removeTower();
-                } else if (!players.get(p.indexOf(p.get(p.size()-1))).equals(this.board.islands.getIsland(index).getPlayer())) {
-                    swapTowers(index, players.get(p.indexOf(p.get(p.size()-1))));
-                    players.get(p.indexOf(p.get(p.size()-1))).removeTower();
+                    this.board.islands.getIsland(index).addTower(players.get(q.indexOf(p.get(p.size()-1))));
+                    players.get(q.indexOf(p.get(p.size()-1))).removeTower();
+                } else if (!players.get(q.indexOf(p.get(p.size()-1))).equals(this.board.islands.getIsland(index).getPlayer())) {
+                    swapTowers(index, players.get(q.indexOf(p.get(p.size()-1))));
+                    players.get(q.indexOf(p.get(p.size()-1))).removeTower();
                 }
             }
         }
@@ -320,11 +320,8 @@ public class Game {
     public void swapTowers(int index, Player player1) throws ImpossibleActionException{
         try {
             if(board.islands.getIsland(index).towers!=null) {
-                int i = 0;
-                while (board.islands.getIsland(index).towers.get(i) != null) {
-                    board.islands.getIsland(index).towers.get(i).setPlayer(player1);
-                    i++;
-                }
+                for(Tower t:board.islands.getIsland(index).towers)
+                    t.setPlayer(player1);
             } else throw new ImpossibleActionException("No towers in this island.\n");
         }catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
@@ -458,13 +455,13 @@ public class Game {
             Player max=colorTranslator(ct).getPlayer();
             if(rule){
                 for(Player pl:players){
-                    if(max==null||(pl.getHall().getColor(ct)>=max.getHall().getColor(ct) && !pl.equals(max)))
+                    if((max==null&&pl.getHall().getColor(ct)>0)||((max!=null)&&pl.getHall().getColor(ct)>=max.getHall().getColor(ct) && !pl.equals(max)))
                         max=pl;
                 }
             }
             else{
                 for(Player pl:players){
-                    if(max==null||(pl.getHall().getColor(ct)>pl.getHall().getColor(ct) && !pl.equals(max)))
+                    if((max==null&&pl.getHall().getColor(ct)>0)||((max!=null)&&pl.getHall().getColor(ct)>max.getHall().getColor(ct) && !pl.equals(max)))
                         max=pl;
                 }
             }

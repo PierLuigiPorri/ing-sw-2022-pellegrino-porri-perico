@@ -1,7 +1,8 @@
-package it.polimi.ingsw.GAME;
+package it.polimi.ingsw.NETWORK;
 
 import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
+import it.polimi.ingsw.GAME.Game;
 
 import java.net.Socket;
 import java.util.ArrayList;

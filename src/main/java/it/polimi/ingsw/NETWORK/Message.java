@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GAME;
+package it.polimi.ingsw.NETWORK;
 
 import java.io.Serializable;
 

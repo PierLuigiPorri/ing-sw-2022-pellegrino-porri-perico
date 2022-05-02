@@ -2,7 +2,7 @@ package it.polimi.ingsw.GAME;
 
 import java.util.ArrayList;
 
-public class ConcreteCharacter extends StudentSpace implements CharacterType{
+public class ConcreteCharacter extends StudentSpace implements CharacterType, TDSpace{
     private int cost;
     private final int index;
     private boolean used=false;
@@ -65,13 +65,15 @@ public class ConcreteCharacter extends StudentSpace implements CharacterType{
     public int getMAX(){
         return this.MAX;
     }
+    @Override
     public void addTD(){
         //TODO: assert che siano max 4
-        if(this.index==4) this.TD++;
+        if(this.index==4 && this.TD<4) this.TD++;
     }
+    @Override
     public void removeTD(){
         //TODO: assert che non siano 0
-        if(this.index==4) this.TD--;
+        if(this.index==4&& this.TD>0) this.TD--;
     }
 
     public int getTD(){

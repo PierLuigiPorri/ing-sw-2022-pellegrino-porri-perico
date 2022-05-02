@@ -1,6 +1,8 @@
-package it.polimi.ingsw.GAME;
+package it.polimi.ingsw.NETWORK;
 
 import it.polimi.ingsw.EXCEPTIONS.GameException;
+import it.polimi.ingsw.GAME.Game;
+import it.polimi.ingsw.NETWORK.Creation;
 
 import java.util.ArrayList;
 
@@ -66,7 +68,7 @@ public class Starter{
     public void joinGame(int id){
         synchronized (games) {
             //
-            games.get(index).setnJoined(); //njoinati++
+            /*games.get(index).setnJoined(); //njoinati++
             if (games.get(index).getnJoined() == 2) {
                 games.get(index).setNick2(nick);
                 games.get(index).setSock2(clientSocket);
@@ -85,7 +87,7 @@ public class Starter{
                     games.remove(index); //Rimozione della partita da quelle in fase di creazione
                 } catch (GameException e) {
                     System.out.println(e.getMessage());
-                }
+                }*/
             }
     }
 }
