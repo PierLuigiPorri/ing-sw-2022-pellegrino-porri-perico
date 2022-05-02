@@ -85,10 +85,10 @@ public class Game {
 
 
         controllers=new ArrayList<>();
-        controllers.add(new Controller(this, sock1));
-        controllers.add(new Controller(this, sock2));
+        controllers.add(new Controller(this));
+        controllers.add(new Controller(this));
         if(playerCount==3){
-            controllers.add(new Controller(this, sock3));
+            controllers.add(new Controller(this));
         }
         for(Controller c: controllers){
             new Thread(c).start();

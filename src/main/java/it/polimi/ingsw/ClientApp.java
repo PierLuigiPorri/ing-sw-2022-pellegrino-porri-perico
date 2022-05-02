@@ -38,7 +38,7 @@ public class ClientApp {
             System.exit(0);
         }
         if(g==0){
-            NewGame(out); //Se dovesse essere necessario potremmo fargli restituire il nostro nickname
+            newGame(out);
         }
         else if(g==1){
 
@@ -91,7 +91,7 @@ public class ClientApp {
         return input;
     }
 
-    private static void NewGame(ObjectOutputStream out){
+    private static void newGame(ObjectOutputStream out){
         String nick;
         int gt; //Game Type
         int np; //Number of players

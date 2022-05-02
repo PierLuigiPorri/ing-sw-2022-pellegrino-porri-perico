@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class Controller implements Runnable{
     public Game game;
-    public Socket clientSocket;
 
     @Override
     public void run() {
@@ -21,9 +20,8 @@ public class Controller implements Runnable{
         //Game userà il metodo send di questa classe per chiedere cose al giocatore (es: quale colore disattivare per il calcolo dell'influenza)
     }
 
-    public Controller(Game game, Socket s){
+    public Controller(Game game){
         this.game=game;
-        clientSocket=s;
     }
 
     public void gateToIsland(String name, int index, int indexIsland, String color) {

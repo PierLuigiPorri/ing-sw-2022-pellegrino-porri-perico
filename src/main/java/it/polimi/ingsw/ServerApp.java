@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.GAME.MessageHandler;
 import it.polimi.ingsw.GAME.Starter;
 import java.net.*;
 import java.net.ServerSocket;
@@ -32,7 +33,7 @@ public class ServerApp
             catch (Exception e){
                 System.out.println("Client connection failed");
             }
-            new Thread(new Starter(sock)).start();
+            new Thread(new MessageHandler(sock)).start();
         }
     }
 }
