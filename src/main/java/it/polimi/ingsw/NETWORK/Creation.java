@@ -10,6 +10,7 @@ public class Creation {
     private String nick1;
     private String nick2=null;
     private String nick3=null;
+    private int actuallyJoined;
 
     public Creation(int id, int ng, int gt, String nick){
         nPlayers=ng;

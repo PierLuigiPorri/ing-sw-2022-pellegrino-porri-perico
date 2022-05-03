@@ -60,7 +60,7 @@ public class Starter{
 
     public void newGame(int gt, int np, String nick){
         //Creation phase of the game
-        synchronized (currID) {
+        synchronized (games) {
             games.add(new Creation(currID, np, gt, nick));
             currID++;
         }
