@@ -97,6 +97,38 @@ public class CardsTest
                     assertEquals(car5.getStudents().size(), 6);
                     assertEquals(game.getPlayers().get(0).getGate().getStudents().size(), 7);
                     break;
+                case 8:
+                    game.addStudentToIsland("RED", 1);
+                    game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
+                    game.addStudentToHall("GREEN", game.playerTranslator("CARMINE"));
+                    game.determineInfluence(1);
+                    assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("FRANCO"));
+                    game.addStudentToIsland("GREEN", 1);
+                    game.addStudentToIsland("GREEN", 1);
+                    break;
+                case 9:
+                    game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
+                    game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
+                    game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
+                    game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
+                    game.getPlayers().get(0).getGate().getStudents().set(0, new Student("GREEN"));
+                    game.getPlayers().get(0).getGate().getStudents().set(1, new Student("GREEN"));
+                    game.addStudentToIsland("RED", 1);
+                    game.addStudentToIsland("RED", 1);
+                    game.determineInfluence(1);
+                    assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("FRANCO"));
+                    break;
+                case 10:
+                    game.addStudentToIsland("RED", 1);
+                    game.addStudentToIsland("BLUE", 1);
+                    game.addStudentToIsland("YELLOW", 1);
+                    game.addStudentToIsland("GREEN", 1);
+                    game.addStudentToIsland("PINK", 1);
+                    game.determineInfluence(1);
+                    assertTrue(game.getB().islands.getIsland(1).getTowers().isEmpty());
+                    break;
             }
             game.activateCharacter("FRANCO", i, 1, "RED", a, c, 1, b);
             switch(game.characterSelector.getCharacters().get(i).getIndex()){
@@ -144,7 +176,26 @@ public class CardsTest
                     ConcreteCharacter car5=(ConcreteCharacter) game.characterSelector.getCharacters().get(i);
                     assertEquals(car5.getStudents().size(), 6);
                     assertEquals(game.getPlayers().get(0).getGate().getStudents().size(), 7);
-                    game.characterSelector.effects.restore();;
+                    game.characterSelector.effects.restore();
+                    break;
+                case 8:
+                    game.determineInfluence(1);
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().size(), 1);
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("CARMINE"));
+                    game.characterSelector.effects.restore();
+                    break;
+                case 9:
+                    game.determineInfluence(1);
+                    assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("CARMINE"));
+                    game.characterSelector.effects.restore();
+                    break;
+                case 10:
+                    game.determineInfluence(1);
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().size(), 1);
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("FRANCO"));
+                    game.characterSelector.effects.restore();
+                    break;
                 default:
                     game.characterSelector.effects.restore();
             }
