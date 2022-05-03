@@ -7,22 +7,19 @@ import it.polimi.ingsw.GAME.Game;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Controller implements Runnable{
-    public Game game;
+public class Controller{
+    private Game game;
+    private ArrayList<MessageHandler> messageHandlers; //Potranno essere usati per rispondere alle loro stesse richieste
 
-    @Override
-    public void run() {
-        /*while(true){
-            //Gestione della comunicazione con il client
-            //Chiamerà i suoi stessi metodi che rappresentano le azioni che il Player può aver richiesto
 
-            //System.out.println("Partita creata!");
-        }*/
-        //Game userà il metodo send di questa classe per chiedere cose al giocatore (es: quale colore disattivare per il calcolo dell'influenza)
-    }
-
-    public Controller(Game game){
+    public Controller(Game game, MessageHandler mh1, MessageHandler mh2, MessageHandler mh3){
         this.game=game;
+        messageHandlers=new ArrayList<>();
+        messageHandlers.add(mh1); //Index 0
+        messageHandlers.add(mh2); //Index 1
+        if(game.getPlayerCount()==3){
+            messageHandlers.add(mh3); //Index 2
+        }
     }
 
     public void gateToIsland(String name, int index, int indexIsland, String color) {

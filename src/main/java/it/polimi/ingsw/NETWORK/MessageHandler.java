@@ -10,6 +10,8 @@ public class MessageHandler implements Runnable{
     private ObjectOutputStream out;
     private Message latestMessage;
     private int kill;
+    private Starter start;
+    private Controller controller; //Starter will set this field for every MessageHandler involved when Game and Controller are created
 
     public MessageHandler(Socket socket){
         this.clientSocket=socket;
@@ -45,5 +47,9 @@ public class MessageHandler implements Runnable{
         else{
             return -1;
         }
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 }
