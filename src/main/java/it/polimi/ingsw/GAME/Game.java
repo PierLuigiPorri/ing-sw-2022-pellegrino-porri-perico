@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.net.Socket;
 
 public class Game {
-    public int playerCount;
+    private int playerCount;
     private final int gameType; //0: regole semplificate, 1: regole esperto.
     private ArrayList<Player> players; //array of all players.
     public ArrayList<Player> order; // says the order of each turn in which the players are going to play.
@@ -391,10 +391,6 @@ public class Game {
 
     public Bag getBg() {
         return bag;
-    }
-
-    public Game getGame() {
-        return this;
     }
 
     public int getGameType() {

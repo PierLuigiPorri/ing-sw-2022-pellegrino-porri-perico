@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Starter{
 
     private static ArrayList<Creation> games =new ArrayList<>(); //List of all joinable games
-    private static Integer currID=0;
+    private static int currID=0;
 
     /*@Override
     public void run() {
