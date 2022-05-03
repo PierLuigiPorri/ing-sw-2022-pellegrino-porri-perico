@@ -43,6 +43,7 @@ public class CardsTest
                 Island t=game.getB().islands.head;
                 while(t!=game.getB().islands.tail){
                     assertFalse(t.TD);
+                    t=t.next;
                 }
             }
         }
