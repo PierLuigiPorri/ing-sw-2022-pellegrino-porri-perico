@@ -9,7 +9,6 @@ public class Hall {
     private int green;
     private int pink;
     private int yellow;
-    //private final Player player;
     public boolean cardActivated=false;
 
     public Hall() {
