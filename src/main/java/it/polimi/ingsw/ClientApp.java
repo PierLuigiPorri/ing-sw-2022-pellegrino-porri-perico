@@ -32,6 +32,7 @@ public class ClientApp {
         try {
             out.writeInt(g);
             out.flush();
+            out.reset(); //TODO: Ricordarsi di farlo sempre
         }
         catch (Exception e){
             System.out.println("Stream connection failed");
