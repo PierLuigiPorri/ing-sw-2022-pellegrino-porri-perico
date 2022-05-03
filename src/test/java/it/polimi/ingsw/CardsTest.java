@@ -90,7 +90,7 @@ public class CardsTest
                     game.addStudentToHall("GREEN", game.playerTranslator("CARMINE"));
                     game.determineInfluence(1);
                     assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
-                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("FRANCO"));
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "FRANCO");
                     break;
                 case 6:
                     ConcreteCharacter car5=(ConcreteCharacter) game.characterSelector.getCharacters().get(i);
@@ -118,7 +118,7 @@ public class CardsTest
                     game.addStudentToIsland("RED", 1);
                     game.determineInfluence(1);
                     assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
-                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("FRANCO"));
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "FRANCO");
                     break;
                 case 10:
                     game.addStudentToIsland("RED", 1);
@@ -181,19 +181,19 @@ public class CardsTest
                 case 8:
                     game.determineInfluence(1);
                     assertEquals(game.getB().islands.getIsland(1).getTowers().size(), 1);
-                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("CARMINE"));
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "CARMINE");
                     game.characterSelector.effects.restore();
                     break;
                 case 9:
                     game.determineInfluence(1);
                     assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
-                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("CARMINE"));
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "CARMINE");
                     game.characterSelector.effects.restore();
                     break;
                 case 10:
                     game.determineInfluence(1);
                     assertEquals(game.getB().islands.getIsland(1).getTowers().size(), 1);
-                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("FRANCO"));
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "FRANCO");
                     game.characterSelector.effects.restore();
                     break;
                 default:
