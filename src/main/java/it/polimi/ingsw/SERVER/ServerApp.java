@@ -1,6 +1,6 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.SERVER;
 
-import it.polimi.ingsw.NETWORK.MessageHandler;
+import it.polimi.ingsw.SERVER.MessageHandler;
 
 import java.net.*;
 import java.net.ServerSocket;

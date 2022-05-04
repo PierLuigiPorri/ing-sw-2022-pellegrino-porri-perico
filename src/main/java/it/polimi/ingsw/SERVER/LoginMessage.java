@@ -1,4 +1,4 @@
-package it.polimi.ingsw.NETWORK;
+package it.polimi.ingsw.SERVER;
 
 public class LoginMessage implements MessageType{
     String nickname;

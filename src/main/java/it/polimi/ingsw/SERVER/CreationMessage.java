@@ -1,4 +1,4 @@
-package it.polimi.ingsw.NETWORK;
+package it.polimi.ingsw.SERVER;
 
 public class CreationMessage extends LoginMessage implements MessageType{
     int players;

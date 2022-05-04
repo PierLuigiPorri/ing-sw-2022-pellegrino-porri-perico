@@ -1,10 +1,9 @@
-package it.polimi.ingsw.NETWORK;
+package it.polimi.ingsw.SERVER;
 
 import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.GAME.Game;
 
-import java.net.Socket;
 import java.util.ArrayList;
 
 public class Controller{

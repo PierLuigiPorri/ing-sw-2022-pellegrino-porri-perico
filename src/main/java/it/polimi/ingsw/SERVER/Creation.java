@@ -1,6 +1,4 @@
-package it.polimi.ingsw.NETWORK;
-
-import java.net.Socket;
+package it.polimi.ingsw.SERVER;
 
 public class Creation {
     private int id;

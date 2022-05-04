@@ -4,12 +4,11 @@ import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
-import it.polimi.ingsw.NETWORK.Controller;
-import it.polimi.ingsw.NETWORK.MessageHandler;
+import it.polimi.ingsw.SERVER.Controller;
+import it.polimi.ingsw.SERVER.MessageHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.net.Socket;
 
 public class Game {
     private int playerCount;
