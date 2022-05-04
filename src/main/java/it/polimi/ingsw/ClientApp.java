@@ -48,7 +48,7 @@ public class ClientApp {
 
     private static int getCorrectInput(String request, int a, int b){
         //This method gets correct input from the client of 2 possible integer values: a, b while asking the "request"
-        Boolean inv=true; //Input Not Valid
+        boolean inv=true; //Input Not Valid
         String input=null;
         Scanner s=new Scanner(System.in);
         while(inv) {
@@ -71,7 +71,7 @@ public class ClientApp {
 
     private static String getValidString(String request){
         //This method gets a non empty reply String while asking the "request"
-        Boolean inv=true; //Input Not Valid
+        boolean inv=true; //Input Not Valid
         String input="";
         Scanner s=new Scanner(System.in);
         while(inv) {

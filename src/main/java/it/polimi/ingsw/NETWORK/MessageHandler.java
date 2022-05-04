@@ -8,7 +8,7 @@ public class MessageHandler implements Runnable{
     private Socket clientSocket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private Message latestMessage;
+    private MessageType latestMessageType;
     private int kill;
     private Starter start;
     private Controller controller; //Starter will set this field for every MessageHandler involved when Game and Controller are created
@@ -30,8 +30,8 @@ public class MessageHandler implements Runnable{
         }
         while(kill==0) {
             try {
-                latestMessage= (Message) in.readObject();
-                kill=handle(latestMessage);
+                latestMessageType = (MessageType) in.readObject();
+                kill=handle(latestMessageType);
             }
             catch (Exception e){
                 System.out.println("Connection lost");
@@ -39,14 +39,8 @@ public class MessageHandler implements Runnable{
         }
         System.out.println("RIP");
     }
-    private int handle(Message message){
-        if(message.getKill()==0) {
-            //Handling of the message
-            return 0;
-        }
-        else{
-            return -1;
-        }
+    private int handle(MessageType message){
+        return 1;
     }
 
     public void setController(Controller controller) {

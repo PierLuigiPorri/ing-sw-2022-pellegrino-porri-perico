@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Controller{
-    private Game game;
+    private final Game game;
     private ArrayList<MessageHandler> messageHandlers; //Potranno essere usati per rispondere alle loro stesse richieste
 
 
