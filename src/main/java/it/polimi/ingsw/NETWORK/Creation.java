@@ -10,12 +10,17 @@ public class Creation {
     private String nick1;
     private String nick2=null;
     private String nick3=null;
+    private int nReady;
+    private MessageHandler mh1;
+    private MessageHandler mh2;
+    private MessageHandler mh3;
 
     public Creation(int id, int ng, int gt, String nick){
         nPlayers=ng;
         gametype=gt;
         nJoined=1;
         nick1=nick;
+        nReady=1;
     }
 
     public void setnJoined() {

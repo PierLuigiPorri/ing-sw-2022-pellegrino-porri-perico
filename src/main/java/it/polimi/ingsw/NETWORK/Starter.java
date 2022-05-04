@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Starter{
 
     private static ArrayList<Creation> games =new ArrayList<>(); //List of all joinable games
-    private static Integer currID=0;
+    private static int currID=0;
 
     /*@Override
     public void run() {
@@ -60,7 +60,7 @@ public class Starter{
 
     public void newGame(int gt, int np, String nick){
         //Creation phase of the game
-        synchronized (currID) {
+        synchronized (games) {
             games.add(new Creation(currID, np, gt, nick));
             currID++;
         }

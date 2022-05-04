@@ -96,7 +96,7 @@ public class GameTest {
             game.gateToIsland("PIER", 0, 7, tmp1[1].getColor());
             game.gateToIsland("PIER", 0, 7, tmp1[2].getColor());
             game.moveMotherNature(game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
-            Assert.assertEquals(3, game.motherNature.getIsola().getId());
+            Assert.assertEquals(4, game.motherNature.getIsola().getId());
             for (int i=0; i<3; i++){
                 tm1[i]=game.getB().clouds.get(0).getStudents().get(i);
                 tm2[i]=game.getB().clouds.get(1).getStudents().get(i);

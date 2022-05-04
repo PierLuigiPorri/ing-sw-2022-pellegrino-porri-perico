@@ -1,6 +1,5 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.GAME.*;
@@ -9,8 +8,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Scanner;
-
 import static org.junit.Assert.*;
 
 public class CardsTest
@@ -43,6 +40,7 @@ public class CardsTest
                 Island t=game.getB().islands.head;
                 while(t!=game.getB().islands.tail){
                     assertFalse(t.TD);
+                    t=t.next;
                 }
             }
         }
@@ -61,13 +59,12 @@ public class CardsTest
             b.add(t);
             c.add("RED");
         }
-        for (int i = 0; i < 3; i++) {
             String temp = null;
             int quant=0;
-            System.out.println("\n "+ game.characterSelector.getCharacters().get(i).getIndex());
-            switch(game.characterSelector.getCharacters().get(i).getIndex()){ //not all the cards are tested due to not being necessary
+            System.out.println("\n "+ game.characterSelector.getCharacters().get(0).getIndex());
+            switch(game.characterSelector.getCharacters().get(0).getIndex()){ //not all the cards are tested due to not being necessary
                 case 0:
-                    ConcreteCharacter car= (ConcreteCharacter) game.characterSelector.getCharacters().get(i);
+                    ConcreteCharacter car= (ConcreteCharacter) game.characterSelector.getCharacters().get(0);
                     temp=car.getStudents().get(1).getColor();
                     for(Student st: game.getB().islands.getIsland(1).getStudents()){
                         if(Objects.equals(st.getColor(), temp))
@@ -79,7 +76,7 @@ public class CardsTest
                         assertFalse(ps.getHall().cardActivated);
                     break;
                 case 4:
-                    ConcreteCharacter car3= (ConcreteCharacter) game.characterSelector.getCharacters().get(i);
+                    ConcreteCharacter car3= (ConcreteCharacter) game.characterSelector.getCharacters().get(0);
                     assertEquals(car3.getTD(), 4);
                     assertFalse(game.getB().islands.getIsland(1).TD);
                     break;
@@ -89,18 +86,64 @@ public class CardsTest
                     game.addStudentToHall("GREEN", game.playerTranslator("CARMINE"));
                     game.determineInfluence(1);
                     assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
-                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("FRANCO"));
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "FRANCO");
                     break;
                 case 6:
-                    ConcreteCharacter car5=(ConcreteCharacter) game.characterSelector.getCharacters().get(i);
+                    ConcreteCharacter car5=(ConcreteCharacter) game.characterSelector.getCharacters().get(0);
                     assertEquals(car5.getStudents().size(), 6);
                     assertEquals(game.getPlayers().get(0).getGate().getStudents().size(), 7);
                     break;
+                case 8:
+                    game.addStudentToIsland("RED", 1);
+                    game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
+                    game.addStudentToHall("GREEN", game.playerTranslator("CARMINE"));
+                    game.determineInfluence(1);
+                    assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer(), game.playerTranslator("FRANCO"));
+                    game.addStudentToIsland("GREEN", 1);
+                    game.addStudentToIsland("GREEN", 1);
+                    break;
+                case 9:
+                    game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
+                    game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
+                    game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
+                    game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
+                    game.getPlayers().get(0).getGate().getStudents().set(0, new Student("GREEN"));
+                    game.getPlayers().get(0).getGate().getStudents().set(1, new Student("GREEN"));
+                    game.addStudentToIsland("RED", 1);
+                    game.addStudentToIsland("RED", 1);
+                    game.determineInfluence(1);
+                    assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "FRANCO");
+                    break;
+                case 10:
+                    game.addStudentToIsland("RED", 1);
+                    game.addStudentToIsland("BLUE", 1);
+                    game.addStudentToIsland("YELLOW", 1);
+                    game.addStudentToIsland("GREEN", 1);
+                    game.addStudentToIsland("PINK", 1);
+                    game.determineInfluence(1);
+                    assertTrue(game.getB().islands.getIsland(1).getTowers().isEmpty());
+                    break;
+                case 11:
+                    game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
+                    game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
+                    game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
+                    game.addStudentToIsland("RED", 1);
+                    game.addStudentToIsland("RED", 1);
+                    game.determineInfluence(1);
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "FRANCO");
+                    game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
+                    game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
+                    game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
+                    game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
+                    break;
+                default:break;
             }
-            game.activateCharacter("FRANCO", i, 1, "RED", a, c, 1, b);
-            switch(game.characterSelector.getCharacters().get(i).getIndex()){
+            game.activateCharacter("FRANCO", 0, 1, "RED", a, c, 1, b);
+            switch(game.characterSelector.getCharacters().get(0).getIndex()){
                 case 0:
-                    ConcreteCharacter car2= (ConcreteCharacter) game.characterSelector.getCharacters().get(i);
+                    ConcreteCharacter car2= (ConcreteCharacter) game.characterSelector.getCharacters().get(0);
                     assertEquals(car2.getStudents().size(), 4);
                     for(Student st:game.getB().islands.getIsland(1).getStudents()){
                         if(Objects.equals(st.getColor(), temp))
@@ -121,7 +164,7 @@ public class CardsTest
                     game.characterSelector.effects.restore();
                     break;
                 case 4:
-                    ConcreteCharacter car4= (ConcreteCharacter) game.characterSelector.getCharacters().get(i);
+                    ConcreteCharacter car4= (ConcreteCharacter) game.characterSelector.getCharacters().get(0);
                     assertEquals(car4.getTD(), 3);
                     assertTrue(game.getB().islands.getIsland(1).TD);
                     game.addStudentToIsland("RED", 1);
@@ -140,21 +183,46 @@ public class CardsTest
                     game.characterSelector.effects.restore();
                     break;
                 case 6:
-                    ConcreteCharacter car5=(ConcreteCharacter) game.characterSelector.getCharacters().get(i);
+                    ConcreteCharacter car5=(ConcreteCharacter) game.characterSelector.getCharacters().get(0);
                     assertEquals(car5.getStudents().size(), 6);
                     assertEquals(game.getPlayers().get(0).getGate().getStudents().size(), 7);
-                    game.characterSelector.effects.restore();;
+                    game.characterSelector.effects.restore();
+                    break;
+                case 8:
+                    game.determineInfluence(1);
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().size(), 1);
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "CARMINE");
+                    game.characterSelector.effects.restore();
+                    break;
+                case 9:
+                    game.determineInfluence(1);
+                    assertFalse(game.getB().islands.getIsland(1).getTowers().isEmpty());
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "CARMINE");
+                    game.characterSelector.effects.restore();
+                    break;
+                case 10:
+                    game.determineInfluence(1);
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().size(), 1);
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "FRANCO");
+                    game.characterSelector.effects.restore();
+                    break;
+                case 11:
+                    assertEquals(game.getPlayers().get(0).getHall().getColor("RED"), 0);
+                    assertEquals(game.getPlayers().get(1).getHall().getColor("RED"), 1);
+                    game.determineInfluence(1);
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "CARMINE");
+                    break;
                 default:
                     game.characterSelector.effects.restore();
+                    break;
             }
-        }
     }
 
 
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
         try{
             game = new Game(2, 1, "FRANCO", null, "CARMINE", null, null, null);
             p1=new Player(2,"FRANCO", game);
