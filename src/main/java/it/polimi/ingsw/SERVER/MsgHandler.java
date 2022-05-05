@@ -1,10 +1,12 @@
 package it.polimi.ingsw.SERVER;
 
+import it.polimi.ingsw.MESSAGES.MessageType;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class MessageHandler implements Runnable{
+public class MsgHandler implements Runnable{
     private Socket clientSocket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
@@ -13,7 +15,7 @@ public class MessageHandler implements Runnable{
     private Starter start;
     private Controller controller; //Starter will set this field for every MessageHandler involved when Game and Controller are created
 
-    public MessageHandler(Socket socket){
+    public MsgHandler(Socket socket){
         this.clientSocket=socket;
         this.kill=0;
     }

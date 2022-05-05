@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 public class Controller{
     private final Game game;
-    private ArrayList<MessageHandler> messageHandlers; //Potranno essere usati per rispondere alle loro stesse richieste
+    private ArrayList<MsgHandler> messageHandlers; //Potranno essere usati per rispondere alle loro stesse richieste
 
 
-    public Controller(Game game, MessageHandler mh1, MessageHandler mh2, MessageHandler mh3){
+    public Controller(Game game, MsgHandler mh1, MsgHandler mh2, MsgHandler mh3){
         this.game=game;
         messageHandlers=new ArrayList<>();
         messageHandlers.add(mh1); //Index 0

@@ -9,9 +9,9 @@ public class Creation {
     private String nick2=null;
     private String nick3=null;
     private int nReady;
-    private MessageHandler mh1;
-    private MessageHandler mh2;
-    private MessageHandler mh3;
+    private MsgHandler mh1;
+    private MsgHandler mh2;
+    private MsgHandler mh3;
 
     public Creation(int id, int ng, int gt, String nick){
         nPlayers=ng;

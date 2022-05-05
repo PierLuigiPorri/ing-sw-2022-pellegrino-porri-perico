@@ -1,4 +1,6 @@
-package it.polimi.ingsw.SERVER;
+package it.polimi.ingsw.MESSAGES;
+
+import it.polimi.ingsw.MESSAGES.MessageType;
 
 import java.util.ArrayList;
 

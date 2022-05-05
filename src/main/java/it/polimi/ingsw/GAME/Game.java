@@ -5,7 +5,7 @@ import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.SERVER.Controller;
-import it.polimi.ingsw.SERVER.MessageHandler;
+import it.polimi.ingsw.SERVER.MsgHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +16,7 @@ public class Game {
     private ArrayList<Player> players; //array of all players.
     public ArrayList<Player> order; // says the order of each turn in which the players are going to play.
     private Controller controller;
-    private ArrayList<MessageHandler> messageHandlers; //Potranno essere usati per notificare le view remote delle modifiche
+    private ArrayList<MsgHandler> messageHandlers; //Potranno essere usati per notificare le view remote delle modifiche
     private ArrayList<Card> cardsPlayed;  //Cards played in this round
     private final Bag bag;
     private final Board board;
@@ -29,7 +29,7 @@ public class Game {
     private int InfluenceBonus=0;
     private Player PwBonus;
 
-    public Game(int pcount, int gt, String nick1, MessageHandler mh1, String nick2, MessageHandler mh2, String nick3, MessageHandler mh3) throws GameException {
+    public Game(int pcount, int gt, String nick1, MsgHandler mh1, String nick2, MsgHandler mh2, String nick3, MsgHandler mh3) throws GameException {
         //Parameters: num of players, gametype, nickname and socket for every player
         this.playerCount=pcount;
         this.gameType=gt;
