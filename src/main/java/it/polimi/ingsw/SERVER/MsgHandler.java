@@ -10,7 +10,7 @@ public class MsgHandler implements Runnable{
     private Socket clientSocket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private MessageType latestMessageType;
+    private MessageType latestMessage;
     private int kill;
     private Starter start;
     private Controller controller; //Starter will set this field for every MessageHandler involved when Game and Controller are created
@@ -32,8 +32,8 @@ public class MsgHandler implements Runnable{
         }
         while(kill==0) {
             try {
-                latestMessageType = (MessageType) in.readObject();
-                kill=handle(latestMessageType);
+                latestMessage = (MessageType) in.readObject();
+                kill=handle(latestMessage);
             }
             catch (Exception e){
                 System.out.println("Connection lost");
