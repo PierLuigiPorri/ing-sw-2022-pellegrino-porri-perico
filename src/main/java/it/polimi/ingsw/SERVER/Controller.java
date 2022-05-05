@@ -26,6 +26,7 @@ public class Controller{
             game.gateToIsland(name, index, indexIsland, color);
         }catch (BoundException | ImpossibleActionException e){
             System.out.println(e.getMessage());
+            //TODO: getCorrectMh(name).sendMessage(errore di gate to island)
         }
     }
 
@@ -34,6 +35,7 @@ public class Controller{
             game.gateToHall(name, color);
         }catch (ImpossibleActionException e){
             System.out.println(e.getMessage());
+            //TODO: getCorrectMh(name).sendMessage(errore di gate to hall)
         }
     }
 
@@ -42,6 +44,7 @@ public class Controller{
             game.CloudToGate(player, color, sIndex, cIndex);
         }catch (BoundException | ImpossibleActionException e){
             System.out.println(e.getMessage());
+            //TODO: getCorrectMh(name).sendMessage(errore di cloud to gate)
         }
     }
 
@@ -50,6 +53,7 @@ public class Controller{
             game.moveMotherNature(movement);
         }catch (ImpossibleActionException e){
             System.out.println(e.getMessage());
+            //TODO: getCorrectMh(name).sendMessage(errore di move mother nature)
         }
     }
 
@@ -58,6 +62,17 @@ public class Controller{
             game.playCard(player, index);
         }catch (ImpossibleActionException e){
             System.out.println(e.getMessage());
+            //TODO: getCorrectMh(name).sendMessage(errore di playCard)
         }
+    }
+
+    private MsgHandler getCorrectMh(String name){
+        for (MsgHandler mh:
+             messageHandlers) {
+            if(mh.getPlayerName().equals(name)){
+                return mh;
+            }
+        }
+        return null;
     }
 }
