@@ -1,5 +1,8 @@
 package it.polimi.ingsw.CLIENT;
 
+import it.polimi.ingsw.MESSAGES.MessageType;
+
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -32,5 +35,9 @@ public class ClientMsgHandler {
         //Si occupa di creare un messaggio di tipo newGame con i parametri specificati
         //e poi fa out.writeObject(Messaggio); per inviarlo
         //Inoltre va gestito il meccanismo di ricezione delle risposte
+    }
+
+    public void sendMessage(MessageType message) throws IOException {
+        out.writeObject(message);
     }
 }

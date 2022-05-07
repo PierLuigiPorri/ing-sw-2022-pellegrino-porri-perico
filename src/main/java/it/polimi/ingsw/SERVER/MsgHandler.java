@@ -1,6 +1,6 @@
 package it.polimi.ingsw.SERVER;
 
-import it.polimi.ingsw.MESSAGES.MessageType;
+import it.polimi.ingsw.MESSAGES.*;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,6 +11,7 @@ public class MsgHandler implements Runnable{
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private MessageType latestMessage;
+    private MessageReader reader;
     private int kill;
     private Starter start;
     private Controller controller; //Starter will set this field for every MessageHandler involved when Game and Controller are created
@@ -20,6 +21,7 @@ public class MsgHandler implements Runnable{
     public MsgHandler(Socket socket){
         this.clientSocket=socket;
         this.kill=0;
+        this.reader=new MessageReader();
     }
     @Override
     public void run() {
@@ -35,7 +37,7 @@ public class MsgHandler implements Runnable{
         while(kill==0) {
             try {
                 latestMessage = (MessageType) in.readObject();
-                kill=handle(latestMessage);
+                kill=reader.handle(latestMessage);
             }
             catch (Exception e){
                 System.out.println("Connection lost");
@@ -43,9 +45,8 @@ public class MsgHandler implements Runnable{
         }
         System.out.println("RIP");
     }
-    private int handle(MessageType message){
-        return 1;
-    }
+
+
 
     public void setController(Controller controller) {
         this.controller = controller;

@@ -1,10 +1,8 @@
 package it.polimi.ingsw.MESSAGES;
 
-import it.polimi.ingsw.MESSAGES.MessageType;
-
 import java.util.ArrayList;
 
-public class ActionMessage implements MessageType {
+public class ActionMessage extends MessageType {
     int id;                             //id of the action taken
     ArrayList<Integer> intParameters;  //necessary int parameters
     ArrayList<String> stringParameters; //necessary String parameters

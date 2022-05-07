@@ -1,4 +1,4 @@
 package it.polimi.ingsw.MESSAGES;
 
-public class UpdateMessage implements MessageType{
+public class UpdateMessage extends MessageType{
 }
