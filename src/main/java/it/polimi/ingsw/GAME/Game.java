@@ -72,7 +72,6 @@ public class Game {
         if(playerCount==3){
             mh3.setPlayerName(nick3);
         }
-
         messageHandlers=new ArrayList<>();
         messageHandlers.add(mh1);
         messageHandlers.add(mh2);

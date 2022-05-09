@@ -90,7 +90,7 @@ public class HallTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         game=new Game(2, 0, "Pier", null, "Paolo", null, null, null);
         player=new Player(2, "Pier", game);
     }

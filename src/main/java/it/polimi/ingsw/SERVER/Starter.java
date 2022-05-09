@@ -8,15 +8,17 @@ import java.util.ArrayList;
 
 public class Starter{
 
-    private static ArrayList<Creation> games =new ArrayList<>(); //List of all joinable games
+    private static final ArrayList<Creation> games =new ArrayList<>(); //List of all joinable games
     private static Integer currID=0;
+    //public Game createdGame; //Here for testing
 
-    public void newGame(int gt, int np, String nick, MsgHandler mh){
+    public int newGame(int gt, int np, String nick, MsgHandler mh){
         //Creation phase of the game
         synchronized (games) {
             synchronized (currID) {
                 games.add(new Creation(currID, np, gt, nick, mh));
                 currID++;
+                return currID-1;
             }
         }
     }
@@ -84,10 +86,13 @@ public class Starter{
                             games.get(i).setNick3(nick);
                             games.get(i).setMh3(mh);
                             games.get(i).setnReady(); //nReady++;
-                            temp=games.get(i);
-                            games.remove(i);
                         }
                         else throw new NickException("This nickname is already used in the game");
+                    }
+
+                    if(games.get(i).getnReady()==games.get(i).getnPlayers()){
+                        temp=games.get(i);
+                        games.remove(i);
                     }
                 }
                 else{
@@ -95,9 +100,9 @@ public class Starter{
                 }
             }
         }
-        if(temp!=null){
+        //if(temp!=null){
             Game g=new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getMh1(), temp.getNick2(), temp.getMh2(), temp.getNick3(), temp.getMh3());
-        }
-        else throw new NoSuchGameException("There's no game with this ID");
+        //}
+        //else throw new NoSuchGameException("There's no game with this ID");
     }
 }
