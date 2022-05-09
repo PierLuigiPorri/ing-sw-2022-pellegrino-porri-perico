@@ -25,6 +25,7 @@ public class Starter{
     public int joinRandomGame() throws NoGamesException {
         //Returns the ID of the joined game
         synchronized (games){
+            //TODO: Tradurre questo for each in un while
             for (Creation game:
                     games) {
                 if(game.getnJoined()<game.getnPlayers()){
@@ -39,6 +40,7 @@ public class Starter{
     }
     public void joinGameWithId(int id) throws NoSuchGameException {
         synchronized (games) {
+            //TODO: Tradurre questo for each in un while
             for (Creation game :
                     games) {
                 if (game.getId()==id && game.getnJoined() < game.getnPlayers()) {
@@ -55,6 +57,7 @@ public class Starter{
         //Attenzione: l'ID non viene direttamente dal Client, bensì da msgHandler
         Creation temp=null;
         synchronized (games) {
+            //TODO: Tradurre questo for each in un while
             for (Creation game :
                     games) {
                 if (game.getId()==id) {
