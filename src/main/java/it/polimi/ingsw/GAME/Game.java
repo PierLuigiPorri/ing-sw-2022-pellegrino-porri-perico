@@ -4,7 +4,6 @@ import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.SERVER.Controller;
-import it.polimi.ingsw.SERVER.Creation;
 import it.polimi.ingsw.SERVER.MsgHandler;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class Game {
     private Player PwBonus;
 
     public Game(int pcount, int gt, String nick1, MsgHandler mh1, String nick2, MsgHandler mh2, String nick3, MsgHandler mh3){
-        //Parameters: num of players, gametype, nickname and socket for every player
+        //Parameters: num of players, gametype, nickname and MsgHandler for every player
         this.playerCount=pcount;
         this.gameType=gt;
         this.players=new ArrayList<>();
@@ -46,7 +45,7 @@ public class Game {
 
         this.players.add(new Player(playerCount, nick1, this));
         this.players.add(new Player(playerCount, nick2, this));
-        if(pcount==3){
+        if(playerCount==3){
             this.players.add(new Player(playerCount, nick3, this));
         }
 
