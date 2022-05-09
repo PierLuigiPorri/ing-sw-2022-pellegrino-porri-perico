@@ -2,9 +2,9 @@ package it.polimi.ingsw.GAME;
 
 import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
-import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.SERVER.Controller;
+import it.polimi.ingsw.SERVER.Creation;
 import it.polimi.ingsw.SERVER.MsgHandler;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class Game {
     private int InfluenceBonus=0;
     private Player PwBonus;
 
-    public Game(int pcount, int gt, String nick1, MsgHandler mh1, String nick2, MsgHandler mh2, String nick3, MsgHandler mh3) throws GameException {
+    public Game(int pcount, int gt, String nick1, MsgHandler mh1, String nick2, MsgHandler mh2, String nick3, MsgHandler mh3){
         //Parameters: num of players, gametype, nickname and socket for every player
         this.playerCount=pcount;
         this.gameType=gt;
@@ -67,24 +67,11 @@ public class Game {
         }
         roundMaster = new RoundMaster(players);
 
-        /*if(playerCount>1 && playerCount<4) {
-            if (playerCount == 2) {
-                if (roundMaster.getRoundCount() == 0) {
-                    ArrayList <Player> players= new ArrayList<>();
-                    players.add(this.players.get(0));
-                    players.add(this.players.get(1));
-                } else throw new GameException("Game already started!\n");
-            }
-            if (playerCount == 3) {
-                if (roundMaster.getRoundCount() == 0) {
-                    ArrayList <Player> players= new ArrayList<>();
-                    players.add(this.players.get(0));
-                    players.add(this.players.get(1));
-                    players.add(this.players.get(2));
-                } else throw new GameException("Game already started!\n");
-            }
-        } else throw new GameException("Number of players not allowed.\n");*/
-
+        mh1.setPlayerName(nick1);
+        mh2.setPlayerName(nick2);
+        if(playerCount==3){
+            mh3.setPlayerName(nick3);
+        }
 
         messageHandlers=new ArrayList<>();
         messageHandlers.add(mh1);
@@ -93,6 +80,10 @@ public class Game {
             messageHandlers.add(mh3);
         }
         controller=new Controller(this, mh1, mh2, mh3);
+        for (MsgHandler mh :
+                messageHandlers) {
+            mh.setController(controller);
+        }
 
         if(gameType==1)
             this.characterSelector=new CharacterSelector(this);
@@ -519,10 +510,6 @@ public class Game {
 
     public void disableInfluenceBonus(){
         this.InfluenceBonus=0;
-    }
-
-    public Controller getController(){
-        return controller;
     }
 
     public int getPlayerCount(){

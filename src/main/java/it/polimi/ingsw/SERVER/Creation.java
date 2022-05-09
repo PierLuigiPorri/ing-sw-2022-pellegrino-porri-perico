@@ -20,6 +20,7 @@ public class Creation {
         nick1=nick;
         nReady=1;
         mh1=mh;
+        this.id=id;
     }
 
     public void setnJoined() {
@@ -75,5 +76,17 @@ public class Creation {
 
     public String getNick3() {
         return nick3;
+    }
+
+    public MsgHandler getMh1() {
+        return mh1;
+    }
+
+    public MsgHandler getMh2() {
+        return mh2;
+    }
+
+    public MsgHandler getMh3() {
+        return mh3;
     }
 }

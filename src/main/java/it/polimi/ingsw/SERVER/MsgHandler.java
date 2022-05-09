@@ -52,6 +52,10 @@ public class MsgHandler implements Runnable{
         this.controller = controller;
     }
 
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
     public String getPlayerName(){
         return playerName;
     }

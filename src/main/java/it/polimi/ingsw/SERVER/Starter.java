@@ -1,7 +1,9 @@
 package it.polimi.ingsw.SERVER;
 
+import it.polimi.ingsw.EXCEPTIONS.NickException;
 import it.polimi.ingsw.EXCEPTIONS.NoGamesException;
 import it.polimi.ingsw.EXCEPTIONS.NoSuchGameException;
+import it.polimi.ingsw.GAME.Game;
 
 import java.util.ArrayList;
 
@@ -49,7 +51,36 @@ public class Starter{
         throw new NoSuchGameException("There are no joinable games with this ID");
     }
 
-    public void joinGame(int id, int nick, MsgHandler mh){
-
+    public void joinGame(int id, String nick, MsgHandler mh) throws NickException {
+        //Attenzione: l'ID non viene direttamente dal Client, bensì da msgHandler
+        Creation temp=null;
+        synchronized (games) {
+            for (Creation game :
+                    games) {
+                if (game.getId()==id) {
+                    if (game.getnReady()==1){
+                        if(!nick.equals(game.getNick1())){
+                            game.setNick2(nick);
+                            game.setMh2(mh);
+                            game.setnReady(); //nReady++;
+                        }
+                        else throw new NickException("This nickname is already used in the game");
+                    }
+                    else if(game.getnReady()==2){
+                        if(!nick.equals(game.getNick1()) && !nick.equals(game.getNick2())){
+                            game.setNick3(nick);
+                            game.setMh3(mh);
+                            game.setnReady(); //nReady++;
+                            temp=game;
+                            //TODO: Rimuovere da games
+                        }
+                        else throw new NickException("This nickname is already used in the game");
+                    }
+                }
+            }
+        }
+        if(!temp.equals(null)){
+            Game g=new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getMh1(), temp.getNick2(), temp.getMh2(), temp.getNick3(), temp.getMh3());
+        }
     }
 }
