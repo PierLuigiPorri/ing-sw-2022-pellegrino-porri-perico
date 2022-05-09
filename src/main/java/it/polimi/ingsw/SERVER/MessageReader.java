@@ -13,7 +13,7 @@ public class MessageReader {
         //TODO:sto coso dovrebbe resettare il countdown, che però va tenuto in un altro thread in qualche modo
     }
 
-    private int handle(ActionMessage message){
+    public int handle(ActionMessage message){
         return 1;
     }
 

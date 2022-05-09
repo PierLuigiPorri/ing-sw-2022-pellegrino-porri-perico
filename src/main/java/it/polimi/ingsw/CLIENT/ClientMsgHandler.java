@@ -33,8 +33,10 @@ public class ClientMsgHandler {
     public void newGame(String nick, int gt, int np){
         //TODO:
         //Si occupa di creare un messaggio di tipo newGame con i parametri specificati
-        //e poi fa out.writeObject(Messaggio); per inviarlo
-        //Inoltre va gestito il meccanismo di ricezione delle risposte
+        //poi fa out.writeObject(Messaggio); per inviarlo
+        //A questo punto si mette in attesa della risposta del server
+        //Quando la riceve, la comunica al client
+
     }
 
     public void sendMessage(MessageType message) throws IOException {
