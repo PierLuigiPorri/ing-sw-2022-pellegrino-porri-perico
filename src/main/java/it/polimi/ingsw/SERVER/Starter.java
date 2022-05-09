@@ -1,7 +1,6 @@
 package it.polimi.ingsw.SERVER;
 
 import it.polimi.ingsw.EXCEPTIONS.NickException;
-import it.polimi.ingsw.EXCEPTIONS.NoGamesException;
 import it.polimi.ingsw.EXCEPTIONS.NoSuchGameException;
 import it.polimi.ingsw.GAME.Game;
 
@@ -22,68 +21,83 @@ public class Starter{
         }
     }
 
-    public int joinRandomGame() throws NoGamesException {
-        //Returns the ID of the joined game
+    public int joinRandomGame(){
+        //Returns the ID of the joined game. In case of problems, it returns -1
         synchronized (games){
-            //TODO: Tradurre questo for each in un while
-            for (Creation game:
-                    games) {
-                if(game.getnJoined()<game.getnPlayers()){
-                    //Se ci sono ancora posti liberi in questa partita
-                    game.setnJoined(); //nJoined++
-                    return game.getId();
+            int i=0;
+            while(i<games.size()){
+                if(games.get(i).getnJoined()==games.get(i).getnPlayers()){
+                    //La partita è piena, vado alla prossima
+                    i++;
+                }
+                else{
+                    //Ci sono ancora posti liberi in questa partita
+                    games.get(i).setnJoined(); //nJoined++
+                    return games.get(i).getId();
                 }
             }
         }
         //Se sono arrivato fino a qui significa che non c'è nessuna partita con posti liberi
-        throw new NoGamesException("Currently there are no joinable games");
+        return -1;
     }
-    public void joinGameWithId(int id) throws NoSuchGameException {
+    public int joinGameWithId(int id){
+        //Returns the ID of the joined game. In case of problems, it returns -1
         synchronized (games) {
-            //TODO: Tradurre questo for each in un while
-            for (Creation game :
-                    games) {
-                if (game.getId()==id && game.getnJoined() < game.getnPlayers()) {
-                    //Se ci sono ancora posti liberi in questa partita
-                    game.setnJoined(); //nJoined++
+            int i=0;
+            while(i<games.size()){
+                if(id==games.get(i).getId()){
+                    if(games.get(i).getnJoined() < games.get(i).getnPlayers()){
+                        games.get(i).setnJoined(); //nJoined++
+                        return id;
+                    }
+                    else return -1;
+                }
+                else{
+                    i++;
                 }
             }
         }
-        //Se sono arrivato fino a qui significa che non c'è nessuna partita con questo ID con posti liberi
-        throw new NoSuchGameException("There are no joinable games with this ID");
+        //Se sono arrivato fino a qui significa che non c'è nessuna partita con questo ID
+        return -1;
     }
 
-    public void joinGame(int id, String nick, MsgHandler mh) throws NickException {
+    public void joinGame(int id, String nick, MsgHandler mh) throws NickException, NoSuchGameException {
         //Attenzione: l'ID non viene direttamente dal Client, bensì da msgHandler
+        //Questo impedisce all'errore NoSuchGame di verificarsi
         Creation temp=null;
         synchronized (games) {
-            //TODO: Tradurre questo for each in un while
-            for (Creation game :
-                    games) {
-                if (game.getId()==id) {
-                    if (game.getnReady()==1){
-                        if(!nick.equals(game.getNick1())){
-                            game.setNick2(nick);
-                            game.setMh2(mh);
-                            game.setnReady(); //nReady++;
+            int i=0;
+            int found=0; //Used as a bool
+            while(i<games.size() && found==0){
+                if(id==games.get(i).getId()){
+                    found=1;
+                    if (games.get(i).getnReady()==1){
+                        if(!nick.equals(games.get(i).getNick1())){
+                            games.get(i).setNick2(nick);
+                            games.get(i).setMh2(mh);
+                            games.get(i).setnReady(); //nReady++;
                         }
                         else throw new NickException("This nickname is already used in the game");
                     }
-                    else if(game.getnReady()==2){
-                        if(!nick.equals(game.getNick1()) && !nick.equals(game.getNick2())){
-                            game.setNick3(nick);
-                            game.setMh3(mh);
-                            game.setnReady(); //nReady++;
-                            temp=game;
-                            //TODO: Rimuovere da games
+                    else if(games.get(i).getnReady()==2){
+                        if(!nick.equals(games.get(i).getNick1()) && !nick.equals(games.get(i).getNick2())){
+                            games.get(i).setNick3(nick);
+                            games.get(i).setMh3(mh);
+                            games.get(i).setnReady(); //nReady++;
+                            temp=games.get(i);
+                            games.remove(i);
                         }
                         else throw new NickException("This nickname is already used in the game");
                     }
                 }
+                else{
+                    i++;
+                }
             }
         }
-        if(!temp.equals(null)){
+        if(temp!=null){
             Game g=new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getMh1(), temp.getNick2(), temp.getMh2(), temp.getNick3(), temp.getMh3());
         }
+        else throw new NoSuchGameException("There's no game with this ID");
     }
 }
