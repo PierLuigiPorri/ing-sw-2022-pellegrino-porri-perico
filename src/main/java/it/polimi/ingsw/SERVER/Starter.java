@@ -101,7 +101,7 @@ public class Starter{
             }
         }
         //if(temp!=null){
-            Game g=new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getMh1(), temp.getNick2(), temp.getMh2(), temp.getNick3(), temp.getMh3());
+        Game g=new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getMh1(), temp.getNick2(), temp.getMh2(), temp.getNick3(), temp.getMh3());
         //}
         //else throw new NoSuchGameException("There's no game with this ID");
     }

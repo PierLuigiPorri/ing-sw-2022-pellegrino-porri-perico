@@ -27,6 +27,7 @@ public class Game {
     private int MNbonus=0; // additional movement to Mother Nature; is called by a Character.
     private int InfluenceBonus=0;
     private Player PwBonus;
+    private VirtualView view; //Non so se effettivamente servirà oppure no grazie ai Listener
 
     public Game(int pcount, int gt, String nick1, MsgHandler mh1, String nick2, MsgHandler mh2, String nick3, MsgHandler mh3){
         //Parameters: num of players, gametype, nickname and MsgHandler for every player
@@ -81,10 +82,12 @@ public class Game {
         for (MsgHandler mh :
                 messageHandlers) {
             mh.setController(controller);
+            mh.setGameCreated();
         }
 
         if(gameType==1)
             this.characterSelector=new CharacterSelector(this);
+        //TODO: view.notify(initialization(gt, np, nick1...)
     }
 
     public static ArrayList<Student> randomStudGenerator(int numStud){

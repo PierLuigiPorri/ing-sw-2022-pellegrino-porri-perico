@@ -20,8 +20,4 @@ public class MessageReader {
     private int handle(CreationMessage message){
         return 1;
     }
-
-    private int handle(LoginMessage message){
-        return 1;
-    }
 }
