@@ -5,20 +5,21 @@ import it.polimi.ingsw.MESSAGES.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Observable;
+import java.util.Observer;
 
-public class MsgHandler implements Runnable{
+public class VirtualView extends Observable implements Runnable, Observer {
     private Socket clientSocket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private MessageType latestMessage;
-    //private MessageReader reader;
     private int kill;
     private Starter start;
     private Controller controller; //Starter will set this field for every MessageHandler involved when Game and Controller are created
     private String playerName; //The nickname of the player associated to this MessageHandler
     private int gameCreated;
 
-    public MsgHandler(Socket socket){
+    public VirtualView(Socket socket){
         this.clientSocket=socket;
         this.kill=0;
         this.gameCreated=0;
@@ -64,6 +65,8 @@ public class MsgHandler implements Runnable{
             //ActionMessage
             if(gameCreated==1){
                 ActionMessage am = (ActionMessage) message;
+                setChanged();
+                notifyObservers(am);
             }
         }
         else {
@@ -89,5 +92,11 @@ public class MsgHandler implements Runnable{
 
     public void setGameCreated() {
         this.gameCreated = 1;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        UpdateMessage update=(UpdateMessage) arg;
+        //TODO inoltrare il messaggio al client
     }
 }

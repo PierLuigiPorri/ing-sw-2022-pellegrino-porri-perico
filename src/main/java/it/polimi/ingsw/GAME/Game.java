@@ -4,18 +4,19 @@ import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.SERVER.Controller;
-import it.polimi.ingsw.SERVER.MsgHandler;
+import it.polimi.ingsw.SERVER.VirtualView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Observable;
 
-public class Game {
+public class Game extends Observable {
     private int playerCount;
     private final int gameType; //0: regole semplificate, 1: regole esperto.
     private ArrayList<Player> players; //array of all players.
     public ArrayList<Player> order; // says the order of each turn in which the players are going to play.
     private Controller controller;
-    private ArrayList<MsgHandler> messageHandlers; //Potranno essere usati per notificare le view remote delle modifiche
+    private ArrayList<VirtualView> messageHandlers; //Potranno essere usati per notificare le view remote delle modifiche
     private ArrayList<Card> cardsPlayed;  //Cards played in this round
     private final Bag bag;
     private final Board board;
@@ -27,11 +28,13 @@ public class Game {
     private int MNbonus=0; // additional movement to Mother Nature; is called by a Character.
     private int InfluenceBonus=0;
     private Player PwBonus;
-    private VirtualView view; //Non so se effettivamente servirà oppure no grazie ai Listener
+    private final ModelView modelView;
 
-    public Game(int pcount, int gt, String nick1, MsgHandler mh1, String nick2, MsgHandler mh2, String nick3, MsgHandler mh3){
+    public Game(int pcount, int gt, String nick1, VirtualView mh1, String nick2, VirtualView mh2, String nick3, VirtualView mh3){
         //Parameters: num of players, gametype, nickname and MsgHandler for every player
         this.playerCount=pcount;
+        this.modelView=new ModelView();
+        this.addObserver(modelView);
         this.gameType=gt;
         this.players=new ArrayList<>();
         this.cardsPlayed=new ArrayList<>();
@@ -79,7 +82,7 @@ public class Game {
             messageHandlers.add(mh3);
         }
         controller=new Controller(this, mh1, mh2, mh3);
-        for (MsgHandler mh :
+        for (VirtualView mh :
                 messageHandlers) {
             mh.setController(controller);
             mh.setGameCreated();
@@ -87,6 +90,8 @@ public class Game {
 
         if(gameType==1)
             this.characterSelector=new CharacterSelector(this);
+        setChanged();
+        notifyObservers();
         //TODO: view.notify(initialization(gt, np, nick1...)
     }
 
@@ -143,7 +148,8 @@ public class Game {
         for (Player p : players) {
             p.maxMoves = playerCount + 1;
         }
-
+        setChanged();
+        notifyObservers();
     }
 
     public Player gameEnd(){
@@ -175,6 +181,8 @@ public class Game {
                 player1.maxMoves--;
             }else throw new ImpossibleActionException("Not such color in " +player1.nickname+ "'s gate");
         }else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
+        setChanged();
+        notifyObservers();
     }
 
     public void bagToCloud(int index) throws BoundException, ImpossibleActionException {
@@ -187,6 +195,8 @@ public class Game {
                 System.out.println(e.getMessage());
             }
         } else throw new BoundException("INDEX OUT OF BOUND!\n");
+        setChanged();
+        notifyObservers();
     }
 
     public void gateToIsland(String name, int index, int indexIsland, String color) throws BoundException, ImpossibleActionException {
@@ -206,7 +216,8 @@ public class Game {
             }
         }else
             throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
-
+        setChanged();
+        notifyObservers();
     }
 
     public void CloudToGate(String player, String color, int sIndex, int cIndex) throws BoundException, ImpossibleActionException { //TODO
@@ -224,6 +235,8 @@ public class Game {
                 System.out.println(e.getMessage());
             }
         }else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
+        setChanged();
+        notifyObservers();
     }
 
     ///
@@ -268,6 +281,8 @@ public class Game {
                 }
             } else throw new ImpossibleActionException("No card has this movement value.");
         }else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
+        setChanged();
+        notifyObservers();
     }
 
     public void determineInfluence(int index) throws ImpossibleActionException {
@@ -307,6 +322,8 @@ public class Game {
                 }
             }
         }
+        setChanged();
+        notifyObservers();
     }
 
     public void swapTowers(int index, Player player1) throws ImpossibleActionException{
@@ -360,6 +377,8 @@ public class Game {
                 }
             } else throw new ImpossibleActionException("No card with " + index + " as value\n");
         }
+        setChanged();
+        notifyObservers();
     }
 
     public void activateCharacter(String player, int id, int parAC1, String parA2, ArrayList<Integer> parAC3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) throws ImpossibleActionException {
@@ -370,6 +389,8 @@ public class Game {
             p.removeCoin(characterSelector.getCost(id));
             characterSelector.applyEffect(id, p, parAC1, parA2, parAC3, parA4, parC2, parC4);
         }else throw new ImpossibleActionException("Not enough coins!\n");
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<Player> getPlayers(){

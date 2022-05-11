@@ -16,24 +16,16 @@ import java.net.Socket;
 public class ServerAppTest
 {
     ServerApp server;
-    MsgHandler mh;
-    MessageReader reader;
+    VirtualView mh;
     @Test
     public void shouldAnswerWithTrue()
     {
         assertTrue( true );
     }
-    @Test
-    public void messagesTest(){
-        AckMessage msg1=new AckMessage();
-        System.out.println(reader.handle(msg1));
-    }
-
 
 
     @Before
     public void setUp(){
-        mh=new MsgHandler(new Socket());
-        reader=new MessageReader();
+        mh=new VirtualView(new Socket());
     }
 }

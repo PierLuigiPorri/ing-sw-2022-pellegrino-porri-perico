@@ -31,7 +31,7 @@ public class ServerApp
             catch (Exception e){
                 System.out.println("Client connection failed");
             }
-            new Thread(new MsgHandler(sock)).start();
+            new Thread(new VirtualView(sock)).start();
         }
     }
 }

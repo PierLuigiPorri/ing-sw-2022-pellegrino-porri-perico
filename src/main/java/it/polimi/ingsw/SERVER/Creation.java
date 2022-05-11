@@ -9,11 +9,11 @@ public class Creation {
     private String nick1;
     private String nick2=null;
     private String nick3=null;
-    private MsgHandler mh1;
-    private MsgHandler mh2;
-    private MsgHandler mh3;
+    private VirtualView mh1;
+    private VirtualView mh2;
+    private VirtualView mh3;
 
-    public Creation(int id, int ng, int gt, String nick, MsgHandler mh){
+    public Creation(int id, int ng, int gt, String nick, VirtualView mh){
         nPlayers=ng;
         gametype=gt;
         nJoined=1;
@@ -38,11 +38,11 @@ public class Creation {
         this.nick3 = nick;
     }
 
-    public void setMh2(MsgHandler mh2) {
+    public void setMh2(VirtualView mh2) {
         this.mh2 = mh2;
     }
 
-    public void setMh3(MsgHandler mh3) {
+    public void setMh3(VirtualView mh3) {
         this.mh3 = mh3;
     }
 
@@ -78,15 +78,15 @@ public class Creation {
         return nick3;
     }
 
-    public MsgHandler getMh1() {
+    public VirtualView getMh1() {
         return mh1;
     }
 
-    public MsgHandler getMh2() {
+    public VirtualView getMh2() {
         return mh2;
     }
 
-    public MsgHandler getMh3() {
+    public VirtualView getMh3() {
         return mh3;
     }
 }

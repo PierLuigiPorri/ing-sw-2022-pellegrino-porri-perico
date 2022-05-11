@@ -12,7 +12,7 @@ public class Starter{
     private static Integer currID=0;
     //public Game createdGame; //Here for testing
 
-    public int newGame(int gt, int np, String nick, MsgHandler mh){
+    public int newGame(int gt, int np, String nick, VirtualView mh){
         //Creation phase of the game
         synchronized (games) {
             synchronized (currID) {
@@ -63,7 +63,7 @@ public class Starter{
         return -1;
     }
 
-    public void joinGame(int id, String nick, MsgHandler mh) throws NickException, NoSuchGameException {
+    public void joinGame(int id, String nick, VirtualView mh) throws NickException, NoSuchGameException {
         //Attenzione: l'ID non viene direttamente dal Client, bensì da msgHandler
         //Questo impedisce all'errore NoSuchGame di verificarsi
         Creation temp=null;

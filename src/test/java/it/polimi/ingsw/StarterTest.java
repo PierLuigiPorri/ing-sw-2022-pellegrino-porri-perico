@@ -1,12 +1,5 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.SERVER.MsgHandler;
-import it.polimi.ingsw.SERVER.Starter;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.net.Socket;
-
 public class StarterTest {
     /*private Starter start1, start2, start3;
     private MsgHandler mh1, mh2, mh3;
