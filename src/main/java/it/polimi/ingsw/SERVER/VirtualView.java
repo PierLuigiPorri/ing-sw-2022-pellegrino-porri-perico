@@ -98,5 +98,8 @@ public class VirtualView extends Observable implements Runnable, Observer {
     public void update(Observable o, Object arg) {
         UpdateMessage update=(UpdateMessage) arg;
         //TODO inoltrare il messaggio al client
+        try {
+            out.writeObject(update);
+        }catch (Exception e){System.out.println(e.getMessage());}
     }
 }
