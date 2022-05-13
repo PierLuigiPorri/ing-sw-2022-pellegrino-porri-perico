@@ -1,6 +1,4 @@
-package it.polimi.ingsw;
-
-import it.polimi.ingsw.NETWORK.MessageHandler;
+package it.polimi.ingsw.SERVER;
 
 import java.net.*;
 import java.net.ServerSocket;
@@ -33,7 +31,7 @@ public class ServerApp
             catch (Exception e){
                 System.out.println("Client connection failed");
             }
-            new Thread(new MessageHandler(sock)).start();
+            new Thread(new VirtualView(sock)).start();
         }
     }
 }

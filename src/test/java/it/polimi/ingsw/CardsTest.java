@@ -1,6 +1,5 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.GAME.*;
 import org.junit.Before;
@@ -223,13 +222,11 @@ public class CardsTest
 
     @Before
     public void setUp(){
-        try{
+
             game = new Game(2, 1, "FRANCO", null, "CARMINE", null, null, null);
             p1=new Player(2,"FRANCO", game);
             p2=new Player(2, "CARMINE", game);
-        }catch (GameException e){
-            System.out.println(e.getMessage());
-        }
+
 
     }
 }

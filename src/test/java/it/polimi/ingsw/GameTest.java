@@ -2,7 +2,6 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
-import it.polimi.ingsw.EXCEPTIONS.GameException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.GAME.*;
 
@@ -214,11 +213,10 @@ public class GameTest {
 
     @Before
     public void setUp() throws Exception {
-        try{
+
             game = new Game(2, 1, "PIER", null, "PAOLO", null, null, null);
             game3 = new Game(3, 1, "PIER", null, "PAOLO", null, "Gandalf", null);
-        }catch (GameException e){
-            System.out.println(e.getMessage());}
+
         player= new Player(2,"Pier", game);
         tmp1= new Student[3];
         tmp2= new Student[3];
@@ -230,11 +228,10 @@ public class GameTest {
 
     @After
     public void tearDown() {
-        try{
+
             game = new Game(2, 1, "PIER", null, "PAOLO", null, null, null);
             game3 = new Game(3, 1, "PIER", null, "PAOLO", null, "Gandalf", null);
-        }catch (GameException e){
-            System.out.println(e.getMessage());}
+
         tmp1= new Student[3];
         tmp2= new Student[3];
         tm1 = new Student[3];
