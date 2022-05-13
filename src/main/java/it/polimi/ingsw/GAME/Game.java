@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.Observable;
 
 public class Game extends Observable {
-    private int playerCount;
+    private final int playerCount;
     private final int gameType; //0: regole semplificate, 1: regole esperto.
     private ArrayList<Player> players; //array of all players.
     public ArrayList<Player> order; // says the order of each turn in which the players are going to play.
@@ -33,7 +33,7 @@ public class Game extends Observable {
     public Game(int pcount, int gt, String nick1, VirtualView mh1, String nick2, VirtualView mh2, String nick3, VirtualView mh3){
         //Parameters: num of players, gametype, nickname and MsgHandler for every player
         this.playerCount=pcount;
-        this.modelView=new ModelView();
+        this.modelView=new ModelView(this);
         this.addObserver(modelView);
         this.gameType=gt;
         this.players=new ArrayList<>();

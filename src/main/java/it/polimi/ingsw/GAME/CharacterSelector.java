@@ -73,6 +73,10 @@ public class CharacterSelector {
         }
     }
 
+    public ArrayList<CharacterType> getSelectedCharacters() {
+        return selectedCharacters;
+    }
+
     public int getCost(int index){
         return this.selectedCharacters.get(index).getCost();
     }
