@@ -8,11 +8,13 @@ import java.util.Observer;
 public class ModelView extends Observable implements Observer {
     private final UpdateMessage update;
     private final Game game;
-    public ModelView(Game game){
-        this.update=new UpdateMessage();
-        this.game=game;
+
+    public ModelView(Game game) {
+        this.update = new UpdateMessage();
+        this.game = game;
         //TODO:compilare il update di base
     }
+
     @Override
     public void update(Observable o, Object arg) {
         //TODO:sovrascrivere tutti i campi del UpdateMessage
@@ -78,7 +80,7 @@ public class ModelView extends Observable implements Observer {
             update.professors1.add(true);
         else update.professors1.add(false);
 
-        for (Card c: game.getCardsPlayed()) {
+        for (Card c : game.getCardsPlayed()) {
             update.lastCardPlayed.add(c.getMovement());
             update.lastCardPlayed.add(c.getValue());
         }
@@ -123,47 +125,47 @@ public class ModelView extends Observable implements Observer {
             update.studentsOnIsland12.add(s.getColor());
         }
 
-        for (int k=1; k<=game.getB().islands.size(); k++){
-            if(game.getB().islands.getIsland(k).motherNature)
+        for (int k = 1; k <= game.getB().islands.size(); k++) {
+            if (game.getB().islands.getIsland(k).motherNature)
                 update.motherNatureOnIsland.add(true);
             else update.motherNatureOnIsland.add(false);
         }
 
-        for (int k=1; k<=game.getB().islands.size(); k++){
+        for (int k = 1; k <= game.getB().islands.size(); k++) {
             update.towersOnIsland.add(game.getB().islands.getIsland(k).towers.size());
         }
 
 
-        for (Student s:game.getB().clouds.get(0).students) {
+        for (Student s : game.getB().clouds.get(0).students) {
             update.studentsOnCloud0.add(s.getColor());
         }
-        for (Student s:game.getB().clouds.get(1).students) {
+        for (Student s : game.getB().clouds.get(1).students) {
             update.studentsOnCloud1.add(s.getColor());
         }
 
 
-        for (Student s: game.getPlayers().get(0).getGate().getStudents()) {
+        for (Student s : game.getPlayers().get(0).getGate().getStudents()) {
             update.gatePlayer0.add(s.getColor());
         }
 
-        for (Student s: game.getPlayers().get(1).getGate().getStudents()) {
+        for (Student s : game.getPlayers().get(1).getGate().getStudents()) {
             update.gatePlayer1.add(s.getColor());
         }
 
-        update.charactersNum=0;
+        update.charactersNum = 0;
 
-        if(update.game_Type==1) {
-            update.charactersNum=3;
+        if (update.game_Type == 1) {
+            update.charactersNum = 3;
             for (Player p : game.order) {
                 update.coinsOnPlayer.add(p.getCoins());
             }
-            for (CharacterType c: game.characterSelector.getSelectedCharacters()) {
+            for (CharacterType c : game.characterSelector.getSelectedCharacters()) {
                 update.idCharacter.add(c.getIndex());
                 update.cardCost.add(c.getCost());
             }
         }
 
-        if(update.nPlayers==3) {
+        if (update.nPlayers == 3) {
             update.hallPlayer2.add(game.getPlayers().get(2).getHall().getColor("RED"));
             update.hallPlayer2.add(game.getPlayers().get(2).getHall().getColor("BLUE"));
             update.hallPlayer2.add(game.getPlayers().get(2).getHall().getColor("GREEN"));
