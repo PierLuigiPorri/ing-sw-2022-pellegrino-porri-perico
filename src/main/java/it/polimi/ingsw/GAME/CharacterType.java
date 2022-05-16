@@ -9,4 +9,5 @@ public interface CharacterType {
     void effectUsed();
     int getCost();
     int getIndex();
+    boolean getUsed();
 }
