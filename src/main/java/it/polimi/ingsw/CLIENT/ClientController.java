@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientController {
-    private ClientMsgHandler msgHandler;
+    private final ClientMsgHandler msgHandler;
     ArrayList<Integer> inputInt;
     ArrayList<String> inputStr;
 
@@ -17,18 +17,22 @@ public class ClientController {
         this.inputStr=new ArrayList<>();
     }
 
+
+
+        //TODO:gestire il massimo movimento possibile (considerando che c'è la possibilità di avere un bonus)
+
     public void moveMotherNature() {
         //this method needs the movement [int].
         int i;
         System.out.println("How far do you want to move MotherNature?");
         i = getIntInput();
         checkIntInput(0, 7, i, "How far do you want to move MotherNature?\n");
-        messageConfirmed();
+        messageConfirmed(3);
     }
 
     public void changePhase(){
         try{
-            msgHandler.sendMessage(new ActionMessage(null, null));
+            msgHandler.sendMessage(new ActionMessage(null, null, null,6));
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
@@ -48,7 +52,7 @@ public class ClientController {
         System.out.println("In which island do you want to move your student?");
         i=getIntInput();
         checkIntInput(1, 12, i, "In which island do you want to move your student?\n");
-        messageConfirmed();
+        messageConfirmed(0);
     }
 
     public void gateToHall(){
@@ -57,7 +61,7 @@ public class ClientController {
         System.out.println("Which is the color of the student you want to move? ");
         s=getStrInput();
         checkStrInput(s, "Which is the color of the student you want to move? ");
-        messageConfirmed();
+        messageConfirmed(1);
     }
 
     public void cloudToGate(){
@@ -74,7 +78,7 @@ public class ClientController {
         System.out.println("Which is the color of the student? ");
         s=getStrInput();
         checkStrInput(s, "Which is the color of the student? ");
-        messageConfirmed();
+        messageConfirmed(2);
     }
 
     public void playCard(){
@@ -83,12 +87,11 @@ public class ClientController {
         System.out.println("Which card do you want to play?");
         i=getIntInput();
         checkIntInput(0, 10, i, "Which card do you want to play?\n");
-        messageConfirmed();
+        messageConfirmed(4);
     }
 
-    private void messageConfirmed(){
-        try {
-            msgHandler.sendMessage(new ActionMessage(inputInt, inputStr));
+    private void messageConfirmed(int type){
+        try {msgHandler.sendMessage(new ActionMessage(inputInt, inputStr, null, type));
         }catch (IOException e){
             System.out.println(e.getMessage());
         }

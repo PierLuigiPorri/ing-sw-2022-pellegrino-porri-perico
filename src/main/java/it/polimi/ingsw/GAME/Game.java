@@ -93,7 +93,6 @@ public class Game extends Observable {
             this.characterSelector=new CharacterSelector(this);
         setChanged();
         notifyObservers();
-        //TODO: view.notify(initialization(gt, np, nick1...)
     }
 
     public static ArrayList<Student> randomStudGenerator(int numStud){

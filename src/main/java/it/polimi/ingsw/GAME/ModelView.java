@@ -12,12 +12,10 @@ public class ModelView extends Observable implements Observer {
     public ModelView(Game game) {
         this.update = new UpdateMessage();
         this.game = game;
-        //TODO:compilare il update di base
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        //TODO:sovrascrivere tutti i campi del UpdateMessage
         for (Player p : game.order) {
             update.order.add(p.nickname);
         }
