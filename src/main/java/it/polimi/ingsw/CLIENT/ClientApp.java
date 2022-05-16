@@ -42,7 +42,7 @@ public class ClientApp {
 
     }
 
-    private static int getCorrectInput(String request, int a, int b){
+    public static int getCorrectInput(String request, int a, int b){
         //This method gets correct input from the client of 2 possible integer values: a, b while asking the "request"
         boolean inv=true; //Input Not Valid
         String input=null;
@@ -65,7 +65,7 @@ public class ClientApp {
         return Integer.parseInt(input);
     }
 
-    private static String getValidString(String request){
+    public static String getValidString(String request){
         //This method gets a non empty reply String while asking the "request"
         boolean inv=true; //Input Not Valid
         String input="";

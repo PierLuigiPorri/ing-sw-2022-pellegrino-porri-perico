@@ -58,7 +58,6 @@ public class ClientController {
         s=getStrInput();
         checkStrInput(s, "Which is the color of the student you want to move? ");
         messageConfirmed();
-
     }
 
     public void cloudToGate(){
@@ -85,7 +84,6 @@ public class ClientController {
         i=getIntInput();
         checkIntInput(0, 10, i, "Which card do you want to play?\n");
         messageConfirmed();
-
     }
 
     private void messageConfirmed(){

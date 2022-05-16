@@ -41,5 +41,10 @@ public class AbstractCharacter implements CharacterType{
         return this.index;
     }
 
+    @Override
+    public boolean getUsed() {
+        return used;
+    }
+
 
 }

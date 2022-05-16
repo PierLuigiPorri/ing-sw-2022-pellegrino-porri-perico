@@ -163,6 +163,9 @@ public class ModelView extends Observable implements Observer {
                 update.idCharacter.add(c.getIndex());
                 update.cardCost.add(c.getCost());
             }
+            update.activated.add(game.characterSelector.getSelectedCharacters().get(0).getUsed());
+            update.activated.add(game.characterSelector.getSelectedCharacters().get(1).getUsed());
+            update.activated.add(game.characterSelector.getSelectedCharacters().get(2).getUsed());
         }
 
         if (update.nPlayers == 3) {

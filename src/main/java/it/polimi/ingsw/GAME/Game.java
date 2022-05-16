@@ -13,7 +13,7 @@ import java.util.Observable;
 public class Game extends Observable {
     private final int playerCount;
     private final int gameType; //0: regole semplificate, 1: regole esperto.
-    private ArrayList<Player> players; //array of all players.
+    private final ArrayList<Player> players; //array of all players.
     public ArrayList<Player> order; // says the order of each turn in which the players are going to play.
     private Controller controller;
     private ArrayList<VirtualView> messageHandlers; //Potranno essere usati per notificare le view remote delle modifiche
@@ -45,7 +45,7 @@ public class Game extends Observable {
         this.pink=new ColorTracker("PINK");
         this.bag=new Bag();
         this.board=new Board(playerCount);
-        this.order = players;
+        this.order = new ArrayList<>();
 
         this.players.add(new Player(playerCount, nick1, this));
         this.players.add(new Player(playerCount, nick2, this));
@@ -87,6 +87,7 @@ public class Game extends Observable {
             mh.setController(controller);
             mh.setGameCreated();
         }
+        order.addAll(players);
 
         if(gameType==1)
             this.characterSelector=new CharacterSelector(this);
@@ -140,9 +141,7 @@ public class Game extends Observable {
         if(roundMaster.round.getCurrentPhase().equals("Azione"))
             cardsPlayed=new ArrayList<>();
         this.order = roundMaster.changePhase(tmp);
-        while(!players.isEmpty())
-            players.remove(0);
-        this.players.addAll(order);
+
 
 //reset the maxmoves of all players.
         for (Player p : players) {
