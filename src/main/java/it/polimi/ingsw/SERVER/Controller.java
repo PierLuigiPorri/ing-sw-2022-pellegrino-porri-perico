@@ -80,6 +80,41 @@ public class Controller implements Observer{
         }
     }
 
+    public void activateCharacter(ArrayList<String> a, ArrayList<Integer> b, ArrayList<Integer> c){
+        synchronized (lockGame) {
+            try {
+                String pl=a.get(0);
+                a.remove(0);
+                String parA2=null;
+                if(!a.isEmpty()){
+                    parA2=a.get(0);
+                    a.remove(0);
+                }
+                int id=b.get(0);
+                b.remove(0);
+                int parAC1= 0;
+                if(!b.isEmpty()){
+                    parAC1=b.get(0);
+                    b.remove(0);
+                }
+                int parC2=0;
+                if(!b.isEmpty()){
+                    parC2=b.get(0);
+                    b.remove(0);
+                }
+                game.activateCharacter(pl, id, parAC1, parA2, b, a, parC2, c);
+            } catch (ImpossibleActionException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void changePhase(){
+        synchronized (lockGame) {
+            game.changePhase();
+        }
+    }
+
     private VirtualView getCorrectMh(String name){
         for (VirtualView mh:
              messageHandlers) {
@@ -97,14 +132,25 @@ public class Controller implements Observer{
         switch (am.ActionType){
             case 0://gateToIsland
                 gateToIsland(am.strParam.get(0), am.intParam.get(0), am.intParam.get(1), am.strParam.get(1));
+                break;
             case 1://gateToHall
                 gateToHall(am.strParam.get(0), am.strParam.get(1));
+                break;
             case 2://CloudToGate
                 CloudToGate(am.strParam.get(0), am.strParam.get(1), am.intParam.get(0), am.intParam.get(1));
+                break;
             case 3://moveMotherNature
                 moveMotherNature(am.intParam.get(0));
+                break;
             case 4://playCard
                 playCard(am.strParam.get(0), am.intParam.get(0));
+                break;
+            case 5://activateCharacter
+                activateCharacter(am.strParam, am.intParam, am.intParam2);
+                break;
+            case 6://changePhase
+                changePhase();
+                break;
         }
     }
 }

@@ -43,6 +43,11 @@ public class ConcreteCharacter extends StudentSpace implements CharacterType, TD
     }
 
     @Override
+    public boolean getUsed() {
+        return used;
+    }
+
+    @Override
     public void addStudent(String color) {
         //TODO:assert che ci sia spazio
         this.students.add(new Student(color));

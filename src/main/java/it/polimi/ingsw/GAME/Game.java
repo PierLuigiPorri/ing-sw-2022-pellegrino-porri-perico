@@ -11,9 +11,9 @@ import java.util.Collections;
 import java.util.Observable;
 
 public class Game extends Observable {
-    private int playerCount;
+    private final int playerCount;
     private final int gameType; //0: regole semplificate, 1: regole esperto.
-    private ArrayList<Player> players; //array of all players.
+    private final ArrayList<Player> players; //array of all players.
     public ArrayList<Player> order; // says the order of each turn in which the players are going to play.
     private Controller controller;
     private ArrayList<VirtualView> messageHandlers; //Potranno essere usati per notificare le view remote delle modifiche
@@ -33,7 +33,7 @@ public class Game extends Observable {
     public Game(int pcount, int gt, String nick1, VirtualView mh1, String nick2, VirtualView mh2, String nick3, VirtualView mh3){
         //Parameters: num of players, gametype, nickname and MsgHandler for every player
         this.playerCount=pcount;
-        this.modelView=new ModelView();
+        this.modelView=new ModelView(this);
         this.addObserver(modelView);
         this.gameType=gt;
         this.players=new ArrayList<>();
@@ -45,7 +45,7 @@ public class Game extends Observable {
         this.pink=new ColorTracker("PINK");
         this.bag=new Bag();
         this.board=new Board(playerCount);
-        this.order = players;
+        this.order = new ArrayList<>();
 
         this.players.add(new Player(playerCount, nick1, this));
         this.players.add(new Player(playerCount, nick2, this));
@@ -87,12 +87,12 @@ public class Game extends Observable {
             mh.setController(controller);
             mh.setGameCreated();
         }
+        order.addAll(players);
 
         if(gameType==1)
             this.characterSelector=new CharacterSelector(this);
         setChanged();
         notifyObservers();
-        //TODO: view.notify(initialization(gt, np, nick1...)
     }
 
     public static ArrayList<Student> randomStudGenerator(int numStud){
@@ -140,9 +140,7 @@ public class Game extends Observable {
         if(roundMaster.round.getCurrentPhase().equals("Azione"))
             cardsPlayed=new ArrayList<>();
         this.order = roundMaster.changePhase(tmp);
-        while(!players.isEmpty())
-            players.remove(0);
-        this.players.addAll(order);
+
 
 //reset the maxmoves of all players.
         for (Player p : players) {
@@ -247,7 +245,7 @@ public class Game extends Observable {
             if (movement < 7+MNbonus) {
                 motherNature.getIsola().setMotherNature(false);
                 Island tmp = motherNature.getIsola();
-                for (int i = 0; i < movement + MNbonus; i++) {
+                for (int i = 0; i < movement; i++) {
                     tmp = tmp.next;
                 }
                 tmp.setMotherNature(true);
