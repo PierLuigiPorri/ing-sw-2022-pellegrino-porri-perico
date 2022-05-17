@@ -136,6 +136,63 @@ public class CLI implements View{
                 checkIntInput(1, 12, i, "What's the index of the island you want to put the counter on?\n");
                 a.add(inputInt.get(inputInt.size()-1));
                 break;
+            case 6:
+                System.out.println("How many students do you want to swap?");
+                i=getIntInput();
+                checkIntInput(1, 3, i, "How many students do you want to swap?");
+                int max=inputInt.get(inputInt.size()-1);
+                inputInt.remove(inputInt.size()-1);
+                System.out.println("What are the indexes on the Character card of the students you want to swap?");
+                for(int z=0; z<max; z++){
+                    i=getIntInput();
+                    checkIntInput(0,3,i,"What's the index?");
+                    a.add(inputInt.get(inputInt.size()-1));
+                }
+                c=new ArrayList<>();
+                System.out.println("What are the indexes on the gate of the students you want to swap?");
+                for(int z=0; z<max; z++){
+                    i=getIntInput();
+                    checkIntInput(0,3,i,"What's the index?");
+                    c.add(inputInt.get(inputInt.size()-1));
+                }
+                break;
+            case 8:
+                System.out.println("What color would you like to disable?");
+                String in=getStrInput();
+                checkStrInput(in, "What color would you like to disable?");
+                b.add(inputStr.get(inputStr.size()-1));
+                break;
+            case 9:
+                System.out.println("How many students would you like to swap?");
+                i=getIntInput();
+                checkIntInput(1, 2, i, "How many students would you like to swap?");
+                max=inputInt.get(inputInt.size()-1);
+                inputInt.remove(inputInt.size()-1);
+                System.out.println("What are the indexes of the students on the gate you want to swap?");
+                for(int z=0; z<max; z++){
+                    i=getIntInput();
+                    checkIntInput(0,9,i,"What's the index?");
+                    a.add(inputInt.get(inputInt.size()-1));
+                }
+                System.out.println("Which colors would you like to swap in you hall?");
+                for(int z=0; z<max; z++){
+                    in=getStrInput();
+                    checkStrInput(in, "Which color?");
+                    b.add(inputStr.get(inputStr.size()-1));
+                }
+                break;
+            case 10:
+                System.out.println("What is the index on the card of the student you want to add?");
+                i=getIntInput();
+                checkIntInput(0,3,i,"What is the index on the card of the student you want to add?");
+                a.add(inputInt.get(inputInt.size()-1));
+                break;
+            case 11:
+                System.out.println("What color would you like to affect?");
+                in=getStrInput();
+                checkStrInput(in, "Which color?");
+                b.add(inputStr.get(inputStr.size()-1));
+            default:break;
         }
         msgHandler.sendMessage(new ActionMessage(a,b,c,5));
         inputInt.clear();
