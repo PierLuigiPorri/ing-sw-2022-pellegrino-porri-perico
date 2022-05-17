@@ -245,7 +245,7 @@ public class Game extends Observable {
             if (movement < 7+MNbonus) {
                 motherNature.getIsola().setMotherNature(false);
                 Island tmp = motherNature.getIsola();
-                for (int i = 0; i < movement + MNbonus; i++) {
+                for (int i = 0; i < movement; i++) {
                     tmp = tmp.next;
                 }
                 tmp.setMotherNature(true);
