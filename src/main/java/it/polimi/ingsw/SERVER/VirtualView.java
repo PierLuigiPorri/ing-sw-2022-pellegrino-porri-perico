@@ -10,40 +10,39 @@ import java.util.Observer;
 
 public class VirtualView extends Observable implements Runnable, Observer {
     private Socket clientSocket;
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
+    private ThreadQueue queue;
     private MessageType latestMessage;
-    private int kill;
+    private boolean kill;
     private Starter start;
     private Controller controller; //Starter will set this field for every MessageHandler involved when Game and Controller are created
     private String playerName; //The nickname of the player associated to this MessageHandler
     private int gameCreated;
+    private ObjectOutputStream out;
+
 
     public VirtualView(Socket socket){
         this.clientSocket=socket;
-        this.kill=0;
         this.gameCreated=0;
+        this.kill=false;
         //this.reader=new MessageReader();
     }
     @Override
     public void run() {
-        System.out.println("Thread started");
         try {
-            out = new ObjectOutputStream(clientSocket.getOutputStream());
-            in = new ObjectInputStream(clientSocket.getInputStream());
+            out = new ObjectOutputStream(clientSocket.getOutputStream()); //Importante che sia prima di in
         }
         catch (Exception e){
             System.out.println("Stream connection failed");
-            kill=1;
+            kill=true;
         }
-        while(kill==0) {
-            try {
-                latestMessage = (MessageType) in.readObject();
-                handle(latestMessage);
-            }
-            catch (Exception e){
-                System.out.println("Connection lost");
-                kill=1;
+        if (!kill) {
+            queue = new ThreadQueue(clientSocket);
+            new Thread(queue).start();
+            while (!queue.isKill()) {
+                if (!queue.getQueue().isEmpty()) {
+                    latestMessage = queue.getLatestMessage();
+                    handle(latestMessage);
+                }
             }
         }
         //TODO: tell Controller to kill the game and notify everyone
@@ -51,11 +50,7 @@ public class VirtualView extends Observable implements Runnable, Observer {
     }
 
     private void handle(MessageType message){
-        if(message.type==0){
-            //AckMessage
-            //TODO: new Thread Countdown(this); se scade chiama msgHandler.setKill(1)
-        }
-        else if(message.type==1){
+        if(message.type==1){
             //CreationMessage
             if(gameCreated==0){
                 CreationMessage cm = (CreationMessage) message;
@@ -84,10 +79,6 @@ public class VirtualView extends Observable implements Runnable, Observer {
 
     public String getPlayerName(){
         return playerName;
-    }
-
-    public void setKill(int kill) {
-        this.kill = kill;
     }
 
     public void setGameCreated() {

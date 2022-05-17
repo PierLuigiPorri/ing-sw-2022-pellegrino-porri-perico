@@ -27,11 +27,11 @@ public class ServerApp
                 sock = ssock.accept();
                 connectedClients++;
                 System.out.println("Client connection "+connectedClients+" accepted");
+                new Thread(new VirtualView(sock)).start();
             }
             catch (Exception e){
                 System.out.println("Client connection failed");
             }
-            new Thread(new VirtualView(sock)).start();
         }
     }
 }
