@@ -1,9 +1,9 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.MESSAGES.ActionMessage;
+import it.polimi.ingsw.MESSAGES.UpdateMessage;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.FutureTask;
@@ -11,28 +11,49 @@ import java.util.concurrent.FutureTask;
 public class CLI implements View{
 
     private final ClientMsgHandler msgHandler;
-    ArrayList<Integer> inputInt;
-    ArrayList<String> inputStr;
+    private ArrayList<Integer> inputInt;
+    private ArrayList<String> inputStr;
 
-    private final PrintStream out;
-    private Thread threadInput;
+    private UpdateMessage update;
 
-    private FutureTask<String> futureTask;
-    public String player;
+    public final String player;
+    private boolean kill=false;
 
-    public CLI(ClientMsgHandler clientMsgHandler, String pl){
+    public CLI(ClientMsgHandler clientMsgHandler){
         this.msgHandler=clientMsgHandler;
         this.inputInt=new ArrayList<>();
         this.inputStr=new ArrayList<>();
-        this.player=pl;
-        out=System.out;
+        System.out.println("**********************************************************" +
+                "\nWELCOME TO ERIANTYS!" +
+                "\n**********************************************************");
+        this.player=getValidString("What's your name?");
+        System.out.println("What would you like to do?" +
+                "\n0:Create a new Game" +
+                "\n1:Join a game" +
+                "\nDigit the appropriate number:");
+        int g=getIntInput(); //0=New Game, 1=Join Game
+        //New Game or Join Game?
+        g=checkIntInput(0,1, g, "Digit 0 to start a New Game or 1 to Join a game");
+        if(g==0){
+            newGame();
+        }
+        else if(g==1){
+            joinGame();
+        }
+    }
+
+    public void newGame(){
+        //TODO
+    }
+
+    public void joinGame(){
+        //TODO
     }
 
     public void initCLI(){
-        //futureTask= new FutureTask<>( INPUT );
-        threadInput=new Thread(futureTask);
-        threadInput.start();
+        while (!kill) {
 
+        }
     }
 
 
@@ -112,7 +133,6 @@ public class CLI implements View{
         a.add(index);
         b.add(player);
         switch(index){
-            //TODO:completare i case
             case 0:
                 int i, x;
                 System.out.println("What's the position of the student on the card you want to move?");
@@ -220,20 +240,47 @@ public class CLI implements View{
         return inputStr.get(inputInt.size()-1);
     }
 
-    private void checkIntInput(int a, int b, int input, String string){
+    private int checkIntInput(int a, int b, int input, String string){
         while ( input<a || input >b ){
             inputInt.remove(inputInt.size()-1);
             System.out.println("The number entered is not allowed.\n" + string + "\n");
             input = getIntInput();
         }
+        return input;
     }
 
-    private void checkStrInput(String s, String c) {
+    private String checkStrInput(String s, String c) {
         while(!s.equals("RED") && !s.equals("BLUE") && !s.equals("GREEN") && !s.equals("YELLOW") && !s.equals("PINK")){
             inputStr.remove(inputStr.size()-1);
             System.out.println("The color entered is not allowed.\n" + c + "\n");
             s=getStrInput();
         }
+        return s;
+    }
+    public String getValidString(String request){
+        //This method gets a non empty reply String while asking the "request"
+        boolean inv=true; //Input Not Valid
+        String input="";
+        Scanner s=new Scanner(System.in);
+        while(inv) {
+            System.out.println(request);
+            try {
+                input = s.nextLine();
+                if(!input.isEmpty()) {
+                    inv = false;
+                }
+                else{
+                    System.out.println("Input is not valid");
+                }
+            }
+            catch (Exception e){
+                System.out.println("Input is not valid");
+            }
+        }
+        return input;
+    }
+    public void setKill(){
+        this.kill=true;
     }
 
 }
