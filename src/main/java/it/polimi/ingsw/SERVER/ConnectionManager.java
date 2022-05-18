@@ -50,7 +50,7 @@ public class ConnectionManager implements Runnable{
                 if(latestMessage.type==5){
                     //I received a KillMessage
                     kill=true;
-                    if(gameHasBeenCreated==false){
+                    if(!gameHasBeenCreated){
                         //TODO: killare tutto
                     }
                     else {
@@ -64,7 +64,7 @@ public class ConnectionManager implements Runnable{
                     }
                 }
                 else{
-                    if(gameHasBeenCreated==false){
+                    if(!gameHasBeenCreated){
                         //Se ricevo CreationMessage lo gestisco, se ricevo ActionMessage lo ignoro
                     }
                     else {

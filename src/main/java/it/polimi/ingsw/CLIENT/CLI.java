@@ -50,14 +50,41 @@ public class CLI implements View{
     }
 
     public void initCLI(){
-        while (!kill) {
 
+    }
+
+    public void update(UpdateMessage update){
+        this.update=update;
+        refresh();
+    }
+
+    public void refresh(){
+        ArrayList<String> list=null;
+        if(update.phase.equals("Planning")){
+            System.out.println("\nPlanning Time!");
+            if(update.order.get(0).equals(player)){
+                System.out.println("");
+                list.forEach((el) -> System.out.println(el + list.indexOf(el)));
+            }
+        }
+        else{
+            if(update.order.get(0).equals(player)){
+                list.forEach((el) -> System.out.println(el + list.indexOf(el)));
+            }
+        }
+    }
+
+    private ArrayList<String> actions(int spot){
+        ArrayList<String> list=new ArrayList<>();
+        switch(spot){
+            case 0://Player's turn, Planning phase
+
+                break;
         }
     }
 
 
     public void moveMotherNature() {
-        //TODO:gestire il massimo movimento possibile (considerando che c'è la possibilità di avere un bonus)
         //this method needs the movement [int].
         int i;
         System.out.println("How far do you want to move MotherNature?");

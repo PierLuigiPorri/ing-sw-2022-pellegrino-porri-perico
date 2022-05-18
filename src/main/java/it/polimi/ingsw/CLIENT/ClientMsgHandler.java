@@ -7,10 +7,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class ClientMsgHandler{
+public class ClientMsgHandler implements Runnable{
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private View view;
     public ClientMsgHandler(String host, int port){
         try {
             socket = new Socket(host, port);
@@ -45,5 +46,14 @@ public class ClientMsgHandler{
         try {
             out.writeObject(message);
         }catch (Exception e){System.out.println(e.getMessage());}
+    }
+
+    public void setView(View view){
+        this.view=view;
+    }
+
+    @Override
+    public void run() {
+
     }
 }

@@ -1,36 +1,31 @@
 package it.polimi.ingsw.CLIENT;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ClientApp {
 
-    private static ClientMsgHandler msgHandler;
-    private static View view;
+    private final ClientMsgHandler msgHandler;
+    private final View view;
 
     public static void main(String[] args){
+        ClientApp clientApp=new ClientApp(args);
+    }
+
+    public ClientApp(String[] CLIargs){
         msgHandler=new ClientMsgHandler("127.0.0.1", 4000); //Connection setup with this IP and Port numbers
+        if(CLIargs.length!=0 && Objects.equals(CLIargs[0], "cli")){
+            view=new CLI(msgHandler);
+        }
+        else{
+            view=new GUI(msgHandler);
+        }
+        msgHandler.setView(view);
         new Thread(new AckSender(msgHandler,5000)).start();
-        //TODO: CLI or GUI? Facciamo un altro main?
-        //view=new CLI(msgHandler);
-    }
-    
-
-    private static void newGame(){
-        String nick = null;
-        int gt; //Game Type
-        int np; //Number of players
-        //Nickname request
-        //Game Type request
-        gt=getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
-        //Number of players request
-        np=getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
-        msgHandler.newGame(nick, gt, np); //TODO:Probabilmente qua va fatto un try catch o comunque va gestita la risposta affermativa o negativa
-        System.out.println("Waiting for other players and for the creation of the game");
+        new Thread(msgHandler).start();
     }
 
-    private static void joinGame(){
 
-    }
 
     public static int getCorrectInput(String request, int a, int b){
         //This method gets correct input from the client of 2 possible integer values: a, b while asking the "request"
