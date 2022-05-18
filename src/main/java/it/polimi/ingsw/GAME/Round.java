@@ -1,7 +1,6 @@
 package it.polimi.ingsw.GAME;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class Round {
@@ -19,7 +18,7 @@ public class Round {
             i++;
         }
 
-        this.currentPhase="Pianificazione";
+        this.currentPhase="Planning";
     }
 
     public String getCurrentPhase() {
@@ -30,7 +29,7 @@ public class Round {
         this.currentPhase = currentPhase;
     }
 
-    public ArrayList<Player> nextAzione(int[] index) {
+    public ArrayList<Player> nextAction(int[] index) {
         if (player.size() == 3) {
             this.order.addAll(this.player);
             order.sort(Comparator.comparingInt(o -> o.getLastCardPlayed().getValue()));
@@ -44,7 +43,7 @@ public class Round {
         return this.order;
     }
 
-    public ArrayList<Player> nextPianificazione(int[] index) { //index:array che contiene "VALORE" delle carte giocate da tutti i giocatori
+    public ArrayList<Player> nextPlanning(int[] index) { //index:array che contiene "VALORE" delle carte giocate da tutti i giocatori
         if (player.size() == 3) {
             this.order.addAll(this.player);
             order.sort(Comparator.comparingInt(o -> o.getLastCardPlayed().getValue()));

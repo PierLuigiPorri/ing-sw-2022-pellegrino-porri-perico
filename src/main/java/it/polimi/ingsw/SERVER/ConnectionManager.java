@@ -5,6 +5,7 @@ import it.polimi.ingsw.MESSAGES.AckMessage;
 import it.polimi.ingsw.MESSAGES.ActionMessage;
 import it.polimi.ingsw.MESSAGES.MessageType;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -93,7 +94,7 @@ public class ConnectionManager implements Runnable{
     public void send(MessageType message){
         try {
             out.writeObject(message);
-        }catch (Exception e){System.out.println(e.getMessage());}
+        }catch (IOException e){System.out.println(e.getMessage());}
     }
 
     public void setGameManager(GameManager gm){

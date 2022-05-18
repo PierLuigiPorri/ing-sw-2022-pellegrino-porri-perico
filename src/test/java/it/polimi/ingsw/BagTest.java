@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.GAME.*;
 
@@ -46,18 +47,16 @@ public class BagTest {
     public void extractStudent() {
         Assert.assertEquals(120, bag.getSize());
 
-        try {
-            bag.extractStudent();
-            bag.extractStudent();
-            bag.extractStudent();
-            bag.extractStudent();
-            bag.extractStudent();
-            bag.extractStudent();
-            bag.extractStudent();
-            bag.extractStudent();
-        }catch (ImpossibleActionException e){
-            System.out.println(e.getMessage());
-        }
+
+        bag.extractStudent();
+        bag.extractStudent();
+        bag.extractStudent();
+        bag.extractStudent();
+        bag.extractStudent();
+        bag.extractStudent();
+        bag.extractStudent();
+        bag.extractStudent();
+
         Assert.assertEquals(112, bag.getSize());
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.SERVER;
 
+import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.EXCEPTIONS.NickException;
 import it.polimi.ingsw.EXCEPTIONS.NoSuchGameException;
 import it.polimi.ingsw.GAME.Game;
@@ -63,45 +64,41 @@ public class Starter{
         return -1;
     }
 
-    public void joinGame(int id, String nick, ConnectionManager cm) throws NickException, NoSuchGameException {
+    public void joinGame(int id, String nick, ConnectionManager cm) throws NickException, NoSuchGameException, ImpossibleActionException {
         //Attenzione: l'ID non viene direttamente dal Client, bensì da msgHandler
         //Questo impedisce all'errore NoSuchGame di verificarsi
-        Creation temp=null;
+        Creation temp = null;
         synchronized (games) {
-            int i=0;
-            int found=0; //Used as a bool
-            while(i<games.size() && found==0){
-                if(id==games.get(i).getId()){
-                    found=1;
-                    if (games.get(i).getnReady()==1){
-                        if(!nick.equals(games.get(i).getNick1())){
+            int i = 0;
+            int found = 0; //Used as a bool
+            while (i < games.size() && found == 0) {
+                if (id == games.get(i).getId()) {
+                    found = 1;
+                    if (games.get(i).getnReady() == 1) {
+                        if (!nick.equals(games.get(i).getNick1())) {
                             games.get(i).setNick2(nick);
                             games.get(i).setCm2(cm);
                             games.get(i).setnReady(); //nReady++;
-                        }
-                        else throw new NickException("This nickname is already used in the game");
-                    }
-                    else if(games.get(i).getnReady()==2){
-                        if(!nick.equals(games.get(i).getNick1()) && !nick.equals(games.get(i).getNick2())){
+                        } else throw new NickException("This nickname is already used in the game");
+                    } else if (games.get(i).getnReady() == 2) {
+                        if (!nick.equals(games.get(i).getNick1()) && !nick.equals(games.get(i).getNick2())) {
                             games.get(i).setNick3(nick);
                             games.get(i).setCm3(cm);
                             games.get(i).setnReady(); //nReady++;
-                        }
-                        else throw new NickException("This nickname is already used in the game");
+                        } else throw new NickException("This nickname is already used in the game");
                     }
 
-                    if(games.get(i).getnReady()==games.get(i).getnPlayers()){
-                        temp=games.get(i);
+                    if (games.get(i).getnReady() == games.get(i).getnPlayers()) {
+                        temp = games.get(i);
                         games.remove(i);
                     }
-                }
-                else{
+                } else {
                     i++;
                 }
             }
         }
         //if(temp!=null){
-        Game g=new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getNick2(), temp.getNick3());
+        Game g = new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getNick2(), temp.getNick3());
         Controller c=new Controller(g, temp.getCm1(), temp.getCm2(), temp.getCm3());
         int np=g.getPlayerCount();
         GameManager gm=new GameManager(temp.getCm1(), temp.getCm2(), temp.getCm3(), np);

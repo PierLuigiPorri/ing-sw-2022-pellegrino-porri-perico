@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.GAME.*;
 
 import org.junit.*;
@@ -90,7 +91,7 @@ public class HallTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws ImpossibleActionException {
         game=new Game(2, 0, "Pier", "Paolo", null);
         player=new Player(2, "Pier", game);
     }
