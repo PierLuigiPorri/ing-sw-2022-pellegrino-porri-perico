@@ -223,7 +223,7 @@ public class CardsTest
     @Before
     public void setUp(){
 
-            game = new Game(2, 1, "FRANCO", null, "CARMINE", null, null, null);
+            game = new Game(2, 1, "FRANCO", "CARMINE", null);
             p1=new Player(2,"FRANCO", game);
             p2=new Player(2, "CARMINE", game);
 

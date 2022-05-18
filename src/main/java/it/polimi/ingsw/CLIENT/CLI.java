@@ -6,7 +6,6 @@ import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.FutureTask;
 
 public class CLI implements View{
 
@@ -68,11 +67,7 @@ public class CLI implements View{
     }
 
     public void changePhase() {
-        try{
-            msgHandler.sendMessage(new ActionMessage(null, null, null,6));
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
+            msgHandler.send(new ActionMessage(null, null, null,6));
     }
 
     public void gateToIsland() {
@@ -214,16 +209,13 @@ public class CLI implements View{
                 b.add(inputStr.get(inputStr.size()-1));
             default:break;
         }
-        msgHandler.sendMessage(new ActionMessage(a,b,c,5));
+        msgHandler.send(new ActionMessage(a,b,c,5));
         inputInt.clear();
         inputStr.clear();
     }
 
     private void messageConfirmed(int type){
-        try {msgHandler.sendMessage(new ActionMessage(inputInt, inputStr, null, type));
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
+        msgHandler.send(new ActionMessage(inputInt, inputStr, null, type));
         inputInt.clear();
         inputStr.clear();
     }

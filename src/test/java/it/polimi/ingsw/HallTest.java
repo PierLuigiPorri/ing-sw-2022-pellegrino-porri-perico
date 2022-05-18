@@ -91,7 +91,7 @@ public class HallTest {
 
     @Before
     public void setUp() {
-        game=new Game(2, 0, "Pier", null, "Paolo", null, null, null);
+        game=new Game(2, 0, "Pier", "Paolo", null);
         player=new Player(2, "Pier", game);
     }
 

@@ -14,9 +14,12 @@ public class AckReceiver implements Runnable{
     public void run() {
         while(true){
             try {
+                //Thread.sleep(5000);
                 AckMessage am=cm.getNextAck();
-                //TODO: Resetta il timer
-            }catch (Exception e){}
+                System.out.println("ACK ricevuto");
+            }catch (Exception e){
+                //System.out.println("Ho killato tutto");
+            }
         }
     }
 }

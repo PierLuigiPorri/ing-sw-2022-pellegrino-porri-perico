@@ -9,8 +9,9 @@ public class ClientApp {
 
     public static void main(String[] args){
         msgHandler=new ClientMsgHandler("127.0.0.1", 4000); //Connection setup with this IP and Port numbers
+        new Thread(new AckSender(msgHandler,5000)).start();
         //TODO: CLI or GUI? Facciamo un altro main?
-        view=new CLI(msgHandler);
+        //view=new CLI(msgHandler);
     }
     
 

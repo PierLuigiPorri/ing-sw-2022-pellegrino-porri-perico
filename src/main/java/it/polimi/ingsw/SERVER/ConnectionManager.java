@@ -35,6 +35,7 @@ public class ConnectionManager implements Runnable{
 
     @Override
     public void run() {
+        new Thread(new AckReceiver(this)).start();
         try {
             out = new ObjectOutputStream(clientSocket.getOutputStream()); //Importante che sia prima di in
             in = new ObjectInputStream(clientSocket.getInputStream());

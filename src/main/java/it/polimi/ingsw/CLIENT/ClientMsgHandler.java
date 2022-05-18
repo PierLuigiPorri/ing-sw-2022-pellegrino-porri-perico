@@ -41,7 +41,9 @@ public class ClientMsgHandler{
 
     }
 
-    public void sendMessage(MessageType message) throws IOException {
-        out.writeObject(message);
+    public void send(MessageType message){
+        try {
+            out.writeObject(message);
+        }catch (Exception e){System.out.println(e.getMessage());}
     }
 }
