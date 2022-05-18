@@ -1,6 +1,9 @@
 package it.polimi.ingsw.CLIENT;
 
+import it.polimi.ingsw.MESSAGES.AckMessage;
+import it.polimi.ingsw.MESSAGES.ActionMessage;
 import it.polimi.ingsw.MESSAGES.MessageType;
+import it.polimi.ingsw.MESSAGES.UpdateMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,6 +15,7 @@ public class ClientMsgHandler implements Runnable{
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private View view;
+    private boolean kill=false;
     public ClientMsgHandler(String host, int port){
         try {
             socket = new Socket(host, port);
@@ -54,6 +58,16 @@ public class ClientMsgHandler implements Runnable{
 
     @Override
     public void run() {
-
+        while(!kill){
+            try {
+                MessageType latestMessage = (MessageType) in.readObject();
+                view.relay(latestMessage);
+                notifyAll();
+            }
+            catch (Exception e){
+                System.out.println("Connection lost");
+                kill=true;
+            }
+        }
     }
 }
