@@ -27,7 +27,7 @@ public class ServerApp
                 sock = ssock.accept();
                 connectedClients++;
                 System.out.println("Client connection "+connectedClients+" accepted");
-                new Thread(new VirtualView(sock)).start();
+                new Thread(new ConnectionManager(sock)).start();
             }
             catch (Exception e){
                 System.out.println("Client connection failed");
