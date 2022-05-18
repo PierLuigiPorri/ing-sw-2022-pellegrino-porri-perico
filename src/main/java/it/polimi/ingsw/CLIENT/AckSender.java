@@ -22,6 +22,5 @@ public class AckSender implements Runnable{
             } catch (InterruptedException e) {
             }
         }
-        //while(true){}
     }
 }

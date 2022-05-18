@@ -82,10 +82,10 @@ public class ConnectionManager implements Runnable{
         }
     }
 
-    public AckMessage getNextAck() throws EmptyQueueException{
+    public void clearAck() throws EmptyQueueException{
         synchronized (ackQueue) {
             if (!ackQueue.isEmpty()) {
-                return ackQueue.remove(0);
+                ackQueue.clear();
             } else throw new EmptyQueueException("The queue is empty");
         }
     }
