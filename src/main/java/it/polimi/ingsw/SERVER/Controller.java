@@ -11,77 +11,64 @@ import java.util.Observer;
 
 public class Controller implements Observer{
     private final Game game;
-    private ArrayList<VirtualView> messageHandlers; //Potranno essere usati per rispondere alle loro stesse richieste
-    private final Object lockGame;
+    private ArrayList<ConnectionManager> connectionManagers; //Potranno essere usati per rispondere alle loro stesse richieste
 
-    public Controller(Game game, VirtualView mh1, VirtualView mh2, VirtualView mh3){
+    public Controller(Game game, ConnectionManager cm1, ConnectionManager cm2, ConnectionManager cm3){
         this.game=game;
-        messageHandlers=new ArrayList<>();
-        messageHandlers.add(mh1); //Index 0
-        messageHandlers.add(mh2); //Index 1
+        connectionManagers=new ArrayList<>();
+        connectionManagers.add(cm1); //Index 0
+        connectionManagers.add(cm2); //Index 1
         if(game.getPlayerCount()==3){
-            messageHandlers.add(mh3); //Index 2
+            connectionManagers.add(cm3); //Index 2
         }
-        lockGame=new Object();
     }
 
     public void gateToIsland(String name, int index, int indexIsland, String color) {
-        synchronized (lockGame) {
             try {
                 game.gateToIsland(name, index, indexIsland, color);
             } catch (BoundException | ImpossibleActionException e) {
                 System.out.println(e.getMessage());
-                //TODO: getCorrectMh(name).sendMessage(errore di gate to island)
+                //TODO: getCorrectCm(name).sendMessage(errore di gate to island)
             }
-        }
     }
 
     public void gateToHall(String name, String color) {
-        synchronized (lockGame) {
             try {
                 game.gateToHall(name, color);
             } catch (ImpossibleActionException e) {
                 System.out.println(e.getMessage());
-                //TODO: getCorrectMh(name).sendMessage(errore di gate to hall)
+                //TODO: getCorrectCm(name).sendMessage(errore di gate to hall)
             }
-        }
     }
 
     public void CloudToGate(String player, String color, int sIndex, int cIndex) {
-        synchronized (lockGame) {
             try {
                 game.CloudToGate(player, color, sIndex, cIndex);
             } catch (BoundException | ImpossibleActionException e) {
                 System.out.println(e.getMessage());
-                //TODO: getCorrectMh(name).sendMessage(errore di cloud to gate)
+                //TODO: getCorrectCm(name).sendMessage(errore di cloud to gate)
             }
-        }
     }
 
     public void moveMotherNature(int movement) {
-        synchronized (lockGame) {
             try {
                 game.moveMotherNature(movement);
             } catch (ImpossibleActionException e) {
                 System.out.println(e.getMessage());
-                //TODO: getCorrectMh(name).sendMessage(errore di move mother nature)
+                //TODO: getCorrectCm(name).sendMessage(errore di move mother nature)
             }
-        }
     }
 
     public void playCard(String player, int index){
-        synchronized (lockGame) {
             try {
                 game.playCard(player, index);
             } catch (ImpossibleActionException e) {
                 System.out.println(e.getMessage());
-                //TODO: getCorrectMh(name).sendMessage(errore di playCard)
+                //TODO: getCorrectCm(name).sendMessage(errore di playCard)
             }
-        }
     }
 
     public void activateCharacter(ArrayList<String> a, ArrayList<Integer> b, ArrayList<Integer> c){
-        synchronized (lockGame) {
             try {
                 String pl=a.get(0);
                 a.remove(0);
@@ -106,20 +93,17 @@ public class Controller implements Observer{
             } catch (ImpossibleActionException e) {
                 System.out.println(e.getMessage());
             }
-        }
     }
 
     public void changePhase(){
-        synchronized (lockGame) {
             game.changePhase();
-        }
     }
 
-    private VirtualView getCorrectMh(String name){
-        for (VirtualView mh:
-             messageHandlers) {
-            if(mh.getPlayerName().equals(name)){
-                return mh;
+    private ConnectionManager getCorrectCm(String name){
+        for (ConnectionManager cm:
+             connectionManagers) {
+            if(cm.getPlayerName().equals(name)){
+                return cm;
             }
         }
         return null;

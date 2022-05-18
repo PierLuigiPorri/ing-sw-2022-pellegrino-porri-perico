@@ -12,11 +12,11 @@ public class Starter{
     private static Integer currID=0;
     //public Game createdGame; //Here for testing
 
-    public int newGame(int gt, int np, String nick, VirtualView mh){
+    public int newGame(int gt, int np, String nick, ConnectionManager cm){
         //Creation phase of the game
         synchronized (games) {
             synchronized (currID) {
-                games.add(new Creation(currID, np, gt, nick, mh));
+                games.add(new Creation(currID, np, gt, nick, cm));
                 currID++;
                 return currID-1;
             }
@@ -63,7 +63,7 @@ public class Starter{
         return -1;
     }
 
-    public void joinGame(int id, String nick, VirtualView mh) throws NickException, NoSuchGameException {
+    public void joinGame(int id, String nick, ConnectionManager cm) throws NickException, NoSuchGameException {
         //Attenzione: l'ID non viene direttamente dal Client, bensì da msgHandler
         //Questo impedisce all'errore NoSuchGame di verificarsi
         Creation temp=null;
@@ -76,7 +76,7 @@ public class Starter{
                     if (games.get(i).getnReady()==1){
                         if(!nick.equals(games.get(i).getNick1())){
                             games.get(i).setNick2(nick);
-                            games.get(i).setMh2(mh);
+                            games.get(i).setCm2(cm);
                             games.get(i).setnReady(); //nReady++;
                         }
                         else throw new NickException("This nickname is already used in the game");
@@ -84,7 +84,7 @@ public class Starter{
                     else if(games.get(i).getnReady()==2){
                         if(!nick.equals(games.get(i).getNick1()) && !nick.equals(games.get(i).getNick2())){
                             games.get(i).setNick3(nick);
-                            games.get(i).setMh3(mh);
+                            games.get(i).setCm3(cm);
                             games.get(i).setnReady(); //nReady++;
                         }
                         else throw new NickException("This nickname is already used in the game");
@@ -101,8 +101,18 @@ public class Starter{
             }
         }
         //if(temp!=null){
-        Game g=new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getMh1(), temp.getNick2(), temp.getMh2(), temp.getNick3(), temp.getMh3());
+        Game g=new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getNick2(), temp.getNick3());
+        Controller c=new Controller(g, temp.getCm1(), temp.getCm2(), temp.getCm3());
+        int np=g.getPlayerCount();
+        GameManager gm=new GameManager(temp.getCm1(), temp.getCm2(), temp.getCm3(), np);
+        g.getModelView().addObserver(gm); //La virtual view osserva il modello
+        gm.addObserver(c); //Il controller osserverà la virtual view
         //}
         //else throw new NoSuchGameException("There's no game with this ID");
     }
+
+    public void killGame(int id){
+        //TODO: kill the game during the creation phase by removing it from games after having sent a message to all clients
+    }
+
 }

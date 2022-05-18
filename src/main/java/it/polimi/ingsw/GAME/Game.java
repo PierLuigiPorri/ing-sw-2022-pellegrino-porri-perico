@@ -15,8 +15,8 @@ public class Game extends Observable {
     private final int gameType; //0: regole semplificate, 1: regole esperto.
     private final ArrayList<Player> players; //array of all players.
     public ArrayList<Player> order; // says the order of each turn in which the players are going to play.
-    private Controller controller;
-    private ArrayList<VirtualView> messageHandlers; //Potranno essere usati per notificare le view remote delle modifiche
+    //private Controller controller;
+    //private ArrayList<VirtualView> messageHandlers; //Potranno essere usati per notificare le view remote delle modifiche
     private ArrayList<Card> cardsPlayed;  //Cards played in this round
     private final Bag bag;
     private final Board board;
@@ -30,7 +30,7 @@ public class Game extends Observable {
     private Player PwBonus;
     private final ModelView modelView;
 
-    public Game(int pcount, int gt, String nick1, VirtualView mh1, String nick2, VirtualView mh2, String nick3, VirtualView mh3){
+    public Game(int pcount, int gt, String nick1, String nick2, String nick3){
         //Parameters: num of players, gametype, nickname and MsgHandler for every player
         this.playerCount=pcount;
         this.modelView=new ModelView(this);
@@ -70,7 +70,7 @@ public class Game extends Observable {
         }
         roundMaster = new RoundMaster(players);
 
-        mh1.setPlayerName(nick1);
+        /*mh1.setPlayerName(nick1);
         mh2.setPlayerName(nick2);
         if(playerCount==3){
             mh3.setPlayerName(nick3);
@@ -86,13 +86,17 @@ public class Game extends Observable {
                 messageHandlers) {
             mh.setController(controller);
             mh.setGameCreated();
-        }
+        }*/
         order.addAll(players);
 
         if(gameType==1)
             this.characterSelector=new CharacterSelector(this);
         setChanged();
         notifyObservers();
+    }
+
+    public ModelView getModelView() {
+        return modelView;
     }
 
     public static ArrayList<Student> randomStudGenerator(int numStud){

@@ -9,17 +9,17 @@ public class Creation {
     private String nick1;
     private String nick2=null;
     private String nick3=null;
-    private VirtualView mh1;
-    private VirtualView mh2;
-    private VirtualView mh3;
+    private ConnectionManager cm1;
+    private ConnectionManager cm2;
+    private ConnectionManager cm3;
 
-    public Creation(int id, int ng, int gt, String nick, VirtualView mh){
+    public Creation(int id, int ng, int gt, String nick, ConnectionManager cm){
         nPlayers=ng;
         gametype=gt;
         nJoined=1;
         nick1=nick;
         nReady=1;
-        mh1=mh;
+        cm1=cm;
         this.id=id;
     }
 
@@ -38,12 +38,12 @@ public class Creation {
         this.nick3 = nick;
     }
 
-    public void setMh2(VirtualView mh2) {
-        this.mh2 = mh2;
+    public void setCm2(ConnectionManager cm2) {
+        this.cm2 = cm2;
     }
 
-    public void setMh3(VirtualView mh3) {
-        this.mh3 = mh3;
+    public void setCm3(ConnectionManager cm3) {
+        this.cm3 = cm3;
     }
 
     public int getId() {
@@ -78,15 +78,15 @@ public class Creation {
         return nick3;
     }
 
-    public VirtualView getMh1() {
-        return mh1;
+    public ConnectionManager getCm1() {
+        return cm1;
     }
 
-    public VirtualView getMh2() {
-        return mh2;
+    public ConnectionManager getCm2() {
+        return cm2;
     }
 
-    public VirtualView getMh3() {
-        return mh3;
+    public ConnectionManager getCm3() {
+        return cm3;
     }
 }

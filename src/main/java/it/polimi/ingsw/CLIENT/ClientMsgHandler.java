@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class ClientMsgHandler {
+public class ClientMsgHandler{
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -29,6 +29,8 @@ public class ClientMsgHandler {
             System.exit(0);
         }
     }
+
+
 
     public void newGame(String nick, int gt, int np){
         //TODO:
