@@ -22,6 +22,11 @@ public class GameManager extends Observable implements Runnable, Observer {
         if(players==3){
             connectionManagers.add(cm3); //Index 2
         }
+        for (ConnectionManager cm:
+                connectionManagers) {
+            cm.setGameManager(this);
+            cm.setGameHasBeenCreated();
+        }
     }
 
     @Override

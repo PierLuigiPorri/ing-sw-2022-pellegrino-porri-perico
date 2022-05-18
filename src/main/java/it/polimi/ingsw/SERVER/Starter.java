@@ -107,6 +107,8 @@ public class Starter{
         GameManager gm=new GameManager(temp.getCm1(), temp.getCm2(), temp.getCm3(), np);
         g.getModelView().addObserver(gm); //La virtual view osserva il modello
         gm.addObserver(c); //Il controller osserverà la virtual view
+        //TODO: Settare i nickname per ogni cm
+        new Thread(gm).start(); //Inizio ad ascoltare gli actionMessage
         //}
         //else throw new NoSuchGameException("There's no game with this ID");
     }
