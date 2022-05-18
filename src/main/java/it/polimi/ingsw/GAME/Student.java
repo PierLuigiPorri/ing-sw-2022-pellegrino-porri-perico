@@ -11,7 +11,4 @@ public class Student{
         return color;
     }
 
-    /*public int getInfluence(){
-        return this.color.getInfluence();
-    }*/
 }

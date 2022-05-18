@@ -6,6 +6,8 @@ public class UpdateMessage extends MessageType{
     public int game_Type;
     public int nPlayers;
     public ArrayList<String> order;
+    public String phase;
+    public int turnNumber;
 
     /*Players attributes:
      attributes which end by 0 refer to order.get(0);
@@ -58,9 +60,12 @@ public class UpdateMessage extends MessageType{
     public ArrayList<Integer> idCharacter; //if GameType=1, then here there will be the three id of the three characters in game.
     public ArrayList<Boolean> activated;   // 0: true if and only if character in position 0 has been already activated. 1: true if and only if character in position 1 has been already activated...
     public ArrayList<Integer> cardCost;
-    public ArrayList<Integer> numTD;
-    public ArrayList<String> studentsOnCard;
-
+    public int numTD;
+    public ArrayList<Boolean> numTDOnIsland;
+    public ArrayList<String> studentsOnCard0;
+    public ArrayList<String> studentsOnCard1;
+    public ArrayList<String> studentsOnCard2;
+    public int MNbonus;
 
     public UpdateMessage() {
         super(4);
