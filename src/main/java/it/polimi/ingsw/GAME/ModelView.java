@@ -113,7 +113,6 @@ public class ModelView extends Observable implements Observer {
         for (Player p : game.order) {
             update.towersOnPlayer.add(p.getTower_count());
         }
-
         update.hallPlayer0.add(game.getPlayers().get(0).getHall().getColor("RED"));
         update.hallPlayer0.add(game.getPlayers().get(0).getHall().getColor("BLUE"));
         update.hallPlayer0.add(game.getPlayers().get(0).getHall().getColor("GREEN"));

@@ -1,11 +1,15 @@
 package it.polimi.ingsw.SERVER;
 
 import it.polimi.ingsw.EXCEPTIONS.BoundException;
+import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.GAME.Game;
 import it.polimi.ingsw.MESSAGES.ActionMessage;
+import it.polimi.ingsw.MESSAGES.ErrorMessage;
+import it.polimi.ingsw.MESSAGES.MessageType;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -27,8 +31,7 @@ public class Controller implements Observer{
             try {
                 game.gateToIsland(name, index, indexIsland, color);
             } catch (BoundException | ImpossibleActionException e) {
-                System.out.println(e.getMessage());
-                //TODO: getCorrectCm(name).sendMessage(errore di gate to island)
+                Objects.requireNonNull(getCorrectCm(name)).send(new ErrorMessage(e.getMessage()));
             }
     }
 
@@ -36,8 +39,7 @@ public class Controller implements Observer{
             try {
                 game.gateToHall(name, color);
             } catch (ImpossibleActionException e) {
-                System.out.println(e.getMessage());
-                //TODO: getCorrectCm(name).sendMessage(errore di gate to hall)
+                Objects.requireNonNull(getCorrectCm(name)).send(new ErrorMessage(e.getMessage()));
             }
     }
 
@@ -45,30 +47,28 @@ public class Controller implements Observer{
             try {
                 game.CloudToGate(player, color, sIndex, cIndex);
             } catch (BoundException | ImpossibleActionException e) {
-                System.out.println(e.getMessage());
-                //TODO: getCorrectCm(name).sendMessage(errore di cloud to gate)
+                Objects.requireNonNull(getCorrectCm(player)).send(new ErrorMessage(e.getMessage()));
             }
     }
 
-    public void moveMotherNature(int movement) {
+    public void moveMotherNature(String name, int movement) {
             try {
-                game.moveMotherNature(movement);
-            } catch (ImpossibleActionException e) {
-                System.out.println(e.getMessage());
-                //TODO: getCorrectCm(name).sendMessage(errore di move mother nature)
+                game.moveMotherNature(name, movement);
+            } catch (ImpossibleActionException | ConsecutiveIslandException | BoundException e) {
+                Objects.requireNonNull(getCorrectCm(name)).send(new ErrorMessage(e.getMessage()));
             }
     }
 
     public void playCard(String player, int index){
             try {
                 game.playCard(player, index);
-            } catch (ImpossibleActionException e) {
-                System.out.println(e.getMessage());
-                //TODO: getCorrectCm(name).sendMessage(errore di playCard)
+            } catch (ImpossibleActionException | BoundException e) {
+                Objects.requireNonNull(getCorrectCm(player)).send(new ErrorMessage(e.getMessage()));
+                (getCorrectCm(player)).send(new ErrorMessage(e.getMessage()));
             }
     }
 
-    public void activateCharacter(ArrayList<String> a, ArrayList<Integer> b, ArrayList<Integer> c){
+    public void activateCharacter(String name, ArrayList<String> a, ArrayList<Integer> b, ArrayList<Integer> c){
             try {
                 String pl=a.get(0);
                 a.remove(0);
@@ -91,12 +91,8 @@ public class Controller implements Observer{
                 }
                 game.activateCharacter(pl, id, parAC1, parA2, b, a, parC2, c);
             } catch (ImpossibleActionException e) {
-                System.out.println(e.getMessage());
+                Objects.requireNonNull(getCorrectCm(name)).send(new ErrorMessage(e.getMessage()));
             }
-    }
-
-    public void changePhase(){
-            game.changePhase();
     }
 
     private ConnectionManager getCorrectCm(String name){
@@ -111,7 +107,6 @@ public class Controller implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        //TODO:qui ci va lo switch case delle azioni
         ActionMessage am=(ActionMessage) arg;
         switch (am.ActionType){
             case 0://gateToIsland
@@ -124,16 +119,13 @@ public class Controller implements Observer{
                 CloudToGate(am.strParam.get(0), am.strParam.get(1), am.intParam.get(0), am.intParam.get(1));
                 break;
             case 3://moveMotherNature
-                moveMotherNature(am.intParam.get(0));
+                moveMotherNature(am.strParam.get(0), am.intParam.get(0));
                 break;
             case 4://playCard
                 playCard(am.strParam.get(0), am.intParam.get(0));
                 break;
             case 5://activateCharacter
-                activateCharacter(am.strParam, am.intParam, am.intParam2);
-                break;
-            case 6://changePhase
-                changePhase();
+                activateCharacter(am.strParam.get(0), am.strParam, am.intParam, am.intParam2);
                 break;
         }
     }

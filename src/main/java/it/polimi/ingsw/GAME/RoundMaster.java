@@ -18,16 +18,16 @@ public class RoundMaster{
    private void startRound() {round = new Round(players);}
 
     public ArrayList<Player> changePhase(int[] index) {  //restituisce l'ordine di gioco della fase successiva.
-        if (this.round.getCurrentPhase().equals("Pianificazione")) {
-            players = round.nextAzione(index);
-            round.setCurrentPhase("Azione");
+        if (this.round.getCurrentPhase().equals("Planning")) {
+            players = round.nextAction(index);
+            round.setCurrentPhase("Action");
         } else {
             roundCount++;
             players.remove(0);
             players.remove(0);
             if(!players.isEmpty())
                 players.remove(0);
-            players=round.nextPianificazione(index);
+            players=round.nextPlanning(index);
 
             startRound();
         }

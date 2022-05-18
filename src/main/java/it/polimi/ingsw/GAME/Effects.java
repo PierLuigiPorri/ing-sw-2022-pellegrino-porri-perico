@@ -23,20 +23,12 @@ public final class Effects{
             case 10:
                 c.setMAX(4);
                     for(int i=0; i<c.getMAX(); i++) {
-                        try {
-                            c.students.add(this.game.getBg().extractStudent());
-                        }catch (ImpossibleActionException e){
-                            System.out.println(e.getMessage());
-                        }
+                        c.students.add(this.game.getBg().extractStudent());
                     }
                 break;
             case 6: c.setMAX(6);
                     for(int i=0; i<c.getMAX(); i++) {
-                        try{
-                            c.students.add(game.getBg().extractStudent());
-                        }catch (ImpossibleActionException e){
-                            System.out.println(e.getMessage());
-                        }
+                        c.students.add(game.getBg().extractStudent());
                     }
                     break;
             default:break;
@@ -92,11 +84,7 @@ public final class Effects{
             case 0:
                 game.addStudentToIsland(c.students.get(par1).getColor(), par2);
                 c.students.remove(par1);
-                try {
-                    c.students.add(game.getBg().extractStudent());
-                }catch (ImpossibleActionException e){
-                    System.out.println(e.getMessage());
-                }
+                c.students.add(game.getBg().extractStudent());
                 break;
             case 4:
                 game.getB().islands.getIsland(par1).addTD();
@@ -105,11 +93,7 @@ public final class Effects{
             case 10:
                 game.addStudentToHall(c.students.get(par1).getColor(), player);
                 c.getStudents().remove(par1);
-                try {
-                    c.students.add(game.getBg().extractStudent());
-                }catch (ImpossibleActionException e){
-                    System.out.println(e.getMessage());
-                }
+                c.students.add(game.getBg().extractStudent());
                 break;
             case 6:
                 Student tmp;

@@ -45,7 +45,7 @@ public class GameTest {
             game.gateToIsland("PIER", 0, 7, tmp1[1].getColor());
             game.gateToIsland("PIER", 0, 7, tmp1[2].getColor());
 
-            game.moveMotherNature(game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
+            game.moveMotherNature("PIER", game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
             Assert.assertEquals(game.motherNature.getIsola().getId(), game.getCardsPlayed().remove(game.getCardsPlayed().size()-1).getMovement() + 1);
 
             for (int i=0; i<3; i++){
@@ -64,7 +64,7 @@ public class GameTest {
             game.gateToIsland("PAOLO", 0, 11, tmp2[1].getColor());
             game.gateToIsland("PAOLO", 0, 4, tmp2[2].getColor());
 
-            game.moveMotherNature(game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
+            game.moveMotherNature("PAOLO", game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
 
             Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
@@ -94,7 +94,7 @@ public class GameTest {
             game.gateToHall("PIER", tmp1[0].getColor() );
             game.gateToIsland("PIER", 0, 7, tmp1[1].getColor());
             game.gateToIsland("PIER", 0, 7, tmp1[2].getColor());
-            game.moveMotherNature(game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
+            game.moveMotherNature("PIER", game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
             Assert.assertEquals(4, game.motherNature.getIsola().getId());
             for (int i=0; i<3; i++){
                 tm1[i]=game.getB().clouds.get(0).getStudents().get(i);
@@ -108,7 +108,7 @@ public class GameTest {
             game.gateToHall("PAOLO", tmp2[0].getColor());
             game.gateToIsland("PAOLO", 0, 9, tmp2[1].getColor());
             game.gateToIsland("PAOLO", 0, 4, tmp2[2].getColor());
-            game.moveMotherNature(game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
+            game.moveMotherNature("PAOLO", game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
             Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
             game.CloudToGate("PAOLO", tm1[0].getColor(), 0, 0);
@@ -119,7 +119,7 @@ public class GameTest {
             Assert.assertEquals(game.roundMaster.getRoundCount(), 2);
             game.changePhase();
 
-        }catch (ImpossibleActionException | BoundException e){
+        }catch (ImpossibleActionException | BoundException | ConsecutiveIslandException e){
             System.out.println(e.getMessage());
         }
 
@@ -151,7 +151,7 @@ public class GameTest {
             game3.gateToIsland("PIER", 0, 7, tmp1[1].getColor());
             game3.gateToIsland("PIER", 0, 7, tmp1[2].getColor());
 
-            game3.moveMotherNature(game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
+            game3.moveMotherNature("PIER", game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
             Assert.assertEquals(game3.motherNature.getIsola().getId(), game3.getCardsPlayed().remove(game3.getCardsPlayed().size()-1).getMovement() + 1);
 
             for (int i=0; i<3; i++){
@@ -172,13 +172,13 @@ public class GameTest {
             game3.CloudToGate("Gandalf", tm3[1].getColor(), 0, 2);
             game3.CloudToGate("Gandalf", tm3[2].getColor(), 0, 2);
 
-            game3.moveMotherNature(game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
+            game3.moveMotherNature("Gandalf", game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
             Assert.assertEquals(game3.motherNature.getIsola().getId(), 3);
 
             game3.gateToHall("PAOLO", tmp2[0].getColor() );
             game3.gateToIsland("PAOLO", 0, 7, tmp2[1].getColor());
             game3.gateToIsland("PAOLO", 0, 7, tmp2[2].getColor());
-            game3.moveMotherNature(game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
+            game3.moveMotherNature("PAOLO", game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
             Assert.assertEquals(game3.motherNature.getIsola().getId(), 3);
 
             game3.CloudToGate("PAOLO", tm1[0].getColor(), 0, 0);
@@ -186,7 +186,7 @@ public class GameTest {
             game3.CloudToGate("PAOLO", tm1[2].getColor(), 0, 0);
 
 
-        }catch (ImpossibleActionException | BoundException e){
+        }catch (ImpossibleActionException | BoundException | ConsecutiveIslandException e){
             System.out.println(e.getMessage());
         }
     }
@@ -229,9 +229,12 @@ public class GameTest {
     @After
     public void tearDown() {
 
-        game = new Game(2, 1, "PIER", "PAOLO", null);
-        game3 = new Game(3, 1, "PIER", "PAOLO", "Gandalf");
-
+        try {
+            game = new Game(2, 1, "PIER", "PAOLO", null);
+            game3 = new Game(3, 1, "PIER", "PAOLO", "Gandalf");
+        }catch (ImpossibleActionException e){
+            System.out.println(e.getMessage());
+        }
         tmp1= new Student[3];
         tmp2= new Student[3];
         tm1 = new Student[3];

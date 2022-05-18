@@ -69,5 +69,42 @@ public class UpdateMessage extends MessageType{
 
     public UpdateMessage() {
         super(4);
+        this.order = new ArrayList<>();
+        this.coinsOnPlayer = new ArrayList<>();
+        this.towersOnPlayer = new ArrayList<>();
+        this.gatePlayer0 = new ArrayList<>();
+        this.gatePlayer1 = new ArrayList<>();
+        this.gatePlayer2 = new ArrayList<>();
+        this.hallPlayer0 = new ArrayList<>();
+        this.hallPlayer1 = new ArrayList<>();
+        this.hallPlayer2 = new ArrayList<>();
+        this.professors0 = new ArrayList<>();
+        this.professors1 = new ArrayList<>();
+        this.professors2 = new ArrayList<>();
+        this.lastCardPlayed = new ArrayList<>();
+        this.studentsOnIsland1 = new ArrayList<>();
+        this.studentsOnIsland2 = new ArrayList<>();
+        this.studentsOnIsland3 = new ArrayList<>();
+        this.studentsOnIsland4 = new ArrayList<>();
+        this.studentsOnIsland5 = new ArrayList<>();
+        this.studentsOnIsland6 = new ArrayList<>();
+        this.studentsOnIsland7 = new ArrayList<>();
+        this.studentsOnIsland8 = new ArrayList<>();
+        this.studentsOnIsland9 = new ArrayList<>();
+        this.studentsOnIsland10 = new ArrayList<>();
+        this.studentsOnIsland11 = new ArrayList<>();
+        this.studentsOnIsland12 = new ArrayList<>();
+        this.motherNatureOnIsland = new ArrayList<>();
+        this.towersOnIsland = new ArrayList<>();
+        this.studentsOnCloud0 = new ArrayList<>();
+        this.studentsOnCloud1 = new ArrayList<>();
+        this.studentsOnCloud2 = new ArrayList<>();
+        this.idCharacter = new ArrayList<>();
+        this.activated = new ArrayList<>();
+        this.cardCost = new ArrayList<>();
+        this.numTDOnIsland = new ArrayList<>();
+        this.studentsOnCard0 = new ArrayList<>();
+        this.studentsOnCard1 = new ArrayList<>();
+        this.studentsOnCard2 = new ArrayList<>();
     }
 }

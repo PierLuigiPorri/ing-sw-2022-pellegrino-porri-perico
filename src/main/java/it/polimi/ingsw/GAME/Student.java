@@ -1,7 +1,7 @@
 package it.polimi.ingsw.GAME;
 
 public class Student{
-    private String color;
+    private final String color;
 
     public Student(String color){
         this.color=color;
