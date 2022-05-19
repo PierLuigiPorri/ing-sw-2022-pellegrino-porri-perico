@@ -24,10 +24,14 @@ public class CLI implements View {
         this.msgHandler = clientMsgHandler;
         this.inputInt = new ArrayList<>();
         this.inputStr = new ArrayList<>();
-        this.messages = new ArrayList<>();
-        System.out.println("**********************************************************" +
-                "\nWELCOME TO ERIANTYS!" +
-                "\n**********************************************************");
+        this.messages=new ArrayList<>();
+        System.out.println(
+                "    ____________  _____    _   _________________\n" +
+                "   / ____/ __ \\ \\/ /   |  / | / /_  __/  _/ ___/\n" +
+                "  / __/ / /_/ /\\  / /| | /  |/ / / /  / / \\__ \\\n" +
+                " / /___/ _, _/ / / ___ |/ /|  / / / _/ / ___/ /\n" +
+                "/_____/_/ |_| /_/_/  |_/_/ |_/ /_/ /___//____/\n"
+        );
         this.player = getValidString("What's your name?");
         System.out.println("What would you like to do?" +
                 "\n0:Create a new Game" +

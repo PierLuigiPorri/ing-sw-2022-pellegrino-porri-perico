@@ -165,6 +165,10 @@ public class ModelView extends Observable implements Observer {
         if (game.getPlayers().get(1).nickname.equals(game.pink.getPlayer().nickname))
             update.professors1.add(true);
         else update.professors1.add(false);
+
+        update.playersMoves.add(game.order.get(0).maxMoves);
+        update.playersMoves.add(game.order.get(1).maxMoves);
+
     }
 
 
@@ -206,6 +210,7 @@ public class ModelView extends Observable implements Observer {
             for (Student s : game.getPlayers().get(2).getGate().getStudents()) {
                 update.gatePlayer2.add(s.getColor());
             }
+            update.playersMoves.add(game.order.get(2).maxMoves);
         }
     }
 

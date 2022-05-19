@@ -68,6 +68,7 @@ public class UpdateMessage extends MessageType{
     public ArrayList<String> studentsOnCard1;
     public ArrayList<String> studentsOnCard2;
     public int MNbonus;
+    public ArrayList<Integer> playersMoves;
 
     public UpdateMessage() {
         super(4);
@@ -108,5 +109,6 @@ public class UpdateMessage extends MessageType{
         this.studentsOnCard0 = new ArrayList<>();
         this.studentsOnCard1 = new ArrayList<>();
         this.studentsOnCard2 = new ArrayList<>();
+        this.playersMoves = new ArrayList<>();
     }
 }
