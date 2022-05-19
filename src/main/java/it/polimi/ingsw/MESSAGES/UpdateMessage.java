@@ -3,6 +3,8 @@ package it.polimi.ingsw.MESSAGES;
 import java.util.ArrayList;
 
 public class UpdateMessage extends MessageType{
+
+    public String update;
     public int game_Type;
     public int nPlayers;
     public ArrayList<String> order;

@@ -17,6 +17,7 @@ public class ModelView extends Observable implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         update.charactersNum = 0;
+        update.update=(String)arg;
         setGameAttributes();
         setBoardAttributes();
         setPlayersAttributes();

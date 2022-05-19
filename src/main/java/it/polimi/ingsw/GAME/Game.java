@@ -3,8 +3,7 @@ package it.polimi.ingsw.GAME;
 import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
-import it.polimi.ingsw.SERVER.Controller;
-import it.polimi.ingsw.SERVER.VirtualView;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,46 +22,48 @@ public class Game extends Observable {
     public final ColorTracker red, blue, green, yellow, pink; // professors.
     public RoundMaster roundMaster; //rounds manager.
     private Player winner;
-    public CharacterSelector characterSelector= null;
+    public CharacterSelector characterSelector = null;
     public final MotherNature motherNature;
-    private int MNbonus=0; // additional movement to Mother Nature; is called by a Character.
-    private int InfluenceBonus=0;
+    private int MNbonus = 0; // additional movement to Mother Nature; is called by a Character.
+    private int InfluenceBonus = 0;
     private Player PwBonus;
     private final ModelView modelView;
 
+    private String update;
+
     public Game(int pcount, int gt, String nick1, String nick2, String nick3) throws ImpossibleActionException {
         //Parameters: num of players, gametype, nickname and MsgHandler for every player
-        this.playerCount=pcount;
-        this.modelView=new ModelView(this);
+        this.playerCount = pcount;
+        this.modelView = new ModelView(this);
         this.addObserver(modelView);
-        this.gameType=gt;
-        this.players=new ArrayList<>();
-        this.cardsPlayed=new ArrayList<>();
-        this.red=new ColorTracker("RED");
-        this.blue=new ColorTracker("BLUE");
-        this.green=new ColorTracker("GREEN");
-        this.yellow=new ColorTracker("YELLOW");
-        this.pink=new ColorTracker("PINK");
-        this.bag=new Bag();
-        this.board=new Board(playerCount);
+        this.gameType = gt;
+        this.players = new ArrayList<>();
+        this.cardsPlayed = new ArrayList<>();
+        this.red = new ColorTracker("RED");
+        this.blue = new ColorTracker("BLUE");
+        this.green = new ColorTracker("GREEN");
+        this.yellow = new ColorTracker("YELLOW");
+        this.pink = new ColorTracker("PINK");
+        this.bag = new Bag();
+        this.board = new Board(playerCount);
         this.order = new ArrayList<>();
 
         this.players.add(new Player(playerCount, nick1, this));
         this.players.add(new Player(playerCount, nick2, this));
-        if(playerCount==3){
+        if (playerCount == 3) {
             this.players.add(new Player(playerCount, nick3, this));
         }
 
-        for (Player p: players) {
-            for(int i=0; i< p.getGate().getMAX(); i++){
-                if(!this.getBg().getStudents().isEmpty()) {
+        for (Player p : players) {
+            for (int i = 0; i < p.getGate().getMAX(); i++) {
+                if (!this.getBg().getStudents().isEmpty()) {
                     p.getGate().addInitialStud(this.getBg().extractStudent());
-                }else throw new ImpossibleActionException("The bag is empty!");
+                } else throw new ImpossibleActionException("\nThe bag is empty!");
             }
         }
-        this.motherNature=new MotherNature(board.islands.getIsland(1));
-        if(this.gameType==1){
-            for(Player p:this.players){
+        this.motherNature = new MotherNature(board.islands.getIsland(1));
+        if (this.gameType == 1) {
+            for (Player p : this.players) {
                 p.addCoin();
             }
         }
@@ -87,33 +88,34 @@ public class Game extends Observable {
         }*/
         order.addAll(players);
 
-        if(gameType==1)
-            this.characterSelector=new CharacterSelector(this);
+        if (gameType == 1)
+            this.characterSelector = new CharacterSelector(this);
+        update = "\nGame created! LET'S GO!";
         setChanged();
-        notifyObservers();
+        notifyObservers(update);
     }
 
     public ModelView getModelView() {
         return modelView;
     }
 
-    public static ArrayList<Student> randomStudGenerator(int numStud){
+    public static ArrayList<Student> randomStudGenerator(int numStud) {
         //This STATIC method generates a shuffled array of Students, equally distributed between colors
-        int numColors=5;
-        ArrayList<Student> students=new ArrayList<>();
-        for (int i = 0; i < numStud/numColors; i++) {
+        int numColors = 5;
+        ArrayList<Student> students = new ArrayList<>();
+        for (int i = 0; i < numStud / numColors; i++) {
             students.add(new Student("RED"));
         }
-        for (int i = 0; i < numStud/numColors; i++) {
+        for (int i = 0; i < numStud / numColors; i++) {
             students.add(new Student("BLUE"));
         }
-        for (int i = 0; i < numStud/numColors; i++) {
+        for (int i = 0; i < numStud / numColors; i++) {
             students.add(new Student("YELLOW"));
         }
-        for (int i = 0; i < numStud/numColors; i++) {
+        for (int i = 0; i < numStud / numColors; i++) {
             students.add(new Student("GREEN"));
         }
-        for (int i = 0; i < numStud/numColors; i++) {
+        for (int i = 0; i < numStud / numColors; i++) {
             students.add(new Student("PINK"));
         }
         Collections.shuffle(students);
@@ -125,7 +127,7 @@ public class Game extends Observable {
         if (roundMaster.round.getCurrentPhase().equals("Planning")) {
             for (int i = 0; i < playerCount + 1; i++) {
                 if (bag.getSize() == 0)
-                    throw new BoundException("The bag is empty!\n");
+                    throw new BoundException("\nThe bag is empty!\n");
                 else {
                     bagToCloud(0);
                     bagToCloud(1);
@@ -139,40 +141,42 @@ public class Game extends Observable {
         for (int i = 0; i < cardsPlayed.size(); i++) {
             tmp[i] = cardsPlayed.get(i).getValue();
         }
-        if(roundMaster.round.getCurrentPhase().equals("Action"))
-            cardsPlayed=new ArrayList<>();
+        if (roundMaster.round.getCurrentPhase().equals("Action"))
+            cardsPlayed = new ArrayList<>();
 
         this.order = roundMaster.changePhase(tmp);
+        characterSelector.effects.restore();
 
 
 //reset the maxmoves of all players.
         for (Player p : players) {
             p.maxMoves = playerCount + 1;
         }
+        update = "\nNext phase!";
         setChanged();
-        notifyObservers();
+        notifyObservers(update);
     }
 
-    public Player gameEnd(){
+    public Player gameEnd() {
         int[] x;
-        x=new int[3];
+        x = new int[3];
         int min;
-        x[0]=this.players.get(0).getTower_count();
-        x[1]=this.players.get(1).getTower_count();
-        x[2]=this.players.get(2).getTower_count();
-        min=Math.min(Math.min(x[0], x[1]),x[2]);
-        if(min==x[0])
+        x[0] = this.players.get(0).getTower_count();
+        x[1] = this.players.get(1).getTower_count();
+        x[2] = this.players.get(2).getTower_count();
+        min = Math.min(Math.min(x[0], x[1]), x[2]);
+        if (min == x[0])
             return this.players.get(0);
-        else if(min==x[1])
+        else if (min == x[1])
             return this.players.get(1);
         else
             return this.players.get(2);
     }
 
     public void gateToHall(String name, String color) throws ImpossibleActionException {
-        if(roundMaster.round.getCurrentPhase().equals("Action")) {
+        if (roundMaster.round.getCurrentPhase().equals("Action")) {
             Player player1 = playerTranslator(name);
-            if(order.get(0).equals(player1)) {
+            if (order.get(0).equals(player1)) {
                 if (player1.getGate().getColorsInGate().contains(color)) {
                     addStudentToHall(color, player1);
                     int i = 0;
@@ -181,22 +185,21 @@ public class Game extends Observable {
                     }
                     removeFromGate(player1, i);
                     player1.maxMoves--;
-                } else throw new ImpossibleActionException("Not such color in " + player1.nickname + "'s gate.");
-            }else throw new ImpossibleActionException("Is not your turn.");
-        }else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
+                    update = ("\nHeads up! " + player1.nickname + " moved a " + color + " student to their hall!");
+                } else throw new ImpossibleActionException("No such color in " + player1.nickname + "'s gate.");
+            } else throw new ImpossibleActionException("Is not your turn.");
+        } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
         setChanged();
-        notifyObservers();
+        notifyObservers(update);
     }
 
     public void bagToCloud(int index) throws BoundException, ImpossibleActionException {
         if (index >= 0 && index <= 3 && board.clouds.get(index).students.size() < playerCount + 1) {
             if (!this.getBg().getStudents().isEmpty()) {
                 board.clouds.get(index).addStudent(bag.extractStudent().getColor());
-            } else throw new ImpossibleActionException("The bag is empty!");
+            } else throw new ImpossibleActionException("\nThe bag is empty!");
 
-        } else throw new BoundException("INDEX OUT OF BOUND!\n");
-        setChanged();
-        notifyObservers();
+        } else throw new BoundException("\nINDEX OUT OF BOUND!\n");
     }
 
     public void gateToIsland(String name, int index, int indexIsland, String color) throws BoundException, ImpossibleActionException {
@@ -208,12 +211,13 @@ public class Game extends Observable {
                         addStudentToIsland(color, indexIsland);
                         removeFromGate(player1, index);
                         player1.maxMoves--;
-                    } else throw new BoundException(player1.nickname + " can't place anymore students.\n");
-                } else throw new ImpossibleActionException("Not such color in " + player1.nickname + "'s gate");
-            } else throw new ImpossibleActionException("Is not your turn.");
-        } else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
+                        update = ("\nSomething's happened!\n" + player1.nickname + " moved a " + color + " student to Island " + indexIsland + "!");
+                    } else throw new BoundException("\n" + player1.nickname + " can't place anymore students.\n");
+                } else throw new ImpossibleActionException("\nNot such color in " + player1.nickname + "'s gate");
+            } else throw new ImpossibleActionException("\nIs not your turn.");
+        } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
         setChanged();
-        notifyObservers();
+        notifyObservers(update);
     }
 
     public void CloudToGate(String player, String color, int sIndex, int cIndex) throws BoundException, ImpossibleActionException { //TODO
@@ -224,22 +228,22 @@ public class Game extends Observable {
                     if (!board.clouds.get(cIndex).students.isEmpty() && p.getGate().students.size() < p.getGate().MAX) {
                         addToGate(p, color);
                         removeFromCloud(cIndex, sIndex);
+                        update = ("\nStay sharp! " + p.nickname + " just snatched a " + color + " student from Cloud number " + cIndex + "!");
                     } else
-                        throw new BoundException("Not enough space in " + p.nickname + "'s gate, or the cloud is empty.\n");
-                } else throw new ImpossibleActionException("Not such color in this cloud.");
-            } else throw new ImpossibleActionException("Is not your turn.");
-        } else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
+                        throw new BoundException("\nNot enough space in " + p.nickname + "'s gate, or the cloud is empty.\n");
+                } else throw new ImpossibleActionException("\nNot such color in this cloud.");
+            } else throw new ImpossibleActionException("\nIs not your turn.");
+        } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
         setChanged();
-        notifyObservers();
+        notifyObservers(update);
     }
-
 
 
     public void moveMotherNature(String name, int movement) throws ImpossibleActionException, ConsecutiveIslandException, BoundException {
         //TODO:determinare chi chiede al player quanto deve muovere, perché MNbonus (anche se 0)dovrà essere aggiunto al massimo movimento
-        if(roundMaster.round.getCurrentPhase().equals("Action")) {
-            Player player1=playerTranslator(name);
-            if(player1.maxMoves==0 && order.get(0).equals(player1)) {
+        if (roundMaster.round.getCurrentPhase().equals("Action")) {
+            Player player1 = playerTranslator(name);
+            if (player1.maxMoves == 0 && order.get(0).equals(player1)) {
                 if (movement < 7 + MNbonus) {
                     motherNature.getIsola().setMotherNature(false);
                     Island tmp = motherNature.getIsola();
@@ -259,37 +263,37 @@ public class Game extends Observable {
                         r = r.next;
                     if (!r.towers.isEmpty() && !tmp.towers.isEmpty()) {
                         if (r.getPlayer().equals(tmp.getPlayer())) {
-                            if(board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(r.getId()))||board.islands.getIsland(r.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
+                            if (board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(r.getId())) || board.islands.getIsland(r.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
                                 int min = Math.min(tmp.getId(), r.getId());
                                 mergeIslands(tmp.getId(), r.getId());
                                 tmp = getB().islands.getIsland(min);
-                            }else throw new ConsecutiveIslandException("The islands are not consecutive, impossible to merge!");
+                            } else
+                                throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
                         }
                         if (tmp.getPlayer().equals(tmp.next.getPlayer())) {
-                            if(board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(tmp.next.getId()))||board.islands.getIsland(tmp.next.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
+                            if (board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(tmp.next.getId())) || board.islands.getIsland(tmp.next.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
                                 mergeIslands(tmp.getId(), tmp.next.getId());
-                            }else throw new ConsecutiveIslandException("The islands are not consecutive, impossible to merge!");
+                            } else
+                                throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
                         }
                     }
-                } else throw new ImpossibleActionException("No card has this movement value.");
+                } else throw new ImpossibleActionException("\nNo card has this movement value.");
                 order.remove(0);
-            }else throw new ImpossibleActionException("Is not your turn or you still have to place students.");
-        }else throw new ImpossibleActionException("Not the correct phase in which you can move Students! \n");
+            } else throw new ImpossibleActionException("\nIs not your turn or you still have to place students.");
+        } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
 
-        if(order.isEmpty())
+        if (order.isEmpty())
             changePhase();
-        setChanged();
-        notifyObservers();
     }
 
     public void determineInfluence(int index) throws ImpossibleActionException {
         /*TODO: scrivere le eccezioni.
            Prima va definito bene il calcolo dell'influenza.*/
-        if(this.board.islands.getIsland(index).TD){
+        if (this.board.islands.getIsland(index).TD) {
             this.board.islands.getIsland(index).removeTD();
             characterSelector.restoreTD();
-        }
-        else {
+            update = "\nMother nature stopped on Island " + index + ", but a Prohibition Token denied her right to place a Tower! Too bad.";
+        } else {
             ArrayList<Integer> p = new ArrayList<>();
             int x = 0;
             for (int i = 0; i < playerCount; i++) {
@@ -299,35 +303,38 @@ public class Game extends Observable {
                 for (int z = 0; z < playerCount; z++) {
                     if (t.getPlayer().equals(this.players.get(z)))
                         p.set(z, p.get(z) + Tower.getInfluence());
-                    if(this.players.get(z).equals(this.PwBonus))
+                    if (this.players.get(z).equals(this.PwBonus))
                         p.set(z, p.get(z) + InfluenceBonus);
                 }
             }
             for (Student s : this.board.islands.getIsland(index).getStudents()) {
-                if(colorTranslator(s.getColor()).getPlayer() != null)
+                if (colorTranslator(s.getColor()).getPlayer() != null)
                     p.set(players.indexOf(colorTranslator(s.getColor()).getPlayer()), p.get(players.indexOf(colorTranslator(s.getColor()).getPlayer())) + colorTranslator(s.getColor()).getInfluence());
             }
             ArrayList<Integer> q = new ArrayList<>(p);
             Collections.sort(p);
-            if (!p.get(p.size()-1).equals(p.get(p.size()-2))) {
+            if (!p.get(p.size() - 1).equals(p.get(p.size() - 2))) {
                 if (this.board.islands.getIsland(index).towers.isEmpty()) {
-                    this.board.islands.getIsland(index).addTower(players.get(q.indexOf(p.get(p.size()-1))));
-                    players.get(q.indexOf(p.get(p.size()-1))).removeTower();
-                } else if (!players.get(q.indexOf(p.get(p.size()-1))).equals(this.board.islands.getIsland(index).getPlayer())) {
-                    swapTowers(index, players.get(q.indexOf(p.get(p.size()-1))));
-                    players.get(q.indexOf(p.get(p.size()-1))).removeTower();
+                    this.board.islands.getIsland(index).addTower(players.get(q.indexOf(p.get(p.size() - 1))));
+                    players.get(q.indexOf(p.get(p.size() - 1))).removeTower();
+                    update = "\nYou better start worrying because " + players.get(q.indexOf(p.get(p.size() - 1))).nickname + " just placed a Tower on Island " + index + "!";
+                } else if (!players.get(q.indexOf(p.get(p.size() - 1))).equals(this.board.islands.getIsland(index).getPlayer())) {
+                    swapTowers(index, players.get(q.indexOf(p.get(p.size() - 1))));
+                    players.get(q.indexOf(p.get(p.size() - 1))).removeTower();
+                    update = "\nPOWER PLAY! " + players.get(q.indexOf(p.get(p.size() - 1))).nickname + " just took all of " + this.board.islands.getIsland(index).getPlayer().nickname + "'s Towers on Island " + index + "!";
                 }
-            }
+            } else
+                update = "\nMother Nature stopped on Island " + index + ", and nothing happened. She's disappointed.";
         }
         setChanged();
-        notifyObservers();
+        notifyObservers(update);
     }
 
     public void swapTowers(int index, Player player1) throws ImpossibleActionException {
         if (board.islands.getIsland(index).towers != null) {
             for (Tower t : board.islands.getIsland(index).towers)
                 t.setPlayer(player1);
-        } else throw new ImpossibleActionException("No towers in this island.\n");
+        } else throw new ImpossibleActionException("\nNo towers in this island.\n");
     }
 
     public void mergeIslands(int index1, int index2) {
@@ -335,8 +342,14 @@ public class Game extends Observable {
         Island i1, i2;
         i1 = board.islands.getIsland(index1);
         i2 = board.islands.getIsland(index2);
-        if (!i1.towers.isEmpty() && !i2.towers.isEmpty() && i1.towers.get(0).getPlayer().equals(i2.towers.get(0).getPlayer()))
+        if (!i1.towers.isEmpty() && !i2.towers.isEmpty() && i1.towers.get(0).getPlayer().equals(i2.towers.get(0).getPlayer())) {
             board.islands.mergeIslands(i1, i2);
+            update = "\nIt's happening everybody!\n" + "Island " + index1 + " and Island " + index2 + " just merged into one! " +
+                    "We have a new Island " + Math.min(index1, index2) + "!" +
+                    "\nThere are only " + board.islands.size() + " left!";
+            setChanged();
+            notifyObservers(update);
+        }
     }
 
     public void playCard(String player, int index) throws ImpossibleActionException, BoundException {
@@ -350,30 +363,32 @@ public class Game extends Observable {
                 if (order.get(0).equals(this.players.get(i))) {
                     cardsPlayed.add(this.players.get(i).playCard(index));
                     order.remove(0);
-                } else throw new ImpossibleActionException("Not " + players.get(i).nickname + "'s turn!\n");
+                    update = "\n" + player + " played their card!";
+                    setChanged();
+                    notifyObservers();
+                } else throw new ImpossibleActionException("\nNot " + players.get(i).nickname + "'s turn!\n");
 //When Order.get(0) is equal to NULL, means every player has played. So is time to change phase into "Action";
                 if (order.isEmpty()) {
                     changePhase();
                 }
-            } else throw new ImpossibleActionException("No card with " + index + " as value\n");
+            } else throw new ImpossibleActionException("\nNo card with " + index + " as value\n");
         }
-        setChanged();
-        notifyObservers();
     }
 
     public void activateCharacter(String player, int id, int parAC1, String parA2, ArrayList<Integer> parAC3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) throws ImpossibleActionException {
         //Keep the unused parameters null, and always use the first parameter in numeric order by type.
         //Parameters will be filled client-side. Parameters marked with "A" are used by AbstractCharacters, with "C" by ConcreteCharacters, and with "AC" by both.
-        Player p=playerTranslator(player);
-        if(p.getCoins()>= characterSelector.getCost(id)){
+        Player p = playerTranslator(player);
+        if (p.getCoins() >= characterSelector.getCost(id)) {
             p.removeCoin(characterSelector.getCost(id));
-            characterSelector.applyEffect(id, p, parAC1, parA2, parAC3, parA4, parC2, parC4);
-        }else throw new ImpossibleActionException("Not enough coins!\n");
+            update = "\n Heads up! " + player + " just activated the Character card " + id + "!" + "\n" +
+                    characterSelector.applyEffect(id, p, parAC1, parA2, parAC3, parA4, parC2, parC4);
+        } else throw new ImpossibleActionException("\nNot enough coins!\n");
         setChanged();
-        notifyObservers();
+        notifyObservers(update);
     }
 
-    public ArrayList<Player> getPlayers(){
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 
@@ -397,12 +412,12 @@ public class Game extends Observable {
     public void addStudentToHall(String color, Player player) {
         player.getHall().setColor(color);
         checkColorChanges(player.getHall().getCardState());
-        if(player.getHall().getColor(color)%3==0 && gameType==1){
+        if (player.getHall().getColor(color) % 3 == 0 && gameType == 1) {
             player.addCoin();
         }
     }
 
-    public int getColor(Player player, String color){
+    public int getColor(Player player, String color) {
         return player.getHall().getColor(color);
     }
 
@@ -427,38 +442,37 @@ public class Game extends Observable {
         board.clouds.get(indexCloud).removeStudent(indexStudent);
     }
 
-    public void removeFromHall(Player p, String color){ //Probabilmente con le modifiche a Student questo metodo diventa inutile
+    public void removeFromHall(Player p, String color) { //Probabilmente con le modifiche a Student questo metodo diventa inutile
         p.getHall().desetColor(color);
     }
     ///
 
 
-    public void checkColorChanges(boolean rule){
-        ArrayList<String> colors=new ArrayList<>();
+    public void checkColorChanges(boolean rule) {
+        ArrayList<String> colors = new ArrayList<>();
         colors.add("RED");
         colors.add("BLUE");
         colors.add("YELLOW");
         colors.add("GREEN");
         colors.add("PINK");
-        for(String ct:colors){
-            Player max=colorTranslator(ct).getPlayer();
-            if(rule){
-                for(Player pl:players){
-                    if((max==null&&pl.getHall().getColor(ct)>0)||((max!=null)&&pl.getHall().getColor(ct)>=max.getHall().getColor(ct) && !pl.equals(max)))
-                        max=pl;
+        for (String ct : colors) {
+            Player max = colorTranslator(ct).getPlayer();
+            if (rule) {
+                for (Player pl : players) {
+                    if ((max == null && pl.getHall().getColor(ct) > 0) || ((max != null) && pl.getHall().getColor(ct) >= max.getHall().getColor(ct) && !pl.equals(max)))
+                        max = pl;
                 }
-            }
-            else{
-                for(Player pl:players){
-                    if((max==null&&pl.getHall().getColor(ct)>0)||((max!=null)&&pl.getHall().getColor(ct)>max.getHall().getColor(ct) && !pl.equals(max)))
-                        max=pl;
+            } else {
+                for (Player pl : players) {
+                    if ((max == null && pl.getHall().getColor(ct) > 0) || ((max != null) && pl.getHall().getColor(ct) > max.getHall().getColor(ct) && !pl.equals(max)))
+                        max = pl;
                 }
             }
             colorTranslator(ct).setPlayer(max);
         }
     }
 
-    public Player playerTranslator(String name) throws IllegalArgumentException{
+    public Player playerTranslator(String name) throws IllegalArgumentException {
         if (name.equals(players.get(0).nickname) || name.equals(players.get(1).nickname) || name.equals(players.get(2).nickname)) {
             if (players.get(0).nickname.equals(name))
                 return players.get(0);
@@ -466,7 +480,7 @@ public class Game extends Observable {
                 return players.get(1);
             else
                 return players.get(2);
-        } else throw new IllegalArgumentException(name +" does not exists as a nickname.\n");
+        } else throw new IllegalArgumentException("\n" + name + " does not exists as a nickname.\n");
     }
 
     public ColorTracker colorTranslator(String color) throws IllegalArgumentException {
@@ -490,35 +504,35 @@ public class Game extends Observable {
                     break;
             }
             return color1;
-        }else throw new IllegalArgumentException(color + " does not exist as a color in this game.\n");
+        } else throw new IllegalArgumentException("\n" + color + " does not exist as a color in this game.\n");
     }
 
     public int getMNbonus() {
         return MNbonus;
     }
 
-    public void setMNbonus(){
-        this.MNbonus=2;
+    public void setMNbonus() {
+        this.MNbonus = 2;
     }
 
-    public void disableMNbonus(){
-        this.MNbonus=0;
+    public void disableMNbonus() {
+        this.MNbonus = 0;
     }
 
-    public void enableInfluenceBonus(Player p){
-        this.PwBonus=p;
-        this.InfluenceBonus=2;
+    public void enableInfluenceBonus(Player p) {
+        this.PwBonus = p;
+        this.InfluenceBonus = 2;
     }
 
-    public ArrayList<Card> getCardsPlayed(){
+    public ArrayList<Card> getCardsPlayed() {
         return cardsPlayed;
     }
 
-    public void disableInfluenceBonus(){
-        this.InfluenceBonus=0;
+    public void disableInfluenceBonus() {
+        this.InfluenceBonus = 0;
     }
 
-    public int getPlayerCount(){
+    public int getPlayerCount() {
         return playerCount;
     }
 

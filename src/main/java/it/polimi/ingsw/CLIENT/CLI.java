@@ -24,7 +24,7 @@ public class CLI implements View {
         this.msgHandler = clientMsgHandler;
         this.inputInt = new ArrayList<>();
         this.inputStr = new ArrayList<>();
-        this.messages=new ArrayList<>();
+        this.messages = new ArrayList<>();
         System.out.println("**********************************************************" +
                 "\nWELCOME TO ERIANTYS!" +
                 "\n**********************************************************");
@@ -67,10 +67,11 @@ public class CLI implements View {
             }
             if (!messages.isEmpty()) {
                 MessageType lastmessage = messages.get(messages.size() - 1);
-                if (lastmessage instanceof UpdateMessage) {
-                    //TODO:stampa messaggio di riuscita
+                if (lastmessage.type==4) {
+                    UpdateMessage up=(UpdateMessage)lastmessage;
+                    System.out.println(up.update);
                     messages.remove(messages.size() - 1);
-                    update((UpdateMessage) lastmessage);
+                    update((up));
                 } else {
                     //stampa errore
                 }
@@ -91,92 +92,101 @@ public class CLI implements View {
         int choice;
         if (update.phase.equals("Planning")) {
             System.out.println("\nPlanning Time!" +
+                    "\nThe clouds have been refilled." +
                     "\nNow's your chance to, you know, plan." +
                     "\nYou should all play a card. The best stuff happens later.");
             //TODO:stampare le carte già giocate
             if (update.order.get(0).equals(player)) {
-                System.out.println("Now! Fire your card! Shape you destiny with a few single digit numbers!");
+                System.out.println("Now! Fire your card! Shape you destiny with a few single digit numbers!" +
+                        "\nRemember, you can't play a card that has already been played this round. Just don't.");
                 actions(0).forEach((el) -> System.out.println(actions(0).indexOf(el) + ":" + el));
-                choice = getSingleIntInput(1);
+                choice = getSingleIntInput(actions(0).size());
                 perform(actions(0).get(choice));
             } else {
                 System.out.println("It's not your time to play a card yet. Hold..." +
                         "\nWanna do something in the mean time? Digit the appropriate number and we'll do that for you:");
                 actions(1).forEach((el) -> System.out.println(actions(1).indexOf(el) + ":" + el));
-                choice = getSingleIntInput(0);
+                choice = getSingleIntInput(actions(1).size());
                 perform(actions(1).get(choice));
             }
         } else {
             System.out.println("Action time!" +
                     "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
                     "\nMove students. Activate special effects. Move digital imaginary tokens. Your call.");
-            if (update.order.get(0).equals(player)) {
+            if (update.order.get(0).equals(player)/*&&update.moves.get(0)!=0*/) {
                 System.out.println("Your turn!" +
                         "\nGo" +
                         "\nDo stuff!" +
                         "\nYou know what to do. If you don't, here's a reminder." +
                         "\nDigit the appropriate number and we'll do that for you:");
                 actions(3).forEach((el) -> System.out.println(actions(3).indexOf(el) + ":" + el));
-                choice = getSingleIntInput(8);
+                choice = getSingleIntInput(actions(3).size());
                 perform(actions(3).get(choice));
-            }
-            else{
+            } else if (update.order.get(0).equals(player)) {
+                System.out.println("OK! Good student managing. Now let's end this round. " +
+                        "\nTime to politely ask Lady Mother Nature to relocate on an Island of your choosing." +
+                        "\nAnd don't forget to choose a cloud to take students from!");
+                actions(4).forEach((el) -> System.out.println(actions(4).indexOf(el) + ":" + el));
+                choice = getSingleIntInput(actions(4).size());
+                perform(actions(3).get(choice));
+            } else {
                 System.out.println("Not your time to shine yet, somebody else is playing." +
                         "\nBe ready for when your turn comes." +
                         "\nIn the mean time, wanna do something? Digit the appropriate number and we'll do that for you:");
                 actions(2).forEach((el) -> System.out.println(actions(2).indexOf(el) + ":" + el));
-                choice = getSingleIntInput(4);
+                choice = getSingleIntInput(actions(2).size());
                 perform(actions(2).get(choice));
             }
         }
     }
 
     private void perform(String request) throws IOException {
-        switch(request){
+        switch (request) {
             case "Refresh":
-                responseNeeded=false;
+                responseNeeded = false;
                 break;
             case "Play a card":
-                responseNeeded=true;
+                responseNeeded = true;
                 playCard();
                 break;
             case "See other players' boards":
-                responseNeeded=false;
+                responseNeeded = false;
                 //TODO:scrivere il metodo
                 break;
             case "See board (islands and clouds)":
-                responseNeeded=false;
+                responseNeeded = false;
                 //TODO:scrivere il metodo;
                 break;
             case "See hand":
-                responseNeeded=false;
+                responseNeeded = false;
                 //TODO:scrivere il metodo;
                 break;
             case "See Characters":
-                responseNeeded=false;
+                responseNeeded = false;
                 //TODO:scrivere il metodo;
                 break;
             case "Move a student from the gate to an Island":
-                responseNeeded=true;
+                responseNeeded = true;
                 gateToIsland();
                 break;
             case "Move a student from the gate to your Hall":
-                responseNeeded=true;
+                responseNeeded = true;
                 gateToHall();
                 break;
             case "Activate a Character":
-                responseNeeded=true;
+                responseNeeded = true;
                 activateCharacter();
                 break;
             case "Move Mother Nature":
-                responseNeeded=true;
+                responseNeeded = true;
                 moveMotherNature();
                 break;
             case "Get students from a Cloud":
-                responseNeeded=true;
+                responseNeeded = true;
                 cloudToGate();
                 break;
-            default:break;
+            default:
+                break;
         }
     }
 
@@ -185,11 +195,13 @@ public class CLI implements View {
         switch (spot) {
             case 0://Player's turn, Planning phase
                 list.add("Play a card");
+                list.add("See other players' boards");
+                list.add("See board (islands and clouds)");
+                list.add("See hand");
+                list.add("See Characters");
                 list.add("Refresh");
                 break;
             case 1://Planning phase, not player's turn
-                list.add("Refresh");
-                break;
             case 2://Action phase, not player's turn
                 list.add("See other players' boards");
                 list.add("See board (islands and clouds)");
@@ -205,7 +217,6 @@ public class CLI implements View {
                 list.add("Move a student from the gate to an Island");
                 list.add("Move a student from the gate to your Hall");
                 list.add("Activate a Character");
-                list.add("Move Mother Nature");
                 list.add("Refresh");
                 break;
             case 4://End of action phase, player's turn
@@ -214,6 +225,7 @@ public class CLI implements View {
                 list.add("See hand");
                 list.add("See Characters");
                 list.add("Get students from a Cloud");
+                list.add("Move Mother Nature");
                 list.add("Refresh");
                 break;
         }
@@ -289,7 +301,7 @@ public class CLI implements View {
     public void activateCharacter() throws IOException {
         System.out.println("Which character would you like to activate? Digit the appropriate index, between these:");
         //TODO:stampa i personaggi
-        int index=getSingleIntInput(11);
+        int index = getSingleIntInput(11);
         ArrayList<Integer> a = new ArrayList<>(), c = null;
         ArrayList<String> b = new ArrayList<>();
         a.add(index);
