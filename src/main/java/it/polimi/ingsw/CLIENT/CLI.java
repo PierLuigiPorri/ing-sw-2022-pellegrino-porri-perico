@@ -37,9 +37,7 @@ public class CLI implements View {
                 "\n0:Create a new Game" +
                 "\n1:Join a game" +
                 "\nDigit the appropriate number:");
-        int g = getIntInput(); //0=New Game, 1=Join Game
-        //New Game or Join Game?
-        g = checkIntInput(0, 1, g, "Digit 0 to start a New Game or 1 to Join a game");
+        int g = getSingleIntInput(1); //0=New Game, 1=Join Game
         if (g == 0) {
             newGame();
         } else if (g == 1) {
@@ -77,7 +75,7 @@ public class CLI implements View {
                     messages.remove(messages.size() - 1);
                     update((up));
                 } else {
-                    //stampa errore
+                    //TODO:stampa errore
                 }
             }
         });
@@ -100,6 +98,10 @@ public class CLI implements View {
                     "\nNow's your chance to, you know, plan." +
                     "\nYou should all play a card. The best stuff happens later.");
             //TODO:stampare le carte già giocate
+            if(!update.lastCardPlayed.isEmpty()){
+                System.out.println("Here's the cards that have already been played (Player:Movement,Value):");
+
+            }
             if (update.order.get(0).equals(player)) {
                 System.out.println("Now! Fire your card! Shape you destiny with a few single digit numbers!" +
                         "\nRemember, you can't play a card that has already been played this round. Just don't.");
@@ -117,7 +119,7 @@ public class CLI implements View {
             System.out.println("Action time!" +
                     "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
                     "\nMove students. Activate special effects. Move digital imaginary tokens. Your call.");
-            if (update.order.get(0).equals(player)/*&&update.moves.get(0)!=0*/) {
+            if (update.order.get(0).equals(player)&&update.playersMoves.get(0)!=0) {
                 System.out.println("Your turn!" +
                         "\nGo" +
                         "\nDo stuff!" +
@@ -155,19 +157,19 @@ public class CLI implements View {
                 break;
             case "See other players' boards":
                 responseNeeded = false;
-                //TODO:scrivere il metodo
+                seeOtherBoards();
                 break;
             case "See board (islands and clouds)":
                 responseNeeded = false;
-                //TODO:scrivere il metodo;
+                seeBoard();
                 break;
             case "See hand":
                 responseNeeded = false;
-                //TODO:scrivere il metodo;
+                seeHand();
                 break;
             case "See Characters":
                 responseNeeded = false;
-                //TODO:scrivere il metodo;
+                seeCharacters();
                 break;
             case "Move a student from the gate to an Island":
                 responseNeeded = true;
@@ -396,6 +398,20 @@ public class CLI implements View {
         msgHandler.send(new ActionMessage(a, b, c, 5));
         inputInt.clear();
         inputStr.clear();
+    }
+
+    private void seeOtherBoards(){
+        //TODO:scrivere il metodo
+    }
+    private void seeBoard(){
+        //TODO:scrivere il metodo
+    }
+
+    private void seeHand(){
+        //TODO:scrivere il metodo
+    }
+    private void seeCharacters(){
+        //TODO:scrivere il metodo
     }
 
     private void messageConfirmed(int type) {
