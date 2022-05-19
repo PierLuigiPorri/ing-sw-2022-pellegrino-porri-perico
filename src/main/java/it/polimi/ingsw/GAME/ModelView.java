@@ -103,6 +103,11 @@ public class ModelView extends Observable implements Observer {
         for (Student s : game.getPlayers().get(1).getGate().getStudents()) {
             update.gatePlayer1.add(s.getColor());
         }
+        update.cloudsNumber=game.getB().clouds.size();
+
+         for(int i=1; i<=game.getB().islands.size(); i++){
+             update.whoOwnTowers.add(game.getB().islands.getIsland(i).getPlayer().nickname);
+         }
     }
 
 
@@ -172,6 +177,13 @@ public class ModelView extends Observable implements Observer {
         update.playersMoves.add(game.order.get(0).maxMoves);
         update.playersMoves.add(game.order.get(1).maxMoves);
 
+        for (Card c: game.getPlayers().get(0).getHand().cards) {
+            update.handPlayer1.add(c.getValue());
+        }
+        for (Card c: game.getPlayers().get(1).getHand().cards) {
+            update.handPlayer2.add(c.getValue());
+        }
+
     }
 
 
@@ -214,6 +226,11 @@ public class ModelView extends Observable implements Observer {
                 update.gatePlayer2.add(s.getColor());
             }
             update.playersMoves.add(game.order.get(2).maxMoves);
+
+
+            for (Card c: game.getPlayers().get(2).getHand().cards) {
+                update.handPlayer3.add(c.getValue());
+            }
         }
     }
 

@@ -10,6 +10,11 @@ public class UpdateMessage extends MessageType{
     public ArrayList<String> order;
     public String phase;
     public int turnNumber;
+    public int cloudsNumber;
+
+    public ArrayList<Integer> handPlayer1;
+    public ArrayList<Integer> handPlayer2;
+    public ArrayList<Integer> handPlayer3;
 
     /*Players attributes:
      attributes which end by 0 refer to order.get(0);
@@ -52,7 +57,8 @@ public class UpdateMessage extends MessageType{
 
     public ArrayList<Boolean> motherNatureOnIsland; //[positions] 0: island1; 1: island2 ... True if and only if MotherNature is on THAT island;
 
-    public ArrayList<Integer> towersOnIsland;      //[positions] 0: island1; 1: island2 ... number of tower on every island;
+    public ArrayList<Integer> towersOnIsland; //[positions] 0: island1; 1: island2 ... number of tower on every island;
+    public ArrayList<String> whoOwnTowers; //[positions] 0: who owns island1, 1: who owns island2...
 
     public ArrayList<String> studentsOnCloud0;
     public ArrayList<String> studentsOnCloud1;
@@ -112,5 +118,9 @@ public class UpdateMessage extends MessageType{
         this.studentsOnCard1 = new ArrayList<>();
         this.studentsOnCard2 = new ArrayList<>();
         this.playersMoves = new ArrayList<>();
+        this.whoOwnTowers = new ArrayList<>();
+        this.handPlayer1=new ArrayList<>();
+        this.handPlayer2=new ArrayList<>();
+        this.handPlayer3=new ArrayList<>();
     }
 }
