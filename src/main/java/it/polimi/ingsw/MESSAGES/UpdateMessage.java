@@ -63,6 +63,7 @@ public class UpdateMessage extends MessageType{
     public ArrayList<Boolean> activated;   // 0: true if and only if character in position 0 has been already activated. 1: true if and only if character in position 1 has been already activated...
     public ArrayList<Integer> cardCost;
     public int numTD;
+    public ArrayList<String> players;
     public ArrayList<Boolean> numTDOnIsland;
     public ArrayList<String> studentsOnCard0;
     public ArrayList<String> studentsOnCard1;
@@ -75,6 +76,7 @@ public class UpdateMessage extends MessageType{
         this.order = new ArrayList<>();
         this.coinsOnPlayer = new ArrayList<>();
         this.towersOnPlayer = new ArrayList<>();
+        this.players=new ArrayList<>();
         this.gatePlayer0 = new ArrayList<>();
         this.gatePlayer1 = new ArrayList<>();
         this.gatePlayer2 = new ArrayList<>();

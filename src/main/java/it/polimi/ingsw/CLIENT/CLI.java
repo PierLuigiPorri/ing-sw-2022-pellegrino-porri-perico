@@ -5,7 +5,9 @@ import it.polimi.ingsw.MESSAGES.MessageType;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class CLI implements View {
@@ -24,13 +26,13 @@ public class CLI implements View {
         this.msgHandler = clientMsgHandler;
         this.inputInt = new ArrayList<>();
         this.inputStr = new ArrayList<>();
-        this.messages=new ArrayList<>();
+        this.messages = new ArrayList<>();
         System.out.println(
                 "    __________  _______    _   __________  _______\n" +
-                "   / ____/ __ \\/  _/   |  / | / /_  __/\\ \\/ / ___/\n" +
-                "  / __/ / /_/ // // /| | /  |/ / / /    \\  /\\__ \\\n" +
-                " / /___/ _, _// // ___ |/ /|  / / /     / /___/ /\n" +
-                "/_____/_/ |_/___/_/  |_/_/ |_/ /_/     /_//____/\n"
+                        "   / ____/ __ \\/  _/   |  / | / /_  __/\\ \\/ / ___/\n" +
+                        "  / __/ / /_/ // // /| | /  |/ / / /    \\  /\\__ \\\n" +
+                        " / /___/ _, _// // ___ |/ /|  / / /     / /___/ /\n" +
+                        "/_____/_/ |_/___/_/  |_/_/ |_/ /_/     /_//____/\n"
         );
         this.player = getValidString("What's your name?");
         System.out.println("What would you like to do?" +
@@ -69,8 +71,8 @@ public class CLI implements View {
             }
             if (!messages.isEmpty()) {
                 MessageType lastmessage = messages.get(messages.size() - 1);
-                if (lastmessage.type==4) {
-                    UpdateMessage up=(UpdateMessage)lastmessage;
+                if (lastmessage.type == 4) {
+                    UpdateMessage up = (UpdateMessage) lastmessage;
                     System.out.println(up.update);
                     messages.remove(messages.size() - 1);
                     update((up));
@@ -97,8 +99,11 @@ public class CLI implements View {
                     "\nThe clouds have been refilled." +
                     "\nNow's your chance to, you know, plan." +
                     "\nYou should all play a card. The best stuff happens later.");
+            seeOwnBoard();
+            System.out.println("\nTurn "+update.turnNumber+"!");
+            System.out.println("\nPlayers that have to play, in order:"+update.order);
             //TODO:stampare le carte già giocate
-            if(!update.lastCardPlayed.isEmpty()){
+            if (!update.lastCardPlayed.isEmpty()) {
                 System.out.println("Here's the cards that have already been played (Player:Movement,Value):");
 
             }
@@ -119,7 +124,8 @@ public class CLI implements View {
             System.out.println("Action time!" +
                     "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
                     "\nMove students. Activate special effects. Move digital imaginary tokens. Your call.");
-            if (update.order.get(0).equals(player)&&update.playersMoves.get(0)!=0) {
+            System.out.println("\nPlayers that have to play, in order:"+update.order);
+            if (update.order.get(0).equals(player) && update.playersMoves.get(0) != 0) {
                 System.out.println("Your turn!" +
                         "\nGo" +
                         "\nDo stuff!" +
@@ -171,6 +177,35 @@ public class CLI implements View {
                 responseNeeded = false;
                 seeCharacters();
                 break;
+            case "Move Mother Nature":
+                responseNeeded = true;
+                moveMotherNature();
+                break;
+            case "Get students from a Cloud":
+                responseNeeded = true;
+                cloudToGate();
+                break;
+            case "See other players' hands":
+                responseNeeded = false;
+                System.out.println("\nSure! Wait...no! Absolutely not! How dare you question our integrity. Shame on you.");
+                break;
+            case "Win instantly":
+                responseNeeded = false;
+                System.out.println("\nYeah, you'd like that, wouldn't you. Too bad this option doesn't exist." +
+                        "It was specifically designed to mock you." +
+                        "Hurry up, people are waiting.");
+                break;
+            case "Ask support for all these hidden options that keep appearing":
+                responseNeeded = false;
+                System.out.println("\nYeah, yeah, we know about that. We don't know why it keeps happening." +
+                        "We don't know how to fix it." +
+                        "We're a little afraid of what might come up.");
+                break;
+            case "Bribe a professor of your choice":
+                responseNeeded = false;
+                System.out.println("\nBuddy...that would maybe work if you had money. You have what, " + update.coinsOnPlayer.get(update.players.indexOf(player)) + "?" +
+                        "That's not gonna cut it.");
+                break;
             case "Move a student from the gate to an Island":
                 responseNeeded = true;
                 gateToIsland();
@@ -183,14 +218,6 @@ public class CLI implements View {
                 responseNeeded = true;
                 activateCharacter();
                 break;
-            case "Move Mother Nature":
-                responseNeeded = true;
-                moveMotherNature();
-                break;
-            case "Get students from a Cloud":
-                responseNeeded = true;
-                cloudToGate();
-                break;
             default:
                 break;
         }
@@ -198,6 +225,7 @@ public class CLI implements View {
 
     private ArrayList<String> actions(int spot) {
         ArrayList<String> list = new ArrayList<>();
+        LocalTime time = LocalTime.now();
         switch (spot) {
             case 0://Player's turn, Planning phase
                 list.add("Play a card");
@@ -220,6 +248,10 @@ public class CLI implements View {
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
                 list.add("See Characters");
+                if (time.getSecond() % 3 == 0)
+                    list.add("See other players' hands");
+                if (time.getSecond() % 7 == 0)
+                    list.add("Win instantly");
                 list.add("Move a student from the gate to an Island");
                 list.add("Move a student from the gate to your Hall");
                 list.add("Activate a Character");
@@ -230,6 +262,10 @@ public class CLI implements View {
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
                 list.add("See Characters");
+                if (time.getSecond() % 3 == 0)
+                    list.add("Ask support for all these hidden options that keep appearing");
+                if (time.getSecond() % 7 == 0)
+                    list.add("Bribe a professor of your choice");
                 list.add("Get students from a Cloud");
                 list.add("Move Mother Nature");
                 list.add("Refresh");
@@ -400,17 +436,98 @@ public class CLI implements View {
         inputStr.clear();
     }
 
-    private void seeOtherBoards(){
-        //TODO:scrivere il metodo
-    }
-    private void seeBoard(){
-        //TODO:scrivere il metodo
+    private void seePlayerBoards(int choice) {
+        switch (choice) {
+            case 0:
+                System.out.println("\nGATE:" + update.gatePlayer0);
+                System.out.println("\n********************************************************");
+                System.out.println("\n      STUDENTS          PROFESSOR");
+                System.out.println("\nRED:" + update.hallPlayer0.get(0) + "     " + (update.professors0.get(0) ? "YES" : "NO"));
+                System.out.println("\nBLUE:" + update.hallPlayer0.get(1) + "    " + (update.professors0.get(1) ? "YES" : "NO"));
+                System.out.println("\nGREEN:" + update.hallPlayer0.get(2) + "   " + (update.professors0.get(2) ? "YES" : "NO"));
+                System.out.println("\nYELLOW:" + update.hallPlayer0.get(3) + "  " + (update.professors0.get(3) ? "YES" : "NO"));
+                System.out.println("\nPINK:" + update.hallPlayer0.get(4) + "    " + (update.professors0.get(4) ? "YES" : "NO"));
+                System.out.println("\nCoins left:" + update.coinsOnPlayer.get(0) + " Towers left:" + update.towersOnPlayer.get(0));
+                break;
+            case 1:
+                System.out.println("\nGATE:" + update.gatePlayer1);
+                System.out.println("\n********************************************************");
+                System.out.println("\n      STUDENTS          PROFESSOR");
+                System.out.println("\nRED:" + update.hallPlayer1.get(0) + "     " + (update.professors1.get(0) ? "YES" : "NO"));
+                System.out.println("\nBLUE:" + update.hallPlayer1.get(1) + "    " + (update.professors1.get(1) ? "YES" : "NO"));
+                System.out.println("\nGREEN:" + update.hallPlayer1.get(2) + "   " + (update.professors1.get(2) ? "YES" : "NO"));
+                System.out.println("\nYELLOW:" + update.hallPlayer1.get(3) + "  " + (update.professors1.get(3) ? "YES" : "NO"));
+                System.out.println("\nPINK:" + update.hallPlayer1.get(4) + "    " + (update.professors1.get(4) ? "YES" : "NO"));
+                System.out.println("\nCoins left:" + update.coinsOnPlayer.get(1) + " Towers left:" + update.towersOnPlayer.get(1));
+                break;
+            case 2:
+                System.out.println("\nGATE:" + update.gatePlayer2);
+                System.out.println("\n********************************************************");
+                System.out.println("\n      STUDENTS          PROFESSOR");
+                System.out.println("\nRED:" + update.hallPlayer2.get(0) + "     " + (update.professors2.get(0) ? "YES" : "NO"));
+                System.out.println("\nBLUE:" + update.hallPlayer2.get(1) + "    " + (update.professors2.get(1) ? "YES" : "NO"));
+                System.out.println("\nGREEN:" + update.hallPlayer2.get(2) + "   " + (update.professors2.get(2) ? "YES" : "NO"));
+                System.out.println("\nYELLOW:" + update.hallPlayer2.get(3) + "  " + (update.professors2.get(3) ? "YES" : "NO"));
+                System.out.println("\nPINK:" + update.hallPlayer2.get(4) + "    " + (update.professors2.get(4) ? "YES" : "NO"));
+                System.out.println("\nCoins left:" + update.coinsOnPlayer.get(2) + " Towers left:" + update.towersOnPlayer.get(2));
+                break;
+        }
     }
 
-    private void seeHand(){
-        //TODO:scrivere il metodo
+    private void seeOtherBoards() {
+        System.out.println("\nSure! Which board would you like to see? As always, digit the appropriate number:");
+        for (String n : update.players) {
+            if (!Objects.equals(n, player)) {
+                System.out.println(update.players.indexOf(n) + ":" + n);
+            }
+        }
+        int choice = getSingleIntInput(update.nPlayers - 1);
+        System.out.println("\nOK! Here's what " + update.players.get(choice) + " has:");
+        seePlayerBoards(choice);
     }
-    private void seeCharacters(){
+
+    private void seeOwnBoard() {
+        System.out.println("\nHere's what you have:");
+        seePlayerBoards(update.players.indexOf(player));
+    }
+
+    private void seeBoard() {
+        System.out.println("\nSure! Here's what we're at:");
+        //TODO:torri
+        System.out.println("\n                ISLANDS            ");
+        System.out.println("\nIsland 1:"+update.studentsOnIsland1+(update.motherNatureOnIsland.get(0)?"  <----Mother Nature is here! Say hello!":""));
+        System.out.println("\nIsland 2:"+update.studentsOnIsland2+(update.motherNatureOnIsland.get(1)?"  <----Mother Nature is here! Say hello!":""));
+        System.out.println("\nIsland 3:"+update.studentsOnIsland3+(update.motherNatureOnIsland.get(2)?"  <----Mother Nature is here! Say hello!":""));
+        if(update.numIslands>3)
+            System.out.println("\nIsland 4:"+update.studentsOnIsland4+(update.motherNatureOnIsland.get(3)?"  <----Mother Nature is here! Say hello!":""));
+        if(update.numIslands>4)
+            System.out.println("\nIsland 5:"+update.studentsOnIsland5+(update.motherNatureOnIsland.get(4)?"  <----Mother Nature is here! Say hello!":""));
+        if(update.numIslands>5)
+            System.out.println("\nIsland 6:"+update.studentsOnIsland6+(update.motherNatureOnIsland.get(5)?"  <----Mother Nature is here! Say hello!":""));
+        if(update.numIslands>6)
+            System.out.println("\nIsland 7:"+update.studentsOnIsland7+(update.motherNatureOnIsland.get(6)?"  <----Mother Nature is here! Say hello!":""));
+        if(update.numIslands>7)
+            System.out.println("\nIsland 8:"+update.studentsOnIsland8+(update.motherNatureOnIsland.get(7)?"  <----Mother Nature is here! Say hello!":""));
+        if(update.numIslands>8)
+            System.out.println("\nIsland 9:"+update.studentsOnIsland9+(update.motherNatureOnIsland.get(8)?"  <----Mother Nature is here! Say hello!":""));
+        if(update.numIslands>9)
+            System.out.println("\nIsland 10:"+update.studentsOnIsland10+(update.motherNatureOnIsland.get(9)?"  <----Mother Nature is here! Say hello!":""));
+        if(update.numIslands>10)
+            System.out.println("\nIsland 11:"+update.studentsOnIsland11+(update.motherNatureOnIsland.get(10)?"  <----Mother Nature is here! Say hello!":""));
+        if(update.numIslands>11)
+            System.out.println("\nIsland 12:"+update.studentsOnIsland12+(update.motherNatureOnIsland.get(11)?"  <----Mother Nature is here! Say hello!":""));
+        System.out.println("\n                CLOUDS           ");
+        System.out.println("\nCloud 1:"+update.studentsOnCloud0);
+        System.out.println("\nCloud 2:"+update.studentsOnCloud1);
+        System.out.println("\nCloud 3:"+update.studentsOnCloud2);
+    }
+
+    private void seeHand() {
+        System.out.println("\nRight away! Here's your hand:");
+        //TODO:hand in update?
+    }
+
+    private void seeCharacters() {
         //TODO:scrivere il metodo
     }
 
@@ -442,13 +559,12 @@ public class CLI implements View {
         return inputStr.get(inputInt.size() - 1);
     }
 
-    private int checkIntInput(int a, int b, int input, String string) {
+    private void checkIntInput(int a, int b, int input, String string) {
         while (input < a || input > b) {
             inputInt.remove(inputInt.size() - 1);
             System.out.println("The number entered is not allowed.\n" + string + "\n");
             input = getIntInput();
         }
-        return input;
     }
 
     private void checkStrInput(String s, String c) {
