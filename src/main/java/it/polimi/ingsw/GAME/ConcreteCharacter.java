@@ -19,9 +19,9 @@ public class ConcreteCharacter extends StudentSpace implements CharacterType, TD
 
 
     @Override
-    public void applyEffect(Player player, int par1, String parA2, ArrayList<Integer> par3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) {
-        effects.applyConcrete(this.index, player, this, par1, parC2, par3, parC4);
+    public String applyEffect(Player player, int par1, String parA2, ArrayList<Integer> par3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) {
         effectUsed();
+        return effects.applyConcrete(this.index, player, this, par1, parC2, par3, parC4);
     }
 
     @Override

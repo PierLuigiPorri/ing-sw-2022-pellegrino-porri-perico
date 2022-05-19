@@ -57,13 +57,13 @@ public class CharacterSelector {
         }
     }
 
-    public void applyEffect(int index, Player player, int parAC1, String parA2, ArrayList<Integer> parAC3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) throws ImpossibleActionException {
+    public String applyEffect(int index, Player player, int parAC1, String parA2, ArrayList<Integer> parAC3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) throws ImpossibleActionException {
         for(CharacterType ch:selectedCharacters){
             if(ch.getIndex()==index){
-                ch.applyEffect(player, parAC1, parA2, parAC3, parA4, parC2, parC4);
-                break;
+                return ch.applyEffect(player, parAC1, parA2, parAC3, parA4, parC2, parC4);
             }
         }
+        return "";
     }
 
     public ArrayList<CharacterType> getCharacters(){

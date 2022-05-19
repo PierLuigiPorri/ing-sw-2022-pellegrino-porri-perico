@@ -18,9 +18,9 @@ public class AbstractCharacter implements CharacterType{
     }
 
     @Override
-    public void applyEffect(Player player, int par1, String parA2, ArrayList<Integer> par3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) throws ImpossibleActionException {
-        effects.apply(this.index, player, par1, parA2, par3, parA4);
+    public String applyEffect(Player player, int par1, String parA2, ArrayList<Integer> par3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) throws ImpossibleActionException {
         effectUsed();
+        return effects.apply(this.index, player, par1, parA2, par3, parA4);
     }
 
     @Override
