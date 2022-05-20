@@ -100,33 +100,37 @@ public class CLI implements View {
                     "\nNow's your chance to, you know, plan." +
                     "\nYou should all play a card. The best stuff happens later.");
             seeOwnBoard();
-            System.out.println("\nTurn "+update.turnNumber+"!");
-            System.out.println("\nPlayers that have to play, in order:"+update.order);
-            //TODO:stampare le carte già giocate
+            System.out.println("\nTurn " + update.turnNumber + "!");
+            System.out.println("\nPlayers that have to play, in order:" + update.order);
+            //TODO:fixare l'ordine di stampa delle carte
             if (!update.lastCardPlayed.isEmpty()) {
-                System.out.println("Here's the cards that have already been played (Player:Movement,Value):");
-
+                ArrayList<String> played = new ArrayList<>(update.players);
+                played.removeAll(update.order);
+                System.out.println("\nHere's the cards that have already been played (Movement,Value):");
+                System.out.println(played);
+                System.out.println(update.lastCardPlayed);
             }
             if (update.order.get(0).equals(player)) {
-                System.out.println("Now! Fire your card! Shape you destiny with a few single digit numbers!" +
+                System.out.println("\nNow! Fire your card! Shape you destiny with a few single digit numbers!" +
                         "\nRemember, you can't play a card that has already been played this round. Just don't.");
+                seeHand();
                 actions(0).forEach((el) -> System.out.println(actions(0).indexOf(el) + ":" + el));
                 choice = getSingleIntInput(actions(0).size());
                 perform(actions(0).get(choice));
             } else {
-                System.out.println("It's not your time to play a card yet. Hold..." +
+                System.out.println("\nIt's not your time to play a card yet. Hold..." +
                         "\nWanna do something in the mean time? Digit the appropriate number and we'll do that for you:");
                 actions(1).forEach((el) -> System.out.println(actions(1).indexOf(el) + ":" + el));
                 choice = getSingleIntInput(actions(1).size());
                 perform(actions(1).get(choice));
             }
         } else {
-            System.out.println("Action time!" +
+            System.out.println("\nAction time!" +
                     "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
                     "\nMove students. Activate special effects. Move digital imaginary tokens. Your call.");
-            System.out.println("\nPlayers that have to play, in order:"+update.order);
+            System.out.println("\nPlayers that have to play, in order:" + update.order);
             if (update.order.get(0).equals(player) && update.playersMoves.get(0) != 0) {
-                System.out.println("Your turn!" +
+                System.out.println("\nYour turn!" +
                         "\nGo" +
                         "\nDo stuff!" +
                         "\nYou know what to do. If you don't, here's a reminder." +
@@ -135,14 +139,14 @@ public class CLI implements View {
                 choice = getSingleIntInput(actions(3).size());
                 perform(actions(3).get(choice));
             } else if (update.order.get(0).equals(player)) {
-                System.out.println("OK! Good student managing. Now let's end this round. " +
+                System.out.println("\nOK! Good student managing. Now let's end this round. " +
                         "\nTime to politely ask Lady Mother Nature to relocate on an Island of your choosing." +
                         "\nAnd don't forget to choose a cloud to take students from!");
                 actions(4).forEach((el) -> System.out.println(actions(4).indexOf(el) + ":" + el));
                 choice = getSingleIntInput(actions(4).size());
                 perform(actions(3).get(choice));
             } else {
-                System.out.println("Not your time to shine yet, somebody else is playing." +
+                System.out.println("\nNot your time to shine yet, somebody else is playing." +
                         "\nBe ready for when your turn comes." +
                         "\nIn the mean time, wanna do something? Digit the appropriate number and we'll do that for you:");
                 actions(2).forEach((el) -> System.out.println(actions(2).indexOf(el) + ":" + el));
@@ -203,7 +207,7 @@ public class CLI implements View {
                 break;
             case "Bribe a professor of your choice":
                 responseNeeded = false;
-                System.out.println("\nBuddy...that would maybe work if you had money. You have what, " + update.coinsOnPlayer.get(update.players.indexOf(player)) + "?" +
+                System.out.println("\nBuddy...that would maybe work if you had money. You have what, " + update.coinsOnPlayer.get(update.players.indexOf(player)) + " coins?" +
                         "That's not gonna cut it.");
                 break;
             case "Move a student from the gate to an Island":
@@ -342,7 +346,7 @@ public class CLI implements View {
 
     public void activateCharacter() throws IOException {
         System.out.println("Which character would you like to activate? Digit the appropriate index, between these:");
-        //TODO:stampa i personaggi
+        seeCharacters();
         int index = getSingleIntInput(11);
         ArrayList<Integer> a = new ArrayList<>(), c = null;
         ArrayList<String> b = new ArrayList<>();
@@ -351,83 +355,114 @@ public class CLI implements View {
         switch (index) {
             case 0:
                 int i, x;
-                System.out.println("What's the position of the student on the card you want to move?");
-                i = getIntInput();
-                checkIntInput(0, 3, i, "What's the position of the student on the card you want to move?\n");
-                a.add(inputInt.get(inputInt.size() - 1));
-                System.out.println("What's the index of the island on which you want to move the student?");
-                x = getIntInput();
-                checkIntInput(1, 12, x, "What's the index of the island on which you want to move the student?");
-                a.add(inputInt.get(inputInt.size() - 1));
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 1) {
+                    System.out.println("What's the position of the student on the card you want to move?");
+                    i = getIntInput();
+                    checkIntInput(0, 3, i, "What's the position of the student on the card you want to move?\n");
+                    a.add(inputInt.get(inputInt.size() - 1));
+                    System.out.println("What's the index of the island on which you want to move the student?");
+                    x = getIntInput();
+                    checkIntInput(1, 12, x, "What's the index of the island on which you want to move the student?");
+                    a.add(inputInt.get(inputInt.size() - 1));
+                } else
+                    System.out.println("Well...seems like you're too poor for this. Sorry.");
+                break;
+            case 1:
+            case 7:
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) < 2)
+                    System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 2:
-                System.out.println("What's the index of the island you want to determine the influence of?");
-                i = getIntInput();
-                checkIntInput(1, 12, i, "What's the index of the island you want to determine the influence of?\n");
-                a.add(inputInt.get(inputInt.size() - 1));
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 3) {
+                    System.out.println("What's the index of the island you want to determine the influence of?");
+                    i = getIntInput();
+                    checkIntInput(1, 12, i, "What's the index of the island you want to determine the influence of?\n");
+                    a.add(inputInt.get(inputInt.size() - 1));
+                } else System.out.println("Well...seems like you're too poor for this. Sorry.");
+                break;
+            case 3:
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) < 1)
+                    System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 4:
-                System.out.println("What's the index of the island you want to put the counter on?");
-                i = getIntInput();
-                checkIntInput(1, 12, i, "What's the index of the island you want to put the counter on?\n");
-                a.add(inputInt.get(inputInt.size() - 1));
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 2) {
+                    System.out.println("What's the index of the island you want to put the counter on?");
+                    i = getIntInput();
+                    checkIntInput(1, 12, i, "What's the index of the island you want to put the counter on?\n");
+                    a.add(inputInt.get(inputInt.size() - 1));
+                } else System.out.println("Well...seems like you're too poor for this. Sorry.");
+                break;
+            case 5:
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) < 3)
+                    System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 6:
-                System.out.println("How many students do you want to swap?");
-                i = getIntInput();
-                checkIntInput(1, 3, i, "How many students do you want to swap?");
-                int max = inputInt.get(inputInt.size() - 1);
-                inputInt.remove(inputInt.size() - 1);
-                System.out.println("What are the indexes on the Character card of the students you want to swap?");
-                for (int z = 0; z < max; z++) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 1) {
+                    System.out.println("How many students do you want to swap?");
                     i = getIntInput();
-                    checkIntInput(0, 3, i, "What's the index?");
-                    a.add(inputInt.get(inputInt.size() - 1));
-                }
-                c = new ArrayList<>();
-                System.out.println("What are the indexes on the gate of the students you want to swap?");
-                for (int z = 0; z < max; z++) {
-                    i = getIntInput();
-                    checkIntInput(0, 3, i, "What's the index?");
-                    c.add(inputInt.get(inputInt.size() - 1));
-                }
+                    checkIntInput(1, 3, i, "How many students do you want to swap?");
+                    int max = inputInt.get(inputInt.size() - 1);
+                    inputInt.remove(inputInt.size() - 1);
+                    System.out.println("What are the indexes on the Character card of the students you want to swap?");
+                    for (int z = 0; z < max; z++) {
+                        i = getIntInput();
+                        checkIntInput(0, 3, i, "What's the index?");
+                        a.add(inputInt.get(inputInt.size() - 1));
+                    }
+                    c = new ArrayList<>();
+                    System.out.println("What are the indexes on the gate of the students you want to swap?");
+                    for (int z = 0; z < max; z++) {
+                        i = getIntInput();
+                        checkIntInput(0, 3, i, "What's the index?");
+                        c.add(inputInt.get(inputInt.size() - 1));
+                    }
+                } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 8:
-                System.out.println("What color would you like to disable?");
-                String in = getStrInput();
-                checkStrInput(in, "What color would you like to disable?");
-                b.add(inputStr.get(inputStr.size() - 1));
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 3) {
+                    System.out.println("What color would you like to disable?");
+                    String in = getStrInput();
+                    checkStrInput(in, "What color would you like to disable?");
+                    b.add(inputStr.get(inputStr.size() - 1));
+                } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 9:
-                System.out.println("How many students would you like to swap?");
-                i = getIntInput();
-                checkIntInput(1, 2, i, "How many students would you like to swap?");
-                max = inputInt.get(inputInt.size() - 1);
-                inputInt.remove(inputInt.size() - 1);
-                System.out.println("What are the indexes of the students on the gate you want to swap?");
-                for (int z = 0; z < max; z++) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 1) {
+                    System.out.println("How many students would you like to swap?");
                     i = getIntInput();
-                    checkIntInput(0, 9, i, "What's the index?");
-                    a.add(inputInt.get(inputInt.size() - 1));
-                }
-                System.out.println("Which colors would you like to swap in you hall?");
-                for (int z = 0; z < max; z++) {
-                    in = getStrInput();
-                    checkStrInput(in, "Which color?");
-                    b.add(inputStr.get(inputStr.size() - 1));
-                }
+                    checkIntInput(1, 2, i, "How many students would you like to swap?");
+                    int max = inputInt.get(inputInt.size() - 1);
+                    inputInt.remove(inputInt.size() - 1);
+                    System.out.println("What are the indexes of the students on the gate you want to swap?");
+                    for (int z = 0; z < max; z++) {
+                        i = getIntInput();
+                        checkIntInput(0, 9, i, "What's the index?");
+                        a.add(inputInt.get(inputInt.size() - 1));
+                    }
+                    System.out.println("Which colors would you like to swap in you hall?");
+                    for (int z = 0; z < max; z++) {
+                        String in = getStrInput();
+                        checkStrInput(in, "Which color?");
+                        b.add(inputStr.get(inputStr.size() - 1));
+                    }
+                } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 10:
-                System.out.println("What is the index on the card of the student you want to add?");
-                i = getIntInput();
-                checkIntInput(0, 3, i, "What is the index on the card of the student you want to add?");
-                a.add(inputInt.get(inputInt.size() - 1));
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 2) {
+                    System.out.println("What is the index on the card of the student you want to add?");
+                    i = getIntInput();
+                    checkIntInput(0, 3, i, "What is the index on the card of the student you want to add?");
+                    a.add(inputInt.get(inputInt.size() - 1));
+                } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 11:
-                System.out.println("What color would you like to affect?");
-                in = getStrInput();
-                checkStrInput(in, "Which color?");
-                b.add(inputStr.get(inputStr.size() - 1));
+                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 3) {
+                    System.out.println("What color would you like to affect?");
+                    String in = getStrInput();
+                    checkStrInput(in, "Which color?");
+                    b.add(inputStr.get(inputStr.size() - 1));
+                } else System.out.println("Well...seems like you're too poor for this. Sorry.");
+                break;
             default:
                 break;
         }
@@ -493,37 +528,37 @@ public class CLI implements View {
 
     private void seeBoard() {
         System.out.println("\nSure! Here's what we're at:");
-        //TODO:torri
         System.out.println("\n                ISLANDS            ");
-        System.out.println("\nIsland 1:"+update.studentsOnIsland1+(update.motherNatureOnIsland.get(0)?"  <----Mother Nature is here! Say hello!":""));
-        System.out.println("\nIsland 2:"+update.studentsOnIsland2+(update.motherNatureOnIsland.get(1)?"  <----Mother Nature is here! Say hello!":""));
-        System.out.println("\nIsland 3:"+update.studentsOnIsland3+(update.motherNatureOnIsland.get(2)?"  <----Mother Nature is here! Say hello!":""));
-        if(update.numIslands>3)
-            System.out.println("\nIsland 4:"+update.studentsOnIsland4+(update.motherNatureOnIsland.get(3)?"  <----Mother Nature is here! Say hello!":""));
-        if(update.numIslands>4)
-            System.out.println("\nIsland 5:"+update.studentsOnIsland5+(update.motherNatureOnIsland.get(4)?"  <----Mother Nature is here! Say hello!":""));
-        if(update.numIslands>5)
-            System.out.println("\nIsland 6:"+update.studentsOnIsland6+(update.motherNatureOnIsland.get(5)?"  <----Mother Nature is here! Say hello!":""));
-        if(update.numIslands>6)
-            System.out.println("\nIsland 7:"+update.studentsOnIsland7+(update.motherNatureOnIsland.get(6)?"  <----Mother Nature is here! Say hello!":""));
-        if(update.numIslands>7)
-            System.out.println("\nIsland 8:"+update.studentsOnIsland8+(update.motherNatureOnIsland.get(7)?"  <----Mother Nature is here! Say hello!":""));
-        if(update.numIslands>8)
-            System.out.println("\nIsland 9:"+update.studentsOnIsland9+(update.motherNatureOnIsland.get(8)?"  <----Mother Nature is here! Say hello!":""));
-        if(update.numIslands>9)
-            System.out.println("\nIsland 10:"+update.studentsOnIsland10+(update.motherNatureOnIsland.get(9)?"  <----Mother Nature is here! Say hello!":""));
-        if(update.numIslands>10)
-            System.out.println("\nIsland 11:"+update.studentsOnIsland11+(update.motherNatureOnIsland.get(10)?"  <----Mother Nature is here! Say hello!":""));
-        if(update.numIslands>11)
-            System.out.println("\nIsland 12:"+update.studentsOnIsland12+(update.motherNatureOnIsland.get(11)?"  <----Mother Nature is here! Say hello!":""));
+        System.out.println("\nIsland 1:" + update.studentsOnIsland1 + "Towers:"+update.towersOnIsland.get(0)+(update.whoOwnTowers.get(0) != null ? (", owned by "+update.whoOwnTowers.get(0)):"")+(update.motherNatureOnIsland.get(0) ? "  <----Mother Nature is here! Say hello!" : ""));
+        System.out.println("\nIsland 2:" + update.studentsOnIsland2 + "Towers:"+update.towersOnIsland.get(1)+(update.whoOwnTowers.get(1) != null ? (", owned by "+update.whoOwnTowers.get(1)):"")+ (update.motherNatureOnIsland.get(1) ? "  <----Mother Nature is here! Say hello!" : ""));
+        System.out.println("\nIsland 3:" + update.studentsOnIsland3 +  "Towers:"+update.towersOnIsland.get(2)+(update.whoOwnTowers.get(2) != null ? (", owned by "+update.whoOwnTowers.get(2)):"")+(update.motherNatureOnIsland.get(2) ? "  <----Mother Nature is here! Say hello!" : ""));
+        if (update.numIslands > 3)
+            System.out.println("\nIsland 4:" + update.studentsOnIsland4 + "Towers:"+update.towersOnIsland.get(3)+(update.whoOwnTowers.get(3) != null ? (", owned by "+update.whoOwnTowers.get(3)):"")+ (update.motherNatureOnIsland.get(3) ? "  <----Mother Nature is here! Say hello!" : ""));
+        if (update.numIslands > 4)
+            System.out.println("\nIsland 5:" + update.studentsOnIsland5 + "Towers:"+update.towersOnIsland.get(4)+(update.whoOwnTowers.get(4) != null ? (", owned by "+update.whoOwnTowers.get(4)):"")+ (update.motherNatureOnIsland.get(4) ? "  <----Mother Nature is here! Say hello!" : ""));
+        if (update.numIslands > 5)
+            System.out.println("\nIsland 6:" + update.studentsOnIsland6 + "Towers:"+update.towersOnIsland.get(5)+(update.whoOwnTowers.get(5) != null ? (", owned by "+update.whoOwnTowers.get(5)):"")+ (update.motherNatureOnIsland.get(5) ? "  <----Mother Nature is here! Say hello!" : ""));
+        if (update.numIslands > 6)
+            System.out.println("\nIsland 7:" + update.studentsOnIsland7 + "Towers:"+update.towersOnIsland.get(6)+(update.whoOwnTowers.get(6) != null ? (", owned by "+update.whoOwnTowers.get(6)):"")+ (update.motherNatureOnIsland.get(6) ? "  <----Mother Nature is here! Say hello!" : ""));
+        if (update.numIslands > 7)
+            System.out.println("\nIsland 8:" + update.studentsOnIsland8 + "Towers:"+update.towersOnIsland.get(7)+(update.whoOwnTowers.get(7) != null ? (", owned by "+update.whoOwnTowers.get(7)):"")+ (update.motherNatureOnIsland.get(7) ? "  <----Mother Nature is here! Say hello!" : ""));
+        if (update.numIslands > 8)
+            System.out.println("\nIsland 9:" + update.studentsOnIsland9 + "Towers:"+update.towersOnIsland.get(8)+(update.whoOwnTowers.get(8) != null ? (", owned by "+update.whoOwnTowers.get(8)):"")+ (update.motherNatureOnIsland.get(8) ? "  <----Mother Nature is here! Say hello!" : ""));
+        if (update.numIslands > 9)
+            System.out.println("\nIsland 10:" + update.studentsOnIsland10 + "Towers:"+update.towersOnIsland.get(9)+(update.whoOwnTowers.get(9) != null ? (", owned by "+update.whoOwnTowers.get(9)):"")+ (update.motherNatureOnIsland.get(9) ? "  <----Mother Nature is here! Say hello!" : ""));
+        if (update.numIslands > 10)
+            System.out.println("\nIsland 11:" + update.studentsOnIsland11 + "Towers:"+update.towersOnIsland.get(10)+(update.whoOwnTowers.get(10) != null ? (", owned by "+update.whoOwnTowers.get(10)):"")+ (update.motherNatureOnIsland.get(10) ? "  <----Mother Nature is here! Say hello!" : ""));
+        if (update.numIslands > 11)
+            System.out.println("\nIsland 12:" + update.studentsOnIsland12 + "Towers:"+update.towersOnIsland.get(11)+(update.whoOwnTowers.get(11) != null ? (", owned by "+update.whoOwnTowers.get(11)):"")+ (update.motherNatureOnIsland.get(11) ? "  <----Mother Nature is here! Say hello!" : ""));
         System.out.println("\n                CLOUDS           ");
-        System.out.println("\nCloud 1:"+update.studentsOnCloud0);
-        System.out.println("\nCloud 2:"+update.studentsOnCloud1);
-        System.out.println("\nCloud 3:"+update.studentsOnCloud2);
+        System.out.println("\nCloud 1:" + update.studentsOnCloud0);
+        System.out.println("\nCloud 2:" + update.studentsOnCloud1);
+        if(update.cloudsNumber>2)
+            System.out.println("\nCloud 3:" + update.studentsOnCloud2);
     }
 
     private void seeHand() {
-        System.out.println("\nRight away! Here's your hand:");
+        System.out.println("\nRight away! Here's your hand(Index:Movement,Value):");
         //TODO:hand in update?
     }
 
