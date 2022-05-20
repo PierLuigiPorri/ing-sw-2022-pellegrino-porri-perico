@@ -16,7 +16,7 @@ public class UpdateMessage extends MessageType{
     public ArrayList<Integer> handPlayer2;
     public ArrayList<Integer> handPlayer3;
 
-    /*Players attributes:
+    /*Player attributes:
      attributes which end by 0 refer to order.get(0);
      attributes which end by 1 refer to order.get(1);
      attributes which end by 2 refer to order.get(2);*/
