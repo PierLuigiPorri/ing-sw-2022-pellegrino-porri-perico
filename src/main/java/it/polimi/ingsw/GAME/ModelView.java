@@ -93,7 +93,7 @@ public class ModelView extends Observable implements Observer {
 
 
     private void setPlayersAttributes() {
-        for (Player p : game.order) {
+        for (Player p : game.getPlayers()) {
             update.towersOnPlayer.add(p.getTower_count());
         }
 
@@ -102,7 +102,7 @@ public class ModelView extends Observable implements Observer {
         }
 
         ArrayList<Integer> tmp = new ArrayList<>();
-        for (int i = 0; i <= game.getPlayers().size(); i++) {
+        for (int i = 0; i < game.getPlayers().size(); i++) {
             tmp.add(game.getPlayers().get(i).getHall().getColor("RED"));
             tmp.add(game.getPlayers().get(i).getHall().getColor("BLUE"));
             tmp.add(game.getPlayers().get(i).getHall().getColor("GREEN"));
@@ -115,29 +115,29 @@ public class ModelView extends Observable implements Observer {
 
         ArrayList<Boolean> bool = new ArrayList<>();
         for (int i = 0; i < game.getPlayerCount(); i++) {
-            if (game.getPlayers().get(i).nickname.equals(game.red.getPlayer().nickname))
+            if (game.red.getPlayer()!=null && game.getPlayers().get(i).nickname.equals(game.red.getPlayer().nickname))
                 bool.add(true);
             else bool.add(false);
-            if (game.getPlayers().get(i).nickname.equals(game.blue.getPlayer().nickname))
+            if (game.blue.getPlayer()!=null && game.getPlayers().get(i).nickname.equals(game.blue.getPlayer().nickname))
                 bool.add(true);
             else bool.add(false);
-            if (game.getPlayers().get(i).nickname.equals(game.green.getPlayer().nickname))
+            if (game.green.getPlayer()!=null && game.getPlayers().get(i).nickname.equals(game.green.getPlayer().nickname))
                 bool.add(true);
             else bool.add(false);
-            if (game.getPlayers().get(i).nickname.equals(game.yellow.getPlayer().nickname))
+            if (game.yellow.getPlayer()!=null && game.getPlayers().get(i).nickname.equals(game.yellow.getPlayer().nickname))
                 bool.add(true);
             else bool.add(false);
-            if (game.getPlayers().get(i).nickname.equals(game.pink.getPlayer().nickname))
+            if (game.pink.getPlayer()!=null && game.getPlayers().get(i).nickname.equals(game.pink.getPlayer().nickname))
                 bool.add(true);
             else bool.add(false);
             update.professors.put(i, bool);
             bool = new ArrayList<>();
         }
 
-        update.playersMoves.add(game.order.get(0).maxMoves);
-        update.playersMoves.add(game.order.get(1).maxMoves);
+        update.playersMoves.add(game.getPlayers().get(0).maxMoves);
+        update.playersMoves.add(game.getPlayers().get(1).maxMoves);
 
-        for (int i = 0; i <= game.getPlayers().size(); i++) {
+        for (int i = 0; i < game.getPlayers().size(); i++) {
             tmp = new ArrayList<>();
             for (Card c : game.getPlayers().get(i).getHand().cards) {
                 tmp.add(c.getValue());
@@ -146,7 +146,7 @@ public class ModelView extends Observable implements Observer {
         }
 
         if (update.nPlayers == 3) {
-            update.playersMoves.add(game.order.get(2).maxMoves);
+            update.playersMoves.add(game.getPlayers().get(2).maxMoves);
         }
     }
 
@@ -154,7 +154,7 @@ public class ModelView extends Observable implements Observer {
     private void setExpertGameAttributes() {
         if (update.game_Type == 1) {
             update.charactersNum = 3;
-            for (Player p : game.order) {
+            for (Player p : game.getPlayers()) {
                 update.coinsOnPlayer.add(p.getCoins());
             }
 

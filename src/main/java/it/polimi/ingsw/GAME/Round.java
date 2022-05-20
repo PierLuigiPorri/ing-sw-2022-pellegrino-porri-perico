@@ -58,7 +58,7 @@ public class Round {
     }
 
     private void compare(Card x, Card y) {
-        int i = Math.max(x.getValue(), y.getValue());
+        int i = Math.min(x.getValue(), y.getValue());
         if (i == x.getValue())
             this.order.add(player.get(0));
         else this.order.add(player.get(1));

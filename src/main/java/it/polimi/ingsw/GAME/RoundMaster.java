@@ -23,10 +23,10 @@ public class RoundMaster{
             round.setCurrentPhase("Action");
         } else {
             roundCount++;
-            players.remove(0);
+            /*players.remove(0);
             players.remove(0);
             if(!players.isEmpty())
-                players.remove(0);
+                players.remove(0);*/
             players=round.nextPlanning(index);
 
             startRound();
