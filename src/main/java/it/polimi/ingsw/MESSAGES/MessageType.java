@@ -2,7 +2,7 @@ package it.polimi.ingsw.MESSAGES;
 
 import java.io.Serializable;
 
-public class MessageType implements Serializable {
+public abstract class MessageType implements Serializable {
     public int type;
     //0: AckMessage (Client -> Server)
     //1: CreationMessage (Client -> Server)
