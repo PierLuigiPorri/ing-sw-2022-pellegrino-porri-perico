@@ -229,12 +229,8 @@ public class GameTest {
     @After
     public void tearDown() {
 
-        try {
-            game = new Game(2, 1, "PIER", "PAOLO", null);
-            game3 = new Game(3, 1, "PIER", "PAOLO", "Gandalf");
-        }catch (ImpossibleActionException e){
-            System.out.println(e.getMessage());
-        }
+        game = new Game(2, 1, "PIER", "PAOLO", null);
+        game3 = new Game(3, 1, "PIER", "PAOLO", "Gandalf");
         tmp1= new Student[3];
         tmp2= new Student[3];
         tm1 = new Student[3];
