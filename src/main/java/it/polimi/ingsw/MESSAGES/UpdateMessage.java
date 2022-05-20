@@ -2,7 +2,6 @@ package it.polimi.ingsw.MESSAGES;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class UpdateMessage extends MessageType{
 

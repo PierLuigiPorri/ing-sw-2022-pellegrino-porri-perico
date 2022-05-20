@@ -5,6 +5,7 @@ import it.polimi.ingsw.MESSAGES.*;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -43,8 +44,7 @@ public class CLI implements View {
             newGame();
         } else if (g == 1) {
             joinGame();
-        }
-        else if(g==2){
+        } else if (g == 2) {
             seeAvailableGames();
         }
     }
@@ -52,34 +52,35 @@ public class CLI implements View {
     private void newGame() {
         int gt; //Game Type
         int np; //Number of players
-        gt=getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
+        gt = getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
         //Number of players request
-        np=getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
+        np = getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
         try {
             msgHandler.send(new CreationMessage(0, nick, gt, np));
-        }catch (Exception e){System.out.println(e.getMessage());}
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println("Waiting for other players and for the creation of the game");
     }
 
     private void joinGame() {
         new Thread(() -> {
             int choice;
-            choice=getCorrectInput("Digit 0 to join a random game or 1 to join a specific game with its ID", 0,1);
-            if(choice==0){
-                try{
+            choice = getCorrectInput("Digit 0 to join a random game or 1 to join a specific game with its ID", 0, 1);
+            if (choice == 0) {
+                try {
                     msgHandler.send(new CreationMessage(1, nick));
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
-            }
-            else if(choice==1){
+            } else if (choice == 1) {
                 int id;
-                id=getValidInt("What's the ID of the game you wanna join?");
-                try{
+                id = getValidInt("What's the ID of the game you wanna join?");
+                try {
                     msgHandler.send(new CreationMessage(2, nick, id));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
-                catch (Exception e){System.out.println(e.getMessage());}
             }
             try {
                 wait();
@@ -88,10 +89,9 @@ public class CLI implements View {
             }
             if (!messages.isEmpty()) {
                 ResponseMessage lastMessage = (ResponseMessage) messages.get(messages.size() - 1);
-                if(lastMessage.allGood){
+                if (lastMessage.allGood) {
                     System.out.println(lastMessage.response);
-                }
-                else {
+                } else {
                     System.out.println(lastMessage.response);
                     joinGame();
                 }
@@ -99,7 +99,7 @@ public class CLI implements View {
         });
     }
 
-    private void seeAvailableGames(){
+    private void seeAvailableGames() {
         //TODO
         System.out.println("Questa funzione non esiste per ora");
     }
@@ -126,7 +126,7 @@ public class CLI implements View {
                     messages.remove(messages.size() - 1);
                     update((up));
                 } else {
-                    System.out.println(( (ResponseMessage) lastmessage).response);
+                    System.out.println(((ResponseMessage) lastmessage).response);
                     initCLI();
                 }
             }
@@ -522,41 +522,15 @@ public class CLI implements View {
     }
 
     private void seePlayerBoards(int choice) {
-        switch (choice) {
-            case 0:
-                System.out.println("\nGATE:" + update.gatePlayer0);
-                System.out.println("\n********************************************************");
-                System.out.println("\n      STUDENTS          PROFESSOR");
-                System.out.println("\nRED:" + update.hallPlayer0.get(0) + "     " + (update.professors0.get(0) ? "YES" : "NO"));
-                System.out.println("\nBLUE:" + update.hallPlayer0.get(1) + "    " + (update.professors0.get(1) ? "YES" : "NO"));
-                System.out.println("\nGREEN:" + update.hallPlayer0.get(2) + "   " + (update.professors0.get(2) ? "YES" : "NO"));
-                System.out.println("\nYELLOW:" + update.hallPlayer0.get(3) + "  " + (update.professors0.get(3) ? "YES" : "NO"));
-                System.out.println("\nPINK:" + update.hallPlayer0.get(4) + "    " + (update.professors0.get(4) ? "YES" : "NO"));
-                System.out.println("\nCoins left:" + update.coinsOnPlayer.get(0) + " Towers left:" + update.towersOnPlayer.get(0));
-                break;
-            case 1:
-                System.out.println("\nGATE:" + update.gatePlayer1);
-                System.out.println("\n********************************************************");
-                System.out.println("\n      STUDENTS          PROFESSOR");
-                System.out.println("\nRED:" + update.hallPlayer1.get(0) + "     " + (update.professors1.get(0) ? "YES" : "NO"));
-                System.out.println("\nBLUE:" + update.hallPlayer1.get(1) + "    " + (update.professors1.get(1) ? "YES" : "NO"));
-                System.out.println("\nGREEN:" + update.hallPlayer1.get(2) + "   " + (update.professors1.get(2) ? "YES" : "NO"));
-                System.out.println("\nYELLOW:" + update.hallPlayer1.get(3) + "  " + (update.professors1.get(3) ? "YES" : "NO"));
-                System.out.println("\nPINK:" + update.hallPlayer1.get(4) + "    " + (update.professors1.get(4) ? "YES" : "NO"));
-                System.out.println("\nCoins left:" + update.coinsOnPlayer.get(1) + " Towers left:" + update.towersOnPlayer.get(1));
-                break;
-            case 2:
-                System.out.println("\nGATE:" + update.gatePlayer2);
-                System.out.println("\n********************************************************");
-                System.out.println("\n      STUDENTS          PROFESSOR");
-                System.out.println("\nRED:" + update.hallPlayer2.get(0) + "     " + (update.professors2.get(0) ? "YES" : "NO"));
-                System.out.println("\nBLUE:" + update.hallPlayer2.get(1) + "    " + (update.professors2.get(1) ? "YES" : "NO"));
-                System.out.println("\nGREEN:" + update.hallPlayer2.get(2) + "   " + (update.professors2.get(2) ? "YES" : "NO"));
-                System.out.println("\nYELLOW:" + update.hallPlayer2.get(3) + "  " + (update.professors2.get(3) ? "YES" : "NO"));
-                System.out.println("\nPINK:" + update.hallPlayer2.get(4) + "    " + (update.professors2.get(4) ? "YES" : "NO"));
-                System.out.println("\nCoins left:" + update.coinsOnPlayer.get(2) + " Towers left:" + update.towersOnPlayer.get(2));
-                break;
-        }
+        System.out.println("\nGATE:" + update.gatePlayer.get(choice));
+        System.out.println("\n********************************************************");
+        System.out.println("\n      STUDENTS          PROFESSORS");
+        System.out.println("\nRED:" + update.hallPlayer.get(choice).get(0) + "        " + (update.professors.get(choice).get(0) ? "YES" : "NO"));
+        System.out.println("\nBLUE:" + update.hallPlayer.get(choice).get(1) + "       " + (update.professors.get(choice).get(1) ? "YES" : "NO"));
+        System.out.println("\nGREEN:" + update.hallPlayer.get(choice).get(2) + "      " + (update.professors.get(choice).get(2) ? "YES" : "NO"));
+        System.out.println("\nYELLOW:" + update.hallPlayer.get(choice).get(3) + "     " + (update.professors.get(choice).get(3) ? "YES" : "NO"));
+        System.out.println("\nPINK:" + update.hallPlayer.get(choice).get(4) + "       " + (update.professors.get(choice).get(4) ? "YES" : "NO"));
+        System.out.println("\nCoins left:" + update.coinsOnPlayer.get(0) + " Towers left:" + update.towersOnPlayer.get(0));
     }
 
     private void seeOtherBoards() {
@@ -579,32 +553,13 @@ public class CLI implements View {
     private void seeBoard() {
         System.out.println("\nSure! Here's what we're at:");
         System.out.println("\n                ISLANDS            ");
-        System.out.println("\nIsland 1:" + update.studentsOnIsland1 + "Towers:"+update.towersOnIsland.get(0)+(update.whoOwnTowers.get(0) != null ? (", owned by "+update.whoOwnTowers.get(0)):"")+(update.motherNatureOnIsland.get(0) ? "  <----Mother Nature is here! Say hello!" : ""));
-        System.out.println("\nIsland 2:" + update.studentsOnIsland2 + "Towers:"+update.towersOnIsland.get(1)+(update.whoOwnTowers.get(1) != null ? (", owned by "+update.whoOwnTowers.get(1)):"")+ (update.motherNatureOnIsland.get(1) ? "  <----Mother Nature is here! Say hello!" : ""));
-        System.out.println("\nIsland 3:" + update.studentsOnIsland3 +  "Towers:"+update.towersOnIsland.get(2)+(update.whoOwnTowers.get(2) != null ? (", owned by "+update.whoOwnTowers.get(2)):"")+(update.motherNatureOnIsland.get(2) ? "  <----Mother Nature is here! Say hello!" : ""));
-        if (update.numIslands > 3)
-            System.out.println("\nIsland 4:" + update.studentsOnIsland4 + "Towers:"+update.towersOnIsland.get(3)+(update.whoOwnTowers.get(3) != null ? (", owned by "+update.whoOwnTowers.get(3)):"")+ (update.motherNatureOnIsland.get(3) ? "  <----Mother Nature is here! Say hello!" : ""));
-        if (update.numIslands > 4)
-            System.out.println("\nIsland 5:" + update.studentsOnIsland5 + "Towers:"+update.towersOnIsland.get(4)+(update.whoOwnTowers.get(4) != null ? (", owned by "+update.whoOwnTowers.get(4)):"")+ (update.motherNatureOnIsland.get(4) ? "  <----Mother Nature is here! Say hello!" : ""));
-        if (update.numIslands > 5)
-            System.out.println("\nIsland 6:" + update.studentsOnIsland6 + "Towers:"+update.towersOnIsland.get(5)+(update.whoOwnTowers.get(5) != null ? (", owned by "+update.whoOwnTowers.get(5)):"")+ (update.motherNatureOnIsland.get(5) ? "  <----Mother Nature is here! Say hello!" : ""));
-        if (update.numIslands > 6)
-            System.out.println("\nIsland 7:" + update.studentsOnIsland7 + "Towers:"+update.towersOnIsland.get(6)+(update.whoOwnTowers.get(6) != null ? (", owned by "+update.whoOwnTowers.get(6)):"")+ (update.motherNatureOnIsland.get(6) ? "  <----Mother Nature is here! Say hello!" : ""));
-        if (update.numIslands > 7)
-            System.out.println("\nIsland 8:" + update.studentsOnIsland8 + "Towers:"+update.towersOnIsland.get(7)+(update.whoOwnTowers.get(7) != null ? (", owned by "+update.whoOwnTowers.get(7)):"")+ (update.motherNatureOnIsland.get(7) ? "  <----Mother Nature is here! Say hello!" : ""));
-        if (update.numIslands > 8)
-            System.out.println("\nIsland 9:" + update.studentsOnIsland9 + "Towers:"+update.towersOnIsland.get(8)+(update.whoOwnTowers.get(8) != null ? (", owned by "+update.whoOwnTowers.get(8)):"")+ (update.motherNatureOnIsland.get(8) ? "  <----Mother Nature is here! Say hello!" : ""));
-        if (update.numIslands > 9)
-            System.out.println("\nIsland 10:" + update.studentsOnIsland10 + "Towers:"+update.towersOnIsland.get(9)+(update.whoOwnTowers.get(9) != null ? (", owned by "+update.whoOwnTowers.get(9)):"")+ (update.motherNatureOnIsland.get(9) ? "  <----Mother Nature is here! Say hello!" : ""));
-        if (update.numIslands > 10)
-            System.out.println("\nIsland 11:" + update.studentsOnIsland11 + "Towers:"+update.towersOnIsland.get(10)+(update.whoOwnTowers.get(10) != null ? (", owned by "+update.whoOwnTowers.get(10)):"")+ (update.motherNatureOnIsland.get(10) ? "  <----Mother Nature is here! Say hello!" : ""));
-        if (update.numIslands > 11)
-            System.out.println("\nIsland 12:" + update.studentsOnIsland12 + "Towers:"+update.towersOnIsland.get(11)+(update.whoOwnTowers.get(11) != null ? (", owned by "+update.whoOwnTowers.get(11)):"")+ (update.motherNatureOnIsland.get(11) ? "  <----Mother Nature is here! Say hello!" : ""));
+        for(int index:update.studentsOnIsland.keySet()) {
+            System.out.println("\nIsland " + index + ":" + update.studentsOnIsland.get(index) + "Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1) != null ? (", owned by " + update.whoOwnTowers.get(index - 1)) : "") + (update.motherNatureOnIsland.get(index - 1) ? "  <----Mother Nature is here! Say hello!" : ""));
+        }
         System.out.println("\n                CLOUDS           ");
-        System.out.println("\nCloud 1:" + update.studentsOnCloud0);
-        System.out.println("\nCloud 2:" + update.studentsOnCloud1);
-        if(update.cloudsNumber>2)
-            System.out.println("\nCloud 3:" + update.studentsOnCloud2);
+        for(int index:update.studentsOnCloud.keySet()) {
+            System.out.println("\nCloud " + index + ":" + update.studentsOnCloud.get(index));
+        }
     }
 
     private void seeHand() {
@@ -685,14 +640,14 @@ public class CLI implements View {
         //This method gets a valid int while asking the "request"
         boolean inv = true; //Input Not Valid
         String input;
-        int n=0;
+        int n = 0;
         Scanner s = new Scanner(System.in);
         while (inv) {
             System.out.println(request);
             try {
                 input = s.nextLine();
-                n=Integer.parseInt(input);
-                inv=false;
+                n = Integer.parseInt(input);
+                inv = false;
             } catch (Exception e) {
                 System.out.println("Input is not valid");
             }
@@ -700,23 +655,21 @@ public class CLI implements View {
         return n;
     }
 
-    private int getCorrectInput(String request, int a, int b){
+    private int getCorrectInput(String request, int a, int b) {
         //This method gets correct input from the client of 2 possible integer values: a, b while asking the "request"
-        boolean inv=true; //Input Not Valid
-        String input=null;
-        Scanner s=new Scanner(System.in);
-        while(inv) {
+        boolean inv = true; //Input Not Valid
+        String input = null;
+        Scanner s = new Scanner(System.in);
+        while (inv) {
             System.out.println(request);
             try {
                 input = s.nextLine();
-                if(Integer.parseInt(input)==a || Integer.parseInt(input)==b) {
+                if (Integer.parseInt(input) == a || Integer.parseInt(input) == b) {
                     inv = false;
-                }
-                else{
+                } else {
                     System.out.println("Input is not valid");
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Input is not valid");
             }
         }
