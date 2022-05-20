@@ -12,7 +12,7 @@ public class ClientMsgHandler implements Runnable{
     private ObjectInputStream in;
     private View view;
     private boolean kill;
-    private Object lock;
+    private final Object lock;
     public ClientMsgHandler(String host, int port, Object lock){
         try {
             socket = new Socket(host, port);

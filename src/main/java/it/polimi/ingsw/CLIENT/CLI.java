@@ -19,7 +19,7 @@ public class CLI implements View, Runnable{
 
     public String nick;
     private boolean responseNeeded;
-    private Object lock;
+    private final Object lock;
 
     public CLI(ClientMsgHandler clientMsgHandler, Object lock) {
         this.msgHandler = clientMsgHandler;
