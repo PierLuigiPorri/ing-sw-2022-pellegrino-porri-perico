@@ -64,24 +64,40 @@ public class ConnectionManager implements Runnable{
                 }
                 else{
                     if(!gameHasBeenCreated){
-                        //If I receive CreationMessage, I add it to the queue; if I receive other messages I ignore them
+                        //If I receive CreationMessage, I handle it; if I receive other messages I ignore them
                         if(latestMessage.type==1){
                             CreationMessage mex= (CreationMessage) latestMessage;
                             switch (mex.creationid){
                                 case 0:
                                     //New Game
-                                    joinedGameId=start.newGame(mex.gameType, mex.players, mex.nick);
-                                    this.send(new ResponseMessage("You successfully created a new game with id: "+joinedGameId));
+                                    try {
+                                        joinedGameId = start.newGame(mex.gameType, mex.players, mex.nick);
+                                        this.send(new ResponseMessage("You successfully created a new game with id: "+joinedGameId, true));
+                                    }catch (Exception e){
+                                        this.send(new ResponseMessage(e.getMessage(), false));
+                                    }
                                     break;
                                 case 1:
                                     //Join Random Game
-
+                                    try {
+                                        joinedGameId = start.joinRandomGame(mex.nick);
+                                        this.send(new ResponseMessage("You successfully joined the game with id: "+joinedGameId, true));
+                                    }catch (Exception e){
+                                        this.send(new ResponseMessage(e.getMessage(), false));
+                                    }
                                     break;
                                 case 2:
                                     //Join Game with ID
+                                    try {
+                                        joinedGameId = start.joinGameWithId(mex.gameid, mex.nick);
+                                        this.send(new ResponseMessage("You successfully joined the game with id: "+joinedGameId, true));
+                                    }catch (Exception e){
+                                        this.send(new ResponseMessage(e.getMessage(), false));
+                                    }
                                     break;
                                 case 3:
                                     //See available games
+                                    //TODO
                                     break;
                             }
 

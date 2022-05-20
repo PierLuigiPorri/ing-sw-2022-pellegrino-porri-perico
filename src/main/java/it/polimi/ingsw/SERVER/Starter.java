@@ -18,13 +18,15 @@ public class Starter{
         this.cm=cm;
     }
 
-    public int newGame(int gt, int np, String nick){
+    public int newGame(int gt, int np, String nick) throws ImpossibleActionException{
         //Creation phase of the game
         synchronized (games) {
-            //TODO: Controllare se i np e gt sono validi
+            if((np==2 || np==3) && (gt==0 || gt==1)){
                 games.add(new Creation(currID, np, gt, nick, cm));
                 currID++;
                 return currID-1;
+            }
+            else throw new ImpossibleActionException("Illegal action");
         }
     }
 
