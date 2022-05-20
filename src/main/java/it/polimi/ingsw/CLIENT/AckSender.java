@@ -16,7 +16,7 @@ public class AckSender implements Runnable{
     public void run() {
         while(true) {
             mh.send(new AckMessage());
-            System.out.println("ACK mandato");
+            //System.out.println("ACK mandato");
             try {
                 Thread.sleep(timeout);
             } catch (InterruptedException e) {

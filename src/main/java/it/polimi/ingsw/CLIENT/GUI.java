@@ -2,7 +2,7 @@ package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.MESSAGES.MessageType;
 
-public class GUI implements View{
+public class GUI implements View, Runnable{
     private ClientMsgHandler msgHandler;
 
     public GUI(ClientMsgHandler msgHandler){
@@ -22,6 +22,11 @@ public class GUI implements View{
 
     @Override
     public void relay(MessageType msg) {
+
+    }
+
+    @Override
+    public void run() {
 
     }
 }

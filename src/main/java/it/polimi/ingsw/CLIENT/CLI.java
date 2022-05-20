@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class CLI implements View {
+public class CLI implements View, Runnable{
 
     private final ClientMsgHandler msgHandler;
     private final ArrayList<Integer> inputInt;
@@ -18,14 +18,21 @@ public class CLI implements View {
 
     private UpdateMessage update;
 
-    public final String nick;
+    public String nick;
     private boolean responseNeeded;
+    private Object lock;
 
-    public CLI(ClientMsgHandler clientMsgHandler) {
+    public CLI(ClientMsgHandler clientMsgHandler, Object lock) {
         this.msgHandler = clientMsgHandler;
         this.inputInt = new ArrayList<>();
         this.inputStr = new ArrayList<>();
         this.messages = new ArrayList<>();
+        this.lock=lock;
+    }
+
+    @Override
+    public void run() {
+        msgHandler.setView(this);
         System.out.println(
                 "    __________  _______    _   __________  _______\n" +
                         "   / ____/ __ \\/  _/   |  / | / /_  __/\\ \\/ / ___/\n" +
@@ -50,21 +57,42 @@ public class CLI implements View {
     }
 
     private void newGame() {
-        int gt; //Game Type
-        int np; //Number of players
-        gt = getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
-        //Number of players request
-        np = getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
-        try {
-            msgHandler.send(new CreationMessage(0, nick, gt, np));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        System.out.println("New Game");
+        //new Thread(() -> {
+            int gt; //Game Type
+            int np; //Number of players
+            gt = getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
+            //Number of players request
+            np = getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
+            try {
+                msgHandler.send(new CreationMessage(0, nick, gt, np));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println("Waiting for other players and for the creation of the game");
+        //});
+            try {
+                synchronized (lock) {
+                    lock.wait();
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        System.out.println("Prova");
+        if (!messages.isEmpty()) {
+            ResponseMessage lastMessage = (ResponseMessage) messages.remove(messages.size() - 1);
+            if (lastMessage.allGood) {
+                System.out.println(lastMessage.response);
+                startGame();
+            } else {
+                System.out.println(lastMessage.response);
+                newGame();
+            }
         }
-        System.out.println("Waiting for other players and for the creation of the game");
     }
 
     private void joinGame() {
-        new Thread(() -> {
+        //new Thread(() -> {
             int choice;
             choice = getCorrectInput("Digit 0 to join a random game or 1 to join a specific game with its ID", 0, 1);
             if (choice == 0) {
@@ -83,20 +111,39 @@ public class CLI implements View {
                 }
             }
             try {
-                wait();
+                synchronized (lock) {
+                    lock.wait();
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             if (!messages.isEmpty()) {
-                ResponseMessage lastMessage = (ResponseMessage) messages.get(messages.size() - 1);
+                ResponseMessage lastMessage = (ResponseMessage) messages.remove(messages.size() - 1);
                 if (lastMessage.allGood) {
                     System.out.println(lastMessage.response);
+                    startGame();
                 } else {
                     System.out.println(lastMessage.response);
                     joinGame();
                 }
             }
-        });
+        //});
+    }
+
+    private void startGame(){
+        try {
+            synchronized (lock) {
+                lock.wait();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        if (!messages.isEmpty()) {
+            UpdateMessage firstUpd = (UpdateMessage) messages.remove(messages.size() - 1);
+            System.out.println(firstUpd.update);
+            update(firstUpd);
+            initCLI();
+        }
     }
 
     private void seeAvailableGames() {

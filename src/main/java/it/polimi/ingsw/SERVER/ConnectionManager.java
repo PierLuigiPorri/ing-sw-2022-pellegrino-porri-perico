@@ -30,6 +30,7 @@ public class ConnectionManager implements Runnable{
         gameHasBeenCreated=false;
         ackQueue=new ArrayList<>();
         start=new Starter(this);
+        kill=false;
     }
 
     @Override
@@ -46,6 +47,8 @@ public class ConnectionManager implements Runnable{
         while(!kill){
             try {
                 latestMessage = (MessageType) in.readObject();
+                if(latestMessage.type!=0)
+                    System.out.println("Ho ricevuto un messaggio "+latestMessage.type);
                 if(latestMessage.type==5){
                     //I received a KillMessage
                     kill=true;
@@ -66,12 +69,14 @@ public class ConnectionManager implements Runnable{
                     if(!gameHasBeenCreated){
                         //If I receive CreationMessage, I handle it; if I receive other messages I ignore them
                         if(latestMessage.type==1){
+                            System.out.println("Creation message");
                             CreationMessage mex= (CreationMessage) latestMessage;
                             switch (mex.creationid){
                                 case 0:
                                     //New Game
                                     try {
                                         joinedGameId = start.newGame(mex.gameType, mex.players, mex.nick);
+                                        System.out.println("New Game");
                                         this.send(new ResponseMessage("You successfully created a new game with id: "+joinedGameId, true));
                                     }catch (Exception e){
                                         this.send(new ResponseMessage(e.getMessage(), false));
