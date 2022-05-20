@@ -1,9 +1,6 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.MESSAGES.ActionMessage;
-import it.polimi.ingsw.MESSAGES.CreationMessage;
-import it.polimi.ingsw.MESSAGES.MessageType;
-import it.polimi.ingsw.MESSAGES.UpdateMessage;
+import it.polimi.ingsw.MESSAGES.*;
 
 import java.io.IOException;
 import java.time.LocalTime;
@@ -20,7 +17,7 @@ public class CLI implements View {
 
     private UpdateMessage update;
 
-    public final String player;
+    public final String nick;
     private boolean responseNeeded;
 
     public CLI(ClientMsgHandler clientMsgHandler) {
@@ -35,60 +32,76 @@ public class CLI implements View {
                         " / /___/ _, _// // ___ |/ /|  / / /     / /___/ /\n" +
                         "/_____/_/ |_/___/_/  |_/_/ |_/ /_/     /_//____/\n"
         );
-        this.player = getValidString("What's your name?");
+        this.nick = getValidString("What's your name?");
         System.out.println("What would you like to do?" +
                 "\n0:Create a new Game" +
                 "\n1:Join a game" +
+                "\n2: See all available games" +
                 "\nDigit the appropriate number:");
-        int g = getSingleIntInput(1); //0=New Game, 1=Join Game
+        int g = getSingleIntInput(2); //0=New Game, 1=Join Game, 2=See Available Games
         if (g == 0) {
             newGame();
         } else if (g == 1) {
             joinGame();
         }
+        else if(g==2){
+            seeAvailableGames();
+        }
     }
 
-    public void newGame() {
-        String nick;
+    private void newGame() {
         int gt; //Game Type
         int np; //Number of players
-        //Nickname request
-        nick=getValidString("What's your nickname?");
-        //Game Type request
         gt=getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
         //Number of players request
         np=getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
         try {
             msgHandler.send(new CreationMessage(0, nick, gt, np));
-        }catch (Exception e){};
+        }catch (Exception e){System.out.println(e.getMessage());};
         System.out.println("Waiting for other players and for the creation of the game");
     }
 
-    public void joinGame() {
-        //TODO
+    private void joinGame() {
+        new Thread(() -> {
+            int choice;
+            choice=getCorrectInput("Digit 0 to join a random game or 1 to join a specific game with its ID", 0,1);
+            if(choice==0){
+                try{
+                    msgHandler.send(new CreationMessage(1, nick));
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+            else if(choice==1){
+                int id;
+                id=getValidInt("What's the ID of the game you wanna join?");
+                try{
+                    msgHandler.send(new CreationMessage(2, nick, id));
+                }
+                catch (Exception e){System.out.println(e.getMessage());}
+            }
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if (!messages.isEmpty()) {
+                ResponseMessage lastMessage = (ResponseMessage) messages.get(messages.size() - 1);
+                if(lastMessage.allGood){
+                    System.out.println(lastMessage.response);
+                }
+                else {
+                    System.out.println(lastMessage.response);
+                    joinGame();
+                }
+            }
+        });
     }
 
-    private int getCorrectInput(String request, int a, int b){
-        //This method gets correct input from the client of 2 possible integer values: a, b while asking the "request"
-        boolean inv=true; //Input Not Valid
-        String input=null;
-        Scanner s=new Scanner(System.in);
-        while(inv) {
-            System.out.println(request);
-            try {
-                input = s.nextLine();
-                if(Integer.parseInt(input)==a || Integer.parseInt(input)==b) {
-                    inv = false;
-                }
-                else{
-                    System.out.println("Input is not valid");
-                }
-            }
-            catch (Exception e){
-                System.out.println("Input is not valid");
-            }
-        }
-        return Integer.parseInt(input);
+    private void seeAvailableGames(){
+        //TODO
+        System.out.println("Questa funzione non esiste per ora");
     }
 
     public void initCLI() {
@@ -113,7 +126,8 @@ public class CLI implements View {
                     messages.remove(messages.size() - 1);
                     update((up));
                 } else {
-                    //TODO:stampa errore
+                    System.out.println(( (ResponseMessage) lastmessage).response);
+                    initCLI();
                 }
             }
         });
@@ -146,7 +160,7 @@ public class CLI implements View {
                 System.out.println(played);
                 System.out.println(update.lastCardPlayed);
             }
-            if (update.order.get(0).equals(player)) {
+            if (update.order.get(0).equals(nick)) {
                 System.out.println("\nNow! Fire your card! Shape you destiny with a few single digit numbers!" +
                         "\nRemember, you can't play a card that has already been played this round. Just don't.");
                 seeHand();
@@ -165,7 +179,7 @@ public class CLI implements View {
                     "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
                     "\nMove students. Activate special effects. Move digital imaginary tokens. Your call.");
             System.out.println("\nPlayers that have to play, in order:" + update.order);
-            if (update.order.get(0).equals(player) && update.playersMoves.get(0) != 0) {
+            if (update.order.get(0).equals(nick) && update.playersMoves.get(0) != 0) {
                 System.out.println("\nYour turn!" +
                         "\nGo" +
                         "\nDo stuff!" +
@@ -174,7 +188,7 @@ public class CLI implements View {
                 actions(3).forEach((el) -> System.out.println(actions(3).indexOf(el) + ":" + el));
                 choice = getSingleIntInput(actions(3).size());
                 perform(actions(3).get(choice));
-            } else if (update.order.get(0).equals(player)) {
+            } else if (update.order.get(0).equals(nick)) {
                 System.out.println("\nOK! Good student managing. Now let's end this round. " +
                         "\nTime to politely ask Lady Mother Nature to relocate on an Island of your choosing." +
                         "\nAnd don't forget to choose a cloud to take students from!");
@@ -243,7 +257,7 @@ public class CLI implements View {
                 break;
             case "Bribe a professor of your choice":
                 responseNeeded = false;
-                System.out.println("\nBuddy...that would maybe work if you had money. You have what, " + update.coinsOnPlayer.get(update.players.indexOf(player)) + " coins?" +
+                System.out.println("\nBuddy...that would maybe work if you had money. You have what, " + update.coinsOnPlayer.get(update.players.indexOf(nick)) + " coins?" +
                         "That's not gonna cut it.");
                 break;
             case "Move a student from the gate to an Island":
@@ -387,11 +401,11 @@ public class CLI implements View {
         ArrayList<Integer> a = new ArrayList<>(), c = null;
         ArrayList<String> b = new ArrayList<>();
         a.add(index);
-        b.add(player);
+        b.add(nick);
         switch (index) {
             case 0:
                 int i, x;
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 1) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 1) {
                     System.out.println("What's the position of the student on the card you want to move?");
                     i = getIntInput();
                     checkIntInput(0, 3, i, "What's the position of the student on the card you want to move?\n");
@@ -405,11 +419,11 @@ public class CLI implements View {
                 break;
             case 1:
             case 7:
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) < 2)
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) < 2)
                     System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 2:
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 3) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 3) {
                     System.out.println("What's the index of the island you want to determine the influence of?");
                     i = getIntInput();
                     checkIntInput(1, 12, i, "What's the index of the island you want to determine the influence of?\n");
@@ -417,11 +431,11 @@ public class CLI implements View {
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 3:
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) < 1)
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) < 1)
                     System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 4:
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 2) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 2) {
                     System.out.println("What's the index of the island you want to put the counter on?");
                     i = getIntInput();
                     checkIntInput(1, 12, i, "What's the index of the island you want to put the counter on?\n");
@@ -429,11 +443,11 @@ public class CLI implements View {
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 5:
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) < 3)
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) < 3)
                     System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 6:
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 1) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 1) {
                     System.out.println("How many students do you want to swap?");
                     i = getIntInput();
                     checkIntInput(1, 3, i, "How many students do you want to swap?");
@@ -455,7 +469,7 @@ public class CLI implements View {
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 8:
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 3) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 3) {
                     System.out.println("What color would you like to disable?");
                     String in = getStrInput();
                     checkStrInput(in, "What color would you like to disable?");
@@ -463,7 +477,7 @@ public class CLI implements View {
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 9:
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 1) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 1) {
                     System.out.println("How many students would you like to swap?");
                     i = getIntInput();
                     checkIntInput(1, 2, i, "How many students would you like to swap?");
@@ -484,7 +498,7 @@ public class CLI implements View {
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 10:
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 2) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 2) {
                     System.out.println("What is the index on the card of the student you want to add?");
                     i = getIntInput();
                     checkIntInput(0, 3, i, "What is the index on the card of the student you want to add?");
@@ -492,7 +506,7 @@ public class CLI implements View {
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 11:
-                if (update.coinsOnPlayer.get(update.players.indexOf(player)) >= 3) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 3) {
                     System.out.println("What color would you like to affect?");
                     String in = getStrInput();
                     checkStrInput(in, "Which color?");
@@ -548,7 +562,7 @@ public class CLI implements View {
     private void seeOtherBoards() {
         System.out.println("\nSure! Which board would you like to see? As always, digit the appropriate number:");
         for (String n : update.players) {
-            if (!Objects.equals(n, player)) {
+            if (!Objects.equals(n, nick)) {
                 System.out.println(update.players.indexOf(n) + ":" + n);
             }
         }
@@ -559,7 +573,7 @@ public class CLI implements View {
 
     private void seeOwnBoard() {
         System.out.println("\nHere's what you have:");
-        seePlayerBoards(update.players.indexOf(player));
+        seePlayerBoards(update.players.indexOf(nick));
     }
 
     private void seeBoard() {
@@ -646,7 +660,7 @@ public class CLI implements View {
         }
     }
 
-    public String getValidString(String request) {
+    private String getValidString(String request) {
         //This method gets a non empty reply String while asking the "request"
         boolean inv = true; //Input Not Valid
         String input = "";
@@ -667,4 +681,45 @@ public class CLI implements View {
         return input;
     }
 
+    private int getValidInt(String request) {
+        //This method gets a valid int while asking the "request"
+        boolean inv = true; //Input Not Valid
+        String input = null;
+        int n=0;
+        Scanner s = new Scanner(System.in);
+        while (inv) {
+            System.out.println(request);
+            try {
+                input = s.nextLine();
+                n=Integer.parseInt(input);
+                inv=false;
+            } catch (Exception e) {
+                System.out.println("Input is not valid");
+            }
+        }
+        return n;
+    }
+
+    private int getCorrectInput(String request, int a, int b){
+        //This method gets correct input from the client of 2 possible integer values: a, b while asking the "request"
+        boolean inv=true; //Input Not Valid
+        String input=null;
+        Scanner s=new Scanner(System.in);
+        while(inv) {
+            System.out.println(request);
+            try {
+                input = s.nextLine();
+                if(Integer.parseInt(input)==a || Integer.parseInt(input)==b) {
+                    inv = false;
+                }
+                else{
+                    System.out.println("Input is not valid");
+                }
+            }
+            catch (Exception e){
+                System.out.println("Input is not valid");
+            }
+        }
+        return Integer.parseInt(input);
+    }
 }

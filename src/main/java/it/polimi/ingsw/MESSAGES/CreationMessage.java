@@ -25,5 +25,26 @@ public class CreationMessage extends MessageType{
         else throw new MessageCreationError("Impossible to create this message");
     }
 
+    public CreationMessage(int id, String nick) throws MessageCreationError{
+        //creationid: 1
+        super(1);
+        if(id==1) {
+            this.creationid=id;
+            this.nick=nick;
+        }
+        else throw new MessageCreationError("Impossible to create this message");
+    }
+
+    public CreationMessage(int id, String nick, int gameid) throws MessageCreationError{
+        //creationid: 2
+        super(1);
+        if(id==2) {
+            this.creationid=id;
+            this.nick=nick;
+            this.gameid=gameid;
+        }
+        else throw new MessageCreationError("Impossible to create this message");
+    }
+
     //TODO: gli altri costruttori
 }
