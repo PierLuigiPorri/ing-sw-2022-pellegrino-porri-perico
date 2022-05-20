@@ -18,7 +18,7 @@ public class ModelView extends Observable implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         update.charactersNum = 0;
-        update.update=(String)arg;
+        update.update = (String) arg;
         setGameAttributes();
         setBoardAttributes();
         setPlayersAttributes();
@@ -29,12 +29,12 @@ public class ModelView extends Observable implements Observer {
     }
 
 
-    private void setGameAttributes(){
+    private void setGameAttributes() {
         for (Player p : game.order) {
             update.order.add(p.nickname);
         }
-        update.phase=game.roundMaster.round.getCurrentPhase();
-        update.turnNumber=game.roundMaster.getRoundCount();
+        update.phase = game.roundMaster.round.getCurrentPhase();
+        update.turnNumber = game.roundMaster.getRoundCount();
         update.game_Type = game.getGameType();
         update.nPlayers = game.getPlayerCount();
         update.numIslands = game.getB().islands.size();
@@ -58,37 +58,37 @@ public class ModelView extends Observable implements Observer {
         }
 
         ArrayList<String> tmp;
-        for(int i=0; i<game.getB().clouds.size(); i++){
-            tmp=new ArrayList<>();
-            for (Student s:game.getB().clouds.get(i).students) {
+        for (int i = 0; i < game.getB().clouds.size(); i++) {
+            tmp = new ArrayList<>();
+            for (Student s : game.getB().clouds.get(i).students) {
                 tmp.add(s.getColor());
             }
             update.studentsOnCloud.put(i, tmp);
         }
 
-        update.cloudsNumber=game.getB().clouds.size();
+        update.cloudsNumber = game.getB().clouds.size();
 
-         for(int i=1; i<=game.getB().islands.size(); i++){
-             if(game.getB().islands.getIsland(i).getPlayer()!=null )
-                 update.whoOwnTowers.add(game.getB().islands.getIsland(i).getPlayer().nickname);
-             else update.whoOwnTowers.add("NONE");
-         }
+        for (int i = 1; i <= game.getB().islands.size(); i++) {
+            if (game.getB().islands.getIsland(i).getPlayer() != null)
+                update.whoOwnTowers.add(game.getB().islands.getIsland(i).getPlayer().nickname);
+            else update.whoOwnTowers.add("NONE");
+        }
 
-         for (int i=1; i<=game.getB().islands.size(); i++) {
-             tmp=new ArrayList<>();
-             for (Student s : game.getB().islands.getIsland(i).getStudents()) {
-                 tmp.add(s.getColor());
-             }
-             update.studentsOnIsland.put(i, tmp);
-         }
+        for (int i = 1; i <= game.getB().islands.size(); i++) {
+            tmp = new ArrayList<>();
+            for (Student s : game.getB().islands.getIsland(i).getStudents()) {
+                tmp.add(s.getColor());
+            }
+            update.studentsOnIsland.put(i, tmp);
+        }
 
-         for(int i=0; i<game.getPlayerCount(); i++) {
-             tmp=new ArrayList<>();
-             for (Student s: game.getPlayers().get(i).getGate().getStudents()){
-                 tmp.add(s.getColor());
-             }
-             update.gatePlayer.put(i, tmp);
-         }
+        for (int i = 0; i < game.getPlayerCount(); i++) {
+            tmp = new ArrayList<>();
+            for (Student s : game.getPlayers().get(i).getGate().getStudents()) {
+                tmp.add(s.getColor());
+            }
+            update.gatePlayer.put(i, tmp);
+        }
     }
 
 
@@ -97,45 +97,48 @@ public class ModelView extends Observable implements Observer {
             update.towersOnPlayer.add(p.getTower_count());
         }
 
-        for(Player p:game.getPlayers()){
+        for (Player p : game.getPlayers()) {
             update.players.add(p.nickname);
         }
 
-        ArrayList<Integer> tmp=new ArrayList<>();
-        for (int i=0; i<=game.getPlayers().size(); i++) {
+        ArrayList<Integer> tmp = new ArrayList<>();
+        for (int i = 0; i <= game.getPlayers().size(); i++) {
             tmp.add(game.getPlayers().get(i).getHall().getColor("RED"));
             tmp.add(game.getPlayers().get(i).getHall().getColor("BLUE"));
             tmp.add(game.getPlayers().get(i).getHall().getColor("GREEN"));
             tmp.add(game.getPlayers().get(i).getHall().getColor("YELLOW"));
             tmp.add(game.getPlayers().get(i).getHall().getColor("PINK"));
             update.hallPlayer.put(i, tmp);
-            tmp=new ArrayList<>();
+            tmp = new ArrayList<>();
 
         }
 
-        ArrayList<Boolean> bool=new ArrayList<>();
-        for (int i=0; i<game.getPlayerCount(); i++){
+        ArrayList<Boolean> bool = new ArrayList<>();
+        for (int i = 0; i < game.getPlayerCount(); i++) {
             if (game.getPlayers().get(i).nickname.equals(game.red.getPlayer().nickname))
                 bool.add(true);
             else bool.add(false);
             if (game.getPlayers().get(i).nickname.equals(game.blue.getPlayer().nickname))
                 bool.add(true);
-            else bool.add(false);if (game.getPlayers().get(i).nickname.equals(game.green.getPlayer().nickname))
+            else bool.add(false);
+            if (game.getPlayers().get(i).nickname.equals(game.green.getPlayer().nickname))
                 bool.add(true);
-            else bool.add(false);if (game.getPlayers().get(i).nickname.equals(game.yellow.getPlayer().nickname))
+            else bool.add(false);
+            if (game.getPlayers().get(i).nickname.equals(game.yellow.getPlayer().nickname))
                 bool.add(true);
-            else bool.add(false);if (game.getPlayers().get(i).nickname.equals(game.pink.getPlayer().nickname))
+            else bool.add(false);
+            if (game.getPlayers().get(i).nickname.equals(game.pink.getPlayer().nickname))
                 bool.add(true);
             else bool.add(false);
             update.professors.put(i, bool);
-            bool=new ArrayList<>();
+            bool = new ArrayList<>();
         }
 
         update.playersMoves.add(game.order.get(0).maxMoves);
         update.playersMoves.add(game.order.get(1).maxMoves);
 
-        for (int i=0; i<=game.getPlayers().size(); i++) {
-            tmp=new ArrayList<>();
+        for (int i = 0; i <= game.getPlayers().size(); i++) {
+            tmp = new ArrayList<>();
             for (Card c : game.getPlayers().get(i).getHand().cards) {
                 tmp.add(c.getValue());
             }
@@ -180,10 +183,10 @@ public class ModelView extends Observable implements Observer {
 
             CharacterType c;
             ArrayList<String> tmp;
-            for(int i=0; i<3; i++){
-                tmp=new ArrayList<>();
-                c=game.characterSelector.getSelectedCharacters().get(i);
-                if (c.getIndex() == 0 || c.getIndex() == 6 || c.getIndex() == 10){
+            for (int i = 0; i < 3; i++) {
+                tmp = new ArrayList<>();
+                c = game.characterSelector.getSelectedCharacters().get(i);
+                if (c.getIndex() == 0 || c.getIndex() == 6 || c.getIndex() == 10) {
                     ConcreteCharacter k = (ConcreteCharacter) c;
                     for (int t = 0; i < k.students.size(); i++) {
                         tmp.add(k.students.get(t).getColor());
