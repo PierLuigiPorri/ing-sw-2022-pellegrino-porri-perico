@@ -57,7 +57,7 @@ public class CLI implements View {
         np=getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
         try {
             msgHandler.send(new CreationMessage(0, nick, gt, np));
-        }catch (Exception e){System.out.println(e.getMessage());};
+        }catch (Exception e){System.out.println(e.getMessage());}
         System.out.println("Waiting for other players and for the creation of the game");
     }
 
@@ -684,7 +684,7 @@ public class CLI implements View {
     private int getValidInt(String request) {
         //This method gets a valid int while asking the "request"
         boolean inv = true; //Input Not Valid
-        String input = null;
+        String input;
         int n=0;
         Scanner s = new Scanner(System.in);
         while (inv) {
