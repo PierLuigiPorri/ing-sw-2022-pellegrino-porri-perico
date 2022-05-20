@@ -1,7 +1,6 @@
 package it.polimi.ingsw.SERVER;
 
 import it.polimi.ingsw.EXCEPTIONS.EmptyQueueException;
-import it.polimi.ingsw.MESSAGES.AckMessage;
 
 public class AckReceiver implements Runnable{
 
