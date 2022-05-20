@@ -28,8 +28,8 @@ public class ConnectionManager implements Runnable{
     public ConnectionManager(Socket sock){
         clientSocket=sock;
         gameHasBeenCreated=false;
-        start=new Starter();
         ackQueue=new ArrayList<>();
+        start=new Starter(this);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ConnectionManager implements Runnable{
                             switch (mex.creationid){
                                 case 0:
                                     //New Game
-                                    joinedGameId=start.newGame(mex.gameType, mex.players, mex.nick, this);
+                                    joinedGameId=start.newGame(mex.gameType, mex.players, mex.nick);
                                     this.send(new ResponseMessage("You successfully created a new game with id: "+joinedGameId));
                                     break;
                                 case 1:
@@ -82,6 +82,7 @@ public class ConnectionManager implements Runnable{
                                     break;
                                 case 3:
                                     //See available games
+                                    break;
                             }
 
                         }
