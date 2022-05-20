@@ -5,7 +5,6 @@ public class Creation {
     private int nPlayers;
     private int gametype; //0: simplified rules, 1: expert rules
     private int nJoined;
-    private int nReady;
     private String nick1;
     private String nick2=null;
     private String nick3=null;
@@ -18,7 +17,6 @@ public class Creation {
         gametype=gt;
         nJoined=1;
         nick1=nick;
-        nReady=1;
         cm1=cm;
         this.id=id;
     }
@@ -27,9 +25,6 @@ public class Creation {
         this.nJoined++;
     }
 
-    public void setnReady (){
-        this.nReady++;
-    }
     public void setNick2(String nick) {
         this.nick2 = nick;
     }
@@ -60,10 +55,6 @@ public class Creation {
 
     public int getnJoined() {
         return nJoined;
-    }
-
-    public int getnReady() {
-        return nReady;
     }
 
     public String getNick1() {
