@@ -5,8 +5,7 @@ import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.GAME.Game;
 import it.polimi.ingsw.MESSAGES.ActionMessage;
-import it.polimi.ingsw.MESSAGES.ErrorMessage;
-import it.polimi.ingsw.MESSAGES.MessageType;
+import it.polimi.ingsw.MESSAGES.ResponseMessage;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -31,7 +30,7 @@ public class Controller implements Observer{
             try {
                 game.gateToIsland(name, index, indexIsland, color);
             } catch (BoundException | ImpossibleActionException e) {
-                Objects.requireNonNull(getCorrectCm(name)).send(new ErrorMessage(e.getMessage()));
+                Objects.requireNonNull(getCorrectCm(name)).send(new ResponseMessage(e.getMessage()));
             }
     }
 
@@ -39,7 +38,7 @@ public class Controller implements Observer{
             try {
                 game.gateToHall(name, color);
             } catch (ImpossibleActionException e) {
-                Objects.requireNonNull(getCorrectCm(name)).send(new ErrorMessage(e.getMessage()));
+                Objects.requireNonNull(getCorrectCm(name)).send(new ResponseMessage(e.getMessage()));
             }
     }
 
@@ -47,7 +46,7 @@ public class Controller implements Observer{
             try {
                 game.CloudToGate(player, color, sIndex, cIndex);
             } catch (BoundException | ImpossibleActionException e) {
-                Objects.requireNonNull(getCorrectCm(player)).send(new ErrorMessage(e.getMessage()));
+                Objects.requireNonNull(getCorrectCm(player)).send(new ResponseMessage(e.getMessage()));
             }
     }
 
@@ -55,7 +54,7 @@ public class Controller implements Observer{
             try {
                 game.moveMotherNature(name, movement);
             } catch (ImpossibleActionException | ConsecutiveIslandException | BoundException e) {
-                Objects.requireNonNull(getCorrectCm(name)).send(new ErrorMessage(e.getMessage()));
+                Objects.requireNonNull(getCorrectCm(name)).send(new ResponseMessage(e.getMessage()));
             }
     }
 
@@ -63,8 +62,8 @@ public class Controller implements Observer{
             try {
                 game.playCard(player, index);
             } catch (ImpossibleActionException | BoundException e) {
-                Objects.requireNonNull(getCorrectCm(player)).send(new ErrorMessage(e.getMessage()));
-                (getCorrectCm(player)).send(new ErrorMessage(e.getMessage()));
+                Objects.requireNonNull(getCorrectCm(player)).send(new ResponseMessage(e.getMessage()));
+                (getCorrectCm(player)).send(new ResponseMessage(e.getMessage()));
             }
     }
 
@@ -91,7 +90,7 @@ public class Controller implements Observer{
                 }
                 game.activateCharacter(pl, id, parAC1, parA2, b, a, parC2, c);
             } catch (ImpossibleActionException e) {
-                Objects.requireNonNull(getCorrectCm(name)).send(new ErrorMessage(e.getMessage()));
+                Objects.requireNonNull(getCorrectCm(name)).send(new ResponseMessage(e.getMessage()));
             }
     }
 

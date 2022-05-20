@@ -1,13 +1,10 @@
 package it.polimi.ingsw.MESSAGES;
 
 public class ResponseMessage extends MessageType{
+    public String response;
 
-    public int ok; //0: ok, 1: fail
-    public int gameid;
-    public String illegalNick1;
-    public String illegalNick2;
-
-    public ResponseMessage(){
+    public ResponseMessage(String s){
         super(2);
+        this.response=s;
     }
 }

@@ -1,9 +1,7 @@
 package it.polimi.ingsw.SERVER;
 
 import it.polimi.ingsw.EXCEPTIONS.EmptyQueueException;
-import it.polimi.ingsw.MESSAGES.AckMessage;
-import it.polimi.ingsw.MESSAGES.ActionMessage;
-import it.polimi.ingsw.MESSAGES.MessageType;
+import it.polimi.ingsw.MESSAGES.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -66,10 +64,30 @@ public class ConnectionManager implements Runnable{
                 }
                 else{
                     if(!gameHasBeenCreated){
-                        //Se ricevo CreationMessage lo gestisco, se ricevo ActionMessage lo ignoro
+                        //If I receive CreationMessage, I add it to the queue; if I receive other messages I ignore them
+                        if(latestMessage.type==1){
+                            CreationMessage mex= (CreationMessage) latestMessage;
+                            switch (mex.creationid){
+                                case 0:
+                                    //New Game
+                                    joinedGameId=start.newGame(mex.gameType, mex.players, mex.nick, this);
+                                    this.send(new ResponseMessage("You successfully created a new game with id: "+joinedGameId));
+                                    break;
+                                case 1:
+                                    //Join Random Game
+
+                                    break;
+                                case 2:
+                                    //Join Game with ID
+                                    break;
+                                case 3:
+                                    //See available games
+                            }
+
+                        }
                     }
                     else {
-                        //If I receive ActionMessage, I add it to the queue; if I receive CreationMessage I ignore it
+                        //If I receive ActionMessage, I add it to the queue; if I receive other messages I ignore them
                         if(latestMessage.type==3){
                             gameManager.addAction((ActionMessage) latestMessage);
                         }

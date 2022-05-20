@@ -1,9 +1,6 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.MESSAGES.AckMessage;
-import it.polimi.ingsw.MESSAGES.ActionMessage;
 import it.polimi.ingsw.MESSAGES.MessageType;
-import it.polimi.ingsw.MESSAGES.UpdateMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -33,17 +30,6 @@ public class ClientMsgHandler implements Runnable{
             System.out.println("Stream connection failed");
             System.exit(0);
         }
-    }
-
-
-
-    public void newGame(String nick, int gt, int np){
-        //TODO:
-        //Si occupa di creare un messaggio di tipo newGame con i parametri specificati
-        //poi fa out.writeObject(Messaggio); per inviarlo
-        //A questo punto si mette in attesa della risposta del server
-        //Quando la riceve, la comunica al client
-
     }
 
     public void send(MessageType message){

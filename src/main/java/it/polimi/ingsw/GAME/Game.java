@@ -31,7 +31,7 @@ public class Game extends Observable {
 
     private String update;
 
-    public Game(int pcount, int gt, String nick1, String nick2, String nick3) throws ImpossibleActionException {
+    public Game(int pcount, int gt, String nick1, String nick2, String nick3)  {
         //Parameters: num of players, gametype, nickname and MsgHandler for every player
         this.playerCount = pcount;
         this.modelView = new ModelView(this);
@@ -58,7 +58,7 @@ public class Game extends Observable {
             for (int i = 0; i < p.getGate().getMAX(); i++) {
                 if (!this.getBg().getStudents().isEmpty()) {
                     p.getGate().addInitialStud(this.getBg().extractStudent());
-                } else throw new ImpossibleActionException("\nThe bag is empty!");
+                }
             }
         }
         this.motherNature = new MotherNature(board.islands.getIsland(1));
@@ -69,23 +69,6 @@ public class Game extends Observable {
         }
         roundMaster = new RoundMaster(players);
 
-        /*mh1.setPlayerName(nick1);
-        mh2.setPlayerName(nick2);
-        if(playerCount==3){
-            mh3.setPlayerName(nick3);
-        }
-        messageHandlers=new ArrayList<>();
-        messageHandlers.add(mh1);
-        messageHandlers.add(mh2);
-        if(playerCount==3){
-            messageHandlers.add(mh3);
-        }
-        controller=new Controller(this, mh1, mh2, mh3);
-        for (VirtualView mh :
-                messageHandlers) {
-            mh.setController(controller);
-            mh.setGameCreated();
-        }*/
         order.addAll(players);
 
         if (gameType == 1)

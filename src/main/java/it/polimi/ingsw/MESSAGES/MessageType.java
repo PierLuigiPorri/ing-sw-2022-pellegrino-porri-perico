@@ -10,7 +10,6 @@ public class MessageType implements Serializable {
     //3: ActionMessage (Client -> Server)
     //4: UpdateMessage (Server -> Client)
     //5: KillMessage (Client -> Server)
-    //6: ErrorMessage (Server -> Client)
 
     public MessageType(int type){
         this.type=type;

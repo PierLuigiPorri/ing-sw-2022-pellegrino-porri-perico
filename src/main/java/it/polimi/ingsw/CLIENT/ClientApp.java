@@ -24,31 +24,5 @@ public class ClientApp {
         new Thread(new AckSender(msgHandler,5000)).start();
         new Thread(msgHandler).start();
     }
-
-
-
-    public static int getCorrectInput(String request, int a, int b){
-        //This method gets correct input from the client of 2 possible integer values: a, b while asking the "request"
-        boolean inv=true; //Input Not Valid
-        String input=null;
-        Scanner s=new Scanner(System.in);
-        while(inv) {
-            System.out.println(request);
-            try {
-                input = s.nextLine();
-                if(Integer.parseInt(input)==a || Integer.parseInt(input)==b) {
-                    inv = false;
-                }
-                else{
-                    System.out.println("Input is not valid");
-                }
-            }
-            catch (Exception e){
-                System.out.println("Input is not valid");
-            }
-        }
-        return Integer.parseInt(input);
-    }
-
     
 }
