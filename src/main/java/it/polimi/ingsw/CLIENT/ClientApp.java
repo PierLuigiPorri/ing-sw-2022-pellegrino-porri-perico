@@ -13,11 +13,11 @@ public class ClientApp {
 
     public ClientApp(String[] CLIargs){
         msgHandler=new ClientMsgHandler("127.0.0.1", 4000); //Connection setup with this IP and Port numbers
-        if(CLIargs.length!=0 && Objects.equals(CLIargs[0], "cli")){
-            view=new CLI(msgHandler);
+        if(CLIargs.length!=0 && Objects.equals(CLIargs[0], "AAAAAAAA")){
+            view=new GUI(msgHandler);
         }
         else{
-            view=new GUI(msgHandler);
+            view=new CLI(msgHandler);
         }
         msgHandler.setView(view);
         new Thread(new AckSender(msgHandler,5000)).start();
