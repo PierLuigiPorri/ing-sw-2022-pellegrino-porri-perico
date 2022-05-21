@@ -11,6 +11,7 @@ public class GameTest {
     public Game game;
     public Game game3;
     public Player player;
+
     Student[] tmp1;
     Student[] tmp2;
     Student[] tmp3;
