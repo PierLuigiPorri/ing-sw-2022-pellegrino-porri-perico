@@ -9,7 +9,7 @@ public class ServerApp
     private static int port=4000; //Connection port
     private static int connectedClients=0;
 
-    public static void main(String args[])
+    public static void main(String[] args)
     {
         ServerSocket ssock=null;
         Socket sock=null;

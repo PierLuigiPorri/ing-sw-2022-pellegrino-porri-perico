@@ -11,8 +11,9 @@ public class ClientMsgHandler implements Runnable{
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private View view;
-    private boolean kill=false;
-    public ClientMsgHandler(String host, int port){
+    private boolean kill;
+    private final Object lock;
+    public ClientMsgHandler(String host, int port, Object lock){
         try {
             socket = new Socket(host, port);
             System.out.println("Connected!");
@@ -29,12 +30,15 @@ public class ClientMsgHandler implements Runnable{
             System.out.println("Stream connection failed");
             System.exit(0);
         }
+        this.kill=false;
+        this.lock=lock;
     }
 
     public void send(MessageType message){
         try {
             out.writeObject(message);
-        }catch (Exception e){System.out.println(e.getMessage());}
+            //System.out.println(message.type);
+        }catch (Exception e){System.out.println("Message send failed");}
     }
 
     public void setView(View view){
@@ -46,8 +50,16 @@ public class ClientMsgHandler implements Runnable{
         while(!kill){
             try {
                 MessageType latestMessage = (MessageType) in.readObject();
+                if(latestMessage.type!=0)
+                    System.out.println("Ho ricevuto un messaggio "+latestMessage.type);
+                try {
+                    synchronized (lock) {
+                        lock.notifyAll();
+                    }
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
                 view.relay(latestMessage);
-                notifyAll();
             }
             catch (Exception e){
                 System.out.println("Connection lost");

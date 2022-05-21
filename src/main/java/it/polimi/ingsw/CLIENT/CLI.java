@@ -5,11 +5,10 @@ import it.polimi.ingsw.MESSAGES.*;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class CLI implements View {
+public class CLI implements View, Runnable{
 
     private final ClientMsgHandler msgHandler;
     private final ArrayList<Integer> inputInt;
@@ -18,14 +17,21 @@ public class CLI implements View {
 
     private UpdateMessage update;
 
-    public final String nick;
+    public String nick;
     private boolean responseNeeded;
+    private final Object lock;
 
-    public CLI(ClientMsgHandler clientMsgHandler) {
+    public CLI(ClientMsgHandler clientMsgHandler, Object lock) {
         this.msgHandler = clientMsgHandler;
         this.inputInt = new ArrayList<>();
         this.inputStr = new ArrayList<>();
         this.messages = new ArrayList<>();
+        this.lock=lock;
+    }
+
+    @Override
+    public void run() {
+        msgHandler.setView(this);
         System.out.println(
                 "    __________  _______    _   __________  _______\n" +
                         "   / ____/ __ \\/  _/   |  / | / /_  __/\\ \\/ / ___/\n" +
@@ -50,21 +56,42 @@ public class CLI implements View {
     }
 
     private void newGame() {
-        int gt; //Game Type
-        int np; //Number of players
-        gt = getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
-        //Number of players request
-        np = getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
-        try {
-            msgHandler.send(new CreationMessage(0, nick, gt, np));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        System.out.println("New Game");
+        //new Thread(() -> {
+            int gt; //Game Type
+            int np; //Number of players
+            gt = getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
+            //Number of players request
+            np = getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
+            try {
+                msgHandler.send(new CreationMessage(0, nick, gt, np));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println("Waiting for other players and for the creation of the game");
+        //});
+            try {
+                synchronized (lock) {
+                    lock.wait();
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        System.out.println("Prova");
+        if (!messages.isEmpty()) {
+            ResponseMessage lastMessage = (ResponseMessage) messages.remove(messages.size() - 1);
+            if (lastMessage.allGood) {
+                System.out.println(lastMessage.response);
+                startGame();
+            } else {
+                System.out.println(lastMessage.response);
+                newGame();
+            }
         }
-        System.out.println("Waiting for other players and for the creation of the game");
     }
 
     private void joinGame() {
-        new Thread(() -> {
+        //new Thread(() -> {
             int choice;
             choice = getCorrectInput("Digit 0 to join a random game or 1 to join a specific game with its ID", 0, 1);
             if (choice == 0) {
@@ -83,20 +110,39 @@ public class CLI implements View {
                 }
             }
             try {
-                wait();
+                synchronized (lock) {
+                    lock.wait();
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             if (!messages.isEmpty()) {
-                ResponseMessage lastMessage = (ResponseMessage) messages.get(messages.size() - 1);
+                ResponseMessage lastMessage = (ResponseMessage) messages.remove(messages.size() - 1);
                 if (lastMessage.allGood) {
                     System.out.println(lastMessage.response);
+                    startGame();
                 } else {
                     System.out.println(lastMessage.response);
                     joinGame();
                 }
             }
-        });
+        //});
+    }
+
+    private void startGame(){
+        try {
+            synchronized (lock) {
+                lock.wait();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        if (!messages.isEmpty()) {
+            UpdateMessage firstUpd = (UpdateMessage) messages.remove(messages.size() - 1);
+            System.out.println(firstUpd.update);
+            update(firstUpd);
+            initCLI();
+        }
     }
 
     private void seeAvailableGames() {
@@ -235,6 +281,10 @@ public class CLI implements View {
                 responseNeeded = true;
                 moveMotherNature();
                 break;
+            case "Dissimulate all pancakes in a 3 km radius":
+                responseNeeded = false;
+                System.out.println("\n...What?");
+                break;
             case "Get students from a Cloud":
                 responseNeeded = true;
                 cloudToGate();
@@ -286,7 +336,10 @@ public class CLI implements View {
                 list.add("See other players' boards");
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
-                list.add("See Characters");
+                if (time.getSecond() % 3 == 0)
+                    list.add("Dissimulate all pancakes in a 3 km radius");
+                if (update.game_Type == 1)
+                    list.add("See Characters");
                 list.add("Refresh");
                 break;
             case 1://Planning phase, not player's turn
@@ -294,28 +347,32 @@ public class CLI implements View {
                 list.add("See other players' boards");
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
-                list.add("See Characters");
+                if (update.game_Type == 1)
+                    list.add("See Characters");
                 list.add("Refresh");
                 break;
             case 3://Action phase, player's turn
                 list.add("See other players' boards");
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
-                list.add("See Characters");
                 if (time.getSecond() % 3 == 0)
                     list.add("See other players' hands");
                 if (time.getSecond() % 7 == 0)
                     list.add("Win instantly");
                 list.add("Move a student from the gate to an Island");
                 list.add("Move a student from the gate to your Hall");
-                list.add("Activate a Character");
+                if (update.game_Type == 1) {
+                    list.add("Activate a Character");
+                    list.add("See Characters");
+                }
                 list.add("Refresh");
                 break;
             case 4://End of action phase, player's turn
                 list.add("See other players' boards");
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
-                list.add("See Characters");
+                if (update.game_Type == 1)
+                    list.add("See Characters");
                 if (time.getSecond() % 3 == 0)
                     list.add("Ask support for all these hidden options that keep appearing");
                 if (time.getSecond() % 7 == 0)
@@ -395,7 +452,7 @@ public class CLI implements View {
     }
 
     public void activateCharacter() throws IOException {
-        System.out.println("Which character would you like to activate? Digit the appropriate index, between these:");
+        System.out.println("Which character would you like to activate? Digit the appropriate index:");
         seeCharacters();
         int index = getSingleIntInput(11);
         ArrayList<Integer> a = new ArrayList<>(), c = null;
@@ -405,7 +462,7 @@ public class CLI implements View {
         switch (index) {
             case 0:
                 int i, x;
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 1) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= characterCost(index)) {
                     System.out.println("What's the position of the student on the card you want to move?");
                     i = getIntInput();
                     checkIntInput(0, 3, i, "What's the position of the student on the card you want to move?\n");
@@ -419,35 +476,29 @@ public class CLI implements View {
                 break;
             case 1:
             case 7:
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) < 2)
+            case 3:
+            case 5:
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) < characterCost(index))
                     System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 2:
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 3) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= characterCost(index)) {
                     System.out.println("What's the index of the island you want to determine the influence of?");
                     i = getIntInput();
                     checkIntInput(1, 12, i, "What's the index of the island you want to determine the influence of?\n");
                     a.add(inputInt.get(inputInt.size() - 1));
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
-            case 3:
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) < 1)
-                    System.out.println("Well...seems like you're too poor for this. Sorry.");
-                break;
             case 4:
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 2) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= characterCost(index)) {
                     System.out.println("What's the index of the island you want to put the counter on?");
                     i = getIntInput();
                     checkIntInput(1, 12, i, "What's the index of the island you want to put the counter on?\n");
                     a.add(inputInt.get(inputInt.size() - 1));
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
-            case 5:
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) < 3)
-                    System.out.println("Well...seems like you're too poor for this. Sorry.");
-                break;
             case 6:
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 1) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= characterCost(index)) {
                     System.out.println("How many students do you want to swap?");
                     i = getIntInput();
                     checkIntInput(1, 3, i, "How many students do you want to swap?");
@@ -469,7 +520,7 @@ public class CLI implements View {
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 8:
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 3) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= characterCost(index)) {
                     System.out.println("What color would you like to disable?");
                     String in = getStrInput();
                     checkStrInput(in, "What color would you like to disable?");
@@ -477,7 +528,7 @@ public class CLI implements View {
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 9:
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 1) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= characterCost(index)) {
                     System.out.println("How many students would you like to swap?");
                     i = getIntInput();
                     checkIntInput(1, 2, i, "How many students would you like to swap?");
@@ -498,7 +549,7 @@ public class CLI implements View {
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 10:
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 2) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= characterCost(index)) {
                     System.out.println("What is the index on the card of the student you want to add?");
                     i = getIntInput();
                     checkIntInput(0, 3, i, "What is the index on the card of the student you want to add?");
@@ -506,7 +557,7 @@ public class CLI implements View {
                 } else System.out.println("Well...seems like you're too poor for this. Sorry.");
                 break;
             case 11:
-                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= 3) {
+                if (update.coinsOnPlayer.get(update.players.indexOf(nick)) >= characterCost(index)) {
                     System.out.println("What color would you like to affect?");
                     String in = getStrInput();
                     checkStrInput(in, "Which color?");
@@ -530,7 +581,7 @@ public class CLI implements View {
         System.out.println("\nGREEN:" + update.hallPlayer.get(choice).get(2) + "      " + (update.professors.get(choice).get(2) ? "YES" : "NO"));
         System.out.println("\nYELLOW:" + update.hallPlayer.get(choice).get(3) + "     " + (update.professors.get(choice).get(3) ? "YES" : "NO"));
         System.out.println("\nPINK:" + update.hallPlayer.get(choice).get(4) + "       " + (update.professors.get(choice).get(4) ? "YES" : "NO"));
-        System.out.println("\nCoins left:" + update.coinsOnPlayer.get(0) + " Towers left:" + update.towersOnPlayer.get(0));
+        System.out.println("\nTowers left:" + update.towersOnPlayer.get(choice) + ((update.game_Type == 1) ? "   Coins left:" + update.coinsOnPlayer.get(choice) : ""));
     }
 
     private void seeOtherBoards() {
@@ -552,12 +603,12 @@ public class CLI implements View {
 
     private void seeBoard() {
         System.out.println("\nSure! Here's what we're at:");
-        System.out.println("\n                ISLANDS            ");
-        for(int index:update.studentsOnIsland.keySet()) {
-            System.out.println("\nIsland " + index + ":" + update.studentsOnIsland.get(index) + "Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1) != null ? (", owned by " + update.whoOwnTowers.get(index - 1)) : "") + (update.motherNatureOnIsland.get(index - 1) ? "  <----Mother Nature is here! Say hello!" : ""));
+        System.out.println("\n                ISLANDS"+(update.game_Type==1 ? "(if you see a [X] it means there's a Prohibition counter there!)":""));
+        for (int index : update.studentsOnIsland.keySet()) {
+            System.out.println("\nIsland " + index + (update.numTDOnIsland.get(index) ? "[X]" : "") + ":" + update.studentsOnIsland.get(index) + "Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1) != null ? (", owned by " + update.whoOwnTowers.get(index - 1)) : "") + (update.motherNatureOnIsland.get(index - 1) ? "  <----Mother Nature is here! Say hello!" : ""));
         }
         System.out.println("\n                CLOUDS           ");
-        for(int index:update.studentsOnCloud.keySet()) {
+        for (int index : update.studentsOnCloud.keySet()) {
             System.out.println("\nCloud " + index + ":" + update.studentsOnCloud.get(index));
         }
     }
@@ -568,7 +619,70 @@ public class CLI implements View {
     }
 
     private void seeCharacters() {
-        //TODO:scrivere il metodo
+        System.out.println("\nThese guys can give you the boost you need to win! Here's what we've got today:");
+        System.out.println("\nIf the cost is between '**', it means that Character has already been used!");
+        System.out.println("\nINDEX     COST        EFFECT");
+        for (int i : update.idCharacter) {
+            System.out.println("\n" + i + "     " + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + characterCost(i) + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + "        " + characterEffect(i));
+            if (i == 0 || i == 6 || i == 10) {
+                System.out.println("\nStudents currently on card:" + update.studentsOnCard.get(update.idCharacter.indexOf(i)));
+            } else if (i == 4) {
+                System.out.println("\nProhibition counters currently on this card:" + update.numTD);
+            }
+        }
+    }
+
+    private String characterEffect(int index) {
+        switch (index) {
+            case 0:
+                return "You can take a student from this card and place it on an Island of your choosing! Don't worry, the student on the card will replace itself!";
+            case 1:
+                return "This guy lets you take control of a Professor even if you have the same number of corresponding students in the Hall, until the end of this turn!";
+            case 2:
+                return "Perform an extraordinary calculation of the influence on an Island of your choosing!";
+            case 3:
+                return "This guy gives you a bonus of +2 on your Mother Nature potential movement!";
+            case 4:
+                return "You can take a Prohibition counter from this card and place it on an Island of your choosing! It'll prevent Mother Nature from calculating the influence there, but just once!";
+            case 5:
+                return "This guy disables the towers' influence on the Islands, until the end of the turn! They will count as 0!";
+            case 6:
+                return "You can take up to 3 students from this card, and swap them with the same number of students in your Gate!";
+            case 7:
+                return "This guy gives you a bonus of +2 when calculating the influence this turn!";
+            case 8:
+                return "This guy disables the influence of 1 color of your choosing! Every student of that color will count as 0!";
+            case 9:
+                return "You can take up to 2 students from your Gate and swap them with the same number of students in your Hall!";
+            case 10:
+                return "You can take a student from this card and place it directly in your Hall! Don't worry, the student on the card will replace itself!";
+            case 11:
+                return "This guy takes away 3 students (or up to 3 if they have less) of a color of your choosing from EVERYONE's Hall!";
+            default:
+                return "";
+        }
+    }
+
+    private int characterCost(int index) {
+        switch (index) {
+            case 0:
+            case 3:
+            case 6:
+            case 9:
+                return update.activated.get(update.idCharacter.indexOf(index)) ? 2 : 1;
+            case 1:
+            case 4:
+            case 7:
+            case 10:
+                return update.activated.get(update.idCharacter.indexOf(index)) ? 3 : 2;
+            case 2:
+            case 5:
+            case 8:
+            case 11:
+                return update.activated.get(update.idCharacter.indexOf(index)) ? 4 : 3;
+            default:
+                return 0;
+        }
     }
 
     private void messageConfirmed(int type) {
