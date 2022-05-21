@@ -223,7 +223,6 @@ public class Game extends Observable {
 
 
     public void moveMotherNature(String name, int movement) throws ImpossibleActionException, ConsecutiveIslandException, BoundException {
-        //TODO:determinare chi chiede al player quanto deve muovere, perché MNbonus (anche se 0)dovrà essere aggiunto al massimo movimento
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
             Player player1 = playerTranslator(name);
             if (player1.maxMoves == 0 && order.get(0).equals(player1)) {

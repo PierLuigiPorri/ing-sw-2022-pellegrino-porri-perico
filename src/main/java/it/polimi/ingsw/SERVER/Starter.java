@@ -40,7 +40,7 @@ public class Starter{
                         //Ci sono posti liberi
                         int np=games.get(i).getnPlayers();
                         if(np==2){
-                            if(games.get(i).getNick1()!=nick) {
+                            if(!games.get(i).getNick1().equals(nick)) {
                                 //Add the 2nd player and start the game
                                 games.get(i).setnJoined(); //nJoined++
                                 games.get(i).setNick2(nick);
@@ -51,7 +51,7 @@ public class Starter{
                         }
                         else if(np==3){
                             if(games.get(i).getnJoined()==1){
-                                if(games.get(i).getNick1()!=nick) {
+                                if(!games.get(i).getNick1().equals(nick)) {
                                     //Add the 2nd player
                                     games.get(i).setnJoined(); //nJoined++
                                     games.get(i).setNick2(nick);
@@ -61,7 +61,7 @@ public class Starter{
 
                             }
                             else {
-                                if(games.get(i).getNick1()!=nick && games.get(i).getNick2()!=nick) {
+                                if(!games.get(i).getNick1().equals(nick) && !games.get(i).getNick2().equals(nick)) {
                                     //Add the 3rd player and start the game
                                     games.get(i).setnJoined(); //nJoined++
                                     games.get(i).setNick3(nick);
@@ -112,7 +112,7 @@ public class Starter{
                     //Ci sono ancora posti liberi in questa partita
                     int np=games.get(i).getnPlayers();
                     if(np==2){
-                        if(games.get(i).getNick1()!=nick) {
+                        if(!games.get(i).getNick1().equals(nick)) {
                             //Add the 2nd player and start the game
                             games.get(i).setnJoined(); //nJoined++
                             games.get(i).setNick2(nick);
@@ -123,7 +123,7 @@ public class Starter{
                     }
                     else if(np==3){
                         if(games.get(i).getnJoined()==1){
-                            if(games.get(i).getNick1()!=nick) {
+                            if(!games.get(i).getNick1().equals(nick)) {
                                 //Add the 2nd player
                                 games.get(i).setnJoined(); //nJoined++
                                 games.get(i).setNick2(nick);
@@ -133,7 +133,7 @@ public class Starter{
 
                         }
                         else {
-                            if(games.get(i).getNick1()!=nick && games.get(i).getNick2()!=nick) {
+                            if(!games.get(i).getNick1().equals(nick) && !games.get(i).getNick2().equals(nick)) {
                                 //Add the 3rd player and start the game
                                 games.get(i).setnJoined(); //nJoined++
                                 games.get(i).setNick3(nick);
