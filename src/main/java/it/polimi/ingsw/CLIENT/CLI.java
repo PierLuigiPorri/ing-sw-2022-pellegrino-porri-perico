@@ -615,7 +615,9 @@ public class CLI implements View, Runnable{
 
     private void seeHand() {
         System.out.println("\nRight away! Here's your hand(Index:Movement,Value):");
-        //TODO:hand in update?
+        for (int i = 0; i < update.handPlayer.get(update.players.indexOf(nick)).size(); i=i+2) {
+            System.out.println("\n"+update.handPlayer.get(update.players.indexOf(nick)).indexOf(update.handPlayer.get(update.players.indexOf(nick)).get(i))+":"+update.handPlayer.get(update.players.indexOf(nick)).get(i)+","+update.handPlayer.get(update.players.indexOf(nick)).get(i+1)+"  ");
+        }
     }
 
     private void seeCharacters() {
