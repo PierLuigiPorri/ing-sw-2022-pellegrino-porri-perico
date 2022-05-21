@@ -603,7 +603,7 @@ public class CLI implements View, Runnable{
 
     private void seeBoard() {
         System.out.println("\nSure! Here's what we're at:");
-        System.out.println("\n                ISLANDS (if you see a [X] it means there's a Prohibition counter there!)");
+        System.out.println("\n                ISLANDS"+(update.game_Type==1 ? "(if you see a [X] it means there's a Prohibition counter there!)":""));
         for (int index : update.studentsOnIsland.keySet()) {
             System.out.println("\nIsland " + index + (update.numTDOnIsland.get(index) ? "[X]" : "") + ":" + update.studentsOnIsland.get(index) + "Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1) != null ? (", owned by " + update.whoOwnTowers.get(index - 1)) : "") + (update.motherNatureOnIsland.get(index - 1) ? "  <----Mother Nature is here! Say hello!" : ""));
         }
