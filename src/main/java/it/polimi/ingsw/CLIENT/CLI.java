@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class CLI implements View, Runnable{
+public class CLI implements View, Runnable {
 
     private final ClientMsgHandler msgHandler;
     private final ArrayList<Integer> inputInt;
@@ -17,16 +17,16 @@ public class CLI implements View, Runnable{
     private UpdateMessage update;
 
     public String nick;
-    private boolean responseNeeded=false;
+    private boolean responseNeeded = false;
     private final Object lock;
 
-    private boolean kill=false;
+    private boolean kill = false;
 
     public CLI(ClientMsgHandler clientMsgHandler, Object lock) {
         this.msgHandler = clientMsgHandler;
         this.inputInt = new ArrayList<>();
         this.inputStr = new ArrayList<>();
-        this.lock=lock;
+        this.lock = lock;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class CLI implements View, Runnable{
         }
         System.out.println("Prova");
         if (!msgHandler.getResponses().isEmpty()) {
-            ResponseMessage lastMessage =msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
+            ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
             if (lastMessage.allGood) {
                 System.out.println(lastMessage.response);
                 startGame();
@@ -89,45 +89,45 @@ public class CLI implements View, Runnable{
     }
 
     private void joinGame() {
-            int choice;
-            choice = getCorrectInput("Digit 0 to join a random game or 1 to join a specific game with its ID", 0, 1);
-            if (choice == 0) {
-                try {
-                    msgHandler.send(new CreationMessage(1, nick));
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (choice == 1) {
-                int id;
-                id = getValidInt("What's the ID of the game you wanna join?");
-                try {
-                    msgHandler.send(new CreationMessage(2, nick, id));
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+        int choice;
+        choice = getCorrectInput("Digit 0 to join a random game or 1 to join a specific game with its ID", 0, 1);
+        if (choice == 0) {
             try {
-                synchronized (lock) {
-                    lock.wait();
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                msgHandler.send(new CreationMessage(1, nick));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
+        } else if (choice == 1) {
+            int id;
+            id = getValidInt("What's the ID of the game you wanna join?");
+            try {
+                msgHandler.send(new CreationMessage(2, nick, id));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        try {
+            synchronized (lock) {
+                lock.wait();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("JG svegliato");
-            if (!msgHandler.getResponses().isEmpty()) {
-                System.out.println("Oi mate");
-                ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
-                if (lastMessage.allGood) {
-                    System.out.println(lastMessage.response);
-                    startGame();
-                } else {
-                    System.out.println(lastMessage.response);
-                    joinGame();
-                }
+        if (!msgHandler.getResponses().isEmpty()) {
+            System.out.println("Oi mate");
+            ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
+            if (lastMessage.allGood) {
+                System.out.println(lastMessage.response);
+                startGame();
+            } else {
+                System.out.println(lastMessage.response);
+                joinGame();
             }
+        }
     }
 
-    private void startGame(){
+    private void startGame() {
         System.out.println("UEUE amici del web");
         try {
             synchronized (lock) {
@@ -151,8 +151,8 @@ public class CLI implements View, Runnable{
     }
 
     public void initCLI() {
-        while(!kill) {
-            new Thread(() -> {
+        while (!kill) {
+            //new Thread(() -> {
                 try {
                     refresh();
                 } catch (InterruptedException | IOException e) {
@@ -165,22 +165,27 @@ public class CLI implements View, Runnable{
                         throw new RuntimeException(e);
                     }
                 }
-                if (!msgHandler.getResponses().isEmpty()) {
-                    for (ResponseMessage rsp : msgHandler.getResponses()) {
-                        System.out.println(rsp.response);
-                    }
-                }
-                if (!msgHandler.getUpdates().isEmpty()) {
-                    for (UpdateMessage up : msgHandler.getUpdates()) {
-                        System.out.println(up.update);
-                    }
-                    update(msgHandler.getUpdates().get(msgHandler.getUpdates().size() - 1));
-                }
-                msgHandler.clearMessages();
-            });
-            initCLI();
+                reload();
+            //});
         }
     }
+
+    public void reload(){
+        if (!msgHandler.getResponses().isEmpty()) {
+            for (ResponseMessage rsp : msgHandler.getResponses()) {
+                System.out.println(rsp.response);
+            }
+        }
+        if (!msgHandler.getUpdates().isEmpty()) {
+            for (UpdateMessage up : msgHandler.getUpdates()) {
+                System.out.println(up.update);
+            }
+            update(msgHandler.getUpdates().get(msgHandler.getUpdates().size() - 1));
+        }
+        msgHandler.clearMessages();
+        initCLI();
+    }
+
     @Override
     public void update(UpdateMessage update) {
         this.update = update;
@@ -601,7 +606,7 @@ public class CLI implements View, Runnable{
 
     private void seeBoard() {
         System.out.println("\nSure! Here's what we're at:");
-        System.out.println("\n                ISLANDS"+(update.game_Type==1 ? "(if you see a [X] it means there's a Prohibition counter there!)":""));
+        System.out.println("\n                ISLANDS" + (update.game_Type == 1 ? "(if you see a [X] it means there's a Prohibition counter there!)" : ""));
         for (int index : update.studentsOnIsland.keySet()) {
             System.out.println("\nIsland " + index + (update.numTDOnIsland.get(index) ? "[X]" : "") + ":" + update.studentsOnIsland.get(index) + "Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1) != null ? (", owned by " + update.whoOwnTowers.get(index - 1)) : "") + (update.motherNatureOnIsland.get(index - 1) ? "  <----Mother Nature is here! Say hello!" : ""));
         }
@@ -613,8 +618,8 @@ public class CLI implements View, Runnable{
 
     private void seeHand() {
         System.out.println("\nRight away! Here's your hand(Index:Movement,Value):");
-        for (int i = 0; i < update.handPlayer.get(update.players.indexOf(nick)).size(); i=i+2) {
-            System.out.println("\n"+update.handPlayer.get(update.players.indexOf(nick)).indexOf(update.handPlayer.get(update.players.indexOf(nick)).get(i))+":"+update.handPlayer.get(update.players.indexOf(nick)).get(i)+","+update.handPlayer.get(update.players.indexOf(nick)).get(i+1)+"  ");
+        for (int i = 0; i < update.handPlayer.get(update.players.indexOf(nick)).size(); i = i + 2) {
+            System.out.println("\n" + update.handPlayer.get(update.players.indexOf(nick)).indexOf(update.handPlayer.get(update.players.indexOf(nick)).get(i)) + ":" + update.handPlayer.get(update.players.indexOf(nick)).get(i) + "," + update.handPlayer.get(update.players.indexOf(nick)).get(i + 1) + "  ");
         }
     }
 
@@ -690,8 +695,9 @@ public class CLI implements View, Runnable{
         inputInt.clear();
         inputStr.clear();
     }
-    private void setKill(){
-        this.kill=true;
+
+    private void setKill() {
+        this.kill = true;
     }
 
     private int getIntInput() {
