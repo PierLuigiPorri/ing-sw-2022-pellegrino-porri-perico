@@ -3,6 +3,7 @@ package it.polimi.ingsw.GAME;
 import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
+import it.polimi.ingsw.SERVER.GameManager;
 
 
 import java.util.ArrayList;
@@ -31,10 +32,10 @@ public class Game extends Observable {
 
     private String update;
 
-    public Game(int pcount, int gt, String nick1, String nick2, String nick3)  {
+    public Game(int pcount, int gt, String nick1, String nick2, String nick3, GameManager gm)  {
         //Parameters: num of players, gametype, nickname and MsgHandler for every player
         this.playerCount = pcount;
-        this.modelView = new ModelView(this);
+        this.modelView = new ModelView(this, gm);
         this.addObserver(modelView);
         this.gameType = gt;
         this.players = new ArrayList<>();

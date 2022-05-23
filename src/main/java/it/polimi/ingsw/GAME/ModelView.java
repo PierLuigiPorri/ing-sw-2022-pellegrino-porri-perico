@@ -1,6 +1,7 @@
 package it.polimi.ingsw.GAME;
 
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
+import it.polimi.ingsw.SERVER.GameManager;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -10,9 +11,10 @@ public class ModelView extends Observable implements Observer {
     private final UpdateMessage update;
     private final Game game;
 
-    public ModelView(Game game) {
+    public ModelView(Game game, GameManager gameManager) {
         this.update = new UpdateMessage();
         this.game = game;
+        this.addObserver(gameManager);
     }
 
     @Override

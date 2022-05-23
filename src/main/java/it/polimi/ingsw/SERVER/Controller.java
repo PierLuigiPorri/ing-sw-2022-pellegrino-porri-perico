@@ -15,7 +15,6 @@ import java.util.Observer;
 public class Controller implements Observer{
     private final Game game;
     private final ArrayList<ConnectionManager> connectionManagers; //Potranno essere usati per rispondere alle loro stesse richieste
-
     public Controller(Game game, ConnectionManager cm1, ConnectionManager cm2, ConnectionManager cm3){
         this.game=game;
         connectionManagers=new ArrayList<>();
@@ -63,7 +62,7 @@ public class Controller implements Observer{
                 game.playCard(player, index);
             } catch (ImpossibleActionException | BoundException e) {
                 Objects.requireNonNull(getCorrectCm(player)).send(new ResponseMessage(e.getMessage(),false));
-                (getCorrectCm(player)).send(new ResponseMessage(e.getMessage(),false));
+                (Objects.requireNonNull(getCorrectCm(player))).send(new ResponseMessage(e.getMessage(),false));
             }
     }
 

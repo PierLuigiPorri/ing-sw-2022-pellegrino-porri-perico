@@ -235,8 +235,8 @@ public class GameTest {
     @Before
     public void setUp() throws Exception {
 
-            game = new Game(2, 1, "PIER", "PAOLO", null);
-            game3 = new Game(3, 1, "PIER", "PAOLO", "Gandalf");
+            game = new Game(2, 1, "PIER", "PAOLO", null, null);
+            game3 = new Game(3, 1, "PIER", "PAOLO", "Gandalf", null);
 
         player= new Player(2,"Pier", game);
         tmp1= new Student[4];
@@ -250,8 +250,8 @@ public class GameTest {
     @After
     public void tearDown() {
 
-        game = new Game(2, 1, "PIER", "PAOLO", null);
-        game3 = new Game(3, 1, "PIER", "PAOLO", "Gandalf");
+        game = new Game(2, 1, "PIER", "PAOLO", null, null);
+        game3 = new Game(3, 1, "PIER", "PAOLO", "Gandalf", null);
 
         tmp1= new Student[4];
         tmp2= new Student[4];

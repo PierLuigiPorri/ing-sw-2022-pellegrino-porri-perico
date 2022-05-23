@@ -223,7 +223,7 @@ public class CardsTest
     @Before
     public void setUp() throws ImpossibleActionException {
 
-            game = new Game(2, 1, "FRANCO", "CARMINE", null);
+            game = new Game(2, 1, "FRANCO", "CARMINE", null, null);
             p1=new Player(2,"FRANCO", game);
             p2=new Player(2, "CARMINE", game);
 

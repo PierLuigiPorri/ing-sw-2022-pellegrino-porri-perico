@@ -84,9 +84,9 @@ public class Starter{
 
     private int startGame(Creation temp){
         //Returns the ID of the created game
-        Game g = new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getNick2(), temp.getNick3());
-        Controller c=new Controller(g, temp.getCm1(), temp.getCm2(), temp.getCm3());
         GameManager gm=new GameManager(temp.getCm1(), temp.getCm2(), temp.getCm3(), temp.getnPlayers());
+        Game g = new Game(temp.getnPlayers(), temp.getGametype(), temp.getNick1(), temp.getNick2(), temp.getNick3(), gm);
+        Controller c=new Controller(g, temp.getCm1(), temp.getCm2(), temp.getCm3());
         g.getModelView().addObserver(gm); //La virtual view osserva il modello
         gm.addObserver(c); //Il controller osserverà la virtual view
         //Setting player nicknames in every Connection Manager

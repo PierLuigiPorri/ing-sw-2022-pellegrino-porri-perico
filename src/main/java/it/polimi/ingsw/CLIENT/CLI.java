@@ -58,25 +58,25 @@ public class CLI implements View, Runnable{
     private void newGame() {
         System.out.println("New Game");
         //new Thread(() -> {
-            int gt; //Game Type
-            int np; //Number of players
-            gt = getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
-            //Number of players request
-            np = getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
-            try {
-                msgHandler.send(new CreationMessage(0, nick, gt, np));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            System.out.println("Waiting for other players and for the creation of the game");
+        int gt; //Game Type
+        int np; //Number of players
+        gt = getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
+        //Number of players request
+        np = getCorrectInput("Digit 2 for a two-player game or 3 for a three-player game", 2, 3);
+        try {
+            msgHandler.send(new CreationMessage(0, nick, gt, np));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Waiting for other players and for the creation of the game");
         //});
-            try {
-                synchronized (lock) {
-                    lock.wait();
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        try {
+            synchronized (lock) {
+                lock.wait();
             }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("Prova");
         if (!messages.isEmpty()) {
             ResponseMessage lastMessage = (ResponseMessage) messages.remove(messages.size() - 1);
