@@ -347,13 +347,13 @@ public class Game extends Observable {
                     cardsPlayed.add(this.players.get(i).playCard(index));
                     order.remove(0);
                     update = "\n" + player + " played their card!";
-                    setChanged();
-                    notifyObservers(update);
                 } else throw new ImpossibleActionException("\nNot " + players.get(i).nickname + "'s turn!\n");
 //When Order.get(0) is equal to NULL, means every player has played. So is time to change phase into "Action";
                 if (order.isEmpty()) {
                     changePhase();
                 }
+                setChanged();
+                notifyObservers(update);
             } else throw new ImpossibleActionException("\nNo card with " + index + " as value\n");
         }
     }

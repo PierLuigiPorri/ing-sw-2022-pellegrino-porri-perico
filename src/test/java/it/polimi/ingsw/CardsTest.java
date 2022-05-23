@@ -2,9 +2,14 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.GAME.*;
+import it.polimi.ingsw.SERVER.ConnectionManager;
+import it.polimi.ingsw.SERVER.GameManager;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Objects;
 import static org.junit.Assert.*;
@@ -190,7 +195,7 @@ public class CardsTest
                 case 8:
                     game.determineInfluence(1);
                     assertEquals(game.getB().islands.getIsland(1).getTowers().size(), 1);
-                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "CARMINE");
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "FRANCO");
                     game.characterSelector.effects.restore();
                     break;
                 case 9:
@@ -221,12 +226,12 @@ public class CardsTest
 
 
     @Before
-    public void setUp() throws ImpossibleActionException {
-
-            game = new Game(2, 1, "FRANCO", "CARMINE", null, null);
-            p1=new Player(2,"FRANCO", game);
-            p2=new Player(2, "CARMINE", game);
-
-
+    public void setUp() throws IOException {
+        ServerSocket k1 = new ServerSocket(4000);
+        Socket s = new Socket("127.0.0.1", 4000);
+        GameManager gm = new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
+        game = new Game(2, 1, "FRANCO", "CARMINE", null, gm);
+        p1 = new Player(2, "FRANCO", game);
+        p2 = new Player(2, "CARMINE", game);
     }
 }

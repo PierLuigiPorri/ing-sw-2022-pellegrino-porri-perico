@@ -133,7 +133,8 @@ public class ConnectionManager implements Runnable{
 
     public void send(MessageType message){
         try {
-            out.writeObject(message);
+            if(out!=null)
+                out.writeObject(message);
         }catch (IOException e){System.out.println(e.getMessage());}
     }
 

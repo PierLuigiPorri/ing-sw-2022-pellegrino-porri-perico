@@ -1,9 +1,14 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.GAME.*;
 
+import it.polimi.ingsw.SERVER.ConnectionManager;
+import it.polimi.ingsw.SERVER.GameManager;
 import org.junit.*;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class HallTest {
 
@@ -91,8 +96,11 @@ public class HallTest {
     }
 
     @Before
-    public void setUp() throws ImpossibleActionException {
-        game=new Game(2, 0, "Pier", "Paolo", null, null);
+    public void setUp() throws IOException {
+        ServerSocket k1=new ServerSocket(4000);
+        Socket s= new Socket("127.0.0.1", 4000);
+        GameManager gm=new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
+        game = new Game(2, 1, "PIER", "PAOLO", null, gm);
         player=new Player(2, "Pier", game);
     }
 
