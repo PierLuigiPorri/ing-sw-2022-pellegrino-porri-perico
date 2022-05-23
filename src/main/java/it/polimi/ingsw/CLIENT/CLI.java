@@ -57,7 +57,6 @@ public class CLI implements View, Runnable{
 
     private void newGame() {
         System.out.println("New Game");
-        //new Thread(() -> {
         int gt; //Game Type
         int np; //Number of players
         gt = getCorrectInput("Digit 0 to use simplified rules or 1 to use expert rules", 0, 1);
@@ -69,7 +68,6 @@ public class CLI implements View, Runnable{
             System.out.println(e.getMessage());
         }
         System.out.println("Waiting for other players and for the creation of the game");
-        //});
         try {
             synchronized (lock) {
                 lock.wait();
@@ -91,7 +89,6 @@ public class CLI implements View, Runnable{
     }
 
     private void joinGame() {
-        //new Thread(() -> {
             int choice;
             choice = getCorrectInput("Digit 0 to join a random game or 1 to join a specific game with its ID", 0, 1);
             if (choice == 0) {
@@ -116,7 +113,9 @@ public class CLI implements View, Runnable{
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+        System.out.println("JG svegliato");
             if (!msgHandler.getResponses().isEmpty()) {
+                System.out.println("Oi mate");
                 ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
                 if (lastMessage.allGood) {
                     System.out.println(lastMessage.response);
@@ -126,10 +125,10 @@ public class CLI implements View, Runnable{
                     joinGame();
                 }
             }
-        //});
     }
 
     private void startGame(){
+        System.out.println("UEUE amici del web");
         try {
             synchronized (lock) {
                 lock.wait();
@@ -137,6 +136,7 @@ public class CLI implements View, Runnable{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        System.out.println("UEUE amici del web 2");
         if (!msgHandler.getUpdates().isEmpty()) {
             UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
             System.out.println(firstUpd.update);

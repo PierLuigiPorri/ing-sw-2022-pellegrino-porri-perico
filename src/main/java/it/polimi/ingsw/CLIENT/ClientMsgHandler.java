@@ -61,6 +61,7 @@ public class ClientMsgHandler implements Runnable{
                 MessageType latestMessage = (MessageType) in.readObject();
                 if(latestMessage.type!=0)
                     System.out.println("Ho ricevuto un messaggio "+latestMessage.type);
+                sort(latestMessage);
                 try {
                     synchronized (lock) {
                         lock.notifyAll();
@@ -68,7 +69,6 @@ public class ClientMsgHandler implements Runnable{
                 }catch (Exception e){
                     System.out.println(e.getMessage());
                 }
-                sort(latestMessage);
             }
             catch (Exception e){
                 System.out.println("Connection lost");
