@@ -17,7 +17,7 @@ public class CLI implements View, Runnable{
     private UpdateMessage update;
 
     public String nick;
-    private boolean responseNeeded;
+    private boolean responseNeeded=false;
     private final Object lock;
 
     private boolean kill=false;
