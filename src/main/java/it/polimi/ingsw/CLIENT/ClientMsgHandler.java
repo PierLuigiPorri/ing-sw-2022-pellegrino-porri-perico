@@ -61,7 +61,9 @@ public class ClientMsgHandler implements Runnable{
                 MessageType latestMessage = (MessageType) in.readObject();
                 if(latestMessage.type!=0)
                     System.out.println("Ho ricevuto un messaggio "+latestMessage.type);
-                sort(latestMessage);
+                synchronized (lock) {
+                    sort(latestMessage);
+                }
                 try {
                     synchronized (lock) {
                         lock.notifyAll();

@@ -153,36 +153,40 @@ public class CLI implements View, Runnable {
     public void initCLI() {
         while (!kill) {
             //new Thread(() -> {
+            try {
+                refresh();
+            } catch (InterruptedException | IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (responseNeeded) {
                 try {
-                    refresh();
-                } catch (InterruptedException | IOException e) {
+                    synchronized (lock) {
+                        lock.wait();
+                    }
+                } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                if (responseNeeded) {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                reload();
+            }
+            reload();
             //});
         }
     }
 
-    public void reload(){
-        if (!msgHandler.getResponses().isEmpty()) {
-            for (ResponseMessage rsp : msgHandler.getResponses()) {
-                System.out.println(rsp.response);
+    public void reload() {
+        synchronized (lock) {
+            if (!msgHandler.getResponses().isEmpty()) {
+                for (ResponseMessage rsp : msgHandler.getResponses()) {
+                    System.out.println(rsp.response);
+                }
             }
-        }
-        if (!msgHandler.getUpdates().isEmpty()) {
-            for (UpdateMessage up : msgHandler.getUpdates()) {
-                System.out.println(up.update);
+            if (!msgHandler.getUpdates().isEmpty()) {
+                for (UpdateMessage up : msgHandler.getUpdates()) {
+                    System.out.println(up.update);
+                }
+                update(msgHandler.getUpdates().get(msgHandler.getUpdates().size() - 1));
             }
-            update(msgHandler.getUpdates().get(msgHandler.getUpdates().size() - 1));
+            msgHandler.clearMessages();
         }
-        msgHandler.clearMessages();
         initCLI();
     }
 
@@ -193,6 +197,7 @@ public class CLI implements View, Runnable {
 
     public void refresh() throws InterruptedException, IOException {
         int choice;
+        ArrayList<String> actions;
         if (update.phase.equals("Planning")) {
             System.out.println("\nPlanning Time!" +
                     "\nThe clouds have been refilled." +
@@ -213,16 +218,16 @@ public class CLI implements View, Runnable {
                 System.out.println("\nNow! Fire your card! Shape you destiny with a few single digit numbers!" +
                         "\nRemember, you can't play a card that has already been played this round. Just don't.");
                 seeHand();
-                actions(0).forEach((el) -> System.out.println(actions(0).indexOf(el) + ":" + el));
-                choice = getSingleIntInput(actions(0).size());
-                perform(actions(0).get(choice));
+                actions=actions(0);
+                actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
             } else {
                 System.out.println("\nIt's not your time to play a card yet. Hold..." +
                         "\nWanna do something in the mean time? Digit the appropriate number and we'll do that for you:");
-                actions(1).forEach((el) -> System.out.println(actions(1).indexOf(el) + ":" + el));
-                choice = getSingleIntInput(actions(1).size());
-                perform(actions(1).get(choice));
+                actions=actions(1);
+                actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
             }
+            choice = getSingleIntInput(actions.size());
+            perform(actions.get(choice));
         } else {
             System.out.println("\nAction time!" +
                     "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
@@ -234,23 +239,26 @@ public class CLI implements View, Runnable {
                         "\nDo stuff!" +
                         "\nYou know what to do. If you don't, here's a reminder." +
                         "\nDigit the appropriate number and we'll do that for you:");
-                actions(3).forEach((el) -> System.out.println(actions(3).indexOf(el) + ":" + el));
-                choice = getSingleIntInput(actions(3).size());
-                perform(actions(3).get(choice));
+                actions=actions(3);
+                actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
+                choice = getSingleIntInput(actions.size());
+                perform(actions.get(choice));
             } else if (update.order.get(0).equals(nick)) {
                 System.out.println("\nOK! Good student managing. Now let's end this round. " +
                         "\nTime to politely ask Lady Mother Nature to relocate on an Island of your choosing." +
                         "\nAnd don't forget to choose a cloud to take students from!");
-                actions(4).forEach((el) -> System.out.println(actions(4).indexOf(el) + ":" + el));
-                choice = getSingleIntInput(actions(4).size());
-                perform(actions(3).get(choice));
+                actions=actions(4);
+                actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
+                choice = getSingleIntInput(actions.size());
+                perform(actions.get(choice));
             } else {
                 System.out.println("\nNot your time to shine yet, somebody else is playing." +
                         "\nBe ready for when your turn comes." +
                         "\nIn the mean time, wanna do something? Digit the appropriate number and we'll do that for you:");
-                actions(2).forEach((el) -> System.out.println(actions(2).indexOf(el) + ":" + el));
-                choice = getSingleIntInput(actions(2).size());
-                perform(actions(2).get(choice));
+                actions=actions(2);
+                actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
+                choice = getSingleIntInput(actions.size());
+                perform(actions.get(choice));
             }
         }
     }
@@ -340,6 +348,7 @@ public class CLI implements View, Runnable {
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
                 if (time.getSecond() % 3 == 0)
+                    //TODO:questa roba viene aggiunta prima e rimossa poi
                     list.add("Dissimulate all pancakes in a 3 km radius");
                 if (update.game_Type == 1)
                     list.add("See Characters");
@@ -608,7 +617,7 @@ public class CLI implements View, Runnable {
         System.out.println("\nSure! Here's what we're at:");
         System.out.println("\n                ISLANDS" + (update.game_Type == 1 ? "(if you see a [X] it means there's a Prohibition counter there!)" : ""));
         for (int index : update.studentsOnIsland.keySet()) {
-            System.out.println("\nIsland " + index + (update.numTDOnIsland.get(index) ? "[X]" : "") + ":" + update.studentsOnIsland.get(index) + "Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1) != null ? (", owned by " + update.whoOwnTowers.get(index - 1)) : "") + (update.motherNatureOnIsland.get(index - 1) ? "  <----Mother Nature is here! Say hello!" : ""));
+            System.out.println("\nIsland " + index + (update.game_Type == 1 ? (update.numTDOnIsland.get(index - 1) ? "[X]" : "") : "") + ":" + update.studentsOnIsland.get(index - 1) + "Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1) != null ? (", owned by " + update.whoOwnTowers.get(index - 1)) : "") + (update.motherNatureOnIsland.get(index - 1) ? "  <----Mother Nature is here! Say hello!" : ""));
         }
         System.out.println("\n                CLOUDS           ");
         for (int index : update.studentsOnCloud.keySet()) {
@@ -618,8 +627,10 @@ public class CLI implements View, Runnable {
 
     private void seeHand() {
         System.out.println("\nRight away! Here's your hand(Index:Movement,Value):");
+        int ind = 0;
         for (int i = 0; i < update.handPlayer.get(update.players.indexOf(nick)).size(); i = i + 2) {
-            System.out.println("\n" + update.handPlayer.get(update.players.indexOf(nick)).indexOf(update.handPlayer.get(update.players.indexOf(nick)).get(i)) + ":" + update.handPlayer.get(update.players.indexOf(nick)).get(i) + "," + update.handPlayer.get(update.players.indexOf(nick)).get(i + 1) + "  ");
+            System.out.println("\n" + ind + ":" + update.handPlayer.get(update.players.indexOf(nick)).get(i) + "," + update.handPlayer.get(update.players.indexOf(nick)).get(i + 1) + "  ");
+            ind++;
         }
     }
 
@@ -691,7 +702,10 @@ public class CLI implements View, Runnable {
     }
 
     private void messageConfirmed(int type) {
-        msgHandler.send(new ActionMessage(inputInt, inputStr, null, type));
+        ArrayList<String> mex = new ArrayList<>();
+        mex.add(nick);
+        mex.addAll(inputStr);
+        msgHandler.send(new ActionMessage(inputInt, mex, null, type));
         inputInt.clear();
         inputStr.clear();
     }

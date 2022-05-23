@@ -348,7 +348,7 @@ public class Game extends Observable {
                     order.remove(0);
                     update = "\n" + player + " played their card!";
                     setChanged();
-                    notifyObservers();
+                    notifyObservers(update);
                 } else throw new ImpossibleActionException("\nNot " + players.get(i).nickname + "'s turn!\n");
 //When Order.get(0) is equal to NULL, means every player has played. So is time to change phase into "Action";
                 if (order.isEmpty()) {
