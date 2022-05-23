@@ -51,9 +51,9 @@ public class GameManager extends Observable implements Runnable, Observer {
     public void update(Observable o, Object arg) {
         UpdateMessage update=(UpdateMessage) arg;
         //Sends the update to all clients
-        for (ConnectionManager cm:
-                connectionManagers) {
+        for (ConnectionManager cm: connectionManagers) {
             cm.send(update);
         }
+        System.out.println("Server sends the update to all clients");
     }
 }

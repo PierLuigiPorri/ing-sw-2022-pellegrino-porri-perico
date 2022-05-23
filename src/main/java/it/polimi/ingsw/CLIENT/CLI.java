@@ -75,7 +75,6 @@ public class CLI implements View, Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Prova");
         if (!msgHandler.getResponses().isEmpty()) {
             ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
             if (lastMessage.allGood) {
@@ -128,7 +127,6 @@ public class CLI implements View, Runnable {
     }
 
     private void startGame() {
-        System.out.println("UEUE amici del web");
         try {
             synchronized (lock) {
                 lock.wait();
@@ -136,7 +134,6 @@ public class CLI implements View, Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("UEUE amici del web 2");
         if (!msgHandler.getUpdates().isEmpty()) {
             UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
             System.out.println(firstUpd.update);
@@ -218,12 +215,12 @@ public class CLI implements View, Runnable {
                 System.out.println("\nNow! Fire your card! Shape you destiny with a few single digit numbers!" +
                         "\nRemember, you can't play a card that has already been played this round. Just don't.");
                 seeHand();
-                actions=actions(0);
+                actions = actions(0);
                 actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
             } else {
                 System.out.println("\nIt's not your time to play a card yet. Hold..." +
                         "\nWanna do something in the mean time? Digit the appropriate number and we'll do that for you:");
-                actions=actions(1);
+                actions = actions(1);
                 actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
             }
             choice = getSingleIntInput(actions.size());
@@ -239,7 +236,7 @@ public class CLI implements View, Runnable {
                         "\nDo stuff!" +
                         "\nYou know what to do. If you don't, here's a reminder." +
                         "\nDigit the appropriate number and we'll do that for you:");
-                actions=actions(3);
+                actions = actions(3);
                 actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
                 choice = getSingleIntInput(actions.size());
                 perform(actions.get(choice));
@@ -247,7 +244,7 @@ public class CLI implements View, Runnable {
                 System.out.println("\nOK! Good student managing. Now let's end this round. " +
                         "\nTime to politely ask Lady Mother Nature to relocate on an Island of your choosing." +
                         "\nAnd don't forget to choose a cloud to take students from!");
-                actions=actions(4);
+                actions = actions(4);
                 actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
                 choice = getSingleIntInput(actions.size());
                 perform(actions.get(choice));
@@ -255,7 +252,7 @@ public class CLI implements View, Runnable {
                 System.out.println("\nNot your time to shine yet, somebody else is playing." +
                         "\nBe ready for when your turn comes." +
                         "\nIn the mean time, wanna do something? Digit the appropriate number and we'll do that for you:");
-                actions=actions(2);
+                actions = actions(2);
                 actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
                 choice = getSingleIntInput(actions.size());
                 perform(actions.get(choice));

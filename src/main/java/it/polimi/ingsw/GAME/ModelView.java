@@ -8,7 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class ModelView extends Observable implements Observer {
-    private final UpdateMessage update;
+    private UpdateMessage update;
     private final Game game;
 
     public ModelView(Game game, GameManager gameManager) {
@@ -19,6 +19,7 @@ public class ModelView extends Observable implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        this.update = new UpdateMessage();
         update.charactersNum = 0;
         update.update = (String) arg;
         setGameAttributes();
