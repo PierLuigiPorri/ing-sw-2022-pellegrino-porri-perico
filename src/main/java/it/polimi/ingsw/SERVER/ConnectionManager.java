@@ -86,7 +86,7 @@ public class ConnectionManager implements Runnable{
                                     //Join Random Game
                                     try {
                                         joinedGameId = start.joinRandomGame(mex.nick);
-                                        this.send(new ResponseMessage("You successfully joined the game with id: "+joinedGameId, true));
+                                        //this.send(new ResponseMessage("You successfully joined the game with id: "+joinedGameId, true));
                                     }catch (Exception e){
                                         this.send(new ResponseMessage(e.getMessage(), false));
                                     }
@@ -95,7 +95,7 @@ public class ConnectionManager implements Runnable{
                                     //Join Game with ID
                                     try {
                                         joinedGameId = start.joinGameWithId(mex.gameid, mex.nick);
-                                        this.send(new ResponseMessage("You successfully joined the game with id: "+joinedGameId, true));
+                                        //this.send(new ResponseMessage("You successfully joined the game with id: "+joinedGameId, true));
                                     }catch (Exception e){
                                         this.send(new ResponseMessage(e.getMessage(), false));
                                     }

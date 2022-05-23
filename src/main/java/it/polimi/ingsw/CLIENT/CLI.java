@@ -112,33 +112,38 @@ public class CLI implements View, Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("JG svegliato");
-        if (!msgHandler.getResponses().isEmpty()) {
-            System.out.println("Oi mate");
+        //System.out.println("JG svegliato");
+        if (msgHandler.getResponses().isEmpty()) {
+            startGame();
+        }
+        else{
             ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
-            if (lastMessage.allGood) {
-                System.out.println(lastMessage.response);
-                startGame();
-            } else {
-                System.out.println(lastMessage.response);
-                joinGame();
-            }
+            System.out.println(lastMessage.response);
+            joinGame();
         }
     }
 
     private void startGame() {
-        try {
-            synchronized (lock) {
-                lock.wait();
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         if (!msgHandler.getUpdates().isEmpty()) {
             UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
             System.out.println(firstUpd.update);
             update(firstUpd);
             initCLI();
+        }
+        else {
+            try {
+                synchronized (lock) {
+                    lock.wait();
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if (!msgHandler.getUpdates().isEmpty()) {
+                UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
+                System.out.println(firstUpd.update);
+                update(firstUpd);
+                initCLI();
+            }
         }
     }
 
