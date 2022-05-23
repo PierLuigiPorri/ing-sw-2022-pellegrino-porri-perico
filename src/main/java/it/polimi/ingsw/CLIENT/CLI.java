@@ -13,7 +13,6 @@ public class CLI implements View, Runnable{
     private final ClientMsgHandler msgHandler;
     private final ArrayList<Integer> inputInt;
     private final ArrayList<String> inputStr;
-    private final ArrayList<MessageType> messages;
 
     private UpdateMessage update;
 
@@ -21,11 +20,12 @@ public class CLI implements View, Runnable{
     private boolean responseNeeded;
     private final Object lock;
 
+    private boolean kill=false;
+
     public CLI(ClientMsgHandler clientMsgHandler, Object lock) {
         this.msgHandler = clientMsgHandler;
         this.inputInt = new ArrayList<>();
         this.inputStr = new ArrayList<>();
-        this.messages = new ArrayList<>();
         this.lock=lock;
     }
 
@@ -78,8 +78,8 @@ public class CLI implements View, Runnable{
             throw new RuntimeException(e);
         }
         System.out.println("Prova");
-        if (!messages.isEmpty()) {
-            ResponseMessage lastMessage = (ResponseMessage) messages.remove(messages.size() - 1);
+        if (!msgHandler.getResponses().isEmpty()) {
+            ResponseMessage lastMessage =msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
             if (lastMessage.allGood) {
                 System.out.println(lastMessage.response);
                 startGame();
@@ -116,8 +116,8 @@ public class CLI implements View, Runnable{
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            if (!messages.isEmpty()) {
-                ResponseMessage lastMessage = (ResponseMessage) messages.remove(messages.size() - 1);
+            if (!msgHandler.getResponses().isEmpty()) {
+                ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
                 if (lastMessage.allGood) {
                     System.out.println(lastMessage.response);
                     startGame();
@@ -137,8 +137,8 @@ public class CLI implements View, Runnable{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        if (!messages.isEmpty()) {
-            UpdateMessage firstUpd = (UpdateMessage) messages.remove(messages.size() - 1);
+        if (!msgHandler.getUpdates().isEmpty()) {
+            UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
             System.out.println(firstUpd.update);
             update(firstUpd);
             initCLI();
@@ -151,41 +151,39 @@ public class CLI implements View, Runnable{
     }
 
     public void initCLI() {
-        new Thread(() -> {
-            try {
-                refresh();
-            } catch (InterruptedException | IOException e) {
-                throw new RuntimeException(e);
-            }
-            if (responseNeeded) {
+        while(kill) {
+            new Thread(() -> {
                 try {
-                    wait();
-                } catch (InterruptedException e) {
+                    refresh();
+                } catch (InterruptedException | IOException e) {
                     throw new RuntimeException(e);
                 }
-            }
-            if (!messages.isEmpty()) {
-                MessageType lastmessage = messages.get(messages.size() - 1);
-                if (lastmessage.type == 4) {
-                    UpdateMessage up = (UpdateMessage) lastmessage;
-                    System.out.println(up.update);
-                    messages.remove(messages.size() - 1);
-                    update((up));
-                } else {
-                    System.out.println(((ResponseMessage) lastmessage).response);
-                    initCLI();
+                if (responseNeeded) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
-        });
+                if (!msgHandler.getResponses().isEmpty()) {
+                    for (ResponseMessage rsp : msgHandler.getResponses()) {
+                        System.out.println(rsp.response);
+                    }
+                }
+                if (!msgHandler.getUpdates().isEmpty()) {
+                    for (UpdateMessage up : msgHandler.getUpdates()) {
+                        System.out.println(up.update);
+                    }
+                    update(msgHandler.getUpdates().get(msgHandler.getUpdates().size() - 1));
+                }
+                msgHandler.clearMessages();
+            });
+            initCLI();
+        }
     }
-
+    @Override
     public void update(UpdateMessage update) {
         this.update = update;
-        initCLI();
-    }
-
-    public void relay(MessageType msg) {
-        messages.add(msg);
     }
 
     public void refresh() throws InterruptedException, IOException {
@@ -692,6 +690,9 @@ public class CLI implements View, Runnable{
         inputInt.clear();
         inputStr.clear();
     }
+    private void setKill(){
+        this.kill=true;
+    }
 
     private int getIntInput() {
         Scanner s = new Scanner(System.in);
@@ -732,7 +733,7 @@ public class CLI implements View, Runnable{
     }
 
     private String getValidString(String request) {
-        //This method gets a non empty reply String while asking the "request"
+        //This method gets a non-empty reply String while asking the "request"
         boolean inv = true; //Input Not Valid
         String input = "";
         Scanner s = new Scanner(System.in);

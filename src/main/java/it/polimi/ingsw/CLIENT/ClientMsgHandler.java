@@ -1,10 +1,13 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.MESSAGES.MessageType;
+import it.polimi.ingsw.MESSAGES.ResponseMessage;
+import it.polimi.ingsw.MESSAGES.UpdateMessage;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ClientMsgHandler implements Runnable{
     private Socket socket;
@@ -13,6 +16,10 @@ public class ClientMsgHandler implements Runnable{
     private View view;
     private boolean kill;
     private final Object lock;
+
+    private ArrayList<UpdateMessage> updates;
+    private final ArrayList<ResponseMessage> responses;
+
     public ClientMsgHandler(String host, int port, Object lock){
         try {
             socket = new Socket(host, port);
@@ -32,6 +39,8 @@ public class ClientMsgHandler implements Runnable{
         }
         this.kill=false;
         this.lock=lock;
+        this.updates =new ArrayList<>();
+        this.responses=new ArrayList<>();
     }
 
     public void send(MessageType message){
@@ -59,12 +68,32 @@ public class ClientMsgHandler implements Runnable{
                 }catch (Exception e){
                     System.out.println(e.getMessage());
                 }
-                view.relay(latestMessage);
+                sort(latestMessage);
             }
             catch (Exception e){
                 System.out.println("Connection lost");
                 kill=true;
             }
         }
+    }
+
+    public void sort(MessageType message){
+        if(message.type==4)
+            this.updates.add((UpdateMessage) message);
+        else
+            this.responses.add((ResponseMessage) message);
+    }
+
+    public ArrayList<UpdateMessage> getUpdates(){
+        return this.updates;
+    }
+
+    public ArrayList<ResponseMessage> getResponses(){
+        return this.responses;
+    }
+
+    public void clearMessages(){
+        this.updates.clear();
+        this.responses.clear();
     }
 }

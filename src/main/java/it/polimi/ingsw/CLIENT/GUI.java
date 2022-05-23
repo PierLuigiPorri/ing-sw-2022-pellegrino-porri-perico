@@ -1,6 +1,7 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.MESSAGES.MessageType;
+import it.polimi.ingsw.MESSAGES.UpdateMessage;
 
 public class GUI implements View, Runnable{
     private ClientMsgHandler msgHandler;
@@ -21,7 +22,7 @@ public class GUI implements View, Runnable{
     public void playCard(){}
 
     @Override
-    public void relay(MessageType msg) {
+    public void update(UpdateMessage update) {
 
     }
 
