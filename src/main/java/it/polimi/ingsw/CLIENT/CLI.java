@@ -151,7 +151,7 @@ public class CLI implements View, Runnable{
     }
 
     public void initCLI() {
-        while(kill) {
+        while(!kill) {
             new Thread(() -> {
                 try {
                     refresh();
