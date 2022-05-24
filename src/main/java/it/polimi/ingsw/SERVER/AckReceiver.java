@@ -28,4 +28,8 @@ public class AckReceiver implements Runnable{
 
         }
     }
+
+    public void setKill() {
+        this.kill = true;
+    }
 }
