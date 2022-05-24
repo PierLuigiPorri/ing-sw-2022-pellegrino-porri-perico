@@ -757,10 +757,9 @@ public class CLI implements View, Runnable {
 
     private void messageConfirmed(int type) {
         ArrayList<String> mex = new ArrayList<>();
-        ArrayList<Integer> inter= new ArrayList<>();
         mex.add(nick);
         mex.addAll(inputStr);
-        inter.addAll(inputInt);
+        ArrayList<Integer> inter = new ArrayList<>(inputInt);
         msgHandler.send(new ActionMessage(inter, mex, null, type));
         inputInt.clear();
         inputStr.clear();
