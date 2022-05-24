@@ -57,8 +57,6 @@ public class GameTest {
             }
 
             game.CloudToGate("PIER", 0);
-            game.CloudToGate("PIER",  0);
-            game.CloudToGate("PIER", 0);
 
             Assert.assertTrue(game.getB().clouds.get(0).emptyCloud());
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
@@ -71,9 +69,7 @@ public class GameTest {
             game.gateToIsland("PAOLO", 0, 7);
 
 
-            game.CloudToGate("PAOLO", 0);
-            game.CloudToGate("PAOLO",  0);
-            game.CloudToGate("PAOLO", 0);
+            game.CloudToGate("PAOLO", 1);
 
             Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
@@ -107,10 +103,8 @@ public class GameTest {
                 tm2[i]=game.getB().clouds.get(1).getStudents().get(i);
             }
             game.CloudToGate("PIER",  0 );
-            game.CloudToGate("PIER",  0 );
-            game.CloudToGate("PIER", 0);
 
-            Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
+            Assert.assertTrue(game.getB().clouds.get(0).emptyCloud());
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
             game.moveMotherNature("PIER", game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
@@ -119,9 +113,7 @@ public class GameTest {
             game.gateToHall("PAOLO", tmp1[0].getColor());
             game.gateToIsland("PAOLO", 0, 9);
             game.gateToIsland("PAOLO", 0, 4);
-            game.CloudToGate("PAOLO", 0);
-            game.CloudToGate("PAOLO", 0);
-            game.CloudToGate("PAOLO", 0);
+            game.CloudToGate("PAOLO", 1);
             Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
 
             game.moveMotherNature("PAOLO", game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());

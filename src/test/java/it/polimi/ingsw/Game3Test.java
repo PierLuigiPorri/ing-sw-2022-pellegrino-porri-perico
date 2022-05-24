@@ -61,9 +61,6 @@ public class Game3Test {
             }
 
             game3.CloudToGate("PIER" ,0);
-            game3.CloudToGate("PIER",  0);
-            game3.CloudToGate("PIER", 0);
-            game3.CloudToGate("PIER",  0);
 
             game3.moveMotherNature("PIER", game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
             Assert.assertEquals(game3.motherNature.getIsola().getId(), game3.getCardsPlayed().remove(game3.getCardsPlayed().size()-1).getMovement() + 1);
@@ -75,10 +72,7 @@ public class Game3Test {
             game3.gateToHall("Gandalf", tmp2[3].getColor() );
 
 
-            game3.CloudToGate("Gandalf",  0);
-            game3.CloudToGate("Gandalf", 0);
-            game3.CloudToGate("Gandalf", 0);
-            game3.CloudToGate("Gandalf", 0);
+            game3.CloudToGate("Gandalf",  2);
 
 
             game3.moveMotherNature("Gandalf", game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
@@ -90,10 +84,7 @@ public class Game3Test {
             game3.gateToHall("PAOLO", tmp2[3].getColor() );
 
 
-            game3.CloudToGate("PAOLO", 0);
-            game3.CloudToGate("PAOLO", 0);
-            game3.CloudToGate("PAOLO",  0);
-            game3.CloudToGate("PAOLO",  0);
+            game3.CloudToGate("PAOLO", 1);
 
 
             game3.moveMotherNature("PAOLO", game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());

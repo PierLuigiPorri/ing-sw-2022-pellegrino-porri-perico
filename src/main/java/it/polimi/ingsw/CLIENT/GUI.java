@@ -9,6 +9,7 @@ public class GUI implements View, Runnable{
     public GUI(ClientMsgHandler msgHandler){
         this.msgHandler=msgHandler;
     }
+
     public void moveMotherNature() {}
 
     public void changePhase(){}

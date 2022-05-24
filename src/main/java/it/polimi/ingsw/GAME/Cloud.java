@@ -20,13 +20,6 @@ public class Cloud extends StudentSpace{
         students.add(new Student(color));
     }
 
-    public ArrayList<String> getColorsInCloud(){
-        ArrayList<String> tmp = new ArrayList<>();
-        for (Student student : students) {
-            tmp.add(student.getColor());
-        }
-        return tmp;
-    }
 
     @Override
     public void removeStudent(int index){

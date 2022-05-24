@@ -209,12 +209,12 @@ public class Game extends Observable {
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
             Player p = playerTranslator(player);
             if (order.get(0).equals(p)) {
-                    if (!board.clouds.get(cIndex).students.isEmpty() && p.getGate().students.size() < p.getGate().MAX-3) {
+                    if (!board.clouds.get(cIndex).students.isEmpty() && p.getGate().students.size() < p.getGate().MAX-2) {
                         for(Student s:board.clouds.get(cIndex).students){
                             addToGate(p, s.getColor());
                         }
-                        for (int i = 0; i <board.clouds.get(cIndex).students.size(); i++) {
-                            removeFromCloud(cIndex, i);
+                        while(!getB().clouds.get(cIndex).emptyCloud()){
+                            removeFromCloud(cIndex, 0);
                         }
                         update = ("\nStay sharp! " + p.nickname + " just snatched the students from Cloud number " + cIndex + "!");
                     } else
