@@ -60,10 +60,10 @@ public class Game3Test {
                 tm3[i]=game3.getB().clouds.get(2).getStudents().get(i);
             }
 
-            game3.CloudToGate("PIER", tm2[0].getColor(), 0, 1);
-            game3.CloudToGate("PIER", tm2[1].getColor(), 0, 1);
-            game3.CloudToGate("PIER", tm2[2].getColor(), 0, 1);
-            game3.CloudToGate("PIER", tm2[3].getColor(), 0, 1);
+            game3.CloudToGate("PIER" ,0);
+            game3.CloudToGate("PIER",  0);
+            game3.CloudToGate("PIER", 0);
+            game3.CloudToGate("PIER",  0);
 
             game3.moveMotherNature("PIER", game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
             Assert.assertEquals(game3.motherNature.getIsola().getId(), game3.getCardsPlayed().remove(game3.getCardsPlayed().size()-1).getMovement() + 1);
@@ -75,10 +75,10 @@ public class Game3Test {
             game3.gateToHall("Gandalf", tmp2[3].getColor() );
 
 
-            game3.CloudToGate("Gandalf", tm3[0].getColor(), 0, 2);
-            game3.CloudToGate("Gandalf", tm3[1].getColor(), 0, 2);
-            game3.CloudToGate("Gandalf", tm3[2].getColor(), 0, 2);
-            game3.CloudToGate("Gandalf", tm3[3].getColor(), 0, 2);
+            game3.CloudToGate("Gandalf",  0);
+            game3.CloudToGate("Gandalf", 0);
+            game3.CloudToGate("Gandalf", 0);
+            game3.CloudToGate("Gandalf", 0);
 
 
             game3.moveMotherNature("Gandalf", game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());
@@ -90,10 +90,10 @@ public class Game3Test {
             game3.gateToHall("PAOLO", tmp2[3].getColor() );
 
 
-            game3.CloudToGate("PAOLO", tm1[0].getColor(), 0, 0);
-            game3.CloudToGate("PAOLO", tm1[1].getColor(), 0, 0);
-            game3.CloudToGate("PAOLO", tm1[2].getColor(), 0, 0);
-            game3.CloudToGate("PAOLO", tm1[3].getColor(), 0, 0);
+            game3.CloudToGate("PAOLO", 0);
+            game3.CloudToGate("PAOLO", 0);
+            game3.CloudToGate("PAOLO",  0);
+            game3.CloudToGate("PAOLO",  0);
 
 
             game3.moveMotherNature("PAOLO", game3.getCardsPlayed().get(game3.getCardsPlayed().size()-1).getMovement());

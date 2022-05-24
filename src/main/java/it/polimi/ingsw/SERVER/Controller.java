@@ -41,9 +41,9 @@ public class Controller implements Observer{
             }
     }
 
-    public void CloudToGate(String player, String color, int sIndex, int cIndex) {
+    public void CloudToGate(String player, int cIndex) {
             try {
-                game.CloudToGate(player, color, sIndex, cIndex);
+                game.CloudToGate(player, cIndex);
             } catch (BoundException | ImpossibleActionException e) {
                 Objects.requireNonNull(getCorrectCm(player)).send(new ResponseMessage(e.getMessage(),false, false));
             }
@@ -114,7 +114,7 @@ public class Controller implements Observer{
                 gateToHall(am.strParam.get(0), am.strParam.get(1));
                 break;
             case 2://CloudToGate
-                CloudToGate(am.strParam.get(0), am.strParam.get(1), am.intParam.get(0), am.intParam.get(1));
+                CloudToGate(am.strParam.get(0), am.intParam.get(0));
                 break;
             case 3://moveMotherNature
                 moveMotherNature(am.strParam.get(0), am.intParam.get(0));

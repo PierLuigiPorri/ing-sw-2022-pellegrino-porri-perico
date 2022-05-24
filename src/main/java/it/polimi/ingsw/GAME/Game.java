@@ -205,19 +205,21 @@ public class Game extends Observable {
         notifyObservers(update);
     }
 
-    public void CloudToGate(String player, String color, int sIndex, int cIndex) throws BoundException, ImpossibleActionException {
+    public void CloudToGate(String player, int cIndex) throws BoundException, ImpossibleActionException {
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
             Player p = playerTranslator(player);
             if (order.get(0).equals(p)) {
-                if (board.clouds.get(cIndex).getColorsInCloud().contains(color)) {
-                    if (!board.clouds.get(cIndex).students.isEmpty() && p.getGate().students.size() < p.getGate().MAX) {
-                        addToGate(p, color);
-                        removeFromCloud(cIndex, sIndex);
-                        update = ("\nStay sharp! " + p.nickname + " just snatched a " + color + " student from Cloud number " + cIndex + "!");
+                    if (!board.clouds.get(cIndex).students.isEmpty() && p.getGate().students.size() < p.getGate().MAX-3) {
+                        for(Student s:board.clouds.get(cIndex).students){
+                            addToGate(p, s.getColor());
+                        }
+                        for (int i = 0; i <board.clouds.get(cIndex).students.size(); i++) {
+                            removeFromCloud(cIndex, i);
+                        }
+                        update = ("\nStay sharp! " + p.nickname + " just snatched the students from Cloud number " + cIndex + "!");
                     } else
                         throw new BoundException("\nNot enough space in " + p.nickname + "'s gate, or the cloud is empty.\n");
-                } else throw new ImpossibleActionException("\nNot such color in this cloud.");
-            } else throw new ImpossibleActionException("\nIs not your turn.");
+            } else throw new ImpossibleActionException("\nIt's not your turn.");
         } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
         setChanged();
         notifyObservers(update);

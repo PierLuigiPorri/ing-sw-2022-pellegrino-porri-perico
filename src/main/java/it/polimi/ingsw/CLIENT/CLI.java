@@ -500,12 +500,6 @@ public class CLI implements View, Runnable {
         System.out.println("Which cloud do you want to take students from?");
         i = getIntInput();
         checkIntInput(0, 3, i, "Which cloud do you want to take students from?\n");
-        System.out.println("Which is the position of the student you want to take?");
-        i = getIntInput();
-        checkIntInput(0, 10, i, "Which is the position of the student you want to take?\n");
-        System.out.println("Which is the color of the student? ");
-        s = getStrInput();
-        checkStrInput(s, "Which is the color of the student? ");
         messageConfirmed(2);
     }
 
@@ -788,7 +782,7 @@ public class CLI implements View, Runnable {
 
     private String getStrInput() {
         Scanner s = new Scanner(System.in);
-        inputStr.add(s.nextLine());
+        inputStr.add(s.nextLine().toUpperCase());
         return inputStr.get(inputStr.size() - 1);
     }
 
