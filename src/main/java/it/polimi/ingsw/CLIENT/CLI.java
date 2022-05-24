@@ -19,7 +19,8 @@ public class CLI implements View, Runnable {
     public String nick;
     private boolean responseNeeded = false;
     private final Object lock;
-
+    private String currentPhase="";
+    private String currentPlayer="";
     private boolean kill = false;
 
     public CLI(ClientMsgHandler clientMsgHandler, Object lock) {
@@ -156,6 +157,9 @@ public class CLI implements View, Runnable {
         while (!kill) {
             //new Thread(() -> {
             try {
+                synchronized (lock) {
+                    lock.wait(1000);
+                }
                 refresh();
             } catch (InterruptedException | IOException e) {
                 throw new RuntimeException(e);
@@ -200,14 +204,15 @@ public class CLI implements View, Runnable {
     public void refresh() throws InterruptedException, IOException {
         int choice;
         ArrayList<String> actions;
+        if(!update.phase.equals(currentPhase)){
+            currentPhase=update.phase;
+            if(currentPhase.equals("Planning"))
+                introducePhase(0);
+            else
+                introducePhase(1);
+        }
+        System.out.println("\nPlayers that have to play, in order:" + update.order);
         if (update.phase.equals("Planning")) {
-            System.out.println("\nPlanning Time!" +
-                    "\nThe clouds have been refilled." +
-                    "\nNow's your chance to, you know, plan." +
-                    "\nYou should all play a card. The best stuff happens later.");
-            seeOwnBoard();
-            System.out.println("\nTurn " + update.turnNumber + "!");
-            System.out.println("\nPlayers that have to play, in order:" + update.order);
             //TODO:fixare l'ordine di stampa delle carte
             if (!update.lastCardPlayed.isEmpty()) {
                 ArrayList<String> played = new ArrayList<>(update.players);
@@ -217,51 +222,88 @@ public class CLI implements View, Runnable {
                 System.out.println(update.lastCardPlayed);
             }
             if (update.order.get(0).equals(nick)) {
-                System.out.println("\nNow! Fire your card! Shape you destiny with a few single digit numbers!" +
-                        "\nRemember, you can't play a card that has already been played this round. Just don't.");
+                if (!currentPlayer.equals(update.order.get(0))){
+                    introduceTurn(0);
+                    currentPlayer=update.order.get(0);
+                }
                 seeHand();
                 actions = actions(0);
-                actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
             } else {
+                if (!currentPlayer.equals(update.order.get(0))){
+                    introduceTurn(1);
+                    currentPlayer=update.order.get(0);
+                }
+                actions = actions(1);
+            }
+        } else {
+            if (update.order.get(0).equals(nick) && update.playersMoves.get(0) != 0) {
+                if (!currentPlayer.equals(update.order.get(0))){
+                    introduceTurn(3);
+                    currentPlayer=update.order.get(0);
+                }
+                actions = actions(3);
+            } else if (update.order.get(0).equals(nick)) {
+                if (!currentPlayer.equals(update.order.get(0))){
+                    introduceTurn(4);
+                    currentPlayer=update.order.get(0);
+                }
+                actions = actions(4);
+            } else {
+                if (!currentPlayer.equals(update.order.get(0))){
+                    introduceTurn(2);
+                    currentPlayer=update.order.get(0);
+                }
+                actions = actions(2);
+            }
+        }
+        actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
+        choice = getSingleIntInput(actions.size());
+        perform(actions.get(choice));
+    }
+
+    private void introducePhase(int phase){
+        System.out.println("\nTurn " + update.turnNumber + "!");
+        switch (phase){
+            case 0:
+                System.out.println("\nPlanning Time!" +
+                        "\nThe clouds have been refilled." +
+                        "\nNow's your chance to, you know, plan." +
+                        "\nYou should all play a card. The best stuff happens later.");
+                break;
+            case 1:
+                System.out.println("\nAction time!" +
+                        "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
+                        "\nMove students. Activate special effects. Move digital imaginary tokens. Your call.");
+        }
+    }
+
+    private void introduceTurn(int turn){
+        switch(turn){
+            case 0://Player's turn, Planning phase
+                System.out.println("\nNow! Fire your card! Shape you destiny with a few single digit numbers!" +
+                        "\nRemember, you can't play a card that has already been played this round. Just don't.");
+                break;
+            case 1://Planning phase, not player's turn
                 System.out.println("\nIt's not your time to play a card yet. Hold..." +
                         "\nWanna do something in the mean time? Digit the appropriate number and we'll do that for you:");
-                actions = actions(1);
-                actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
-            }
-            choice = getSingleIntInput(actions.size());
-            perform(actions.get(choice));
-        } else {
-            System.out.println("\nAction time!" +
-                    "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
-                    "\nMove students. Activate special effects. Move digital imaginary tokens. Your call.");
-            System.out.println("\nPlayers that have to play, in order:" + update.order);
-            if (update.order.get(0).equals(nick) && update.playersMoves.get(0) != 0) {
+                break;
+            case 2://Action phase, not player's turn
+                System.out.println("\nNot your time to shine yet, somebody else is playing." +
+                        "\nBe ready for when your turn comes." +
+                        "\nIn the mean time, wanna do something? Digit the appropriate number and we'll do that for you:");
+                break;
+            case 3://Action phase, player's turn
                 System.out.println("\nYour turn!" +
                         "\nGo" +
                         "\nDo stuff!" +
                         "\nYou know what to do. If you don't, here's a reminder." +
                         "\nDigit the appropriate number and we'll do that for you:");
-                actions = actions(3);
-                actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
-                choice = getSingleIntInput(actions.size());
-                perform(actions.get(choice));
-            } else if (update.order.get(0).equals(nick)) {
+                break;
+            case 4://End of action phase, player's turn
                 System.out.println("\nOK! Good student managing. Now let's end this round. " +
                         "\nTime to politely ask Lady Mother Nature to relocate on an Island of your choosing." +
                         "\nAnd don't forget to choose a cloud to take students from!");
-                actions = actions(4);
-                actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
-                choice = getSingleIntInput(actions.size());
-                perform(actions.get(choice));
-            } else {
-                System.out.println("\nNot your time to shine yet, somebody else is playing." +
-                        "\nBe ready for when your turn comes." +
-                        "\nIn the mean time, wanna do something? Digit the appropriate number and we'll do that for you:");
-                actions = actions(2);
-                actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
-                choice = getSingleIntInput(actions.size());
-                perform(actions.get(choice));
-            }
+                break;
         }
     }
 
@@ -289,6 +331,10 @@ public class CLI implements View, Runnable {
             case "See Characters":
                 responseNeeded = false;
                 seeCharacters();
+                break;
+            case "See your board":
+                responseNeeded=false;
+                seeOwnBoard();
                 break;
             case "Move Mother Nature":
                 responseNeeded = true;
@@ -346,6 +392,7 @@ public class CLI implements View, Runnable {
         switch (spot) {
             case 0://Player's turn, Planning phase
                 list.add("Play a card");
+                list.add("See your board");
                 list.add("See other players' boards");
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
@@ -358,6 +405,7 @@ public class CLI implements View, Runnable {
                 break;
             case 1://Planning phase, not player's turn
             case 2://Action phase, not player's turn
+                list.add("See your board");
                 list.add("See other players' boards");
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
@@ -366,6 +414,7 @@ public class CLI implements View, Runnable {
                 list.add("Refresh");
                 break;
             case 3://Action phase, player's turn
+                list.add("See your board");
                 list.add("See other players' boards");
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
@@ -382,6 +431,7 @@ public class CLI implements View, Runnable {
                 list.add("Refresh");
                 break;
             case 4://End of action phase, player's turn
+                list.add("See your board");
                 list.add("See other players' boards");
                 list.add("See board (islands and clouds)");
                 list.add("See hand");

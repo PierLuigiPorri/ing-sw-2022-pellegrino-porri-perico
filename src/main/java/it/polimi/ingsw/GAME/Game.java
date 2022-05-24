@@ -129,7 +129,8 @@ public class Game extends Observable {
             cardsPlayed = new ArrayList<>();
 
         this.order = roundMaster.changePhase(tmp);
-        characterSelector.effects.restore();
+        if(gameType==1)
+            characterSelector.effects.restore();
 
 
 //reset the maxmoves of all players.
