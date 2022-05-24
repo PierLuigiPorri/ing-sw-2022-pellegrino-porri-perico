@@ -128,6 +128,8 @@ public class CLI implements View, Runnable {
         if (!msgHandler.getUpdates().isEmpty()) {
             UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
             System.out.println(firstUpd.update);
+            inputStr.clear();
+            inputInt.clear();
             update(firstUpd);
             initCLI();
         }
@@ -142,6 +144,8 @@ public class CLI implements View, Runnable {
             if (!msgHandler.getUpdates().isEmpty()) {
                 UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
                 System.out.println(firstUpd.update);
+                inputStr.clear();
+                inputInt.clear();
                 update(firstUpd);
                 initCLI();
             }
@@ -468,6 +472,7 @@ public class CLI implements View, Runnable {
         // the index from the gate and the index of the island. [String, String, int, int]
         int i;
         String s;
+        seeOwnBoard();
         System.out.println("Which is the position of the student you want to move?");
         i = getIntInput();
         checkIntInput(0, 10, i, "Which is the position of the student you want to move?\n");
@@ -483,6 +488,7 @@ public class CLI implements View, Runnable {
     public void gateToHall() {
         //this method needs the name of the player who calls it, the color of the student to move.
         String s;
+        seeOwnBoard();
         System.out.println("Which is the color of the student you want to move? ");
         s = getStrInput();
         checkStrInput(s, "Which is the color of the student you want to move? ");
@@ -785,7 +791,7 @@ public class CLI implements View, Runnable {
     private String getStrInput() {
         Scanner s = new Scanner(System.in);
         inputStr.add(s.nextLine());
-        return inputStr.get(inputInt.size() - 1);
+        return inputStr.get(inputStr.size() - 1);
     }
 
     private void checkIntInput(int a, int b, int input, String string) {
