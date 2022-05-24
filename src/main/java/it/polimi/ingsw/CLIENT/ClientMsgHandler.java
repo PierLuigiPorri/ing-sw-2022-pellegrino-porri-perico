@@ -82,8 +82,12 @@ public class ClientMsgHandler implements Runnable{
     public void sort(MessageType message){
         if(message.type==4)
             this.updates.add((UpdateMessage) message);
-        else
-            this.responses.add((ResponseMessage) message);
+        else {
+            ResponseMessage rMex=(ResponseMessage) message;
+            this.responses.add(rMex);
+            if(rMex.kill==true)
+                this.kill=true;
+        }
     }
 
     public ArrayList<UpdateMessage> getUpdates(){

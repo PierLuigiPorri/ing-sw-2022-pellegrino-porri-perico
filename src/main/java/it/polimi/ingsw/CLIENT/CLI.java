@@ -187,6 +187,8 @@ public class CLI implements View, Runnable {
             if (!msgHandler.getResponses().isEmpty()) {
                 for (ResponseMessage rsp : msgHandler.getResponses()) {
                     System.out.println(rsp.response);
+                    if(rsp.kill==true)
+                        setKill();
                 }
             }
             if (!msgHandler.getUpdates().isEmpty()) {
