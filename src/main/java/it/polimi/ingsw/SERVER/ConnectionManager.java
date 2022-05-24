@@ -19,6 +19,7 @@ public class ConnectionManager implements Runnable{
     private boolean kill;
     private boolean gameHasBeenCreated;
     private int joinedGameId;
+    private AckReceiver ackReceiver;
     //Network I/O
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -36,7 +37,8 @@ public class ConnectionManager implements Runnable{
 
     @Override
     public void run() {
-        new Thread(new AckReceiver(this)).start();
+        ackReceiver=new AckReceiver(this);
+        new Thread(ackReceiver).start();
         try {
             out = new ObjectOutputStream(clientSocket.getOutputStream()); //Importante che sia prima di in
             in = new ObjectInputStream(clientSocket.getInputStream());
@@ -59,6 +61,7 @@ public class ConnectionManager implements Runnable{
                         } else {
                             try {
                                 start.killGame(joinedGameId);
+                                ackReceiver.setKill();
                                 kill=true;
                             } catch (Exception e) {
                                 send(new ResponseMessage("The game you tried to kill doesn't exist", false, false));
