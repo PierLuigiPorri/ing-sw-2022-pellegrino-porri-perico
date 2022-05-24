@@ -16,6 +16,7 @@ public class ClientMsgHandler implements Runnable{
     private View view;
     private boolean kill;
     private final Object lock;
+    private AckSender ackSender;
 
     private ArrayList<UpdateMessage> updates;
     private final ArrayList<ResponseMessage> responses;
@@ -85,8 +86,10 @@ public class ClientMsgHandler implements Runnable{
         else {
             ResponseMessage rMex=(ResponseMessage) message;
             this.responses.add(rMex);
-            if(rMex.kill==true)
-                this.kill=true;
+            if(rMex.kill) {
+                this.kill = true;
+                ackSender.setKill();
+            }
         }
     }
 
@@ -101,5 +104,9 @@ public class ClientMsgHandler implements Runnable{
     public void clearMessages(){
         this.updates.clear();
         this.responses.clear();
+    }
+
+    public void setAckSender(AckSender ackSender){
+        this.ackSender=ackSender;
     }
 }
