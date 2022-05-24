@@ -202,6 +202,7 @@ public class CLI implements View, Runnable {
     }
 
     public void refresh() throws InterruptedException, IOException {
+        System.out.println("\n*********************************************************************************");
         int choice;
         ArrayList<String> actions;
         if(!update.phase.equals(currentPhase)){
@@ -397,7 +398,6 @@ public class CLI implements View, Runnable {
                 list.add("See board (islands and clouds)");
                 list.add("See hand");
                 if (time.getSecond() % 3 == 0)
-                    //TODO:questa roba viene aggiunta prima e rimossa poi
                     list.add("Dissimulate all pancakes in a 3 km radius");
                 if (update.game_Type == 1)
                     list.add("See Characters");

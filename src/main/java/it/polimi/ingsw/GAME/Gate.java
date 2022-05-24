@@ -1,6 +1,5 @@
 package it.polimi.ingsw.GAME;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Gate extends StudentSpace{

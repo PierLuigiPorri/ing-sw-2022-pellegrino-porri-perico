@@ -37,10 +37,8 @@ public final class Effects{
 
 
     public String apply(int index, Player player, int par1, String par2, ArrayList<Integer> par3, ArrayList<String> par4) throws ImpossibleActionException {
-        //TODO scrivere tutti gli effetti
         switch(index){
-            case 1: //TODO: prima di attivare questo effetto, nel caso in cui il giocatore non abbia lo stesso numero di studenti
-                    //di chi ha il professore, di conseguenza la carta non avrà effetto immediato, chiedere se davvero vuole attivarla
+            case 1:
                 player.getHall().activateCard();
                 return "\nBe aware that until the end of the turn "+player+" will be able to control the Professors even if they have the same amount of students in the hall!";
             case 2:
@@ -112,7 +110,7 @@ public final class Effects{
         }
     }
 
-    public void restore(){     //TODO:capire dove cazzo mettere questo metodo
+    public void restore(){
         Tower.enable();
         game.disableMNbonus();
         game.disableInfluenceBonus();

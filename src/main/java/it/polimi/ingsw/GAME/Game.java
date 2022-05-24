@@ -205,7 +205,7 @@ public class Game extends Observable {
         notifyObservers(update);
     }
 
-    public void CloudToGate(String player, String color, int sIndex, int cIndex) throws BoundException, ImpossibleActionException { //TODO
+    public void CloudToGate(String player, String color, int sIndex, int cIndex) throws BoundException, ImpossibleActionException {
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
             Player p = playerTranslator(player);
             if (order.get(0).equals(p)) {
@@ -271,8 +271,6 @@ public class Game extends Observable {
     }
 
     public void determineInfluence(int index) throws ImpossibleActionException {
-        /*TODO: scrivere le eccezioni.
-           Prima va definito bene il calcolo dell'influenza.*/
         if (this.board.islands.getIsland(index).TD) {
             this.board.islands.getIsland(index).removeTD();
             characterSelector.restoreTD();
