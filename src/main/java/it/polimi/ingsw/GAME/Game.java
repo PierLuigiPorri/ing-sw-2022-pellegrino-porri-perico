@@ -187,16 +187,16 @@ public class Game extends Observable {
         } else throw new BoundException("\nINDEX OUT OF BOUND!\n");
     }
 
-    public void gateToIsland(String name, int index, int indexIsland, String color) throws BoundException, ImpossibleActionException {
+    public void gateToIsland(String name, int index, int indexIsland) throws BoundException, ImpossibleActionException {
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
             Player player1 = playerTranslator(name);
             if (order.get(0).equals(player1)) {
-                if (player1.getGate().getColorsInGate().contains(color)) {
+                if (player1.getGate().getColorsInGate().contains(player1.getGate().getStudents().get(index).getColor())) {
                     if (player1.getGate().students.size() >= player1.getGate().MAX - 2) {
-                        addStudentToIsland(color, indexIsland);
+                        addStudentToIsland(player1.getGate().getStudents().get(index).getColor(), indexIsland);
                         removeFromGate(player1, index);
                         player1.maxMoves--;
-                        update = ("\nSomething's happened!\n" + player1.nickname + " moved a " + color + " student to Island " + indexIsland + "!");
+                        update = ("\nSomething's happened!\n" + player1.nickname + " moved a " + player1.getGate().getStudents().get(index).getColor() + " student to Island " + indexIsland + "!");
                     } else throw new BoundException("\n" + player1.nickname + " can't place anymore students.\n");
                 } else throw new ImpossibleActionException("\nNot such color in " + player1.nickname + "'s gate");
             } else throw new ImpossibleActionException("\nIs not your turn.");

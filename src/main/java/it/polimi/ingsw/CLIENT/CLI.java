@@ -472,13 +472,9 @@ public class CLI implements View, Runnable {
         // the index from the gate and the index of the island. [String, String, int, int]
         int i;
         String s;
-        seeOwnBoard();
         System.out.println("Which is the position of the student you want to move?");
         i = getIntInput();
         checkIntInput(0, 10, i, "Which is the position of the student you want to move?\n");
-        System.out.println("Which is the color of the student? ");
-        s = getStrInput();
-        checkStrInput(s, "Which is the color of the student? ");
         System.out.println("In which island do you want to move your student?");
         i = getIntInput();
         checkIntInput(1, 12, i, "In which island do you want to move your student?\n");
@@ -761,9 +757,11 @@ public class CLI implements View, Runnable {
 
     private void messageConfirmed(int type) {
         ArrayList<String> mex = new ArrayList<>();
+        ArrayList<Integer> inter= new ArrayList<>();
         mex.add(nick);
         mex.addAll(inputStr);
-        msgHandler.send(new ActionMessage(inputInt, mex, null, type));
+        inter.addAll(inputInt);
+        msgHandler.send(new ActionMessage(inter, mex, null, type));
         inputInt.clear();
         inputStr.clear();
     }

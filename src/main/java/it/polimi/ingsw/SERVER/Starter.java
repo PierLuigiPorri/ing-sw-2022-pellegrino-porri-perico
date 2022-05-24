@@ -101,7 +101,6 @@ public class Starter{
 
     public int joinRandomGame(String nick) throws NoSuchGameException{
         //Returns the ID of the joined game. In case of problems, it returns -1
-        System.out.println("Ue");
         synchronized (games){
             int i=0;
             while(i<games.size()){

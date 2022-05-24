@@ -47,8 +47,8 @@ public class GameTest {
             }
 
             game.gateToHall("PIER", tmp2[0].getColor());
-            game.gateToIsland("PIER", 0, 11, tmp2[1].getColor());
-            game.gateToIsland("PIER", 0, 4, tmp2[2].getColor());
+            game.gateToIsland("PIER", 0, 11);
+            game.gateToIsland("PIER", 0, 4);
 
 
             for (int i=0; i<3; i++){
@@ -67,8 +67,8 @@ public class GameTest {
 
 
             game.gateToHall("PAOLO", tmp1[0].getColor() );
-            game.gateToIsland("PAOLO", 0, 7, tmp1[1].getColor());
-            game.gateToIsland("PAOLO", 0, 7, tmp1[2].getColor());
+            game.gateToIsland("PAOLO", 0, 7);
+            game.gateToIsland("PAOLO", 0, 7);
 
 
             game.CloudToGate("PAOLO", tm2[0].getColor(), 0, 1);
@@ -99,8 +99,8 @@ public class GameTest {
             }
 
             game.gateToHall("PIER", tmp2[0].getColor() );
-            game.gateToIsland("PIER", 0, 7, tmp2[1].getColor());
-            game.gateToIsland("PIER", 0, 7, tmp2[2].getColor());
+            game.gateToIsland("PIER", 0, 7);
+            game.gateToIsland("PIER", 0, 7);
 
             for (int i=0; i<3; i++){
                 tm1[i]=game.getB().clouds.get(0).getStudents().get(i);
@@ -117,8 +117,8 @@ public class GameTest {
             Assert.assertEquals(12, game.motherNature.getIsola().getId());
 
             game.gateToHall("PAOLO", tmp1[0].getColor());
-            game.gateToIsland("PAOLO", 0, 9, tmp1[1].getColor());
-            game.gateToIsland("PAOLO", 0, 4, tmp1[2].getColor());
+            game.gateToIsland("PAOLO", 0, 9);
+            game.gateToIsland("PAOLO", 0, 4);
             game.CloudToGate("PAOLO", tm1[0].getColor(), 0, 0);
             game.CloudToGate("PAOLO", tm1[1].getColor(), 0, 0);
             game.CloudToGate("PAOLO", tm1[2].getColor(), 0, 0);
