@@ -4,6 +4,7 @@ import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.EXCEPTIONS.NickException;
 import it.polimi.ingsw.EXCEPTIONS.NoSuchGameException;
 import it.polimi.ingsw.GAME.Game;
+import it.polimi.ingsw.MESSAGES.ResponseMessage;
 
 import java.util.ArrayList;
 
@@ -149,8 +150,28 @@ public class Starter{
         throw new NoSuchGameException("There are no joinable games, at least with your current nickname");
     }
 
-    public void killGame(int id){
-        //TODO: kill the game during the creation phase by removing it from games after having sent a message to all clients
+    public void killGame(int id) throws NoSuchGameException{
+        //Kills the game during the creation phase by removing it from games after having sent a message to all clients
+        synchronized (games){
+            int i=0;
+            while(i<games.size()){
+                if(id==games.get(i).getId()){
+                    //Ho trovato la partita con questo ID
+                    games.get(i).getCm1().send(new ResponseMessage("The game you had joined has been deleted", false));
+                    if(games.get(i).getnJoined()==2){
+                        games.get(i).getCm2().send(new ResponseMessage("The game you had joined has been deleted", false));
+                    }
+                    if(games.get(i).getnJoined()==3){
+                        games.get(i).getCm3().send(new ResponseMessage("The game you had joined has been deleted", false));
+                    }
+                    games.remove(i);
+                }
+                else{
+                    i++;
+                }
+            }
+            throw new NoSuchGameException("There are no games with this ID");
+        }
     }
 
 }

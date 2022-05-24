@@ -31,6 +31,7 @@ public class ConnectionManager implements Runnable{
         ackQueue=new ArrayList<>();
         start=new Starter(this);
         kill=false;
+        joinedGameId=-1;
     }
 
     @Override
@@ -51,13 +52,19 @@ public class ConnectionManager implements Runnable{
                     System.out.println("Ho ricevuto un messaggio "+latestMessage.type);
                 if(latestMessage.type==5){
                     //I received a KillMessage
-                    kill=true;
-                    if(!gameHasBeenCreated){
-                        //TODO: killare tutto
+                    if(joinedGameId!=-1) {
+                        kill = true;
+                        if (!gameHasBeenCreated) {
+                            //TODO: killare tutto
+                        } else {
+                            try {
+                                start.killGame(joinedGameId);
+                            } catch (Exception e) {
+                                send(new ResponseMessage("The game you tried to kill doesn't exist", false));
+                            }
+                        }
                     }
-                    else {
-                        start.killGame(joinedGameId);
-                    }
+                    else send(new ResponseMessage("Stop trying to kill games you haven't joined please :)", false));
                 }
                 else if(latestMessage.type==0){
                     //I received an AckMessage, so I add it to the queue
@@ -121,6 +128,7 @@ public class ConnectionManager implements Runnable{
                 kill=true;
             }
         }
+        System.out.println("Ripperoni");
     }
 
     public void clearAck() throws EmptyQueueException{
