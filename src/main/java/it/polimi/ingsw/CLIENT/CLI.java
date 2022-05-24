@@ -187,7 +187,7 @@ public class CLI implements View, Runnable {
             if (!msgHandler.getResponses().isEmpty()) {
                 for (ResponseMessage rsp : msgHandler.getResponses()) {
                     System.out.println(rsp.response);
-                    if(rsp.kill==true)
+                    if(rsp.kill)
                         setKill();
                 }
             }
@@ -473,7 +473,6 @@ public class CLI implements View, Runnable {
         // this method needs the name of the player who calls it, the color of the student to move,
         // the index from the gate and the index of the island. [String, String, int, int]
         int i;
-        String s;
         System.out.println("Which is the position of the student you want to move?");
         i = getIntInput();
         checkIntInput(0, 10, i, "Which is the position of the student you want to move?\n");
