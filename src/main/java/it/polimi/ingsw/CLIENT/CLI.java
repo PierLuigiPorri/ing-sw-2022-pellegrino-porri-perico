@@ -467,13 +467,9 @@ public class CLI implements View, Runnable {
         // this method needs the name of the player who calls it, the color of the student to move,
         // the index from the gate and the index of the island. [String, String, int, int]
         int i;
-        String s;
         System.out.println("Which is the position of the student you want to move?");
         i = getIntInput();
         checkIntInput(0, 10, i, "Which is the position of the student you want to move?\n");
-        System.out.println("Which is the color of the student? ");
-        s = getStrInput();
-        checkStrInput(s, "Which is the color of the student? ");
         System.out.println("In which island do you want to move your student?");
         i = getIntInput();
         checkIntInput(1, 12, i, "In which island do you want to move your student?\n");
@@ -755,9 +751,11 @@ public class CLI implements View, Runnable {
 
     private void messageConfirmed(int type) {
         ArrayList<String> mex = new ArrayList<>();
+        ArrayList<Integer> inter= new ArrayList<>();
         mex.add(nick);
         mex.addAll(inputStr);
-        msgHandler.send(new ActionMessage(inputInt, mex, null, type));
+        inter.addAll(inputInt);
+        msgHandler.send(new ActionMessage(inter, mex, null, type));
         inputInt.clear();
         inputStr.clear();
     }
@@ -785,7 +783,7 @@ public class CLI implements View, Runnable {
     private String getStrInput() {
         Scanner s = new Scanner(System.in);
         inputStr.add(s.nextLine());
-        return inputStr.get(inputInt.size() - 1);
+        return inputStr.get(inputStr.size() - 1);
     }
 
     private void checkIntInput(int a, int b, int input, String string) {

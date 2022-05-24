@@ -50,8 +50,8 @@ public class Game3Test {
                 tmp3[i]=game3.getPlayers().get(2).getGate().getStudents().get(i);
             }
             game3.gateToHall("PIER", tmp1[0].getColor() );
-            game3.gateToIsland("PIER", 0, 7, tmp1[1].getColor());
-            game3.gateToIsland("PIER", 0, 7, tmp1[2].getColor());
+            game3.gateToIsland("PIER", 0, 7);
+            game3.gateToIsland("PIER", 0, 7);
             game3.gateToHall("PIER", tmp1[3].getColor() );
 
             for (int i=0; i<4; i++){
@@ -70,8 +70,8 @@ public class Game3Test {
 
 
             game3.gateToHall("Gandalf", tmp2[0].getColor() );
-            game3.gateToIsland("Gandalf", 0, 7, tmp2[1].getColor());
-            game3.gateToIsland("Gandalf", 0, 7, tmp2[2].getColor());
+            game3.gateToIsland("Gandalf", 0, 7);
+            game3.gateToIsland("Gandalf", 0, 7);
             game3.gateToHall("Gandalf", tmp2[3].getColor() );
 
 
@@ -85,8 +85,8 @@ public class Game3Test {
             Assert.assertEquals(game3.motherNature.getIsola().getId(), 8);
 
             game3.gateToHall("PAOLO", tmp2[0].getColor() );
-            game3.gateToIsland("PAOLO", 0, 7, tmp2[1].getColor());
-            game3.gateToIsland("PAOLO", 0, 7, tmp2[2].getColor());
+            game3.gateToIsland("PAOLO", 0, 7);
+            game3.gateToIsland("PAOLO", 0, 7);
             game3.gateToHall("PAOLO", tmp2[3].getColor() );
 
 

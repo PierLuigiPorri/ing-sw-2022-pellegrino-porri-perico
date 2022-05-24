@@ -25,9 +25,9 @@ public class Controller implements Observer{
         }
     }
 
-    public void gateToIsland(String name, int index, int indexIsland, String color) {
+    public void gateToIsland(String name, int index, int indexIsland) {
             try {
-                game.gateToIsland(name, index, indexIsland, color);
+                game.gateToIsland(name, index, indexIsland);
             } catch (BoundException | ImpossibleActionException e) {
                 Objects.requireNonNull(getCorrectCm(name)).send(new ResponseMessage(e.getMessage(),false));
             }
@@ -108,7 +108,7 @@ public class Controller implements Observer{
         ActionMessage am=(ActionMessage) arg;
         switch (am.ActionType){
             case 0://gateToIsland
-                gateToIsland(am.strParam.get(0), am.intParam.get(0), am.intParam.get(1), am.strParam.get(1));
+                gateToIsland(am.strParam.get(0), am.intParam.get(0), am.intParam.get(1));
                 break;
             case 1://gateToHall
                 gateToHall(am.strParam.get(0), am.strParam.get(1));
