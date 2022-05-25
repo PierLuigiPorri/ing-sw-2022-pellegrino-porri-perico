@@ -2,6 +2,7 @@ package it.polimi.ingsw;
 
 
 import it.polimi.ingsw.GAME.*;
+import it.polimi.ingsw.EXCEPTIONS.*;
 import it.polimi.ingsw.SERVER.ConnectionManager;
 import it.polimi.ingsw.SERVER.GameManager;
 import org.junit.Before;
@@ -52,7 +53,7 @@ public class CardsTest
 
     }
 
-/*    @Test
+    @Test
     public void EffectsTest() throws ImpossibleActionException {
         for (int x = 0; x < 30; x++) {
                 game.getPlayers().get(0).addCoin();
@@ -145,7 +146,7 @@ public class CardsTest
                     break;
                 default:break;
             }
-            game.activateCharacter("FRANCO", 0, 1, "RED", a, c, 1, b);
+            game.activateCharacter("FRANCO", game.characterSelector.getCharacters().get(0).getIndex(), 1, "RED", a, c, 1, b);
             switch(game.characterSelector.getCharacters().get(0).getIndex()){
                 case 0:
                     ConcreteCharacter car2= (ConcreteCharacter) game.characterSelector.getCharacters().get(0);
@@ -170,7 +171,7 @@ public class CardsTest
                     break;
                 case 4:
                     ConcreteCharacter car4= (ConcreteCharacter) game.characterSelector.getCharacters().get(0);
-                    assertEquals(car4.getTD(), 4);
+                    assertEquals(car4.getTD(), 3);
                     assertTrue(game.getB().islands.getIsland(1).TD);
                     game.addStudentToIsland("RED", 1);
                     game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
@@ -196,7 +197,7 @@ public class CardsTest
                 case 8:
                     game.determineInfluence(1);
                     assertEquals(game.getB().islands.getIsland(1).getTowers().size(), 1);
-                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "FRANCO");
+                    assertEquals(game.getB().islands.getIsland(1).getTowers().get(0).getPlayer().nickname, "CARMINE");
                     game.characterSelector.effects.restore();
                     break;
                 case 9:
@@ -221,7 +222,7 @@ public class CardsTest
                     game.characterSelector.effects.restore();
                     break;
             }
-    }*/
+    }
 
 
 
@@ -236,4 +237,5 @@ public class CardsTest
         p1 = new Player(2, "FRANCO", game);
         p2 = new Player(2, "CARMINE", game);
     }
+
 }

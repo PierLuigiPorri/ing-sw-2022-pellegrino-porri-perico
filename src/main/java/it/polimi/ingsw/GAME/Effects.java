@@ -4,7 +4,6 @@ package it.polimi.ingsw.GAME;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public final class Effects{
 
@@ -55,7 +54,7 @@ public final class Effects{
                 return "\n"+player+" has a bonus! This turn, +2 to influence on Islands! Pray they won't use it against you.";
             case 8:
                 game.colorTranslator(par2).disableInfluence();
-                return "\nBy "+player+" decree, this turn "+par2+" students won't count when calculating the influence!";
+                return "\nBy "+player+"'s decree, this turn "+par2+" students won't count when calculating the influence!";
             case 9:
                 for(int g=0; g<par3.size(); g++){
                     game.removeFromHall(player, par4.get(g));
