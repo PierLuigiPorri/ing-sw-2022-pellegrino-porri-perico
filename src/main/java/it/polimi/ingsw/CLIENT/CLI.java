@@ -180,6 +180,7 @@ public class CLI implements View, Runnable {
             reload();
             //});
         }
+        System.out.println("\nOk, you chose this. Bye forever!");
     }
 
     public void reload() {
@@ -388,6 +389,9 @@ public class CLI implements View, Runnable {
                 responseNeeded = true;
                 activateCharacter();
                 break;
+            case "Exit game":
+                responseNeeded=false;
+                exitGame();
             default:
                 break;
         }
@@ -396,34 +400,24 @@ public class CLI implements View, Runnable {
     private ArrayList<String> actions(int spot) {
         ArrayList<String> list = new ArrayList<>();
         LocalTime time = LocalTime.now();
+        list.add("See your board");
+        list.add("See other players' boards");
+        list.add("See board (islands and clouds)");
+        list.add("See hand");
+        if (update.game_Type == 1)
+            list.add("See Characters");
+        list.add("Refresh");
+        list.add("Exit game");
         switch (spot) {
             case 0://Player's turn, Planning phase
                 list.add("Play a card");
-                list.add("See your board");
-                list.add("See other players' boards");
-                list.add("See board (islands and clouds)");
-                list.add("See hand");
                 if (time.getSecond() % 3 == 0)
                     list.add("Dissimulate all pancakes in a 3 km radius");
-                if (update.game_Type == 1)
-                    list.add("See Characters");
-                list.add("Refresh");
                 break;
             case 1://Planning phase, not player's turn
             case 2://Action phase, not player's turn
-                list.add("See your board");
-                list.add("See other players' boards");
-                list.add("See board (islands and clouds)");
-                list.add("See hand");
-                if (update.game_Type == 1)
-                    list.add("See Characters");
-                list.add("Refresh");
                 break;
             case 3://Action phase, player's turn
-                list.add("See your board");
-                list.add("See other players' boards");
-                list.add("See board (islands and clouds)");
-                list.add("See hand");
                 if (time.getSecond() % 3 == 0)
                     list.add("See other players' hands");
                 if (time.getSecond() % 7 == 0)
@@ -432,24 +426,15 @@ public class CLI implements View, Runnable {
                 list.add("Move a student from the gate to your Hall");
                 if (update.game_Type == 1) {
                     list.add("Activate a Character");
-                    list.add("See Characters");
                 }
-                list.add("Refresh");
                 break;
             case 4://End of action phase, player's turn
-                list.add("See your board");
-                list.add("See other players' boards");
-                list.add("See board (islands and clouds)");
-                list.add("See hand");
-                if (update.game_Type == 1)
-                    list.add("See Characters");
                 if (time.getSecond() % 3 == 0)
                     list.add("Ask support for all these hidden options that keep appearing");
                 if (time.getSecond() % 7 == 0)
                     list.add("Bribe a professor of your choice");
                 list.add("Get students from a Cloud");
                 list.add("Move Mother Nature");
-                list.add("Refresh");
                 break;
         }
         return list;
@@ -680,6 +665,15 @@ public class CLI implements View, Runnable {
         for (int i = 0; i < update.handPlayer.get(update.players.indexOf(nick)).size(); i = i + 2) {
             System.out.println("\n" + ind + ":" + update.handPlayer.get(update.players.indexOf(nick)).get(i) + "," + update.handPlayer.get(update.players.indexOf(nick)).get(i + 1) + "  ");
             ind++;
+        }
+    }
+
+    private void exitGame(){
+        System.out.println("So...are you sure about this? [Y/N]");
+        String resp=getValidString("So...are you sure about this? [Y/N]");
+        if(resp.equals("Y")) {
+            msgHandler.send(new KillMessage());
+            setKill();
         }
     }
 
