@@ -231,7 +231,7 @@ public class Game extends Observable {
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
             Player player1 = playerTranslator(name);
             if (player1.maxMoves == 0 && order.get(0).equals(player1)) {
-                if (movement < 7 + MNbonus) {
+                if (movement < order.get(0).getLastCardPlayed().getMovement() + MNbonus) {
                     motherNature.getIsola().setMotherNature(false);
                     Island tmp = motherNature.getIsola();
                     for (int i = 0; i < movement; i++) {
