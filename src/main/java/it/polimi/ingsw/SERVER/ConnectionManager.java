@@ -37,9 +37,9 @@ public class ConnectionManager implements Runnable{
 
     @Override
     public void run() {
-        ackReceiver=new AckReceiver(this);
-        new Thread(ackReceiver).start();
         try {
+            ackReceiver=new AckReceiver(this);
+            new Thread(ackReceiver).start();
             out = new ObjectOutputStream(clientSocket.getOutputStream()); //Importante che sia prima di in
             in = new ObjectInputStream(clientSocket.getInputStream());
         }
@@ -56,8 +56,7 @@ public class ConnectionManager implements Runnable{
                     //I received a KillMessage
                     if(joinedGameId!=-1) {
                         if (gameHasBeenCreated) {
-                            //TODO: killare tutto
-
+                            gameManager.setKill();
                         } else {
                             try {
                                 start.killGame(joinedGameId);
@@ -132,7 +131,7 @@ public class ConnectionManager implements Runnable{
                 kill=true;
             }
         }
-        System.out.println("Ripperoni");
+        System.out.println("Saluti dal Connection Manager");
     }
 
     public void clearAck() throws EmptyQueueException{
@@ -164,5 +163,10 @@ public class ConnectionManager implements Runnable{
 
     public String getPlayerName(){
         return playerName;
+    }
+
+    public void kill() {
+        this.kill = true;
+        ackReceiver.setKill();
     }
 }

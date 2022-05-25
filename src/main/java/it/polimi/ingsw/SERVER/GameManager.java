@@ -1,6 +1,7 @@
 package it.polimi.ingsw.SERVER;
 
 import it.polimi.ingsw.MESSAGES.ActionMessage;
+import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 
 import java.util.ArrayList;
@@ -11,14 +12,13 @@ public class GameManager extends Observable implements Runnable, Observer {
 
     private final ArrayList<ActionMessage> actionQueue;
     private final ArrayList<ConnectionManager> connectionManagers;
-    //private final int nPlayers;
+    private boolean kill;
 
     public GameManager(ConnectionManager cm1, ConnectionManager cm2, ConnectionManager cm3, int players){
         actionQueue=new ArrayList<>();
         connectionManagers=new ArrayList<>();
         connectionManagers.add(cm1); //Index 0
         connectionManagers.add(cm2); //Index 1
-        //nPlayers=players;
         if(players==3){
             connectionManagers.add(cm3); //Index 2
         }
@@ -27,18 +27,25 @@ public class GameManager extends Observable implements Runnable, Observer {
             cm.setGameManager(this);
             cm.setGameHasBeenCreated();
         }
+        kill=false;
     }
 
     @Override
     public void run() {
-        while (true){
-            synchronized (actionQueue){
+        while (!kill) {
+            synchronized (actionQueue) {
                 if (!actionQueue.isEmpty()) {
                     setChanged();
                     notifyObservers(actionQueue.remove(0)); //calls Controller.update(this, arg)
                 }
             }
         }
+        for (ConnectionManager cm:
+                connectionManagers) {
+            cm.send(new ResponseMessage("Game has been killed", false, true));
+            cm.kill();
+        }
+        System.out.println("Saluti dal thread game manager");
     }
 
     public void addAction(ActionMessage message){
@@ -55,5 +62,9 @@ public class GameManager extends Observable implements Runnable, Observer {
             cm.send(update);
         }
         System.out.println("Server sends the update to all clients");
+    }
+
+    public void setKill() {
+        this.kill = true;
     }
 }

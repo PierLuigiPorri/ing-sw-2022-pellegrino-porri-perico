@@ -60,8 +60,7 @@ public class ClientMsgHandler implements Runnable{
         while(!kill){
             try {
                 MessageType latestMessage = (MessageType) in.readObject();
-                if(latestMessage.type!=0)
-                    System.out.println("Ho ricevuto un messaggio "+latestMessage.type);
+                System.out.println("Ho ricevuto un messaggio "+latestMessage.type);
                 synchronized (lock) {
                     sort(latestMessage);
                 }
@@ -78,6 +77,7 @@ public class ClientMsgHandler implements Runnable{
                 kill=true;
             }
         }
+        System.out.println("Saluti dal Client Msg Handler");
     }
 
     public void sort(MessageType message){
