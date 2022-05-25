@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 public class UpdateMessage extends MessageType{
 
     public String update;
+    public boolean gameEnded;
     public int game_Type;
     public int nPlayers;
     public ArrayList<String> order;

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.SERVER;
 
 import it.polimi.ingsw.MESSAGES.ActionMessage;
+import it.polimi.ingsw.MESSAGES.KillMessage;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 
@@ -40,11 +41,6 @@ public class GameManager extends Observable implements Runnable, Observer {
                 }
             }
         }
-        for (ConnectionManager cm:
-                connectionManagers) {
-            cm.send(new ResponseMessage("Game has been killed", false, true));
-            cm.kill();
-        }
         System.out.println("Saluti dal thread game manager");
     }
 
@@ -66,5 +62,18 @@ public class GameManager extends Observable implements Runnable, Observer {
 
     public void setKill() {
         this.kill = true;
+    }
+
+    public void playerDisconnected(String player){
+        //Avviso tutti gli altri player che uno si è disconnesso
+        for (ConnectionManager cm: connectionManagers) {
+            if(player!=cm.getPlayerName()) {
+                UpdateMessage upd = new UpdateMessage();
+                upd.update = "Player " + player + " disconnected from the game";
+                upd.gameEnded = true;
+                cm.send(upd);
+            }
+        }
+        setKill(); //Kill this thread
     }
 }
