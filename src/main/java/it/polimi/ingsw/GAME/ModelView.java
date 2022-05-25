@@ -137,8 +137,10 @@ public class ModelView extends Observable implements Observer {
             bool = new ArrayList<>();
         }
 
-        update.playersMoves.add(game.getPlayers().get(0).maxMoves);
-        update.playersMoves.add(game.getPlayers().get(1).maxMoves);
+        update.playersMoves.add(game.order.get(0).maxMoves);
+        if(!game.order.isEmpty()){
+            update.playersMoves.add(game.order.get(0).maxMoves);
+        }
 
         for (int i = 0; i < game.getPlayers().size(); i++) {
             tmp = new ArrayList<>();
@@ -149,8 +151,8 @@ public class ModelView extends Observable implements Observer {
             update.handPlayer.put(i, tmp);
         }
 
-        if (update.nPlayers == 3) {
-            update.playersMoves.add(game.getPlayers().get(2).maxMoves);
+        if (!game.order.isEmpty() && update.nPlayers == 3) {
+            update.playersMoves.add(game.order.get(0).maxMoves);
         }
     }
 

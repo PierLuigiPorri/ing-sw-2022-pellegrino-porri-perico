@@ -812,22 +812,30 @@ public class CLI implements View, Runnable {
     }
 
     private int getIntInput() {
-        Scanner s = new Scanner(System.in);
-        int in = Integer.parseInt(s.nextLine());
-        if (in != -1) {
-            inputInt.add(in);
+        try {
+            Scanner s = new Scanner(System.in);
+            int in = Integer.parseInt(s.nextLine());
+            if (in != -1) {
+                inputInt.add(in);
+            }
+            return in;
+        }catch (NumberFormatException e){
+            return getIntInput();
         }
-        return in;
     }
 
     private int getSingleIntInput(int b) {
-        Scanner s = new Scanner(System.in);
-        int res = Integer.parseInt(s.nextLine());
-        while (res < -1 || res > b) {
-            System.out.println("The number entered is not allowed.\n");
-            res = Integer.parseInt(s.nextLine());
+        try {
+            Scanner s = new Scanner(System.in);
+            int res = Integer.parseInt(s.nextLine());
+            while (res < -1 || res > b) {
+                System.out.println("The number entered is not allowed.\n");
+                res = Integer.parseInt(s.nextLine());
+            }
+            return res;
+        } catch (NumberFormatException e) {
+            return getSingleIntInput(b);
         }
-        return res;
     }
 
     private String getStrInput() {
