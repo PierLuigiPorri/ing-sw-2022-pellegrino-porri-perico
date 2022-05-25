@@ -194,9 +194,10 @@ public class Game extends Observable {
                 if (player1.getGate().getColorsInGate().contains(player1.getGate().getStudents().get(index).getColor())) {
                     if (player1.getGate().students.size() >= player1.getGate().MAX - 2) {
                         addStudentToIsland(player1.getGate().getStudents().get(index).getColor(), indexIsland);
+                        String color=player1.getGate().getStudents().get(index).getColor();
                         removeFromGate(player1, index);
                         player1.maxMoves--;
-                        update = ("\nSomething's happened!\n" + player1.nickname + " moved a " + player1.getGate().getStudents().get(index).getColor() + " student to Island " + indexIsland + "!");
+                        update = ("\nSomething's happened!\n" + player1.nickname + " moved a " + color + " student to Island " + indexIsland + "!");
                     } else throw new BoundException("\n" + player1.nickname + " can't place anymore students.\n");
                 } else throw new ImpossibleActionException("\nNot such color in " + player1.nickname + "'s gate");
             } else throw new ImpossibleActionException("\nIs not your turn.");
@@ -263,8 +264,9 @@ public class Game extends Observable {
                                 throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
                         }
                     }
+                    order.remove(0);
+                    update = "\nNow is "+order.get(0).nickname+"'s turn to place students!";
                 } else throw new ImpossibleActionException("\nNo card has this movement value.");
-                order.remove(0);
             } else throw new ImpossibleActionException("\nIs not your turn or you still have to place students.");
         } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
 
