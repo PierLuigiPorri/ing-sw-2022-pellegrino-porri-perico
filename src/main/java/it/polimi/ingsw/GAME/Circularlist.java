@@ -28,8 +28,15 @@ public class Circularlist {
     }
 
     public int size(){
-        if(head==null) return 0;
-        return tail.getId();
+        if(head==null)
+            return 0;
+        Island tmp=head;
+        int ret=1;
+        while(tmp.getId()!= tail.getId()){
+            tmp=tmp.next;
+            ret++;
+        }
+        return ret;
     }
 
     public void mergeIslands(Island i1, Island i2){

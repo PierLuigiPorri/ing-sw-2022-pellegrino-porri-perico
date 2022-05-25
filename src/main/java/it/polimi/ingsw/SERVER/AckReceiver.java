@@ -23,10 +23,10 @@ public class AckReceiver implements Runnable{
                 System.out.println("ACK ricevuti");
             }catch (EmptyQueueException e){
                 kill=true;
-                System.out.println("Killed");
+                cm.clientDisconnected();
             }
-
         }
+        System.out.println("AckReceiver killed");
     }
 
     public void setKill() {

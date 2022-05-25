@@ -128,7 +128,8 @@ public class ConnectionManager implements Runnable{
             }
             catch (Exception e){
                 System.out.println("Connection lost");
-                kill=true;
+                kill();
+                clientDisconnected();
             }
         }
         System.out.println("Saluti dal Connection Manager");
@@ -168,5 +169,10 @@ public class ConnectionManager implements Runnable{
     public void kill() {
         this.kill = true;
         ackReceiver.setKill();
+    }
+
+    public void clientDisconnected(){
+        gameManager.playerDisconnected(playerName);
+        this.kill=true;
     }
 }

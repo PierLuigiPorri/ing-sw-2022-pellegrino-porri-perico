@@ -61,7 +61,7 @@ public class GameTest {
             Assert.assertTrue(game.getB().clouds.get(0).emptyCloud());
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
-            game.moveMotherNature("PIER", game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
+            game.moveMotherNature("PIER", game.order.get(0).getLastCardPlayed().getMovement());
 
 
             game.gateToHall("PAOLO", tmp1[0].getColor() );
@@ -74,7 +74,7 @@ public class GameTest {
             Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
-            game.moveMotherNature("PAOLO", game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
+            game.moveMotherNature("PAOLO", game.order.get(0).getLastCardPlayed().getMovement());
             //Assert.assertEquals(game.motherNature.getIsola().getId(), game.getCardsPlayed().remove(game.getCardsPlayed().size()-1).getMovement() + 1);
 
 
@@ -107,8 +107,8 @@ public class GameTest {
             Assert.assertTrue(game.getB().clouds.get(0).emptyCloud());
             Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
-            game.moveMotherNature("PIER", game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
-            Assert.assertEquals(12, game.motherNature.getIsola().getId());
+            game.moveMotherNature("PIER", game.order.get(0).getLastCardPlayed().getMovement());
+            Assert.assertEquals(8, game.motherNature.getIsola().getId());
 
             game.gateToHall("PAOLO", tmp1[0].getColor());
             game.gateToIsland("PAOLO", 0, 9);
@@ -116,7 +116,7 @@ public class GameTest {
             game.CloudToGate("PAOLO", 1);
             Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
 
-            game.moveMotherNature("PAOLO", game.getCardsPlayed().get(game.getCardsPlayed().size()-1).getMovement());
+            game.moveMotherNature("PAOLO", game.order.get(0).getLastCardPlayed().getMovement());
             Assert.assertEquals("Planning", game.roundMaster.round.getCurrentPhase());
             Assert.assertEquals(game.roundMaster.getRoundCount(), 2);
 
