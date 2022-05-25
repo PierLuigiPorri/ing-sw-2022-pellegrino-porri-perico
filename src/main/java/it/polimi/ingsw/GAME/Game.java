@@ -231,7 +231,7 @@ public class Game extends Observable {
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
             Player player1 = playerTranslator(name);
             if (player1.maxMoves == 0 && order.get(0).equals(player1)) {
-                if (movement < order.get(0).getLastCardPlayed().getMovement() + MNbonus) {
+                if (movement <= order.get(0).getLastCardPlayed().getMovement() + MNbonus) {
                     motherNature.getIsola().setMotherNature(false);
                     Island tmp = motherNature.getIsola();
                     for (int i = 0; i < movement; i++) {
@@ -257,6 +257,8 @@ public class Game extends Observable {
                             } else
                                 throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
                         }
+                    }
+                    if(!tmp.towers.isEmpty() && !tmp.next.towers.isEmpty()) {
                         if (tmp.getPlayer().equals(tmp.next.getPlayer())) {
                             if (board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(tmp.next.getId())) || board.islands.getIsland(tmp.next.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
                                 mergeIslands(tmp.getId(), tmp.next.getId());
@@ -265,13 +267,17 @@ public class Game extends Observable {
                         }
                     }
                     order.remove(0);
-                    update = "\nNow is "+order.get(0).nickname+"'s turn to place students!";
                 } else throw new ImpossibleActionException("\nNo card has this movement value.");
             } else throw new ImpossibleActionException("\nIs not your turn or you still have to place students.");
         } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
 
         if (order.isEmpty())
             changePhase();
+        else {
+            update = "\nNow is "+order.get(0).nickname+"'s turn to place students!";
+            setChanged();
+            notifyObservers(update);
+        }
     }
 
     public void determineInfluence(int index) throws ImpossibleActionException {

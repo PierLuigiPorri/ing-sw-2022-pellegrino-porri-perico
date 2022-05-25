@@ -37,7 +37,6 @@ public class MergeIslandTest {
         game.getB().islands.getIsland(12).addTower(player);
         game.mergeIslands(11, 12);
         Assert.assertFalse(game.getB().islands.contains( game.getB().islands.getIsland(12)));
-        //Assert.assertFalse(game.getB().islands.contains( game.getB().islands.getIsland(11)));
         Assert.assertEquals(11, game.getB().islands.size());
         game.getB().islands.getIsland(1).addTower(player);
         game.mergeIslands(1,11);
