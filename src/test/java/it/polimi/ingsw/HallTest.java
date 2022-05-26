@@ -7,6 +7,7 @@ import it.polimi.ingsw.SERVER.GameManager;
 import org.junit.*;
 
 import java.io.IOException;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -23,86 +24,93 @@ public class HallTest {
 
     @Test
     public void setColor() {
-        game.addStudentToHall("RED", player);
-        game.addStudentToHall("RED", player);
-        game.addStudentToHall("BLUE", player);
-        game.addStudentToHall("GREEN", player);
-        game.addStudentToHall("GREEN", player);
-        game.addStudentToHall("GREEN", player);
-        game.addStudentToHall("RED", player);
+        if(game!=null) {
+            game.addStudentToHall("RED", player);
+            game.addStudentToHall("RED", player);
+            game.addStudentToHall("BLUE", player);
+            game.addStudentToHall("GREEN", player);
+            game.addStudentToHall("GREEN", player);
+            game.addStudentToHall("GREEN", player);
+            game.addStudentToHall("RED", player);
 
 
-        r= game.getColor(player, "RED");
-        b= game.getColor(player, "BLUE");
-        g= game.getColor(player, "GREEN");
-        y= game.getColor(player, "YELLOW");
-        p= game.getColor(player, "PINK");
+            r = game.getColor(player, "RED");
+            b = game.getColor(player, "BLUE");
+            g = game.getColor(player, "GREEN");
+            y = game.getColor(player, "YELLOW");
+            p = game.getColor(player, "PINK");
 
-        Assert.assertEquals(0, y);
-        Assert.assertEquals(3, r);
-        Assert.assertEquals(1, b);
-        Assert.assertEquals(3, g);
-        Assert.assertEquals(0, y);
-        Assert.assertEquals(0, p);
+            Assert.assertEquals(0, y);
+            Assert.assertEquals(3, r);
+            Assert.assertEquals(1, b);
+            Assert.assertEquals(3, g);
+            Assert.assertEquals(0, y);
+            Assert.assertEquals(0, p);
+        }
     }
 
     @Test
     public void desetColor() {
+        if (game != null) {
+            player.getHall().setColor("PINK");
+            player.getHall().setColor("RED");
+            player.getHall().setColor("RED");
+            player.getHall().setColor("RED");
+            player.getHall().setColor("RED");
+            player.getHall().setColor("BLUE");
+            player.getHall().setColor("BLUE");
+            player.getHall().setColor("GREEN");
+            player.getHall().setColor("GREEN");
+            player.getHall().setColor("GREEN");
+            player.getHall().setColor("GREEN");
+            player.getHall().setColor("GREEN");
+            player.getHall().setColor("GREEN");
+            player.getHall().setColor("GREEN");
+            player.getHall().setColor("GREEN");
+            player.getHall().setColor("GREEN");
+            player.getHall().setColor("RED");
+            player.getHall().setColor("YELLOW");
+            player.getHall().setColor("YELLOW");
+            player.getHall().setColor("YELLOW");
+            player.getHall().setColor("YELLOW");
+            player.getHall().setColor("YELLOW");
 
-        player.getHall().setColor("PINK");
-        player.getHall().setColor("RED");
-        player.getHall().setColor("RED");
-        player.getHall().setColor("RED");
-        player.getHall().setColor("RED");
-        player.getHall().setColor("BLUE");
-        player.getHall().setColor("BLUE");
-        player.getHall().setColor("GREEN");
-        player.getHall().setColor("GREEN");
-        player.getHall().setColor("GREEN");
-        player.getHall().setColor("GREEN");
-        player.getHall().setColor("GREEN");
-        player.getHall().setColor("GREEN");
-        player.getHall().setColor("GREEN");
-        player.getHall().setColor("GREEN");
-        player.getHall().setColor("GREEN");
-        player.getHall().setColor("RED");
-        player.getHall().setColor("YELLOW");
-        player.getHall().setColor("YELLOW");
-        player.getHall().setColor("YELLOW");
-        player.getHall().setColor("YELLOW");
-        player.getHall().setColor("YELLOW");
+            game.removeFromHall(player, "RED");
+            game.removeFromHall(player, "RED");
+            game.removeFromHall(player, "BLUE");
+            game.removeFromHall(player, "GREEN");
+            game.removeFromHall(player, "GREEN");
+            game.removeFromHall(player, "GREEN");
+            game.removeFromHall(player, "RED");
+            game.removeFromHall(player, "PINK");
 
-        game.removeFromHall(player, "RED");
-        game.removeFromHall(player, "RED");
-        game.removeFromHall(player, "BLUE");
-        game.removeFromHall(player, "GREEN");
-        game.removeFromHall(player, "GREEN");
-        game.removeFromHall(player, "GREEN");
-        game.removeFromHall(player, "RED");
-        game.removeFromHall(player, "PINK");
+            r = game.getColor(player, "RED");
+            b = game.getColor(player, "BLUE");
+            g = game.getColor(player, "GREEN");
+            y = game.getColor(player, "YELLOW");
+            p = game.getColor(player, "PINK");
 
-        r= game.getColor(player, "RED");
-        b= game.getColor(player, "BLUE");
-        g= game.getColor(player, "GREEN");
-        y= game.getColor(player, "YELLOW");
-        p= game.getColor(player, "PINK");
-
-        Assert.assertEquals(5, y);
-        Assert.assertEquals(2, r);
-        Assert.assertEquals(1, b);
-        Assert.assertEquals(6, g);
-        Assert.assertEquals(5, y);
-        Assert.assertEquals(0, p);
+            Assert.assertEquals(5, y);
+            Assert.assertEquals(2, r);
+            Assert.assertEquals(1, b);
+            Assert.assertEquals(6, g);
+            Assert.assertEquals(5, y);
+            Assert.assertEquals(0, p);
+        }
     }
 
     @Before
     public void setUp() throws IOException {
-        int i=4000 + (int)(Math.random() * ((10000 - 4000) + 1));
-        k1=new ServerSocket(i);
-        Socket s= new Socket("127.0.0.1", i);
-        GameManager gm=new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
-        game = new Game(2, 1, "PIER", "PAOLO", null, gm);
-        player=new Player(2, "Pier", game);
+        try {
+            int i = 4000 + (int) (Math.random() * ((10000 - 4000) + 1));
+            k1 = new ServerSocket(i);
+            Socket s = new Socket("127.0.0.1", i);
+            GameManager gm = new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
+            game = new Game(2, 1, "PIER", "PAOLO", null, gm);
+            player = new Player(2, "Pier", game);
+        } catch (BindException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @After
