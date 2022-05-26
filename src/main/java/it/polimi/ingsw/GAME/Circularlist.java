@@ -91,6 +91,7 @@ public class Circularlist {
                 p.id--;
                 p=p.next;
             }
+            p.id--;
         }
     }
 
