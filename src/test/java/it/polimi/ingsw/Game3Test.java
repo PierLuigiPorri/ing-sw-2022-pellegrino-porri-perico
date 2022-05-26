@@ -26,6 +26,7 @@ public class Game3Test {
     Student[] tm1;
     Student[] tm2;
     Student[] tm3;
+    ServerSocket k1;
 
     @Test
     public void game3Simulation() {
@@ -99,9 +100,9 @@ public class Game3Test {
 
     @Before
     public void setUp() throws Exception {
-        ServerSocket k1=new ServerSocket(4000);
-        Socket s= new Socket("127.0.0.1", 4000);
-        GameManager gm=new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
+        int i=4000 + (int)(Math.random() * ((10000 - 4000) + 1));
+        k1=new ServerSocket(i);
+        Socket s = new Socket("127.0.0.1", i);
         GameManager gm3=new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 3);
         game3 = new Game(3, 1, "PIER", "PAOLO", "Gandalf", gm3);
 
@@ -116,8 +117,9 @@ public class Game3Test {
 
     @After
     public void tearDown() throws Exception{
-        Socket s= new Socket("127.0.0.1", 4000);
-        GameManager gm=new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
+        int i=4000 + (int)(Math.random() * ((10000 - 4000) + 1));
+        k1=new ServerSocket(i);
+        Socket s = new Socket("127.0.0.1", i);
         GameManager gm3=new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 3);
         game3 = new Game(3, 1, "PIER", "PAOLO", "Gandalf", gm3);
 

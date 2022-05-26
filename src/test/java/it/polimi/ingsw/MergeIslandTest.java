@@ -24,6 +24,7 @@ public class MergeIslandTest {
     Student[] tm1;
     Student[] tm2;
     Student[] tm3;
+    ServerSocket k1;
 
     @Test
     public void mergeIslandsTest() {
@@ -49,9 +50,9 @@ public class MergeIslandTest {
 
     @Before
     public void setUp() throws Exception {
-        ServerSocket k1=new ServerSocket(4000);
-
-        Socket s= new Socket("127.0.0.1", 4000);
+        int i=4000 + (int)(Math.random() * ((10000 - 4000) + 1));
+        k1=new ServerSocket(i);
+        Socket s = new Socket("127.0.0.1", i);
         GameManager gm=new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
         GameManager gm3=new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 3);
         game = new Game(2, 1, "PIER", "PAOLO", null, gm);
@@ -67,9 +68,10 @@ public class MergeIslandTest {
 
     @After
     public void tearDown() throws Exception{
-        Socket s= new Socket("127.0.0.1", 4000);
+        int i=4000 + (int)(Math.random() * ((10000 - 4000) + 1));
+        k1=new ServerSocket(i);
+        Socket s = new Socket("127.0.0.1", i);
         GameManager gm=new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
-        GameManager gm3=new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 3);
         game = new Game(2, 1, "PIER", "PAOLO", null, gm);
 
         tmp1= new Student[4];
