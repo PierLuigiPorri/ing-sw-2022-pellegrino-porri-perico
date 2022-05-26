@@ -78,10 +78,6 @@ public class CharacterSelector {
         }
     }
 
-    public ArrayList<CharacterType> getSelectedCharacters() {
-        return selectedCharacters;
-    }
-
     public int getCost(int index){
         int cha = 0;
         for(CharacterType c:selectedCharacters){

@@ -29,6 +29,7 @@ public class ModelView extends Observable implements Observer {
 
         setChanged();
         notifyObservers(update);
+        update.update="";
     }
 
 
@@ -164,19 +165,19 @@ public class ModelView extends Observable implements Observer {
                 update.coinsOnPlayer.add(p.getCoins());
             }
 
-            for (CharacterType c : game.characterSelector.getSelectedCharacters()) {
+            for (CharacterType c : game.characterSelector.getCharacters()) {
                 update.idCharacter.add(c.getIndex());
                 update.cardCost.add(c.getCost());
             }
 
-            update.activated.add(game.characterSelector.getSelectedCharacters().get(0).getUsed());
-            update.activated.add(game.characterSelector.getSelectedCharacters().get(1).getUsed());
-            update.activated.add(game.characterSelector.getSelectedCharacters().get(2).getUsed());
+            update.activated.add(game.characterSelector.getCharacters().get(0).getUsed());
+            update.activated.add(game.characterSelector.getCharacters().get(1).getUsed());
+            update.activated.add(game.characterSelector.getCharacters().get(2).getUsed());
             update.MNbonus = game.getMNbonus();
             update.numTD = 0;
 
             for (CharacterType c :
-                    game.characterSelector.getSelectedCharacters()) {
+                    game.characterSelector.getCharacters()) {
                 if (c.getIndex() == 4) {
                     ConcreteCharacter k = (ConcreteCharacter) c;
                     update.numTD = k.getTD();
@@ -191,11 +192,11 @@ public class ModelView extends Observable implements Observer {
             ArrayList<String> tmp;
             for (int i = 0; i < 3; i++) {
                 tmp = new ArrayList<>();
-                c = game.characterSelector.getSelectedCharacters().get(i);
+                c = game.characterSelector.getCharacters().get(i);
                 if (c.getIndex() == 0 || c.getIndex() == 6 || c.getIndex() == 10) {
                     ConcreteCharacter k = (ConcreteCharacter) c;
-                    for (int t = 0; i < k.students.size(); i++) {
-                        tmp.add(k.students.get(t).getColor());
+                    for (Student s:k.getStudents()) {
+                        tmp.add(s.getColor());
                     }
                     update.studentsOnCard.put(i, tmp);
                 }

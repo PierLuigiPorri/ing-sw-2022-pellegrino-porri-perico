@@ -34,6 +34,7 @@ public class CardsTest
     @Test
     public void concreteSetup(){
         for(CharacterType c:game.characterSelector.getCharacters()){
+            System.out.println(c.getIndex());
             if(c.getIndex()==0 || c.getIndex()==10 || c.getIndex()==6){
                 ConcreteCharacter w=(ConcreteCharacter) c;
                 assertNotNull(w.getStudents());
