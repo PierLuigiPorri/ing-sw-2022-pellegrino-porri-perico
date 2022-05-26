@@ -259,7 +259,7 @@ public class CLI implements View, Runnable {
                 actions = actions(2);
             }
         }
-        actions.forEach((el) -> System.out.println(actions.indexOf(el) + ":" + el));
+        actions.forEach((el) -> System.out.println(actions.indexOf(el) + "->" + el));
         choice = getSingleIntInput(actions.size());
         perform(actions.get(choice));
     }
@@ -687,12 +687,14 @@ public class CLI implements View, Runnable {
         System.out.println("\nSure! Which board would you like to see? As always, digit the appropriate number:");
         for (String n : update.players) {
             if (!Objects.equals(n, nick)) {
-                System.out.println(update.players.indexOf(n) + ":" + n);
+                System.out.println(update.players.indexOf(n) + "->" + n);
             }
         }
         int choice = getSingleIntInput(update.nPlayers - 1);
-        System.out.println("\nOK! Here's what " + update.players.get(choice) + " has:");
-        seePlayerBoards(choice);
+        if(choice!=-1) {
+            System.out.println("\nOK! Here's what " + update.players.get(choice) + " has:");
+            seePlayerBoards(choice);
+        }
     }
 
     private void seeOwnBoard() {
@@ -713,10 +715,10 @@ public class CLI implements View, Runnable {
     }
 
     private void seeHand() {
-        System.out.println("\nHere's your hand(Index:Movement,Value):");
+        System.out.println("\nHere's your hand(Index->Movement,Value):");
         int ind = 0;
         for (int i = 0; i < update.handPlayer.get(update.players.indexOf(nick)).size(); i = i + 2) {
-            System.out.println("\n" + ind + ":" + update.handPlayer.get(update.players.indexOf(nick)).get(i) + "," + update.handPlayer.get(update.players.indexOf(nick)).get(i + 1) + "  ");
+            System.out.print(ind + "->" + update.handPlayer.get(update.players.indexOf(nick)).get(i) + "," + update.handPlayer.get(update.players.indexOf(nick)).get(i + 1) + ";  ");
             ind++;
         }
         System.out.println("\n");
@@ -735,11 +737,11 @@ public class CLI implements View, Runnable {
         System.out.println("\nIf the cost is between '**', it means that Character has already been used!");
         System.out.println("\nINDEX     COST        EFFECT");
         for (int i : update.idCharacter) {
-            System.out.println("\n" + i + "     " + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + characterCost(i) + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + "        " + characterEffect(i));
+            System.out.println("\n" + i + "              " + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + characterCost(i) + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + "        " + characterEffect(i));
             if (i == 0 || i == 6 || i == 10) {
-                System.out.println("\nStudents currently on card:" + update.studentsOnCard.get(update.idCharacter.indexOf(i)));
+                System.out.println("\n                                    ->Students currently on card:" + update.studentsOnCard.get(update.idCharacter.indexOf(i)));
             } else if (i == 4) {
-                System.out.println("\nProhibition counters currently on this card:" + update.numTD);
+                System.out.println("\n                                    ->Prohibition counters currently on this card:" + update.numTD);
             }
         }
     }
