@@ -10,7 +10,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -52,13 +51,12 @@ public class MergeIslandTest {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         try {
             int i = 4000 + (int) (Math.random() * ((10000 - 4000) + 1));
             k1 = new ServerSocket(i);
             Socket s = new Socket("127.0.0.1", i);
             GameManager gm = new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
-            GameManager gm3 = new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 3);
             game = new Game(2, 1, "PIER", "PAOLO", null, gm);
 
             player = new Player(2, "Pier", game);
@@ -68,13 +66,13 @@ public class MergeIslandTest {
             tm2 = new Student[4];
             tmp3 = new Student[4];
             tm3 = new Student[4];
-        } catch (BindException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         try {
             int i = 4000 + (int) (Math.random() * ((10000 - 4000) + 1));
             k1 = new ServerSocket(i);
@@ -88,7 +86,7 @@ public class MergeIslandTest {
             tm2 = new Student[4];
             tmp3 = new Student[4];
             tm3 = new Student[4];
-        } catch (BindException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

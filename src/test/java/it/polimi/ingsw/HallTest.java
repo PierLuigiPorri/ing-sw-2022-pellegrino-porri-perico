@@ -6,8 +6,6 @@ import it.polimi.ingsw.SERVER.ConnectionManager;
 import it.polimi.ingsw.SERVER.GameManager;
 import org.junit.*;
 
-import java.io.IOException;
-import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -100,7 +98,7 @@ public class HallTest {
     }
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp()  {
         try {
             int i = 4000 + (int) (Math.random() * ((10000 - 4000) + 1));
             k1 = new ServerSocket(i);
@@ -108,7 +106,7 @@ public class HallTest {
             GameManager gm = new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
             game = new Game(2, 1, "PIER", "PAOLO", null, gm);
             player = new Player(2, "Pier", game);
-        } catch (BindException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

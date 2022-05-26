@@ -13,7 +13,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -102,7 +101,7 @@ public class Game3Test {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp()  {
         try {
             int i = 4000 + (int) (Math.random() * ((10000 - 4000) + 1));
             k1 = new ServerSocket(i);
@@ -117,13 +116,13 @@ public class Game3Test {
             tm2 = new Student[4];
             tmp3 = new Student[4];
             tm3 = new Student[4];
-        } catch (BindException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown()  {
         try {
             int i = 4000 + (int) (Math.random() * ((10000 - 4000) + 1));
             k1 = new ServerSocket(i);
@@ -137,7 +136,7 @@ public class Game3Test {
             tm2 = new Student[4];
             tmp3 = new Student[4];
             tm3 = new Student[4];
-        } catch (BindException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

@@ -9,7 +9,6 @@ import it.polimi.ingsw.SERVER.ConnectionManager;
 import it.polimi.ingsw.SERVER.GameManager;
 import org.junit.*;
 
-import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -138,7 +137,7 @@ public class GameTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         try {
             int i = 4000 + (int) (Math.random() * ((10000 - 4000) + 1));
             k1 = new ServerSocket(i);
@@ -146,21 +145,21 @@ public class GameTest {
             GameManager gm = new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
             game = new Game(2, 1, "PIER", "PAOLO", null, gm);
 
-        player = new Player(2, "Pier", game);
-        tmp1 = new Student[4];
-        tmp2 = new Student[4];
-        tm1 = new Student[4];
-        tm2 = new Student[4];
-        tmp3 = new Student[4];
-        tm3 = new Student[4];
+            player = new Player(2, "Pier", game);
+            tmp1 = new Student[4];
+            tmp2 = new Student[4];
+            tm1 = new Student[4];
+            tm2 = new Student[4];
+            tmp3 = new Student[4];
+            tm3 = new Student[4];
 
-        } catch (BindException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() {
         try {
             int i = 4000 + (int) (Math.random() * ((10000 - 4000) + 1));
             k1 = new ServerSocket(i);
@@ -168,13 +167,13 @@ public class GameTest {
             GameManager gm = new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
             game = new Game(2, 1, "PIER", "PAOLO", null, gm);
 
-        tmp1= new Student[4];
-        tmp2= new Student[4];
-        tm1 = new Student[4];
-        tm2 = new Student[4];
-        tmp3= new Student[4];
-        tm3 = new Student[4];
-        }catch (BindException e){
+            tmp1 = new Student[4];
+            tmp2 = new Student[4];
+            tm1 = new Student[4];
+            tm2 = new Student[4];
+            tmp3 = new Student[4];
+            tm3 = new Student[4];
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

@@ -8,8 +8,6 @@ import it.polimi.ingsw.SERVER.GameManager;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -231,7 +229,7 @@ public class CardsTest {
 
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp()  {
         try {
             int i = 4000 + (int) (Math.random() * ((10000 - 4000) + 1));
             k1 = new ServerSocket(i);
@@ -240,7 +238,7 @@ public class CardsTest {
             game = new Game(2, 1, "FRANCO", "CARMINE", null, gm);
             p1 = new Player(2, "FRANCO", game);
             p2 = new Player(2, "CARMINE", game);
-        } catch (BindException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
