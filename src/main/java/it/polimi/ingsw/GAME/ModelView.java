@@ -21,7 +21,7 @@ public class ModelView extends Observable implements Observer {
     public void update(Observable o, Object arg) {
         this.update = new UpdateMessage();
         update.charactersNum = 0;
-        update.update = (String) arg;
+        update.update = (ArrayList<String>) arg;
         setGameAttributes();
         setBoardAttributes();
         setPlayersAttributes();
@@ -29,7 +29,7 @@ public class ModelView extends Observable implements Observer {
 
         setChanged();
         notifyObservers(update);
-        update.update="";
+        update.update.clear();
     }
 
 

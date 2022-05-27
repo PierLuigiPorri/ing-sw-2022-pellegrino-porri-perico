@@ -30,7 +30,7 @@ public class Game extends Observable {
     private Player PwBonus;
     private final ModelView modelView;
 
-    private String update;
+    private ArrayList<String> update;
 
     public Game(int pcount, int gt, String nick1, String nick2, String nick3, GameManager gm)  {
         //Parameters: num of players, gametype, nickname and MsgHandler for every player
@@ -74,7 +74,8 @@ public class Game extends Observable {
 
         if (gameType == 1)
             this.characterSelector = new CharacterSelector(this);
-        update = "\nGame created! LET'S GO!";
+        this.update=new ArrayList<>();
+        update.add("\nGame created! LET'S GO!");
         setChanged();
         notifyObservers(update);
     }
@@ -137,7 +138,7 @@ public class Game extends Observable {
         for (Player p : players) {
             p.maxMoves = playerCount + 1;
         }
-        update = "\nNext phase!";
+        update.add("\nNext phase!");
         setChanged();
         notifyObservers(update);
     }
@@ -170,7 +171,7 @@ public class Game extends Observable {
                     }
                     removeFromGate(player1, i);
                     player1.maxMoves--;
-                    update = ("\nHeads up! " + player1.nickname + " moved a " + color + " student to their hall!");
+                    update.add("\nHeads up! " + player1.nickname + " moved a " + color + " student to their hall!");
                 } else throw new ImpossibleActionException("No such color in " + player1.nickname + "'s gate.");
             } else throw new ImpossibleActionException("Is not your turn.");
         } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
@@ -197,7 +198,7 @@ public class Game extends Observable {
                         String color=player1.getGate().getStudents().get(index).getColor();
                         removeFromGate(player1, index);
                         player1.maxMoves--;
-                        update = ("\nSomething's happened!\n" + player1.nickname + " moved a " + color + " student to Island " + indexIsland + "!");
+                        update.add("\nSomething's happened!\n" + player1.nickname + " moved a " + color + " student to Island " + indexIsland + "!");
                     } else throw new BoundException("\n" + player1.nickname + " can't place anymore students.\n");
                 } else throw new ImpossibleActionException("\nNot such color in " + player1.nickname + "'s gate");
             } else throw new ImpossibleActionException("\nIs not your turn.");
@@ -217,7 +218,7 @@ public class Game extends Observable {
                         while(!getB().clouds.get(cIndex).emptyCloud()){
                             removeFromCloud(cIndex, 0);
                         }
-                        update = ("\nStay sharp! " + p.nickname + " just snatched the students from Cloud number " + cIndex + "!");
+                        update.add("\nStay sharp! " + p.nickname + " just snatched the students from Cloud number " + cIndex + "!");
                     } else
                         throw new BoundException("\nNot enough space in " + p.nickname + "'s gate, or the cloud is empty.\n");
             } else throw new ImpossibleActionException("\nIt's not your turn.");
@@ -274,7 +275,7 @@ public class Game extends Observable {
         if (order.isEmpty())
             changePhase();
         else {
-            update = "\nNow is "+order.get(0).nickname+"'s turn to place students!";
+            update.add("\nNow is "+order.get(0).nickname+"'s turn to place students!");
             setChanged();
             notifyObservers(update);
         }
@@ -284,7 +285,7 @@ public class Game extends Observable {
         if (this.board.islands.getIsland(index).TD) {
             this.board.islands.getIsland(index).removeTD();
             characterSelector.restoreTD();
-            update = "\nMother nature stopped on Island " + index + ", but a Prohibition Token denied her right to place a Tower! Too bad.";
+            update.add("\nMother nature stopped on Island " + index + ", but a Prohibition Token denied her right to place a Tower! Too bad.");
         } else {
             ArrayList<Integer> p = new ArrayList<>();
             int x = 0;
@@ -309,14 +310,14 @@ public class Game extends Observable {
                 if (this.board.islands.getIsland(index).towers.isEmpty()) {
                     this.board.islands.getIsland(index).addTower(players.get(q.indexOf(p.get(p.size() - 1))));
                     players.get(q.indexOf(p.get(p.size() - 1))).removeTower();
-                    update = "\nYou better start worrying because " + players.get(q.indexOf(p.get(p.size() - 1))).nickname + " just placed a Tower on Island " + index + "!";
+                    update.add("\nYou better start worrying because " + players.get(q.indexOf(p.get(p.size() - 1))).nickname + " just placed a Tower on Island " + index + "!");
                 } else if (!players.get(q.indexOf(p.get(p.size() - 1))).equals(this.board.islands.getIsland(index).getPlayer())) {
                     swapTowers(index, players.get(q.indexOf(p.get(p.size() - 1))));
                     players.get(q.indexOf(p.get(p.size() - 1))).removeTower();
-                    update = "\nPOWER PLAY! " + players.get(q.indexOf(p.get(p.size() - 1))).nickname + " just took all of " + this.board.islands.getIsland(index).getPlayer().nickname + "'s Towers on Island " + index + "!";
+                    update.add("\nPOWER PLAY! " + players.get(q.indexOf(p.get(p.size() - 1))).nickname + " just took all of " + this.board.islands.getIsland(index).getPlayer().nickname + "'s Towers on Island " + index + "!");
                 }
             } else
-                update = "\nMother Nature stopped on Island " + index + ", and nothing happened. She's disappointed.";
+                update.add("\nMother Nature stopped on Island " + index + ", and nothing happened. She's disappointed.");
         }
         setChanged();
         notifyObservers(update);
@@ -336,9 +337,9 @@ public class Game extends Observable {
         i2 = board.islands.getIsland(index2);
         if (!i1.towers.isEmpty() && !i2.towers.isEmpty() && i1.towers.get(0).getPlayer().equals(i2.towers.get(0).getPlayer())) {
             board.islands.mergeIslands(i1, i2);
-            update = "\nIt's happening everybody!\n" + "Island " + index1 + " and Island " + index2 + " just merged into one! " +
+            update.add("\nIt's happening everybody!\n" + "Island " + index1 + " and Island " + index2 + " just merged into one! " +
                     "We have a new Island " + Math.min(index1, index2) + "!" +
-                    "\nThere are only " + board.islands.size() + " left!";
+                    "\nThere are only " + board.islands.size() + " left!");
             setChanged();
             notifyObservers(update);
         }
@@ -355,7 +356,7 @@ public class Game extends Observable {
                 if (order.get(0).equals(this.players.get(i))) {
                     cardsPlayed.add(this.players.get(i).playCard(index));
                     order.remove(0);
-                    update = "\n" + player + " played their card!";
+                    update.add("\n" + player + " played their card!");
                 } else throw new ImpossibleActionException("\nNot " + players.get(i).nickname + "'s turn!\n");
 //When Order.get(0) is equal to NULL, means every player has played. So is time to change phase into "Action";
                 if (order.isEmpty()) {
@@ -373,8 +374,8 @@ public class Game extends Observable {
         Player p = playerTranslator(player);
         if (p.getCoins() >= characterSelector.getCost(id)) {
             p.removeCoin(characterSelector.getCost(id));
-            update = "\n Heads up! " + player + " just activated the Character card " + id + "!" + "\n" +
-                    characterSelector.applyEffect(id, p, parAC1, parA2, parAC3, parA4, parC2, parC4);
+            update.add("\n Heads up! " + player + " just activated the Character card " + id + "!" + "\n" +
+                    characterSelector.applyEffect(id, p, parAC1, parA2, parAC3, parA4, parC2, parC4));
         } else throw new ImpossibleActionException("\nNot enough coins!\n");
         setChanged();
         notifyObservers(update);

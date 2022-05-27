@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 
 public class UpdateMessage extends MessageType{
 
-    public String update;
+    public ArrayList<String> update;
     public boolean gameEnded;
     public int game_Type;
     public int nPlayers;
@@ -78,6 +78,7 @@ public class UpdateMessage extends MessageType{
         this.activated = new ArrayList<>();
         this.cardCost = new ArrayList<>();
         this.numTDOnIsland = new ArrayList<>();
+        this.update=new ArrayList<>();
 
         this.playersMoves = new ArrayList<>();
         this.whoOwnTowers = new ArrayList<>();

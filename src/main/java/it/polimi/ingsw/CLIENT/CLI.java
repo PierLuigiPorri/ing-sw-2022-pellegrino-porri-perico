@@ -200,7 +200,7 @@ public class CLI implements View, Runnable {
             }
             if (!msgHandler.getUpdates().isEmpty()) {
                 for (UpdateMessage up : msgHandler.getUpdates()) {
-                    System.out.println(up.update);
+                    up.update.forEach(System.out::println);
                 }
                 update(msgHandler.getUpdates().get(msgHandler.getUpdates().size() - 1));
             }
