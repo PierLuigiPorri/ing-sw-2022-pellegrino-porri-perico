@@ -16,10 +16,6 @@ public class UpdateMessage extends MessageType{
 
     public LinkedHashMap<Integer, ArrayList<Integer>> handPlayer;
 
-    /*Player attributes:
-     attributes which end by 0 refer to order.get(0);
-     attributes which end by 1 refer to order.get(1);
-     attributes which end by 2 refer to order.get(2);*/
 
     public ArrayList<Integer> coinsOnPlayer;     //[positions] 0:order.get(0); 1: order.get(1); 2: order.get(2);
     public ArrayList<Integer> towersOnPlayer;    //[positions] 0:order.get(0); 1: order.get(1); 2: order.get(2);

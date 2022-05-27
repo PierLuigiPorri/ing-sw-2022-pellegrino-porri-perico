@@ -1,6 +1,5 @@
 package it.polimi.ingsw.GAME;
 
-import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.util.ArrayList;
 
@@ -30,6 +29,8 @@ public class Board {
             }
             p = p.next;
         }
+        p.getStudents().add(firstSt.get(firstSt.size()-1));
+        firstSt.remove(firstSt.size()-1);
     }
 }
 
