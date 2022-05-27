@@ -681,7 +681,10 @@ public class CLI implements View, Runnable {
     }
 
     private void seePlayerBoards(int choice) {
-        System.out.println("\nGATE:" + update.gatePlayer.get(choice));
+        System.out.println("\nGATE:");
+        for (int i = 0; i < update.gatePlayer.get(choice).size(); i=i+2) {
+            System.out.print(update.gatePlayer.get(choice).get(i)+update.gatePlayer.get(choice).get(i+1)+ANSI_RESET+"; ");
+        }
         System.out.println("\n      STUDENTS          PROFESSORS");
         System.out.println(ANSI_RED + "\nRED:      "+ANSI_RESET + update.hallPlayer.get(choice).get(0) + "                  " + (update.professors.get(choice).get(0) ? "YES" : "NO"));
         System.out.println(ANSI_BLUE + "\nBLUE:     "+ ANSI_RESET + update.hallPlayer.get(choice).get(1) + "                  " + (update.professors.get(choice).get(1) ? "YES" : "NO"));
@@ -714,11 +717,19 @@ public class CLI implements View, Runnable {
         System.out.println("\nSure! Here's what we're at:");
         System.out.println("\n                ISLANDS" + (update.game_Type == 1 ? "(if you see a [X] it means there's a Prohibition counter there!)" : ""));
         for (int index : update.studentsOnIsland.keySet()) {
-            System.out.println("\nIsland " + index + (update.game_Type == 1 ? (update.numTDOnIsland.get(index - 1) ? "[X]" : "") : "") + ":" + update.studentsOnIsland.get(index - 1) + "Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1).equals("NONE") ? "":(", owned by " + update.whoOwnTowers.get(index - 1))) + (update.motherNatureOnIsland.get(index - 1) ? " "+ANSI_CYAN+ " <----Mother Nature is here! Say hello!"+ ANSI_RESET+"" : ""));
+            System.out.print("\nIsland " + index + (update.game_Type == 1 ? (update.numTDOnIsland.get(index-1) ? "[X]" : "") : "") + ":");
+            for (int i = 0; i < update.studentsOnIsland.get(index).size(); i=i+2) {
+                System.out.print(update.studentsOnIsland.get(index).get(i)+update.studentsOnIsland.get(index).get(i+1)+ANSI_RESET+" ");
+            }
+            System.out.print((update.motherNatureOnIsland.get(index-1) ? (" "+ANSI_CYAN+ " <----Mother Nature is here! Say hello!"+ ANSI_RESET+"") : ""));
+            System.out.print("\n           ->Towers:" + update.towersOnIsland.get(index-1) + (update.whoOwnTowers.get(index-1).equals("NONE") ? "" : (", owned by " + update.whoOwnTowers.get(index-1))) );
         }
-        System.out.println("\n                CLOUDS           ");
+        System.out.println("\n\n                CLOUDS           ");
         for (int index : update.studentsOnCloud.keySet()) {
-            System.out.println("\nCloud " + index + ":" + update.studentsOnCloud.get(index));
+            System.out.print("\nCloud " + index + ":");
+            for (int i = 0; i < update.studentsOnCloud.get(index).size(); i=i+2) {
+                System.out.print(update.studentsOnCloud.get(index).get(i)+update.studentsOnCloud.get(index).get(i+1)+ANSI_RESET+" ");
+            }
         }
     }
 

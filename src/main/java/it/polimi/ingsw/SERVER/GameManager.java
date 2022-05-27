@@ -69,7 +69,7 @@ public class GameManager extends Observable implements Runnable, Observer {
         for (ConnectionManager cm: connectionManagers) {
             if(player!=cm.getPlayerName()) {
                 UpdateMessage upd = new UpdateMessage();
-                upd.update = "Player " + player + " disconnected from the game";
+                upd.update.add("Player " + player + " disconnected from the game");
                 upd.gameEnded = true;
                 cm.send(upd);
             }

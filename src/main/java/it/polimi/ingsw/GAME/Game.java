@@ -78,6 +78,7 @@ public class Game extends Observable {
         update.add("\nGame created! LET'S GO!");
         setChanged();
         notifyObservers(update);
+        update.clear();
     }
 
     public ModelView getModelView() {
@@ -141,6 +142,7 @@ public class Game extends Observable {
         update.add("\nNext phase!");
         setChanged();
         notifyObservers(update);
+        update.clear();
     }
 
     public Player gameEnd() {
@@ -177,6 +179,7 @@ public class Game extends Observable {
         } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
         setChanged();
         notifyObservers(update);
+        update.clear();
     }
 
     public void bagToCloud(int index) throws BoundException, ImpossibleActionException {
@@ -205,6 +208,7 @@ public class Game extends Observable {
         } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
         setChanged();
         notifyObservers(update);
+        update.clear();
     }
 
     public void CloudToGate(String player, int cIndex) throws BoundException, ImpossibleActionException {
@@ -225,6 +229,7 @@ public class Game extends Observable {
         } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
         setChanged();
         notifyObservers(update);
+        update.clear();
     }
 
 
@@ -278,6 +283,7 @@ public class Game extends Observable {
             update.add("\nNow is "+order.get(0).nickname+"'s turn to place students!");
             setChanged();
             notifyObservers(update);
+            update.clear();
         }
     }
 
@@ -360,6 +366,7 @@ public class Game extends Observable {
                 }
                 setChanged();
                 notifyObservers(update);
+                update.clear();
             } else throw new ImpossibleActionException("\nNo card with " + index + " as value\n");
         }
     }
@@ -375,6 +382,7 @@ public class Game extends Observable {
         } else throw new ImpossibleActionException("\nNot enough coins!\n");
         setChanged();
         notifyObservers(update);
+        update.clear();
     }
 
     public ArrayList<Player> getPlayers() {

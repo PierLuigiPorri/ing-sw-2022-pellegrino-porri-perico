@@ -29,7 +29,6 @@ public class ModelView extends Observable implements Observer {
 
         setChanged();
         notifyObservers(update);
-        update.update.clear();
     }
 
 
@@ -65,7 +64,7 @@ public class ModelView extends Observable implements Observer {
         for (int i = 0; i < game.getB().clouds.size(); i++) {
             tmp = new ArrayList<>();
             for (Student s : game.getB().clouds.get(i).students) {
-                //tmp.add(s.getColorInCLI());
+                tmp.add(s.getColorInCLI());
                 tmp.add(s.getColor());
 
             }
@@ -83,7 +82,7 @@ public class ModelView extends Observable implements Observer {
         for (int i = 1; i <= game.getB().islands.size(); i++) {
             tmp = new ArrayList<>();
             for (Student s : game.getB().islands.getIsland(i).getStudents()) {
-                //tmp.add(s.getColorInCLI());
+                tmp.add(s.getColorInCLI());
                 tmp.add(s.getColor());
             }
             update.studentsOnIsland.put(i, tmp);
@@ -92,6 +91,7 @@ public class ModelView extends Observable implements Observer {
         for (int i = 0; i < game.getPlayerCount(); i++) {
             tmp = new ArrayList<>();
             for (Student s : game.getPlayers().get(i).getGate().getStudents()) {
+                tmp.add(s.getColorInCLI());
                 tmp.add(s.getColor());
             }
             update.gatePlayer.put(i, tmp);
@@ -199,7 +199,7 @@ public class ModelView extends Observable implements Observer {
                 if (c.getIndex() == 0 || c.getIndex() == 6 || c.getIndex() == 10) {
                     ConcreteCharacter k = (ConcreteCharacter) c;
                     for (Student s:k.getStudents()) {
-                        //tmp.add(s.getColorInCLI());
+                        tmp.add(s.getColorInCLI());
                         tmp.add(s.getColor());
                     }
                     update.studentsOnCard.put(i, tmp);
