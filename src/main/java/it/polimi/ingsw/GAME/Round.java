@@ -29,7 +29,7 @@ public class Round {
         this.currentPhase = currentPhase;
     }
 
-    public ArrayList<Player> nextAction(int[] index) {
+    public ArrayList<Player> nextOrder(int[] index) {
         if (player.size() == 3) {
             this.order.addAll(this.player);
             order.sort(Comparator.comparingInt(o -> o.getLastCardPlayed().getValue()));
@@ -38,20 +38,6 @@ public class Round {
             Card x, y;
             x = player.get(0).getLastCardPlayed();
             y = player.get(1).getLastCardPlayed();
-            compare(x, y);
-        }
-        return this.order;
-    }
-
-    public ArrayList<Player> nextPlanning(int[] index) { //index:array che contiene "VALORE" delle carte giocate da tutti i giocatori
-        if (player.size() == 3) {
-            this.order.addAll(this.player);
-            order.sort(Comparator.comparingInt(o -> o.getLastCardPlayed().getValue()));
-        }
-        else{
-            Card x, y;
-            x = player.get(0).playCard(index[0]);
-            y = player.get(1).playCard(index[1]);
             compare(x, y);
         }
         return this.order;

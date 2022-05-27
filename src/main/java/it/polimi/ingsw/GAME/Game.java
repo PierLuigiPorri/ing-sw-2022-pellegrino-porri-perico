@@ -319,8 +319,6 @@ public class Game extends Observable {
             } else
                 update.add("\nMother Nature stopped on Island " + index + ", and nothing happened. She's disappointed.");
         }
-        setChanged();
-        notifyObservers(update);
     }
 
     public void swapTowers(int index, Player player1) throws ImpossibleActionException {
@@ -340,8 +338,6 @@ public class Game extends Observable {
             update.add("\nIt's happening everybody!\n" + "Island " + index1 + " and Island " + index2 + " just merged into one! " +
                     "We have a new Island " + Math.min(index1, index2) + "!" +
                     "\nThere are only " + board.islands.size() + " left!");
-            setChanged();
-            notifyObservers(update);
         }
     }
 
