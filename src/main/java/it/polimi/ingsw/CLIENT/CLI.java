@@ -41,13 +41,13 @@ public class CLI implements View, Runnable {
     @Override
     public void run() {
         msgHandler.setView(this);
-        System.out.println(
+        System.out.println(ANSI_PURPLE+
                 "    __________  _______    _   __________  _______\n" +
                         "   / ____/ __ \\/  _/   |  / | / /_  __/\\ \\/ / ___/\n" +
-                        "  / __/ / /_/ // // /| | /  |/ / / /    \\  /\\__ \\\n" +
+                        "  / __/ / /_/ // // /| | /  |/ / / /    \\  /\\__ \\\n" +ANSI_CYAN+
                         " / /___/ _, _// // ___ |/ /|  / / /     / /___/ /\n" +
                         "/_____/_/ |_/___/_/  |_/_/ |_/ /_/     /_//____/\n"
-        );
+        +ANSI_RESET);
         this.nick = getValidString("What's your name?");
         System.out.println("What would you like to do?" +
                 "\n0:Create a new Game" +
