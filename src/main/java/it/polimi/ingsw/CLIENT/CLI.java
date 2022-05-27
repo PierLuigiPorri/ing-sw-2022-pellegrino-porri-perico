@@ -14,6 +14,14 @@ public class CLI implements View, Runnable {
     private final ArrayList<Integer> inputInt;
     private final ArrayList<String> inputStr;
 
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+
     private UpdateMessage update;
 
     public String nick;
@@ -675,11 +683,11 @@ public class CLI implements View, Runnable {
     private void seePlayerBoards(int choice) {
         System.out.println("\nGATE:" + update.gatePlayer.get(choice));
         System.out.println("\n      STUDENTS          PROFESSORS");
-        System.out.println("\nRED:     " + update.hallPlayer.get(choice).get(0) + "                      " + (update.professors.get(choice).get(0) ? "YES" : "NO"));
-        System.out.println("\nBLUE:    " + update.hallPlayer.get(choice).get(1) + "                      " + (update.professors.get(choice).get(1) ? "YES" : "NO"));
-        System.out.println("\nGREEN:   " + update.hallPlayer.get(choice).get(2) + "                      " + (update.professors.get(choice).get(2) ? "YES" : "NO"));
-        System.out.println("\nYELLOW:  " + update.hallPlayer.get(choice).get(3) + "                      " + (update.professors.get(choice).get(3) ? "YES" : "NO"));
-        System.out.println("\nPINK:    " + update.hallPlayer.get(choice).get(4) + "                      " + (update.professors.get(choice).get(4) ? "YES" : "NO"));
+        System.out.println(ANSI_RED + "\nRED:      "+ANSI_RESET + update.hallPlayer.get(choice).get(0) + "                  " + (update.professors.get(choice).get(0) ? "YES" : "NO"));
+        System.out.println(ANSI_BLUE + "\nBLUE:     "+ ANSI_RESET + update.hallPlayer.get(choice).get(1) + "                  " + (update.professors.get(choice).get(1) ? "YES" : "NO"));
+        System.out.println(ANSI_GREEN+ "\nGREEN:    "+ ANSI_RESET + update.hallPlayer.get(choice).get(2) + "                  " + (update.professors.get(choice).get(2) ? "YES" : "NO"));
+        System.out.println(ANSI_YELLOW+ "\nYELLOW:   "+ ANSI_RESET + update.hallPlayer.get(choice).get(3) + "                  " + (update.professors.get(choice).get(3) ? "YES" : "NO"));
+        System.out.println(ANSI_PURPLE+ "\nPINK:     "+ ANSI_RESET + update.hallPlayer.get(choice).get(4) + "                  " + (update.professors.get(choice).get(4) ? "YES" : "NO"));
         System.out.println("\nTowers left:" + update.towersOnPlayer.get(choice) + ((update.game_Type == 1) ? "   Coins left:" + update.coinsOnPlayer.get(choice) : ""));
     }
 
@@ -706,7 +714,7 @@ public class CLI implements View, Runnable {
         System.out.println("\nSure! Here's what we're at:");
         System.out.println("\n                ISLANDS" + (update.game_Type == 1 ? "(if you see a [X] it means there's a Prohibition counter there!)" : ""));
         for (int index : update.studentsOnIsland.keySet()) {
-            System.out.println("\nIsland " + index + (update.game_Type == 1 ? (update.numTDOnIsland.get(index - 1) ? "[X]" : "") : "") + ":" + update.studentsOnIsland.get(index - 1) + "Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1).equals("NONE") ? (", owned by " + update.whoOwnTowers.get(index - 1)) : "") + (update.motherNatureOnIsland.get(index - 1) ? "  <----Mother Nature is here! Say hello!" : ""));
+            System.out.println("\nIsland " + index + (update.game_Type == 1 ? (update.numTDOnIsland.get(index - 1) ? "[X]" : "") : "") + ":" + update.studentsOnIsland.get(index - 1) + "Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1).equals("NONE") ? "":(", owned by " + update.whoOwnTowers.get(index - 1))) + (update.motherNatureOnIsland.get(index - 1) ? " "+ANSI_CYAN+ " <----Mother Nature is here! Say hello!"+ ANSI_RESET+"" : ""));
         }
         System.out.println("\n                CLOUDS           ");
         for (int index : update.studentsOnCloud.keySet()) {

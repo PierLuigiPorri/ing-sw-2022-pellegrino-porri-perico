@@ -94,6 +94,7 @@ public class Circularlist {
             p.id--;
 
         }
+        i.motherNature=true;
     }
 
     public boolean contains(Island i){
