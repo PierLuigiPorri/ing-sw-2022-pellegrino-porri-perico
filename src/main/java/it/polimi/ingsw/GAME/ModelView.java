@@ -6,10 +6,14 @@ import it.polimi.ingsw.SERVER.GameManager;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.stream.Collectors;
 
 public class ModelView extends Observable implements Observer {
     private UpdateMessage update;
     private final Game game;
+
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     public ModelView(Game game, GameManager gameManager) {
         this.update = new UpdateMessage();
@@ -22,6 +26,7 @@ public class ModelView extends Observable implements Observer {
         this.update = new UpdateMessage();
         update.charactersNum = 0;
         update.update = (ArrayList<String>) arg;
+        update.update= update.update.stream().map(str->ANSI_CYAN+str+ANSI_RESET).collect(Collectors.toCollection(ArrayList::new));
         setGameAttributes();
         setBoardAttributes();
         setPlayersAttributes();
