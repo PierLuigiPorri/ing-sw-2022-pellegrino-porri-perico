@@ -233,7 +233,9 @@ public class CLI implements View, Runnable {
                 played.removeAll(update.order);
                 System.out.println("\nHere's the cards that have already been played (Movement,Value):");
                 played.forEach(System.out::println);
-                update.lastCardPlayed.forEach(System.out::println);
+                for (int i = 0; i < update.lastCardPlayed.size(); i=i+2) {
+                    System.out.print(update.lastCardPlayed.get(i)+", "+update.lastCardPlayed.get(i+1)+"; ");
+                }
             }
             if (update.order.get(0).equals(nick)) {             //Player's turn
                 if (!currentPlayer.equals(update.order.get(0))) {
@@ -297,7 +299,7 @@ public class CLI implements View, Runnable {
                         "\nRemember, you can't play a card that has already been played this round. Just don't."+ANSI_RESET);
                 break;
             case 1://Planning phase, not player's turn
-                System.out.println("\n"+ANSI_CYAN+"It's not your time to play a card yet. Hold..." +
+                System.out.println("\n"+ANSI_CYAN+"It's not your time to play a card. Hold..." +
                         "\nWanna do something in the mean time? Digit the appropriate number and we'll do that for you:"+ANSI_RESET);
                 break;
             case 2://Action phase, not player's turn
@@ -413,8 +415,6 @@ public class CLI implements View, Runnable {
         list.add("See hand");
         if (update.game_Type == 1)
             list.add("See Characters");
-        list.add("Refresh");
-        list.add("Exit game");
         switch (spot) {
             case 0://Player's turn, Planning phase
                 list.add("Play a card");
@@ -446,6 +446,8 @@ public class CLI implements View, Runnable {
                 list.add("Move Mother Nature");
                 break;
         }
+        list.add("Refresh");
+        list.add("Exit game");
         return list;
     }
 
