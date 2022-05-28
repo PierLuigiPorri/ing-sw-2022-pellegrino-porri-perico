@@ -75,7 +75,7 @@ public class Game extends Observable {
         if (gameType == 1)
             this.characterSelector = new CharacterSelector(this);
         this.update=new ArrayList<>();
-        update.add("\nGame created! LET'S GO!");
+        update.add("Game created! LET'S GO!");
         setChanged();
         notifyObservers(update);
         update.clear();

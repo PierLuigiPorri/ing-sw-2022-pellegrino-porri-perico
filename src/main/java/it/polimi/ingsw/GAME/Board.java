@@ -24,13 +24,11 @@ public class Board {
         firstSt=Game.randomStudGenerator(10);
         while(!p.equals(islands.tail)) {
             if (p.getId() != 6) {
-                p.getStudents().add(firstSt.get(firstSt.size()-1));
-                firstSt.remove(firstSt.size()-1);
+                p.getStudents().add(firstSt.remove(firstSt.size()-1));
             }
             p = p.next;
         }
-        p.getStudents().add(firstSt.get(firstSt.size()-1));
-        firstSt.remove(firstSt.size()-1);
+        p.getStudents().add(firstSt.remove(firstSt.size()-1));
     }
 }
 

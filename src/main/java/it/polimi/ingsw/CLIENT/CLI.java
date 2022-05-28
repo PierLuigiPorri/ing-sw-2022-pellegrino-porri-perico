@@ -763,11 +763,14 @@ public class CLI implements View, Runnable {
         System.out.println("\nIf the cost is between '**', it means that Character has already been used!");
         System.out.println("\n"+ANSI_CYAN+"INDEX"+ANSI_RESET+"     "+ANSI_CYAN+"COST"+ANSI_RESET+"        "+ANSI_CYAN+"EFFECT"+ANSI_RESET);
         for (int i : update.idCharacter) {
-            System.out.println("\n" + i + "              " + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + characterCost(i) + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + "        " + characterEffect(i));
+            System.out.println("\n" + i + "         " + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + characterCost(i) + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + "           " + characterEffect(i));
             if (i == 0 || i == 6 || i == 10) {
-                System.out.println("\n                                    ->Students currently on card:" + update.studentsOnCard.get(update.idCharacter.indexOf(i))+ANSI_RESET);
+                System.out.print("                                    ->Students currently on card:");
+                for (int x = 0; x < update.studentsOnCard.get(update.idCharacter.indexOf(i)).size(); x = x + 2) {
+                    System.out.print(update.studentsOnCard.get(update.idCharacter.indexOf(i)).get(x) + update.studentsOnCard.get(update.idCharacter.indexOf(i)).get(x + 1) + ANSI_RESET + " ");
+                }
             } else if (i == 4) {
-                System.out.println("\n                                    ->Prohibition counters currently on this card:" + update.numTD);
+                System.out.println("                                    ->Prohibition counters currently on this card:" + update.numTD);
             }
         }
     }
