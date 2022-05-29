@@ -1,7 +1,6 @@
 package it.polimi.ingsw.SERVER;
 
 import java.net.*;
-import java.net.ServerSocket;
 
 
 public class ServerApp

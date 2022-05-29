@@ -1,6 +1,5 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.MESSAGES.MessageType;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 
 public class GUI implements View, Runnable{
@@ -11,8 +10,6 @@ public class GUI implements View, Runnable{
     }
 
     public void moveMotherNature() {}
-
-    public void changePhase(){}
 
     public void gateToIsland(){}
 

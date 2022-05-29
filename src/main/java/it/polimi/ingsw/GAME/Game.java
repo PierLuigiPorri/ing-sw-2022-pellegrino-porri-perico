@@ -30,7 +30,7 @@ public class Game extends Observable {
     private Player PwBonus;
     private final ModelView modelView;
 
-    private ArrayList<String> update;
+    private final ArrayList<String> update;
 
     public Game(int pcount, int gt, String nick1, String nick2, String nick3, GameManager gm)  {
         //Parameters: num of players, gametype, nickname and MsgHandler for every player

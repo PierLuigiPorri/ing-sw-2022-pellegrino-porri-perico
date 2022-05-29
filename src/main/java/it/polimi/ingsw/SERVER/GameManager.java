@@ -1,8 +1,6 @@
 package it.polimi.ingsw.SERVER;
 
 import it.polimi.ingsw.MESSAGES.ActionMessage;
-import it.polimi.ingsw.MESSAGES.KillMessage;
-import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 
 import java.util.ArrayList;
@@ -67,7 +65,7 @@ public class GameManager extends Observable implements Runnable, Observer {
     public void playerDisconnected(String player){
         //Avviso tutti gli altri player che uno si è disconnesso
         for (ConnectionManager cm: connectionManagers) {
-            if(player!=cm.getPlayerName()) {
+            if(!player.equals(cm.getPlayerName())) {
                 UpdateMessage upd = new UpdateMessage();
                 upd.update.add("Player " + player + " disconnected from the game");
                 upd.gameEnded = true;

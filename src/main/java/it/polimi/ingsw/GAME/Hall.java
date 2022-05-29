@@ -56,20 +56,17 @@ public class Hall {
     }
 
     public int getColor(String color){
-        if (color.equals("RED")) {
-            return getRed();
-        }
-        else if (color.equals( "BLUE")) {
-            return getBlue();
-        }
-        else if (color.equals("GREEN")) {
-            return getGreen();
-        }
-        else if (color.equals("YELLOW")) {
-            return getYellow();
-        }
-        else {
-            return getPink();
+        switch (color) {
+            case "RED":
+                return getRed();
+            case "BLUE":
+                return getBlue();
+            case "GREEN":
+                return getGreen();
+            case "YELLOW":
+                return getYellow();
+            default:
+                return getPink();
         }
     }
 
