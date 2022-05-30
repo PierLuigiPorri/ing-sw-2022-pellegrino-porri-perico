@@ -11,12 +11,11 @@ import java.util.Collections;
 import java.util.Observable;
 
 public class Game extends Observable {
+
     private final int playerCount;
     private final int gameType; //0: regole semplificate, 1: regole esperto.
     private final ArrayList<Player> players; //array of all players.
     public ArrayList<Player> order; // says the order of each turn in which the players are going to play.
-    //private Controller controller; //
-    // private ArrayList<VirtualView> messageHandlers; //Potranno essere usati per notificare le view remote delle modifiche
     private ArrayList<Card> cardsPlayed;  //Cards played in this round
     private final Bag bag;
     private final Board board;
@@ -28,6 +27,7 @@ public class Game extends Observable {
     private int MNbonus = 0; // additional movement to Mother Nature; is called by a Character.
     private int InfluenceBonus = 0;
     private Player PwBonus;
+    public boolean cloudEmptied=false;
     private final ModelView modelView;
 
     private final ArrayList<String> update;
@@ -223,6 +223,7 @@ public class Game extends Observable {
                             removeFromCloud(cIndex, 0);
                         }
                         update.add("\nStay sharp! " + p.nickname + " just snatched the students from Cloud number " + cIndex + "!");
+                        cloudEmptied=true;
                     } else
                         throw new BoundException("\nNot enough space in " + p.nickname + "'s gate, or the cloud is empty.\n");
             } else throw new ImpossibleActionException("\nIt's not your turn.");
@@ -245,6 +246,7 @@ public class Game extends Observable {
                     }
                     tmp.setMotherNature(true);
                     motherNature.setIsland(tmp);
+                    cloudEmptied=false;
 
 //At the end of Mother Nature's movement, it's time to calculate influence on the island in which She stopped.
                     determineInfluence(tmp.getId());

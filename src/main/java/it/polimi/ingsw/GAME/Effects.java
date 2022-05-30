@@ -15,8 +15,6 @@ public final class Effects{
 
     public void initializeConcrete(int index, ConcreteCharacter c){
         c.students=new ArrayList<>();
-        // RIGA (9) [c.students=new ArrayList<>();] è STATA SCRITTA DA PIER!!
-        // è SOLO UNA ISTANZA PER FAR GIRARE IL TEST, NON SO SE SIA CORRETTO. I TEST PER ORA LI PASSA.
         switch(index){
             case 0:
             case 10:
@@ -39,22 +37,22 @@ public final class Effects{
         switch(index){
             case 1:
                 player.getHall().activateCard();
-                return "\nBe aware that until the end of the turn "+player+" will be able to control the Professors even if they have the same amount of students in the hall!";
+                return "\nBe aware that until the end of the turn "+player.nickname+" will be able to control the Professors even if they have the same amount of students in the hall!";
             case 2:
                 game.determineInfluence(par1);
                 return "";
             case 3:
                 game.setMNbonus();
-                return "\n"+player+" has a bonus! This round, +2 to potential Mother Nature movement. Hooray!";
+                return "\n"+player.nickname+" has a bonus! This round, +2 to potential Mother Nature movement. Hooray!";
             case 5:
                 Tower.disable();
-                return "\nBy "+player+"'s decree, this turn Towers won't count when calculating the influence!";
+                return "\nBy "+player.nickname+"'s decree, this turn Towers won't count when calculating the influence!";
             case 7:
                 game.enableInfluenceBonus(player);
-                return "\n"+player+" has a bonus! This turn, +2 to influence on Islands! Pray they won't use it against you.";
+                return "\n"+player.nickname+" has a bonus! This turn, +2 to influence on Islands! Pray they won't use it against you.";
             case 8:
                 game.colorTranslator(par2).disableInfluence();
-                return "\nBy "+player+"'s decree, this turn "+par2+" students won't count when calculating the influence!";
+                return "\nBy "+player.nickname+"'s decree, this turn "+par2+" students won't count when calculating the influence!";
             case 9:
                 for(int g=0; g<par3.size(); g++){
                     game.removeFromHall(player, par4.get(g));
@@ -63,7 +61,7 @@ public final class Effects{
                     game.addToGate(player, par4.get(g));
                 }
                 game.checkColorChanges(false);
-                return "\nA shuffle occurred! "+player+" just swapped around "+par3.size()+" students between their Gate and their Hall.\n" +
+                return "\nA shuffle occurred! "+player.nickname+" just swapped around "+par3.size()+" students between their Gate and their Hall.\n" +
                         "See for yourself, we can't tell you everything.";
             case 11:
                 for(Player pl:game.getPlayers()){
@@ -72,7 +70,7 @@ public final class Effects{
                     }
                 }
                 game.checkColorChanges(false);
-                return "\nTragedy struck! "+player+" just elected to get rid of up to 3 "+par2+" students from EVERY hall! CHAOS!";
+                return "\nTragedy struck! "+player.nickname+" just elected to get rid of up to 3 "+par2+" students from EVERY hall! CHAOS!";
             default:
                 return "";
         }
@@ -84,17 +82,17 @@ public final class Effects{
                 game.addStudentToIsland(c.students.get(par1).getColor(), par2);
                 c.students.remove(par1);
                 c.students.add(game.getBg().extractStudent());
-                return player+" just moved a "+c.students.get(par1).getColor()+" student on Island "+par2+"!";
+                return player.nickname+" just moved a "+c.students.get(par1).getColor()+" student on Island "+par2+"!";
             case 4:
                 game.getB().islands.getIsland(par1).addTD();
                 c.removeTD();
-                return "\nUh-oh. "+player+" placed a Prohibition Token on Island "+par1+"!";
+                return "\nUh-oh. "+player.nickname+" placed a Prohibition Token on Island "+par1+"!";
             case 10:
                 game.addStudentToHall(c.students.get(par1).getColor(), player);
                 String color=c.students.get(par1).getColor();
                 c.getStudents().remove(par1);
                 c.students.add(game.getBg().extractStudent());
-                return "\nHeads up! "+player+" placed a "+color+" in their Hall! They're getting ahead!";
+                return "\nHeads up! "+player.nickname+" placed a "+color+" in their Hall! They're getting ahead!";
             case 6:
                 Student tmp;
                 for(int x=0; x<par3.size(); x++){
@@ -102,7 +100,7 @@ public final class Effects{
                     c.students.set(par3.get(x), player.getGate().students.get(par4.get(x)));
                     player.getGate().students.set((par4.get(x)), tmp);
                 }
-                return "\nA shuffle occurred! "+player+" just swapped around "+par3.size()+" students between their Gate and the Character card." +
+                return "\nA shuffle occurred! "+player.nickname+" just swapped around "+par3.size()+" students between their Gate and the Character card." +
                         "\nSee for yourself, we can't tell you everything.";
             default:
                 return "";

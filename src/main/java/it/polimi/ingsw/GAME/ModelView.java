@@ -64,7 +64,7 @@ public class ModelView extends Observable implements Observer {
         for (int k = 1; k <= game.getB().islands.size(); k++) {
             update.towersOnIsland.add(game.getB().islands.getIsland(k).towers.size());
         }
-
+        update.cloudtaken=game.cloudEmptied;
         ArrayList<String> tmp;
         for (int i = 0; i < game.getB().clouds.size(); i++) {
             tmp = new ArrayList<>();
