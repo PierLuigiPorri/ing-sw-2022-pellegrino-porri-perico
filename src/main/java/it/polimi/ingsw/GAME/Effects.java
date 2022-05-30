@@ -15,8 +15,6 @@ public final class Effects{
 
     public void initializeConcrete(int index, ConcreteCharacter c){
         c.students=new ArrayList<>();
-        // RIGA (9) [c.students=new ArrayList<>();] è STATA SCRITTA DA PIER!!
-        // è SOLO UNA ISTANZA PER FAR GIRARE IL TEST, NON SO SE SIA CORRETTO. I TEST PER ORA LI PASSA.
         switch(index){
             case 0:
             case 10:
