@@ -1,23 +1,52 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class GUI implements View, Runnable{
-    private ClientMsgHandler msgHandler;
+public class GUI extends Application implements Runnable, View {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    ClientMsgHandler msgHandler;
 
     public GUI(ClientMsgHandler msgHandler){
         this.msgHandler=msgHandler;
     }
 
-    public void moveMotherNature() {}
 
-    public void gateToIsland(){}
+    @Override
+    public void start(Stage primaryStage) {
 
-    public void gateToHall(){}
 
-    public void cloudToGate(){}
+    }
 
-    public void playCard(){}
+    @Override
+    public void moveMotherNature() {
+
+    }
+
+    @Override
+    public void gateToIsland() {
+
+    }
+
+    @Override
+    public void gateToHall() {
+
+    }
+
+    @Override
+    public void cloudToGate() {
+
+    }
+
+    @Override
+    public void playCard() {
+
+    }
 
     @Override
     public void update(UpdateMessage update) {
