@@ -30,7 +30,6 @@ public class CLI implements View, Runnable {
     private String currentPhase = "";
     private String currentPlayer = "";
     private boolean kill = false;
-    private boolean mnTime = false;
 
     public CLI(ClientMsgHandler clientMsgHandler, Object lock) {
         this.msgHandler = clientMsgHandler;
@@ -42,13 +41,13 @@ public class CLI implements View, Runnable {
     @Override
     public void run() {
         msgHandler.setView(this);
-        System.out.println(ANSI_PURPLE+
+        System.out.println(ANSI_PURPLE +
                 "    __________  _______    _   __________  _______\n" +
-                        "   / ____/ __ \\/  _/   |  / | / /_  __/\\ \\/ / ___/\n" +
-                        "  / __/ / /_/ // // /| | /  |/ / / /    \\  /\\__ \\\n" +ANSI_CYAN+
-                        " / /___/ _, _// // ___ |/ /|  / / /     / /___/ /\n" +
-                        "/_____/_/ |_/___/_/  |_/_/ |_/ /_/     /_//____/\n"
-        +ANSI_RESET);
+                "   / ____/ __ \\/  _/   |  / | / /_  __/\\ \\/ / ___/\n" +
+                "  / __/ / /_/ // // /| | /  |/ / / /    \\  /\\__ \\\n" + ANSI_CYAN +
+                " / /___/ _, _// // ___ |/ /|  / / /     / /___/ /\n" +
+                "/_____/_/ |_/___/_/  |_/_/ |_/ /_/     /_//____/\n"
+                + ANSI_RESET);
         this.nick = getValidString("What's your name?");
         System.out.println("What would you like to do?" +
                 "\n0:Create a new Game" +
@@ -214,7 +213,7 @@ public class CLI implements View, Runnable {
     }
 
     public void refresh() throws InterruptedException, IOException {
-        System.out.println("\n"+ANSI_CYAN+"*********************************************************************************"+ANSI_RESET);
+        System.out.println("\n" + ANSI_CYAN + "*********************************************************************************" + ANSI_RESET);
         int choice;
         ArrayList<String> actions;
         if (!update.phase.equals(currentPhase)) {
@@ -226,15 +225,14 @@ public class CLI implements View, Runnable {
         }
         System.out.println("\nPlayers that have to play, in order:" + update.order);
         if (update.phase.equals("Planning")) {    //Planning Phase
-            mnTime=false;
             //TODO:fixare l'ordine di stampa delle carte
             if (!update.lastCardPlayed.isEmpty()) {
                 ArrayList<String> played = new ArrayList<>(update.players);
                 played.removeAll(update.order);
                 System.out.println("\nHere's the cards that have already been played (Movement,Value):");
                 played.forEach(System.out::println);
-                for (int i = 0; i < update.lastCardPlayed.size(); i=i+2) {
-                    System.out.print(update.lastCardPlayed.get(i)+", "+update.lastCardPlayed.get(i+1)+"; ");
+                for (int i = 0; i < update.lastCardPlayed.size(); i = i + 2) {
+                    System.out.print(update.lastCardPlayed.get(i) + ", " + update.lastCardPlayed.get(i + 1) + "; ");
                 }
             }
             if (update.order.get(0).equals(nick)) {             //Player's turn
@@ -258,13 +256,13 @@ public class CLI implements View, Runnable {
                     currentPlayer = update.order.get(0);
                 }
                 actions = actions(3);
-            } else if (update.order.get(0).equals(nick) && !mnTime) {                   //Player's turn, cloud sub-phase
+            } else if (update.order.get(0).equals(nick) && !update.cloudtaken) {                   //Player's turn, cloud sub-phase
                 introduceTurn(4);
                 actions = actions(4);
             } else if (update.order.get(0).equals(nick)) {                              //Player's turn, MN sub-phase
                 introduceTurn(5);
                 actions = actions(5);
-            } else{                                                                     //not Player's turn
+            } else {                                                                     //not Player's turn
                 if (!currentPlayer.equals(update.order.get(0))) {
                     introduceTurn(2);
                     currentPlayer = update.order.get(0);
@@ -281,45 +279,45 @@ public class CLI implements View, Runnable {
         System.out.println("\nTurn " + update.turnNumber + "!");
         switch (phase) {
             case 0:
-                System.out.println("\n"+ANSI_CYAN+"Planning Time!" +
+                System.out.println("\n" + ANSI_CYAN + "Planning Time!" +
                         "\nNow's your chance to, you know, plan." +
-                        "\nYou should all play a card. The best stuff happens later."+ANSI_RESET);
+                        "\nYou should all play a card. The best stuff happens later." + ANSI_RESET);
                 break;
             case 1:
-                System.out.println("\n"+ANSI_CYAN+"Action time!" +
+                System.out.println("\n" + ANSI_CYAN + "Action time!" +
                         "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
-                        "\nMove students. Activate special effects. Move digital imaginary tokens. Your call."+ANSI_RESET);
+                        "\nMove students. Activate special effects. Move digital imaginary tokens. Your call." + ANSI_RESET);
         }
     }
 
     private void introduceTurn(int turn) {
         switch (turn) {
             case 0://Player's turn, Planning phase
-                System.out.println("\n"+ANSI_CYAN+"Now! Fire your card! Shape you destiny with a few single digit numbers!" +
-                        "\nRemember, you can't play a card that has already been played this round. Just don't."+ANSI_RESET);
+                System.out.println("\n" + ANSI_CYAN + "Now! Fire your card! Shape you destiny with a few single digit numbers!" +
+                        "\nRemember, you can't play a card that has already been played this round. Just don't." + ANSI_RESET);
                 break;
             case 1://Planning phase, not player's turn
-                System.out.println("\n"+ANSI_CYAN+"It's not your time to play a card. Hold..." +
-                        "\nWanna do something in the mean time? Digit the appropriate number and we'll do that for you:"+ANSI_RESET);
+                System.out.println("\n" + ANSI_CYAN + "It's not your time to play a card. Hold..." +
+                        "\nWanna do something in the mean time? Digit the appropriate number and we'll do that for you:" + ANSI_RESET);
                 break;
             case 2://Action phase, not player's turn
-                System.out.println("\n"+ANSI_CYAN+"Not your time to shine yet, somebody else is playing." +
+                System.out.println("\n" + ANSI_CYAN + "Not your time to shine yet, somebody else is playing." +
                         "\nBe ready for when your turn comes." +
-                        "\nIn the mean time, wanna do something? Digit the appropriate number and we'll do that for you:"+ANSI_RESET);
+                        "\nIn the mean time, wanna do something? Digit the appropriate number and we'll do that for you:" + ANSI_RESET);
                 break;
             case 3://Action phase, player's turn
-                System.out.println("\n"+ANSI_CYAN+"Your turn!" +
+                System.out.println("\n" + ANSI_CYAN + "Your turn!" +
                         "\nGo" +
                         "\nDo stuff!" +
                         "\nYou know what to do. If you don't, here's a reminder." +
-                        "\nDigit the appropriate number and we'll do that for you:"+ANSI_RESET);
+                        "\nDigit the appropriate number and we'll do that for you:" + ANSI_RESET);
                 break;
             case 4://End of action phase, player's turn, cloud sub-phase
-                System.out.println("\n"+ANSI_CYAN+"You moved your students, you get new ones. That's how it works. Go get some from a cloud!"+ANSI_RESET);
+                System.out.println("\n" + ANSI_CYAN + "You moved your students, you get new ones. That's how it works. Go get some from a cloud!" + ANSI_RESET);
                 break;
             case 5://End of action phase, player's turn, MN movement
-                System.out.println("\n"+ANSI_CYAN+"OK! Good student managing. Now let's end this round. " +
-                        "\nTime to politely ask Lady Mother Nature to relocate on an Island of your choosing."+ANSI_RESET);
+                System.out.println("\n" + ANSI_CYAN + "OK! Good student managing. Now let's end this round. " +
+                        "\nTime to politely ask Lady Mother Nature to relocate on an Island of your choosing." + ANSI_RESET);
                 break;
         }
     }
@@ -455,10 +453,10 @@ public class CLI implements View, Runnable {
     public void moveMotherNature() {
         //this method needs the movement [int].
         int i;
-        System.out.println("How far do you want to move MotherNature?");
+        System.out.println("How many jumps forward you want Mother Nature to do?");
         i = getIntInput();
         if (i != -1) {
-            checkIntInput(0, 7, i, "How far do you want to move MotherNature?\n");
+            checkIntInput(0, 7, i, "How many jumps forward you want Mother Nature to do?\n");
             messageConfirmed(3);
         } else {
             responseNeeded = false;
@@ -506,12 +504,18 @@ public class CLI implements View, Runnable {
     public void cloudToGate() {
         // this method needs the name of the player who calls it, the color of the student to move,
         // the index of the student in the cloud and the index of the cloud.
+        System.out.println("\n\n                " + ANSI_CYAN + "CLOUDS" + ANSI_RESET + "           ");
+        for (int index : update.studentsOnCloud.keySet()) {
+            System.out.print("\nCloud " + index + ":");
+            for (int i = 0; i < update.studentsOnCloud.get(index).size(); i = i + 2) {
+                System.out.print(update.studentsOnCloud.get(index).get(i) + update.studentsOnCloud.get(index).get(i + 1) + ANSI_RESET + " ");
+            }
+        }
         int i;
         System.out.println("Which cloud do you want to take students from?");
         i = getIntInput();
         if (i != -1) {
             checkIntInput(0, 3, i, "Which cloud do you want to take students from?\n");
-            mnTime=true;
             messageConfirmed(2);
         } else responseNeeded = false;
     }
@@ -690,11 +694,12 @@ public class CLI implements View, Runnable {
     }
 
     private void seePlayerBoards(int choice) {
-        System.out.println("\n"+ANSI_CYAN+"GATE:"+ANSI_RESET);
+        System.out.println("\n" + ANSI_CYAN + "GATE:" + ANSI_RESET);
         for (int i = 0; i < update.gatePlayer.get(choice).size(); i = i + 2) {
             System.out.print(update.gatePlayer.get(choice).get(i) + update.gatePlayer.get(choice).get(i + 1) + ANSI_RESET + " ");
         }
-        System.out.println("\n      "+ANSI_CYAN+"STUDENTS"+ANSI_RESET+"          "+ANSI_CYAN+"PROFESSORS"+ANSI_RESET+"\n");
+        System.out.println("\n" + ANSI_CYAN + "HALL:" + ANSI_RESET);
+        System.out.println("\n      " + ANSI_CYAN + "STUDENTS" + ANSI_RESET + "          " + ANSI_CYAN + "PROFESSORS" + ANSI_RESET + "\n");
         System.out.println(ANSI_RED + "RED:      " + ANSI_RESET + update.hallPlayer.get(choice).get(0) + "                  " + (update.professors.get(choice).get(0) ? "YES" : "NO"));
         System.out.println(ANSI_BLUE + "BLUE:     " + ANSI_RESET + update.hallPlayer.get(choice).get(1) + "                  " + (update.professors.get(choice).get(1) ? "YES" : "NO"));
         System.out.println(ANSI_GREEN + "GREEN:    " + ANSI_RESET + update.hallPlayer.get(choice).get(2) + "                  " + (update.professors.get(choice).get(2) ? "YES" : "NO"));
@@ -724,16 +729,16 @@ public class CLI implements View, Runnable {
 
     private void seeBoard() {
         System.out.println("\nSure! Here's what we're at:");
-        System.out.println("\n                "+ANSI_CYAN+"ISLANDS"+ANSI_RESET + (update.game_Type == 1 ? "(if you see a "+ANSI_RED+"[X]"+ANSI_RESET+ " it means there's a Prohibition counter there!)" : ""));
+        System.out.println("\n                " + ANSI_CYAN + "ISLANDS" + ANSI_RESET + (update.game_Type == 1 ? "(if you see a " + ANSI_RED + "[X]" + ANSI_RESET + " it means there's a Prohibition counter there!)" : ""));
         for (int index : update.studentsOnIsland.keySet()) {
-            System.out.print("\nIsland " + index + (update.game_Type == 1 ? (update.numTDOnIsland.get(index - 1) ? (ANSI_RED+"[X]"+ANSI_RESET) : "") : "") + ":");
+            System.out.print("\nIsland " + index + (update.game_Type == 1 ? (update.numTDOnIsland.get(index - 1) ? (ANSI_RED + "[X]" + ANSI_RESET) : "") : "") + ":");
             for (int i = 0; i < update.studentsOnIsland.get(index).size(); i = i + 2) {
                 System.out.print(update.studentsOnIsland.get(index).get(i) + update.studentsOnIsland.get(index).get(i + 1) + ANSI_RESET + " ");
             }
             System.out.print((update.motherNatureOnIsland.get(index - 1) ? (" " + ANSI_CYAN + " <----Mother Nature is here! Say hello!" + ANSI_RESET + "") : ""));
-            System.out.print("\n           ->Towers:" + update.towersOnIsland.get(index - 1) + (update.whoOwnTowers.get(index - 1).equals("NONE") ? "" : (", owned by " + update.whoOwnTowers.get(index - 1))));
+            System.out.print(update.towersOnIsland.get(index - 1) != 0 ? ("\n             ->" + update.towersOnIsland.get(index - 1) + "Tower" + (update.towersOnIsland.get(index - 1) != 1 ? "s" : "") + "here, owned by " + update.whoOwnTowers.get(index - 1)) + "!" : "");
         }
-        System.out.println("\n\n                "+ANSI_CYAN+"CLOUDS"+ANSI_RESET+"           ");
+        System.out.println("\n\n                " + ANSI_CYAN + "CLOUDS" + ANSI_RESET + "           ");
         for (int index : update.studentsOnCloud.keySet()) {
             System.out.print("\nCloud " + index + ":");
             for (int i = 0; i < update.studentsOnCloud.get(index).size(); i = i + 2) {
@@ -762,10 +767,10 @@ public class CLI implements View, Runnable {
 
     private void seeCharacters() {
         System.out.println("\nThese guys can give you the boost you need to win! Here's what we've got today:");
-        System.out.println("\nIf the cost is between '**', it means that Character has already been used!");
-        System.out.println("\n"+ANSI_CYAN+"INDEX"+ANSI_RESET+"     "+ANSI_CYAN+"COST"+ANSI_RESET+"        "+ANSI_CYAN+"EFFECT"+ANSI_RESET);
+        System.out.println("\nIf the cost is "+ANSI_CYAN+"cyan"+ANSI_RESET+", it means that Character has already been used!");
+        System.out.println("\n" + ANSI_CYAN + "INDEX" + ANSI_RESET + "     " + ANSI_CYAN + "COST" + ANSI_RESET + "        " + ANSI_CYAN + "EFFECT" + ANSI_RESET);
         for (int i : update.idCharacter) {
-            System.out.println("\n" + i + "         " + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + characterCost(i) + (update.activated.get(update.idCharacter.indexOf(i)) ? "*" : "") + "           " + characterEffect(i));
+            System.out.println("\n" + i + "         " + (update.activated.get(update.idCharacter.indexOf(i)) ? ANSI_CYAN : "") + characterCost(i) + (update.activated.get(update.idCharacter.indexOf(i)) ? ANSI_RESET : "") + "           " + characterEffect(i));
             if (i == 0 || i == 6 || i == 10) {
                 System.out.print("                                    ->Students currently on card:");
                 for (int x = 0; x < update.studentsOnCard.get(update.idCharacter.indexOf(i)).size(); x = x + 2) {

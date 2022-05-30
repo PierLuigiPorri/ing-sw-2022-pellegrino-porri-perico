@@ -13,6 +13,7 @@ public class UpdateMessage extends MessageType{
     public String phase;
     public int turnNumber;
     public int cloudsNumber;
+    public boolean cloudtaken=false;
 
     public LinkedHashMap<Integer, ArrayList<Integer>> handPlayer;
 

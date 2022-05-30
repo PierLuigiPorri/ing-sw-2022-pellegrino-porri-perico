@@ -27,6 +27,7 @@ public class Game extends Observable {
     private int MNbonus = 0; // additional movement to Mother Nature; is called by a Character.
     private int InfluenceBonus = 0;
     private Player PwBonus;
+    public boolean cloudEmptied=false;
     private final ModelView modelView;
 
     private final ArrayList<String> update;
@@ -222,6 +223,7 @@ public class Game extends Observable {
                             removeFromCloud(cIndex, 0);
                         }
                         update.add("\nStay sharp! " + p.nickname + " just snatched the students from Cloud number " + cIndex + "!");
+                        cloudEmptied=true;
                     } else
                         throw new BoundException("\nNot enough space in " + p.nickname + "'s gate, or the cloud is empty.\n");
             } else throw new ImpossibleActionException("\nIt's not your turn.");
@@ -244,6 +246,7 @@ public class Game extends Observable {
                     }
                     tmp.setMotherNature(true);
                     motherNature.setIsland(tmp);
+                    cloudEmptied=false;
 
 //At the end of Mother Nature's movement, it's time to calculate influence on the island in which She stopped.
                     determineInfluence(tmp.getId());

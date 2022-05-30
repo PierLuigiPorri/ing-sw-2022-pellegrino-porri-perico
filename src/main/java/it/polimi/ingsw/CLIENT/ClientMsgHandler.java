@@ -10,6 +10,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ClientMsgHandler implements Runnable{
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -81,8 +84,10 @@ public class ClientMsgHandler implements Runnable{
     }
 
     public void sort(MessageType message){
-        if(message.type==4)
+        if(message.type==4) {
             this.updates.add((UpdateMessage) message);
+            System.out.println(ANSI_CYAN+"Something's happened in the meantime! Hit Refresh!"+ANSI_RESET);
+        }
         else {
             ResponseMessage rMex=(ResponseMessage) message;
             this.responses.add(rMex);
