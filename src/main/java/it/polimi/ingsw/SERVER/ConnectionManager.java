@@ -172,7 +172,9 @@ public class ConnectionManager implements Runnable{
     }
 
     public void clientDisconnected(){
-        gameManager.playerDisconnected(playerName);
+        if(gameHasBeenCreated) {
+            gameManager.playerDisconnected(playerName);
+        }
         this.kill=true;
     }
 }
