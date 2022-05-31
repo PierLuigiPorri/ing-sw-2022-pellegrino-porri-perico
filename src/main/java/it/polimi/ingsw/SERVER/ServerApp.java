@@ -9,7 +9,6 @@ public class ServerApp
 
     public static void main(String[] args)
     {
-        System.out.println("AO");
         ServerSocket ssock=null;
         Socket sock=null;
         try {
