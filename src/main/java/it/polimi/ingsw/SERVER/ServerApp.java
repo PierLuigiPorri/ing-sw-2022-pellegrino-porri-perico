@@ -2,7 +2,6 @@ package it.polimi.ingsw.SERVER;
 
 import java.net.*;
 
-
 public class ServerApp
 {
     private static int port=4000; //Connection port
@@ -10,6 +9,7 @@ public class ServerApp
 
     public static void main(String[] args)
     {
+        System.out.println("AO");
         ServerSocket ssock=null;
         Socket sock=null;
         try {
