@@ -48,19 +48,31 @@ public class CLI implements View, Runnable {
                 " / /___/ _, _// // ___ |/ /|  / / /     / /___/ /\n" +
                 "/_____/_/ |_/___/_/  |_/_/ |_/ /_/     /_//____/\n"
                 + ANSI_RESET);
-        this.nick = getValidString("What's your name?");
+        changeNickname();
+    }
+
+    private void changeNickname(){
+        this.nick = getValidString("Enter the nickname you want to use");
+        menu();
+    }
+
+    private void menu(){
         System.out.println("What would you like to do?" +
                 "\n0:Create a new Game" +
                 "\n1:Join a game" +
                 "\n2: See all available games" +
+                "\n3: Change your nickname" +
                 "\nDigit the appropriate number:");
-        int g = getSingleIntInput(2); //0=New Game, 1=Join Game, 2=See Available Games
+        int g = getSingleIntInput(3);
         if (g == 0) {
             newGame();
         } else if (g == 1) {
             joinGame();
         } else if (g == 2) {
             seeAvailableGames();
+        }
+        else if(g==3){
+            changeNickname();
         }
     }
 
@@ -91,7 +103,7 @@ public class CLI implements View, Runnable {
                 startGame();
             } else {
                 System.out.println(lastMessage.response);
-                newGame();
+                menu();
             }
         }
     }
@@ -127,7 +139,7 @@ public class CLI implements View, Runnable {
         } else {
             ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
             System.out.println(lastMessage.response);
-            joinGame();
+            menu();
         }
     }
 
@@ -161,6 +173,7 @@ public class CLI implements View, Runnable {
     private void seeAvailableGames() {
         //TODO
         System.out.println("Questa funzione non esiste per ora");
+        menu();
     }
 
     public void initCLI() {
@@ -867,7 +880,7 @@ public class CLI implements View, Runnable {
             Scanner s = new Scanner(System.in);
             int res = Integer.parseInt(s.nextLine());
             while (res < -1 || res > b) {
-                System.out.println("The number entered is not allowed.\n");
+                System.out.println("The number entered is not allowed.");
                 res = Integer.parseInt(s.nextLine());
             }
             return res;
@@ -888,7 +901,7 @@ public class CLI implements View, Runnable {
     private void checkIntInput(int a, int b, int input, String string) {
         while (input < a || input > b) {
             inputInt.remove(inputInt.size() - 1);
-            System.out.println("The number entered is not allowed.\n" + string + "\n");
+            System.out.println("The number entered is not allowed.\n" + string);
             input = getIntInput();
         }
     }
@@ -896,7 +909,7 @@ public class CLI implements View, Runnable {
     private void checkStrInput(String s, String c) {
         while (!s.equals("RED") && !s.equals("BLUE") && !s.equals("GREEN") && !s.equals("YELLOW") && !s.equals("PINK")) {
             inputStr.remove(inputStr.size() - 1);
-            System.out.println("The color entered is not allowed.\n" + c + "\n");
+            System.out.println("The color entered is not allowed.\n" + c);
             s = getStrInput();
         }
     }
