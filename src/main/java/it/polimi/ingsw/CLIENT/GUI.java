@@ -2,6 +2,7 @@ package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -16,10 +17,15 @@ public class GUI extends Application implements Runnable, View {
     }
 
     public ClientMsgHandler msgHandler;
+    @FXML
     public TextField nick;
+    @FXML
     public ToggleGroup playersnum;
+    @FXML
     public CheckBox expertGame;
+    @FXML
     public RadioButton twoPlayers, threePlayers;
+    @FXML
     public Button newGame, joinGame;
 
     public GUI(ClientMsgHandler msgHandler){
