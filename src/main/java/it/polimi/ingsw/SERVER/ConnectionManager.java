@@ -56,7 +56,7 @@ public class ConnectionManager implements Runnable{
                     //I received a KillMessage
                     if(joinedGameId!=-1) {
                         if (gameHasBeenCreated) {
-                            gameManager.setKill();
+                            gameManager.playerDisconnected(playerName);
                         } else {
                             try {
                                 start.killGame(joinedGameId);

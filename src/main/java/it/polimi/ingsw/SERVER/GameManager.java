@@ -58,10 +58,6 @@ public class GameManager extends Observable implements Runnable, Observer {
         System.out.println("Server sends the update to all clients");
     }
 
-    public void setKill() {
-        this.kill = true;
-    }
-
     public void playerDisconnected(String player){
         //Avviso tutti gli altri player che uno si è disconnesso
         for (ConnectionManager cm: connectionManagers) {
@@ -72,6 +68,6 @@ public class GameManager extends Observable implements Runnable, Observer {
                 cm.send(upd);
             }
         }
-        setKill(); //Kill this thread
+        this.kill=true; //Kill this thread
     }
 }
