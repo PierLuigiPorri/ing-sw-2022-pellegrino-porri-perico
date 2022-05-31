@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import java.awt.*;
 
 public class GUI extends Application implements Runnable, View {
+    @FXML
+    public ToggleGroup Players;
 
     public static void main(String[] args) {
         launch(args);

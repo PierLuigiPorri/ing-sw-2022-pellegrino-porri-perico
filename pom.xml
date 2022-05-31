@@ -19,6 +19,13 @@
     <sonar.exclusions>AckReceiver,ConnectionManager,GameManager,SingletonGames,AckSender,CLI,ClientMsgHandler,GUI,View</sonar.exclusions>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>gluon-nexus-repository</id>
+      <url>http://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -45,6 +52,8 @@
       <type>pom</type>
     </dependency>
   </dependencies>
+
+
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
