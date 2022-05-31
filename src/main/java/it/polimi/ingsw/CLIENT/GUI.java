@@ -18,7 +18,7 @@ public class GUI extends Application implements Runnable, View {
 
     public ClientMsgHandler msgHandler;
     @FXML
-    public TextField nick;
+    public TextField nickname;
     @FXML
     public ToggleGroup playersnum;
     @FXML
@@ -27,6 +27,10 @@ public class GUI extends Application implements Runnable, View {
     public RadioButton twoPlayers, threePlayers;
     @FXML
     public Button newGame, joinGame;
+
+    public GUI(){
+
+    }
 
     public GUI(ClientMsgHandler msgHandler){
         this.msgHandler=msgHandler;
