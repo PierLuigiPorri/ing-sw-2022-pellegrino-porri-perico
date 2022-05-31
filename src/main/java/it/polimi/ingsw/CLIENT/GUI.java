@@ -73,6 +73,11 @@ public class GUI extends Application implements Runnable, View {
     }
 
     @Override
+    public void setKill(){
+
+    }
+
+    @Override
     public void run() {
 
     }

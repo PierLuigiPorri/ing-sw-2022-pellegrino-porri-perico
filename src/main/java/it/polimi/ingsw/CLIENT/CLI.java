@@ -197,7 +197,9 @@ public class CLI implements View, Runnable {
             }
             reload();
         }
-        System.out.println("\nOk, bye forever!");
+        System.out.println("The game has been killed");
+        this.kill=false;
+        menu();
     }
 
     public void reload() {
@@ -205,8 +207,6 @@ public class CLI implements View, Runnable {
             if (!msgHandler.getResponses().isEmpty()) {
                 for (ResponseMessage rsp : msgHandler.getResponses()) {
                     System.out.println(rsp.response);
-                    if (rsp.kill)
-                        setKill();
                 }
             }
             if (!msgHandler.getUpdates().isEmpty()) {
@@ -217,7 +217,12 @@ public class CLI implements View, Runnable {
             }
             msgHandler.clearMessages();
         }
-        initCLI();
+        if(this.update.gameEnded){
+            menu();
+        }
+        else {
+            initCLI();
+        }
     }
 
     @Override
@@ -539,7 +544,7 @@ public class CLI implements View, Runnable {
         System.out.println("Which card do you want to play?");
         i = getIntInput();
         if (i != -1) {
-            checkIntInput(0, 10, i, "Which card do you want to play?\n");
+            checkIntInput(0, 9, i, "Which card do you want to play?\n");
             messageConfirmed(4);
         } else responseNeeded = false;
     }
@@ -858,7 +863,8 @@ public class CLI implements View, Runnable {
         inputStr.clear();
     }
 
-    private void setKill() {
+    @Override
+    public void setKill() {
         this.kill = true;
     }
 

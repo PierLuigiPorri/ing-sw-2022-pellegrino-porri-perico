@@ -57,6 +57,7 @@ public class ConnectionManager implements Runnable{
                     if(joinedGameId!=-1) {
                         if (gameHasBeenCreated) {
                             gameManager.playerDisconnected(playerName);
+                            gameHasBeenCreated=false;
                         } else {
                             try {
                                 start.killGame(joinedGameId);
@@ -76,6 +77,7 @@ public class ConnectionManager implements Runnable{
                     }
                 }
                 else{
+                    System.out.println("GHBC: "+gameHasBeenCreated);
                     if(!gameHasBeenCreated){
                         //If I receive CreationMessage, I handle it; if I receive other messages I ignore them
                         if(latestMessage.type==1){
@@ -117,12 +119,14 @@ public class ConnectionManager implements Runnable{
                             }
 
                         }
+                        else System.out.println("Nope");
                     }
                     else {
                         //If I receive ActionMessage, I add it to the queue; if I receive other messages I ignore them
                         if(latestMessage.type==3){
                             gameManager.addAction((ActionMessage) latestMessage);
                         }
+                        else System.out.println("Nope during game");
                     }
                 }
             }
@@ -154,8 +158,8 @@ public class ConnectionManager implements Runnable{
         this.gameManager=gm;
     }
 
-    public void setGameHasBeenCreated(){
-        this.gameHasBeenCreated=true;
+    public void setGameHasBeenCreated(boolean ghbc){
+        this.gameHasBeenCreated=ghbc;
     }
 
     public void setPlayerName(String playerName) {
@@ -174,6 +178,7 @@ public class ConnectionManager implements Runnable{
     public void clientDisconnected(){
         if(gameHasBeenCreated) {
             gameManager.playerDisconnected(playerName);
+            gameHasBeenCreated=false;
         }
         this.kill=true;
     }

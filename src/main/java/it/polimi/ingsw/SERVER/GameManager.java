@@ -24,7 +24,7 @@ public class GameManager extends Observable implements Runnable, Observer {
         for (ConnectionManager cm:
                 connectionManagers) {
             cm.setGameManager(this);
-            cm.setGameHasBeenCreated();
+            cm.setGameHasBeenCreated(true);
         }
         kill=false;
     }
@@ -66,6 +66,7 @@ public class GameManager extends Observable implements Runnable, Observer {
                 upd.update.add("Player " + player + " disconnected from the game");
                 upd.gameEnded = true;
                 cm.send(upd);
+                cm.setGameHasBeenCreated(false);
             }
         }
         this.kill=true; //Kill this thread

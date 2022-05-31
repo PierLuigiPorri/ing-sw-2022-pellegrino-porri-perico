@@ -87,5 +87,6 @@ public class UpdateMessage extends MessageType{
         this.professors= new LinkedHashMap<>();
         this.studentsOnCloud= new LinkedHashMap<>();
         this.studentsOnCard= new LinkedHashMap<>();
+        this.gameEnded=false;
     }
 }

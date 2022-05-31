@@ -94,6 +94,7 @@ public class ClientMsgHandler implements Runnable{
             if(rMex.kill) {
                 this.kill = true;
                 ackSender.setKill();
+                view.setKill();
             }
         }
     }

@@ -16,4 +16,6 @@ public interface View {
     void playCard();
 
     void update(UpdateMessage update);
+
+    void setKill();
 }
