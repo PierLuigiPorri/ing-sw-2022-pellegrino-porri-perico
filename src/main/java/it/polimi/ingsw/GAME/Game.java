@@ -369,7 +369,7 @@ public class Game extends Observable {
                 setChanged();
                 notifyObservers(update);
                 update.clear();
-            } else throw new ImpossibleActionException("\nNo card with " + index + " as value\n");
+            } else throw new ImpossibleActionException("\nNo card with " + index + " as index\n");
         }
     }
 
