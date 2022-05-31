@@ -2,7 +2,12 @@ package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.application.Application;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.awt.*;
 
 public class GUI extends Application implements Runnable, View {
 
@@ -10,17 +15,19 @@ public class GUI extends Application implements Runnable, View {
         launch(args);
     }
 
-    ClientMsgHandler msgHandler;
+    public ClientMsgHandler msgHandler;
+    public TextField nick;
+    public ToggleGroup playersnum;
+    public CheckBox expertGame;
+    public RadioButton twoPlayers, threePlayers;
+    public Button newGame, joinGame;
 
     public GUI(ClientMsgHandler msgHandler){
         this.msgHandler=msgHandler;
     }
 
-
     @Override
     public void start(Stage primaryStage) {
-
-
     }
 
     @Override
