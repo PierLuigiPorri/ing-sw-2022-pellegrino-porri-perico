@@ -64,11 +64,11 @@ public class ConnectionManager implements Runnable{
                                 ackReceiver.setKill();
                                 kill=true;
                             } catch (Exception e) {
-                                send(new ResponseMessage("The game you tried to kill doesn't exist", false, false));
+                                send(new ResponseMessage("The game you tried to kill doesn't exist", false));
                             }
                         }
                     }
-                    else send(new ResponseMessage("Stop trying to kill games you haven't joined please :)", false, false));
+                    else send(new ResponseMessage("Stop trying to kill games you haven't joined please :)", false));
                 }
                 else if(latestMessage.type==0){
                     //I received an AckMessage, so I add it to the queue
@@ -89,9 +89,9 @@ public class ConnectionManager implements Runnable{
                                     try {
                                         joinedGameId = start.newGame(mex.gameType, mex.players, mex.nick);
                                         System.out.println("New Game");
-                                        this.send(new ResponseMessage("You successfully created a new game with id: "+joinedGameId, true, false));
+                                        this.send(new ResponseMessage("You successfully created a new game with id: "+joinedGameId, true));
                                     }catch (Exception e){
-                                        this.send(new ResponseMessage(e.getMessage(), false, false));
+                                        this.send(new ResponseMessage(e.getMessage(), false));
                                     }
                                     break;
                                 case 1:
@@ -100,7 +100,7 @@ public class ConnectionManager implements Runnable{
                                         joinedGameId = start.joinRandomGame(mex.nick);
                                         //this.send(new ResponseMessage("You successfully joined the game with id: "+joinedGameId, true));
                                     }catch (Exception e){
-                                        this.send(new ResponseMessage(e.getMessage(), false, false));
+                                        this.send(new ResponseMessage(e.getMessage(), false));
                                     }
                                     break;
                                 case 2:
@@ -109,7 +109,7 @@ public class ConnectionManager implements Runnable{
                                         joinedGameId = start.joinGameWithId(mex.gameid, mex.nick);
                                         //this.send(new ResponseMessage("You successfully joined the game with id: "+joinedGameId, true));
                                     }catch (Exception e){
-                                        this.send(new ResponseMessage(e.getMessage(), false, false));
+                                        this.send(new ResponseMessage(e.getMessage(), false));
                                     }
                                     break;
                                 case 3:
@@ -179,6 +179,16 @@ public class ConnectionManager implements Runnable{
         if(gameHasBeenCreated) {
             gameManager.playerDisconnected(playerName);
             gameHasBeenCreated=false;
+        }
+        else{
+            if(joinedGameId!=-1) {
+                try {
+                    start.killGame(joinedGameId);
+                } catch (Exception e) {
+                    send(new ResponseMessage("The game you tried to kill doesn't exist", false));
+                }
+            }
+            else send(new ResponseMessage("Stop trying to kill games you haven't joined please :)", false));
         }
         this.kill=true;
     }

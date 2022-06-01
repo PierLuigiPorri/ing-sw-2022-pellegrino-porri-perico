@@ -169,6 +169,13 @@ public class CLI implements View, Runnable {
                 update(firstUpd);
                 initCLI();
             }
+            else{
+                if (!msgHandler.getResponses().isEmpty()){
+                    ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
+                    System.out.println(lastMessage.response);
+                    menu();
+                }
+            }
         }
     }
 
