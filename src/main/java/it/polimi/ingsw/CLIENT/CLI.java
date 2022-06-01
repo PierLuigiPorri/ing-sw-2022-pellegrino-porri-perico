@@ -114,6 +114,7 @@ public class CLI implements View, Runnable {
         if (choice == 0) {
             try {
                 msgHandler.send(new CreationMessage(1, nick));
+                System.out.println("Great! The request has been sent");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -122,6 +123,7 @@ public class CLI implements View, Runnable {
             id = getValidInt("What's the ID of the game you wanna join?");
             try {
                 msgHandler.send(new CreationMessage(2, nick, id));
+                System.out.println("Great! The request has been sent");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
