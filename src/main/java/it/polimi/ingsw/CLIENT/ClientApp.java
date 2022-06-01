@@ -19,7 +19,7 @@ public class ClientApp {
         new Thread(ackSender).start();
         new Thread(msgHandler).start();
         if(CLIargs.length!=0 && Objects.equals(CLIargs[0], "AAAAAAAA")){
-            new Thread(new GUI(this.msgHandler)).start();
+            new Thread(new MainMenuController(this.msgHandler, lock)).start();
         }
         else{
             new Thread(new CLI(msgHandler, lock)).start();
