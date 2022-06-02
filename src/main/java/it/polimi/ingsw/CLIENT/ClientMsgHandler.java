@@ -86,7 +86,8 @@ public class ClientMsgHandler implements Runnable{
     public void sort(MessageType message){
         if(message.type==4) {
             this.updates.add((UpdateMessage) message);
-            System.out.println(ANSI_CYAN+"Something's happened in the meantime! Hit Refresh!"+ANSI_RESET);
+            if(view instanceof CLI)
+                ((CLI) view).signalUpdate();
         }
         else {
             ResponseMessage rMex=(ResponseMessage) message;

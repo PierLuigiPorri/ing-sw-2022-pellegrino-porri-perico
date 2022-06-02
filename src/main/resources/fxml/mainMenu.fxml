@@ -17,11 +17,11 @@
     <children>
         <ImageView fitHeight="634.0" fitWidth="619.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@Graphical_Assets/sfondo.jpg" />
+                <Image url="@../Graphical_Assets/sfondo.jpg" />
             </image></ImageView>
-        <ButtonBar layoutX="321.0" layoutY="436.0" prefHeight="182.0" prefWidth="297.0">
+        <ButtonBar layoutX="310.0" layoutY="436.0" prefHeight="182.0" prefWidth="297.0">
             <buttons>
-                <Button fx:id="newGame" mnemonicParsing="false" onAction="#newGame" onMouseClicked="#newGame" prefHeight="52.0" prefWidth="147.0" style="-fx-background-color: rgba(48,110,204,0.81);" text="New Game" textAlignment="CENTER" />
+                <Button fx:id="newGame" mnemonicParsing="false" onAction="#newGame" prefHeight="52.0" prefWidth="147.0" style="-fx-background-color: rgba(48,110,204,0.81);" text="New Game" textAlignment="CENTER" />
                 <Button fx:id="joinGame" layoutX="161.0" layoutY="21.0" mnemonicParsing="false" onAction="#joinGame" onMouseClicked="#joinGame" prefHeight="52.0" prefWidth="179.0" style="-fx-background-color: rgba(48,110,204,0.81);" text="Join Game" textAlignment="CENTER" />
             </buttons>
         </ButtonBar>

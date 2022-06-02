@@ -302,6 +302,10 @@ public class CLI implements View, Runnable {
         perform(actions.get(choice));
     }
 
+    public void signalUpdate(){
+        System.out.println(ANSI_CYAN+"Something's happened in the meantime! Hit Refresh!"+ANSI_RESET);
+    }
+
     private void introducePhase(int phase) {
         System.out.println("\nTurn " + update.turnNumber + "!");
         switch (phase) {

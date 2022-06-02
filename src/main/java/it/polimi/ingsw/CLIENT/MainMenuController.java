@@ -10,20 +10,31 @@ import javafx.scene.control.*;
 public class MainMenuController implements View, Runnable{
 
     ClientMsgHandler msgHandler;
-    final Object lock;
+    Object lock;
 
-    public MainMenuController(ClientMsgHandler msgHandler, Object lock){
-        this.msgHandler=msgHandler;
+    public MainMenuController(){}
+
+    public void setMsgHandler(ClientMsgHandler msgHandler) {
+        this.msgHandler = msgHandler;
+    }
+
+    public void setLock(Object lock){
         this.lock=lock;
     }
 
     @FXML
-    public TextField nickname;
-    public ToggleGroup Players;
-    public CheckBox expertGame;
-    public ToggleButton twoPlayers, threePlayers;
-    public Button newGame, joinGame;
-    PopupControl popupControl;
+    private TextField nickname;
+    @FXML
+    private ToggleGroup Players;
+    @FXML
+    private CheckBox expertGame;
+    @FXML
+    private ToggleButton twoPlayers, threePlayers;
+    @FXML
+    private Button newGame, joinGame;
+    @FXML
+    public PopupControl popupControl;
+
 
     @Override
     public void moveMotherNature() {
@@ -59,7 +70,7 @@ public class MainMenuController implements View, Runnable{
     public void setKill() {
 
     }
-
+    @FXML
     public void newGame(ActionEvent event) {
         int gt; //Game Type
         int np; //Number of players
@@ -105,6 +116,7 @@ public class MainMenuController implements View, Runnable{
         }
     }
 
+    @FXML
     public void joinGame(ActionEvent event){
         int choice=0;
 
