@@ -18,16 +18,16 @@ public class ClientApp {
         msgHandler.setAckSender(ackSender);
         new Thread(ackSender).start();
         new Thread(msgHandler).start();
-        if(CLIargs.length!=0 && Objects.equals(CLIargs[0], "AAAAAAAA")){
+        //if(CLIargs.length!=0 && Objects.equals(CLIargs[0], "AAAAAAAA")){
             new Thread(()-> {
                 MainMenuController menuController = new MainMenuController();
                 menuController.setMsgHandler(msgHandler);
                 menuController.setLock(lock);
+                GUIAPP.main(CLIargs);
             }).start();
-        }
-        else{
-            new Thread(new CLI(msgHandler, lock)).start();
-        }
+        //}
+        //else{
+        //    new Thread(new CLI(msgHandler, lock)).start();
+        //}
     }
-    
 }

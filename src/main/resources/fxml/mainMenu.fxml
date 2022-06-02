@@ -21,8 +21,8 @@
             </image></ImageView>
         <ButtonBar layoutX="310.0" layoutY="436.0" prefHeight="182.0" prefWidth="297.0">
             <buttons>
-                <Button fx:id="newGame" mnemonicParsing="false" onAction="#newGame" prefHeight="52.0" prefWidth="147.0" style="-fx-background-color: rgba(48,110,204,0.81);" text="New Game" textAlignment="CENTER" />
-                <Button fx:id="joinGame" layoutX="161.0" layoutY="21.0" mnemonicParsing="false" onAction="#joinGame" onMouseClicked="#joinGame" prefHeight="52.0" prefWidth="179.0" style="-fx-background-color: rgba(48,110,204,0.81);" text="Join Game" textAlignment="CENTER" />
+                <Button fx:id="newGame" disable="true" mnemonicParsing="false" onAction="#newGame" prefHeight="52.0" prefWidth="147.0" style="-fx-background-color: rgba(48,110,204,0.81); -fx-background-radius: 100;" text="New Game" textAlignment="CENTER" />
+                <Button fx:id="joinGame" disable="true" layoutX="161.0" layoutY="21.0" mnemonicParsing="false" onAction="#joinGame" onMouseClicked="#joinGame" prefHeight="52.0" prefWidth="179.0" style="-fx-background-color: rgba(48,110,204,0.81); -fx-background-radius: 100;" text="Join Game" textAlignment="CENTER" />
             </buttons>
         </ButtonBar>
         <Pane layoutY="337.0" prefHeight="182.0" prefWidth="232.0" style="-fx-background-color: rgba(100,100,100,0.36);">
@@ -39,18 +39,18 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Text>
-                        <TextField fx:id="nickname" layoutY="28.0" prefHeight="24.0" prefWidth="177.0" promptText="SET YOUR NICKNAME" style="-fx-background-color: WHITE;" />
-                        <CheckBox fx:id="expertGame" layoutX="38.0" layoutY="150.0" mnemonicParsing="false" text="EXPERT GAME" textFill="#c60c0c">
+                        <TextField fx:id="nickname" layoutY="28.0" onAction="#enableButtons" onInputMethodTextChanged="#enableButtons" onKeyPressed="#enableButtons" onKeyReleased="#enableButtons" onKeyTyped="#enableButtons" prefHeight="24.0" prefWidth="177.0" promptText="SET YOUR NICKNAME" style="-fx-background-color: WHITE;" />
+                        <CheckBox fx:id="expertGame" disable="true" layoutX="38.0" layoutY="150.0" mnemonicParsing="false" text="EXPERT GAME" textFill="#c60c0c">
                             <font>
                                 <Font name="System Bold Italic" size="12.0" />
                             </font>
                         </CheckBox>
-                        <ToggleButton fx:id="threePlayers" layoutX="96.0" layoutY="102.0" mnemonicParsing="false" text="3 Players">
-                            <toggleGroup>
-                                <ToggleGroup fx:id="Players" />
-                            </toggleGroup>
+                        <ToggleButton fx:id="threePlayers" disable="true" layoutX="96.0" layoutY="102.0" mnemonicParsing="false" text="3 Players">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="group" />
+                     </toggleGroup>
                         </ToggleButton>
-                        <ToggleButton fx:id="twoPlayers" layoutX="14.0" layoutY="102.0" mnemonicParsing="false" selected="true" text="2 Players" toggleGroup="$Players" />
+                        <ToggleButton fx:id="twoPlayers" disable="true" layoutX="14.0" layoutY="102.0" mnemonicParsing="false" text="2 Players" toggleGroup="$group" />
                     </children>
                 </Pane>
             </children>
