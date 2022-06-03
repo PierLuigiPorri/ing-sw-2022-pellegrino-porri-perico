@@ -15,15 +15,21 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class GUIAPP extends Application {
-    private static final Object lock=new Object();
-    private static final ClientMsgHandler msgHandler = new ClientMsgHandler("127.0.0.1", 4000, lock);
-    private static final AckSender ackSender = new AckSender(msgHandler, 5000);
+public class GUIAPP extends Application implements View {
+    private final Object lock=new Object();
+    private final ClientMsgHandler msgHandler = new ClientMsgHandler("127.0.0.1", 4000, lock);
+
 
     public static void main(String[] args) {
+        GUIAPP GUI=new GUIAPP();
+        launch(args);
+    }
+
+    public GUIAPP(){
+        AckSender ackSender = new AckSender(msgHandler, 5000);
+        msgHandler.setView(this);
         new Thread(ackSender).start();
         new Thread(msgHandler).start();
-        launch(args);
     }
 
     @Override
@@ -62,4 +68,38 @@ public class GUIAPP extends Application {
         return msgHandler.getUpdates();
     }
 
+    @Override
+    public void moveMotherNature() {
+
+    }
+
+    @Override
+    public void gateToIsland() {
+
+    }
+
+    @Override
+    public void gateToHall() {
+
+    }
+
+    @Override
+    public void cloudToGate() {
+
+    }
+
+    @Override
+    public void playCard() {
+
+    }
+
+    @Override
+    public void update(UpdateMessage update) {
+
+    }
+
+    @Override
+    public void setKill() {
+
+    }
 }
