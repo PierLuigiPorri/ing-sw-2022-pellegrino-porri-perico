@@ -4,7 +4,6 @@ import it.polimi.ingsw.EXCEPTIONS.MessageCreationError;
 import it.polimi.ingsw.MESSAGES.CreationMessage;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -25,7 +24,6 @@ public class MainMenuController implements Runnable {
     //TODO: radiobuttons
     private Stage popupWindow;
     private Button popupButton1;
-    int choice=0;
 
     @FXML
     private TextField nickname, idGame;
@@ -34,7 +32,7 @@ public class MainMenuController implements Runnable {
     @FXML
     private ToggleButton twoPlayers, threePlayers;
     @FXML
-    private Button newGame, joinGame, start;
+    private Button newGame, joinGame;
     @FXML
     private RadioButton randomGame, IDGame;
     @FXML
@@ -71,7 +69,7 @@ public class MainMenuController implements Runnable {
     }
 
     @FXML
-    public void newGame(ActionEvent event) {
+    public void newGame() {
         int gt; //Game Type
         int np; //Number of players
 
@@ -99,9 +97,9 @@ public class MainMenuController implements Runnable {
         if (!GUI.getResponses().isEmpty()) {
             ResponseMessage lastMessage = GUI.getResponses().remove(GUI.getResponses().size() - 1);
             if (lastMessage.allGood) {
-                //startGame(); PASSA A NUOVA SCENA E CHIUDE TUTTO QUELLO CHE Cè APERTO
+                //startGame();TODO: PASSA A NUOVA SCENA E CHIUDE TUTTO QUELLO CHE Cè APERTO
             } else {
-                //menu(); POPUP ERRORE E RIMANE DOVE SEI
+                //menu(); TODO: POPUP ERRORE E RIMANE DOVE SEI
             }
         }
         }else {
@@ -112,24 +110,16 @@ public class MainMenuController implements Runnable {
     }
 
     @FXML
-    public void joinGame(ActionEvent event) {
+    public void joinGame() {
         if (!nickname.getText().equals("")) {
 
             disableButtons();
 
             mainButtons.setVisible(false);
+
             join.setVisible(true);
             IDGame.setDisable(true);
 
-            if(!idGame.getText().equals("")){
-                IDGame.setDisable(false);
-            }
-
-            if (randomGame.isSelected()) {
-                choice = 0;
-            } else if (IDGame.isSelected()) {
-                choice = 1;
-            }
 
         } else {
             showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
@@ -140,9 +130,19 @@ public class MainMenuController implements Runnable {
 
     public void setIDGameButton(){
         IDGame.setDisable(false);
+        randomGame.setDisable(false);
     }
 
     public void startButton() {
+
+        int choice=0;
+
+        if (randomGame.isSelected()) {
+            choice = 0;
+        } else if (IDGame.isSelected()) {
+            choice = 1;
+        }
+
         try {
             if (choice == 0) {
                 GUI.send(new CreationMessage(1, nickname.getText()));
