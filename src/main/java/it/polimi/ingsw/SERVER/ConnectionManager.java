@@ -77,7 +77,7 @@ public class ConnectionManager implements Runnable{
                     }
                 }
                 else{
-                    System.out.println("GHBC: "+gameHasBeenCreated);
+                    //System.out.println("GHBC: "+gameHasBeenCreated);
                     if(!gameHasBeenCreated){
                         //If I receive CreationMessage, I handle it; if I receive other messages I ignore them
                         if(latestMessage.type==1){

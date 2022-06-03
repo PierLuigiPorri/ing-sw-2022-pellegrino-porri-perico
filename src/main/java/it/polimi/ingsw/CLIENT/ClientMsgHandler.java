@@ -70,6 +70,7 @@ public class ClientMsgHandler implements Runnable{
                 try {
                     synchronized (lock) {
                         lock.notifyAll();
+                        //System.out.println("SVEGLIATI");
                     }
                 }catch (Exception e){
                     System.out.println(e.getMessage());
@@ -86,8 +87,7 @@ public class ClientMsgHandler implements Runnable{
     public void sort(MessageType message){
         if(message.type==4) {
             this.updates.add((UpdateMessage) message);
-            if(view instanceof CLI)
-                ((CLI) view).signalUpdate();
+            view.signalUpdate();
         }
         else {
             ResponseMessage rMex=(ResponseMessage) message;

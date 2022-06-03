@@ -1,101 +1,127 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.EXCEPTIONS.MessageCreationError;
 import it.polimi.ingsw.MESSAGES.CreationMessage;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
-import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-public class MainMenuController implements Runnable {
-    private static GUIAPP GUI;
+public class MainMenuController{
 
-    //TODO: radiobuttons
+    private static GUIAPP gui;
     private Stage popupWindow;
     private Button popupButton1;
-
     @FXML
-    private TextField nickname, idGame;
+    private TextField nicknameTextField, idTextField;
     @FXML
-    private CheckBox expertGame;
+    private CheckBox expertCheck;
     @FXML
-    private ToggleButton twoPlayers, threePlayers;
+    private RadioButton twoPlayers, threePlayers;
     @FXML
-    private Button newGame, joinGame;
+    private ToggleGroup nPlayers;
     @FXML
-    private RadioButton randomGame, IDGame;
+    private Button newGame, joinGame, startNew, startJoin;
     @FXML
-    private Pane join, mainButtons;
+    private RadioButton randomGame, idGame;
+    @FXML
+    private ToggleGroup joinType;
+    @FXML
+    private AnchorPane newPane, joinPane;
 
-    public static void setGUI(GUIAPP gui){
-        GUI=gui;
-    }
-
-
-    public void update(UpdateMessage update) {
-
-    }
-
-    public void setKill() {
-
-    }
-
-    public void enableButtons(){
-        threePlayers.setDisable(false);
-        twoPlayers.setDisable(false);
-        expertGame.setDisable(false);
-        newGame.setDisable(false);
-        joinGame.setDisable(false);
-    }
-
-    public void disableButtons(){
-        nickname.setDisable(true);
-        threePlayers.setDisable(true);
-        twoPlayers.setDisable(true);
-        expertGame.setDisable(true);
-        newGame.setDisable(true);
-        joinGame.setDisable(true);
+    public static void setGUI(GUIAPP guiApp){
+        gui=guiApp;
     }
 
     @FXML
-    public void newGame() {
+    private void startJoin(){
+        if (!nicknameTextField.getText().equals("")) {
+            if(randomGame.isSelected()){
+                try {
+                    gui.send(new CreationMessage(1, nicknameTextField.getText()));
+                    Thread.sleep(2000);
+                    if (gui.getResponses().isEmpty()) {
+                        gui.setScene("fxml/waitGameToStart.fxml");
+                    } else {
+                        ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
+                        showPopup(lastMessage.response, lastMessage.response,"ok");
+                        popupButton1.setOnAction(e -> popupWindow.close());
+                        popupWindow.showAndWait();
+                    }
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+            else if(idGame.isSelected()){
+                try {
+                    int id=Integer.parseInt(idTextField.getText());
+                    gui.send(new CreationMessage(2, nicknameTextField.getText(),id));
+                    Thread.sleep(2000);
+                    if (gui.getResponses().isEmpty()) {
+                        gui.setScene("fxml/waitGameToStart.fxml");
+                    } else {
+                        ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
+                        showPopup(lastMessage.response, lastMessage.response,"ok");
+                        popupButton1.setOnAction(e -> popupWindow.close());
+                        popupWindow.showAndWait();
+                    }
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+            else{
+                System.out.println("Errore");
+                System.exit(0);
+            }
+        } else {
+            showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
+            popupButton1.setOnAction(e -> popupWindow.close());
+            popupWindow.showAndWait();
+        }
+    }
+
+    @FXML
+    private void startNew(){
         int gt; //Game Type
         int np; //Number of players
 
-        if (expertGame.isSelected()) {
+        if (expertCheck.isSelected()) {
             gt = 1;
         } else gt = 0;
-
-        //Number of players request
-        if (twoPlayers.isSelected() && !threePlayers.isSelected()) {
-            np = 2;
-        } else if (!twoPlayers.isSelected() && threePlayers.isSelected()) np = 3;
-        else np = 0;
-
-
-        if(!nickname.getText().equals("")) {
+        //Number of players
+        if(nPlayers.getSelectedToggle().equals(twoPlayers)){
+            np=2;
+        }
+        else if(nPlayers.getSelectedToggle().equals(threePlayers)){
+            np=3;
+        }
+        else{
+            System.out.println("Errore");
+            System.exit(0);
+            np=0;
+        }
+        if(!nicknameTextField.getText().equals("")) {
             try {
-                GUI.send(new CreationMessage(0, nickname.getText(), gt, np));
+                gui.send(new CreationMessage(0, nicknameTextField.getText(), gt, np));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
-
-            waitGameStart();
-
-            if (!GUI.getResponses().isEmpty()) {
-                ResponseMessage lastMessage = GUI.getResponses().remove(GUI.getResponses().size() - 1);
+            gui.waitForMessage();
+            if (!gui.getResponses().isEmpty()) {
+                ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
                 if (lastMessage.allGood) {
-                    //startGame();TODO: PASSA A NUOVA SCENA E CHIUDE TUTTO QUELLO CHE Cè APERTO
+                    gui.setScene("fxml/waitGameToStart.fxml");
                 } else {
-                    //menu(); TODO: POPUP ERRORE E RIMANE DOVE SEI
+                    showPopup("ERROR", "The creation of the game failed", "ok");
+                    popupButton1.setOnAction(e -> popupWindow.close());
+                    popupWindow.showAndWait();
                 }
             }
         }else {
@@ -106,68 +132,17 @@ public class MainMenuController implements Runnable {
     }
 
     @FXML
-    public void joinGame() {
-        if (!nickname.getText().equals("")) {
-
-            disableButtons();
-
-            mainButtons.setVisible(false);
-
-            join.setVisible(true);
-
-
-            IDGame.setDisable(true);
-
-
-        } else {
-            showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
-            popupButton1.setOnAction(e -> popupWindow.close());
-            popupWindow.showAndWait();
-        }
-    }
-
-    public void setIDGameButton(){
-        IDGame.setDisable(false);
-        randomGame.setDisable(false);
-    }
-
-    public void startButton() {
-
-        int choice=0;
-
-        if (randomGame.isSelected()) {
-            choice = 0;
-        } else if (IDGame.isSelected()) {
-            choice = 1;
-        }
-
-        try {
-            if (choice == 0) {
-                GUI.send(new CreationMessage(1, nickname.getText()));
-            }
-            if (choice == 1) {
-                GUI.send(new CreationMessage(2, nickname.getText(), Integer.parseInt(idGame.getText())));
-            }
-        } catch (NumberFormatException | MessageCreationError e) {
-            System.out.println(e.getMessage());
-        }
-        waitGameStart();
-        if (GUI.getResponses().isEmpty()) {
-            //startGame();
-        } else {
-            ResponseMessage lastMessage = GUI.getResponses().remove(GUI.getResponses().size() - 1);
-            //menu();
-        }
+    private void newGame() {
+        joinPane.setVisible(false);
+        newPane.setVisible(true);
     }
 
     @FXML
-    private void waitGameStart() {
-        disableButtons();
-        GUI.waitForMessage();
-        GUI.setScene("fxml/waitGameToStart.fxml");
+    private void joinGame() {
+        newPane.setVisible(false);
+        joinPane.setVisible(true);
     }
 
-    @FXML
     private void showPopup(String title, String message, String button1) {
         popupWindow = new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
@@ -185,10 +160,5 @@ public class MainMenuController implements Runnable {
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout);
         popupWindow.setScene(scene);
-    }
-
-    @Override
-    public void run() {
-
     }
 }

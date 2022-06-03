@@ -4,6 +4,7 @@ import it.polimi.ingsw.MESSAGES.MessageType;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,7 +20,7 @@ public class GUIAPP extends Application implements View {
     private final Object lock;
     private final ClientMsgHandler msgHandler;
     private final AckSender ackSender;
-    private Stage stage;
+    private Stage currentStage;
 
     public GUIAPP(){
         lock = new Object();
@@ -37,16 +38,16 @@ public class GUIAPP extends Application implements View {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        stage=primaryStage;
+        currentStage=new Stage();
         MainMenuController.setGUI(this);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/mainMenu.fxml")));
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+        currentStage.setScene(scene);
         Image icon=new Image("Graphical_Assets/sfondo.jpg");
-        primaryStage.getIcons().add(icon);
-        primaryStage.setTitle("Eriantys");
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        currentStage.getIcons().add(icon);
+        currentStage.setTitle("Eriantys");
+        currentStage.setResizable(false);
+        currentStage.show();
     }
 
 
@@ -54,10 +55,35 @@ public class GUIAPP extends Application implements View {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(address)));
             Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            currentStage.setScene(scene);
+            currentStage.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+        delay(1000, () -> startGame());
+    }
+
+    public static void delay(long millis, Runnable continuation) {
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try { Thread.sleep(millis); }
+                catch (InterruptedException e) { }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(event -> continuation.run());
+        new Thread(sleeper).start();
+    }
+
+    public void waitForMessage(){
+        try {
+            synchronized (lock) {
+                //System.out.println("Ora dormo");
+                lock.wait();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -71,15 +97,7 @@ public class GUIAPP extends Application implements View {
         msgHandler.send(message);
     }
 
-    public void waitForMessage(){
-        try {
-            synchronized (lock) {
-                lock.wait();
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     public ArrayList<ResponseMessage> getResponses(){
         return msgHandler.getResponses();
@@ -87,6 +105,41 @@ public class GUIAPP extends Application implements View {
 
     public ArrayList<UpdateMessage> getUpdates(){
         return msgHandler.getUpdates();
+    }
+
+    public void startGame(){
+        if (!msgHandler.getUpdates().isEmpty()) {
+            UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
+            System.out.println(firstUpd.update);
+            update(firstUpd);
+            setScene("fxml/board.fxml");
+        } else {
+            try {
+                synchronized (lock) {
+                    lock.wait();
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if (!msgHandler.getUpdates().isEmpty()) {
+                UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
+                System.out.println(firstUpd.update);
+                update(firstUpd);
+                setScene("fxml/board.fxml");
+            }
+            else{
+                if (!msgHandler.getResponses().isEmpty()){
+                    ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
+                    System.out.println(lastMessage.response);
+                    setScene("fxml/mainMenu.fxml");
+                }
+            }
+        }
+    }
+
+    @Override
+    public void signalUpdate(){
+        System.out.println("è arrivato un update");
     }
 
     @Override

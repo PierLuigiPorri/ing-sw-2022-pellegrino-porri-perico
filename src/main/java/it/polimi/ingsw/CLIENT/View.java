@@ -18,4 +18,6 @@ public interface View {
     void update(UpdateMessage update);
 
     void setKill();
+
+    void signalUpdate();
 }
