@@ -57,7 +57,7 @@
                 </Pane>
                 <Pane fx:id="join" prefHeight="182.0" prefWidth="232.0" style="-fx-background-color: rgba(100,100,100,0.36);" visible="false">
                     <children>
-                        <Pane disable="true" prefHeight="216.0" prefWidth="246.0" visible="false">
+                        <Pane prefHeight="216.0" prefWidth="246.0">
                             <children>
                                 <Text fill="#ffcfcf" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SET THE ID OF THE GAME YOU WANT TO JOIN:" wrappingWidth="222.0">
                                     <font>

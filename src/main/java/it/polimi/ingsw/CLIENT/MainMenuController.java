@@ -114,6 +114,8 @@ public class MainMenuController implements Runnable {
             mainButtons.setVisible(false);
 
             join.setVisible(true);
+
+
             IDGame.setDisable(true);
 
 
