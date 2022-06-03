@@ -47,6 +47,7 @@ public class GUIAPP extends Application implements View {
         primaryStage.show();
     }
 
+
     @Override
     public void stop(){
         System.out.println("Thanks for playing!");
