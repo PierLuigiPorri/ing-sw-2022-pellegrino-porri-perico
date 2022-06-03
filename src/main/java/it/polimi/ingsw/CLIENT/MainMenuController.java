@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class MainMenuController implements Runnable {
+    private static GUIAPP GUI;
 
     //TODO: radiobuttons
     private Stage popupWindow;
@@ -31,6 +32,10 @@ public class MainMenuController implements Runnable {
     private ToggleButton twoPlayers, threePlayers;
     @FXML
     private Button newGame, joinGame;
+
+    public static void setGUI(GUIAPP gui){
+        GUI=gui;
+    }
 
 
     public void update(UpdateMessage update) {
@@ -76,7 +81,7 @@ public class MainMenuController implements Runnable {
 
         if(!nickname.getText().equals("")) {
             try {
-                GUIAPP.send(new CreationMessage(0, nickname.getText(), gt, np));
+                GUI.send(new CreationMessage(0, nickname.getText(), gt, np));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -84,8 +89,8 @@ public class MainMenuController implements Runnable {
 
         waitGameStart();
 
-        if (!GUIAPP.getResponses().isEmpty()) {
-            ResponseMessage lastMessage = GUIAPP.getResponses().remove(GUIAPP.getResponses().size() - 1);
+        if (!GUI.getResponses().isEmpty()) {
+            ResponseMessage lastMessage = GUI.getResponses().remove(GUI.getResponses().size() - 1);
             if (lastMessage.allGood) {
                 //startGame();
             } else {
@@ -104,10 +109,10 @@ public class MainMenuController implements Runnable {
             /////////////////////////////////
             waitGameStart();
 
-            if (GUIAPP.getResponses().isEmpty()) {
+            if (GUI.getResponses().isEmpty()) {
                 //startGame();
             } else {
-                ResponseMessage lastMessage = GUIAPP.getResponses().remove(GUIAPP.getResponses().size() - 1);
+                ResponseMessage lastMessage = GUI.getResponses().remove(GUI.getResponses().size() - 1);
                 //menu();
             }
         }else {
@@ -132,7 +137,7 @@ public class MainMenuController implements Runnable {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        GUIAPP.waitForMessage();
+        GUI.waitForMessage();
     }
 
     @FXML

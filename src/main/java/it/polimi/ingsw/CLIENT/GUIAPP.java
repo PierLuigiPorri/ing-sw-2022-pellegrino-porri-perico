@@ -2,6 +2,7 @@ package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.MESSAGES.MessageType;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
+import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +29,7 @@ public class GUIAPP extends Application {
     @Override
     @FXML
     public void start(Stage primaryStage) throws Exception {
+        MainMenuController.setGUI(this);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/mainMenu.fxml")));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -38,11 +40,11 @@ public class GUIAPP extends Application {
         primaryStage.show();
     }
 
-    public static void send(MessageType message){
+    public void send(MessageType message){
         msgHandler.send(message);
     }
 
-    public static void waitForMessage(){
+    public void waitForMessage(){
         try {
             synchronized (lock) {
                 lock.wait();
@@ -52,8 +54,12 @@ public class GUIAPP extends Application {
         }
     }
 
-    public static ArrayList<ResponseMessage> getResponses(){
+    public ArrayList<ResponseMessage> getResponses(){
         return msgHandler.getResponses();
+    }
+
+    public ArrayList<UpdateMessage> getUpdates(){
+        return msgHandler.getUpdates();
     }
 
 }
