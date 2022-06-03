@@ -55,7 +55,7 @@
                         <ToggleButton fx:id="twoPlayers" disable="true" layoutX="14.0" layoutY="102.0" mnemonicParsing="false" text="2 Players" toggleGroup="$group" />
                     </children>
                 </Pane>
-            <Pane fx:id="join" prefHeight="182.0" prefWidth="232.0" style="-fx-background-color: rgba(100,100,100,0.36);" visible="false">
+            <Pane fx:id="join" prefHeight="182.0" prefWidth="232.0" style="-fx-background-color: rgba(100,100,100,0.36);">
                <children>
                   <Pane prefHeight="216.0" prefWidth="246.0">
                      <children>
@@ -66,12 +66,12 @@
                         </Text>
                         <Group layoutY="108.0">
                            <children>
-                              <RadioButton fx:id="randomGame" mnemonicParsing="false" prefHeight="36.0" prefWidth="231.0" selected="true" text="JOIN A RANDOM GAME">
+                              <RadioButton fx:id="randomGame" mnemonicParsing="false" prefHeight="32.0" prefWidth="231.0" selected="true" text="JOIN A RANDOM GAME" toggleGroup="$group">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton fx:id="IDGame" mnemonicParsing="false" prefHeight="96.0" prefWidth="232.0" text="JOIN GAME WITH ID">
+                              <RadioButton fx:id="IDGame" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="232.0" text="JOIN GAME WITH ID" toggleGroup="$group">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
