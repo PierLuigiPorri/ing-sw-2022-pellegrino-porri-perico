@@ -48,42 +48,42 @@
                             </font>
                         </CheckBox>
                         <ToggleButton fx:id="threePlayers" disable="true" layoutX="96.0" layoutY="102.0" mnemonicParsing="false" text="3 Players">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="group" />
-                     </toggleGroup>
+                            <toggleGroup>
+                                <ToggleGroup fx:id="group" />
+                            </toggleGroup>
                         </ToggleButton>
                         <ToggleButton fx:id="twoPlayers" disable="true" layoutX="14.0" layoutY="102.0" mnemonicParsing="false" text="2 Players" toggleGroup="$group" />
                     </children>
                 </Pane>
-            <Pane fx:id="join" prefHeight="182.0" prefWidth="232.0" style="-fx-background-color: rgba(100,100,100,0.36);" visible="false">
-               <children>
-                  <Pane prefHeight="216.0" prefWidth="246.0" visible="false">
-                     <children>
-                        <Text fill="#ffcfcf" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SET THE ID OF THE GAME YOU WANT TO JOIN:" wrappingWidth="222.0">
-                           <font>
-                              <Font name="System Bold Italic" size="17.0" />
-                           </font>
-                        </Text>
-                        <Group layoutY="108.0">
-                           <children>
-                              <RadioButton fx:id="randomGame" mnemonicParsing="false" prefHeight="32.0" prefWidth="231.0" selected="true" text="JOIN A RANDOM GAME" toggleGroup="$group">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </RadioButton>
-                              <RadioButton fx:id="IDGame" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="232.0" text="JOIN GAME WITH ID" toggleGroup="$group">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </RadioButton>
-                           </children>
-                        </Group>
-                        <Button fx:id="start" layoutX="61.0" layoutY="192.0" mnemonicParsing="false" onAction="#startButton" onMouseClicked="#startButton" prefHeight="36.0" prefWidth="101.0" style="-fx-background-radius: 100; -fx-background-color: rgba(48,110,204,0.81);" text="Start" />
-                        <TextField fx:id="idGame" layoutY="52.0" onAction="#setIDGameButton" onInputMethodTextChanged="#setIDGameButton" onKeyPressed="#setIDGameButton" onKeyReleased="#setIDGameButton" onKeyTyped="#setIDGameButton" prefHeight="25.0" prefWidth="222.0" />
-                     </children>
-                  </Pane>
-               </children>
-            </Pane>
+                <Pane fx:id="join" prefHeight="182.0" prefWidth="232.0" style="-fx-background-color: rgba(100,100,100,0.36);" visible="false">
+                    <children>
+                        <Pane disable="true" prefHeight="216.0" prefWidth="246.0" visible="false">
+                            <children>
+                                <Text fill="#ffcfcf" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SET THE ID OF THE GAME YOU WANT TO JOIN:" wrappingWidth="222.0">
+                                    <font>
+                                        <Font name="System Bold Italic" size="17.0" />
+                                    </font>
+                                </Text>
+                                <Group layoutY="108.0">
+                                    <children>
+                                        <RadioButton fx:id="randomGame" mnemonicParsing="false" prefHeight="32.0" prefWidth="231.0" selected="true" text="JOIN A RANDOM GAME" toggleGroup="$group">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </RadioButton>
+                                        <RadioButton fx:id="IDGame" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="232.0" text="JOIN GAME WITH ID" toggleGroup="$group">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </RadioButton>
+                                    </children>
+                                </Group>
+                                <Button fx:id="start" layoutX="61.0" layoutY="192.0" mnemonicParsing="false" onAction="#startButton" onMouseClicked="#startButton" prefHeight="36.0" prefWidth="101.0" style="-fx-background-radius: 100; -fx-background-color: rgba(48,110,204,0.81);" text="Start" />
+                                <TextField fx:id="idGame" layoutY="52.0" onAction="#setIDGameButton" onInputMethodTextChanged="#setIDGameButton" onKeyPressed="#setIDGameButton" onKeyReleased="#setIDGameButton" onKeyTyped="#setIDGameButton" prefHeight="25.0" prefWidth="222.0" />
+                            </children>
+                        </Pane>
+                    </children>
+                </Pane>
             </children>
         </Pane>
     </children>

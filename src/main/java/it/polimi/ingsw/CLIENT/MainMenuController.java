@@ -165,7 +165,6 @@ public class MainMenuController implements Runnable {
     @FXML
     private void waitGameStart() {
         disableButtons();
-        GUI.waitForMessage();
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/waitGameToStart.fxml")));
             Scene scene = new Scene(root);
@@ -179,6 +178,7 @@ public class MainMenuController implements Runnable {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        GUI.waitForMessage();
     }
 
     @FXML
