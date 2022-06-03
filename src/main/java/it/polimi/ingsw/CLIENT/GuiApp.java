@@ -1,6 +1,5 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.MESSAGES.KillMessage;
 import it.polimi.ingsw.MESSAGES.MessageType;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;

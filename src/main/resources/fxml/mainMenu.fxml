@@ -55,7 +55,7 @@
                         <ToggleButton fx:id="twoPlayers" disable="true" layoutX="14.0" layoutY="102.0" mnemonicParsing="false" text="2 Players" toggleGroup="$group" />
                     </children>
                 </Pane>
-            <Pane fx:id="join" prefHeight="182.0" prefWidth="232.0" style="-fx-background-color: rgba(100,100,100,0.36);">
+            <Pane fx:id="join" prefHeight="182.0" prefWidth="232.0" style="-fx-background-color: rgba(100,100,100,0.36);" visible="false">
                <children>
                   <Pane prefHeight="216.0" prefWidth="246.0">
                      <children>
