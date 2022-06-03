@@ -1,5 +1,6 @@
 package it.polimi.ingsw.CLIENT;
 
+import it.polimi.ingsw.MESSAGES.KillMessage;
 import it.polimi.ingsw.MESSAGES.MessageType;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
@@ -16,16 +17,19 @@ import java.util.Objects;
 
 
 public class GUIAPP extends Application implements View {
+
     private final Object lock;
     private final ClientMsgHandler msgHandler;
+    private final AckSender ackSender;
 
     public GUIAPP(){
         lock = new Object();
         msgHandler = new ClientMsgHandler("127.0.0.1", 4000, lock); //Connection setup with this IP and Port numbers
+        ackSender = new AckSender(msgHandler, 5000);
     }
+
     @Override
     public void init(){
-        AckSender ackSender = new AckSender(msgHandler, 5000);
         msgHandler.setAckSender(ackSender);
         new Thread(ackSender).start();
         new Thread(msgHandler).start();
@@ -43,6 +47,12 @@ public class GUIAPP extends Application implements View {
         primaryStage.setTitle("Eriantys");
         primaryStage.setResizable(false);
         primaryStage.show();
+    }
+
+    @Override
+    public void stop(){
+        System.out.println("Thanks for playing!");
+        System.exit(0);
     }
 
     public void send(MessageType message){
