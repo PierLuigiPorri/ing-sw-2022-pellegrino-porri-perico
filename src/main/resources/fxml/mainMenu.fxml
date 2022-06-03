@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -12,8 +14,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
-
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="525.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.MainMenuController">
     <children>
@@ -29,7 +29,7 @@
         </ButtonBar>
         <Pane layoutY="337.0" prefHeight="182.0" prefWidth="232.0" style="-fx-background-color: rgba(100,100,100,0.36);">
             <children>
-                <Pane layoutX="14.0" prefHeight="216.0" prefWidth="246.0">
+                <Pane fx:id="mainButtons" layoutX="14.0" prefHeight="216.0" prefWidth="246.0">
                     <children>
                         <Text layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HOW MANY PLAYERS?" wrappingWidth="254.0">
                             <font>
@@ -55,6 +55,35 @@
                         <ToggleButton fx:id="twoPlayers" disable="true" layoutX="14.0" layoutY="102.0" mnemonicParsing="false" text="2 Players" toggleGroup="$group" />
                     </children>
                 </Pane>
+            <Pane fx:id="join" prefHeight="182.0" prefWidth="232.0" style="-fx-background-color: rgba(100,100,100,0.36);" visible="false">
+               <children>
+                  <Pane prefHeight="216.0" prefWidth="246.0">
+                     <children>
+                        <Text fill="#ffcfcf" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SET THE ID OF THE GAME YOU WANT TO JOIN:" wrappingWidth="222.0">
+                           <font>
+                              <Font name="System Bold Italic" size="17.0" />
+                           </font>
+                        </Text>
+                        <Group layoutY="108.0">
+                           <children>
+                              <RadioButton fx:id="randomGame" mnemonicParsing="false" prefHeight="36.0" prefWidth="231.0" selected="true" text="JOIN A RANDOM GAME">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="IDGame" mnemonicParsing="false" prefHeight="96.0" prefWidth="232.0" text="JOIN GAME WITH ID">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                        </Group>
+                        <Button fx:id="start" layoutX="61.0" layoutY="192.0" mnemonicParsing="false" onAction="#startButton" onMouseClicked="#startButton" prefHeight="36.0" prefWidth="101.0" style="-fx-background-radius: 100; -fx-background-color: rgba(48,110,204,0.81);" text="Start" />
+                        <TextField fx:id="idGame" layoutY="52.0" onAction="#setIDGameButton" onInputMethodTextChanged="#setIDGameButton" onKeyPressed="#setIDGameButton" onKeyReleased="#setIDGameButton" onKeyTyped="#setIDGameButton" prefHeight="25.0" prefWidth="222.0" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
             </children>
         </Pane>
     </children>

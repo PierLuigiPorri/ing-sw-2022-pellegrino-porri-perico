@@ -1,5 +1,6 @@
 package it.polimi.ingsw.CLIENT;
 
+import it.polimi.ingsw.EXCEPTIONS.MessageCreationError;
 import it.polimi.ingsw.MESSAGES.CreationMessage;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
@@ -11,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -23,15 +25,20 @@ public class MainMenuController implements Runnable {
     //TODO: radiobuttons
     private Stage popupWindow;
     private Button popupButton1;
+    int choice=0;
 
     @FXML
-    private TextField nickname;
+    private TextField nickname, idGame;
     @FXML
     private CheckBox expertGame;
     @FXML
     private ToggleButton twoPlayers, threePlayers;
     @FXML
-    private Button newGame, joinGame;
+    private Button newGame, joinGame, start;
+    @FXML
+    private RadioButton randomGame, IDGame;
+    @FXML
+    private Pane join, mainButtons;
 
     public static void setGUI(GUIAPP gui){
         GUI=gui;
@@ -92,32 +99,66 @@ public class MainMenuController implements Runnable {
         if (!GUI.getResponses().isEmpty()) {
             ResponseMessage lastMessage = GUI.getResponses().remove(GUI.getResponses().size() - 1);
             if (lastMessage.allGood) {
-                //startGame();
+                //startGame(); PASSA A NUOVA SCENA E CHIUDE TUTTO QUELLO CHE Cè APERTO
             } else {
-                //menu();
+                //menu(); POPUP ERRORE E RIMANE DOVE SEI
             }
         }
         }else {
             showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
             popupButton1.setOnAction(e -> popupWindow.close());
+            popupWindow.showAndWait();
         }
     }
 
     @FXML
     public void joinGame(ActionEvent event) {
-        if(!nickname.getText().equals("")) {
-            /////////////////////////////////
-            waitGameStart();
+        if (!nickname.getText().equals("")) {
 
-            if (GUI.getResponses().isEmpty()) {
-                //startGame();
-            } else {
-                ResponseMessage lastMessage = GUI.getResponses().remove(GUI.getResponses().size() - 1);
-                //menu();
+            disableButtons();
+
+            mainButtons.setVisible(false);
+            join.setVisible(true);
+            IDGame.setDisable(true);
+
+            if(!idGame.getText().equals("")){
+                IDGame.setDisable(false);
             }
-        }else {
+
+            if (randomGame.isSelected()) {
+                choice = 0;
+            } else if (IDGame.isSelected()) {
+                choice = 1;
+            }
+
+        } else {
             showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
             popupButton1.setOnAction(e -> popupWindow.close());
+            popupWindow.showAndWait();
+        }
+    }
+
+    public void setIDGameButton(){
+        IDGame.setDisable(false);
+    }
+
+    public void startButton() {
+        try {
+            if (choice == 0) {
+                GUI.send(new CreationMessage(1, nickname.getText()));
+            }
+            if (choice == 1) {
+                GUI.send(new CreationMessage(2, nickname.getText(), Integer.parseInt(idGame.getText())));
+            }
+        } catch (NumberFormatException | MessageCreationError e) {
+            System.out.println(e.getMessage());
+        }
+        waitGameStart();
+        if (GUI.getResponses().isEmpty()) {
+            //startGame();
+        } else {
+            ResponseMessage lastMessage = GUI.getResponses().remove(GUI.getResponses().size() - 1);
+            //menu();
         }
     }
 
@@ -145,8 +186,8 @@ public class MainMenuController implements Runnable {
         popupWindow = new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
         popupWindow.setTitle(title);
-        popupWindow.setMinHeight(300);
-        popupWindow.setMinWidth(300);
+        popupWindow.setMinHeight(100);
+        popupWindow.setMinWidth(100);
         Label label = new Label();
         label.setText(message);
 

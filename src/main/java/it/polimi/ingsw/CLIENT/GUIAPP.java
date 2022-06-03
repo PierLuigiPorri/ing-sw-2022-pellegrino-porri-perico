@@ -6,7 +6,6 @@ import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -26,6 +25,7 @@ public class GUIAPP extends Application {
         new Thread(msgHandler).start();
         launch(args);
     }
+
     @Override
     @FXML
     public void start(Stage primaryStage) throws Exception {
