@@ -92,16 +92,16 @@ public class MainMenuController implements Runnable {
             }
 
 
-        waitGameStart();
+            waitGameStart();
 
-        if (!GUI.getResponses().isEmpty()) {
-            ResponseMessage lastMessage = GUI.getResponses().remove(GUI.getResponses().size() - 1);
-            if (lastMessage.allGood) {
-                //startGame();TODO: PASSA A NUOVA SCENA E CHIUDE TUTTO QUELLO CHE Cè APERTO
-            } else {
-                //menu(); TODO: POPUP ERRORE E RIMANE DOVE SEI
+            if (!GUI.getResponses().isEmpty()) {
+                ResponseMessage lastMessage = GUI.getResponses().remove(GUI.getResponses().size() - 1);
+                if (lastMessage.allGood) {
+                    //startGame();TODO: PASSA A NUOVA SCENA E CHIUDE TUTTO QUELLO CHE Cè APERTO
+                } else {
+                    //menu(); TODO: POPUP ERRORE E RIMANE DOVE SEI
+                }
             }
-        }
         }else {
             showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
             popupButton1.setOnAction(e -> popupWindow.close());

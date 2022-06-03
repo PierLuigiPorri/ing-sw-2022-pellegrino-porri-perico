@@ -4,7 +4,6 @@ import it.polimi.ingsw.MESSAGES.MessageType;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,24 +15,26 @@ import java.util.Objects;
 
 
 public class GUIAPP extends Application implements View {
-    private final Object lock=new Object();
-    private final ClientMsgHandler msgHandler = new ClientMsgHandler("127.0.0.1", 4000, lock);
 
-
-    public static void main(String[] args) {
-        GUIAPP GUI=new GUIAPP();
-        launch(args);
-    }
+    private final Object lock;
+    private final ClientMsgHandler msgHandler;
+    private final AckSender ackSender;
 
     public GUIAPP(){
-        AckSender ackSender = new AckSender(msgHandler, 5000);
-        msgHandler.setView(this);
-        new Thread(ackSender).start();
-        new Thread(msgHandler).start();
+        lock = new Object();
+        msgHandler = new ClientMsgHandler("127.0.0.1", 4000, lock); //Connection setup with this IP and Port numbers
+        ackSender = new AckSender(msgHandler, 5000);
     }
 
     @Override
-    @FXML
+    public void init(){
+        msgHandler.setAckSender(ackSender);
+        new Thread(ackSender).start();
+        new Thread(msgHandler).start();
+        msgHandler.setView(this);
+    }
+
+    @Override
     public void start(Stage primaryStage) throws Exception {
         MainMenuController.setGUI(this);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/mainMenu.fxml")));
@@ -44,6 +45,12 @@ public class GUIAPP extends Application implements View {
         primaryStage.setTitle("Eriantys");
         primaryStage.setResizable(false);
         primaryStage.show();
+    }
+
+    @Override
+    public void stop(){
+        System.out.println("Thanks for playing!");
+        System.exit(0);
     }
 
     public void send(MessageType message){
