@@ -20,6 +20,7 @@ public class GUIAPP extends Application implements View {
     private final ClientMsgHandler msgHandler;
     private final AckSender ackSender;
     private Stage stage;
+
     public GUIAPP(){
         lock = new Object();
         msgHandler = new ClientMsgHandler("127.0.0.1", 4000, lock); //Connection setup with this IP and Port numbers
@@ -49,7 +50,7 @@ public class GUIAPP extends Application implements View {
     }
 
 
-    public void setGameScene(String address){
+    public void setScene(String address){
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(address)));
             Scene scene = new Scene(root);

@@ -164,7 +164,7 @@ public class MainMenuController implements Runnable {
     private void waitGameStart() {
         disableButtons();
         GUI.waitForMessage();
-        GUI.setGameScene("fxml/waitGameToStart.fxml");
+        GUI.setScene("fxml/waitGameToStart.fxml");
     }
 
     @FXML
