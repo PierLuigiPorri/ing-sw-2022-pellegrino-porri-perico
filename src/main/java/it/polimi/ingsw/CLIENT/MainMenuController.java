@@ -1,6 +1,5 @@
 package it.polimi.ingsw.CLIENT;
 
-import com.sun.javafx.scene.control.IntegerField;
 import it.polimi.ingsw.MESSAGES.CreationMessage;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
@@ -21,9 +20,6 @@ import java.util.Objects;
 public class MainMenuController implements Runnable {
 
     //TODO: radiobuttons
-    private ClientMsgHandler msgHandler;
-    private Object lock;
-
     private Stage popupWindow;
     private Button popupButton1;
 
@@ -36,16 +32,6 @@ public class MainMenuController implements Runnable {
     @FXML
     private Button newGame, joinGame;
 
-    public MainMenuController() {
-    }
-
-    public void setMsgHandler(ClientMsgHandler msgHandler) {
-        this.msgHandler = msgHandler;
-    }
-
-    public void setLock(Object lock) {
-        this.lock = lock;
-    }
 
     public void update(UpdateMessage update) {
 
@@ -90,7 +76,7 @@ public class MainMenuController implements Runnable {
 
         if(!nickname.getText().equals("")) {
             try {
-                msgHandler.send(new CreationMessage(0, nickname.getText(), gt, np));
+                GUIAPP.send(new CreationMessage(0, nickname.getText(), gt, np));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -98,8 +84,8 @@ public class MainMenuController implements Runnable {
 
         waitGameStart();
 
-        if (!msgHandler.getResponses().isEmpty()) {
-            ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
+        if (!GUIAPP.getResponses().isEmpty()) {
+            ResponseMessage lastMessage = GUIAPP.getResponses().remove(GUIAPP.getResponses().size() - 1);
             if (lastMessage.allGood) {
                 //startGame();
             } else {
@@ -108,9 +94,7 @@ public class MainMenuController implements Runnable {
         }
         }else {
             showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
-            popupButton1.setOnAction(e -> {
-                popupWindow.close();
-            });
+            popupButton1.setOnAction(e -> popupWindow.close());
         }
     }
 
@@ -120,17 +104,15 @@ public class MainMenuController implements Runnable {
             /////////////////////////////////
             waitGameStart();
 
-            if (msgHandler.getResponses().isEmpty()) {
+            if (GUIAPP.getResponses().isEmpty()) {
                 //startGame();
             } else {
-                ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
+                ResponseMessage lastMessage = GUIAPP.getResponses().remove(GUIAPP.getResponses().size() - 1);
                 //menu();
             }
         }else {
             showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
-            popupButton1.setOnAction(e -> {
-                popupWindow.close();
-            });
+            popupButton1.setOnAction(e -> popupWindow.close());
         }
     }
 
@@ -150,14 +132,7 @@ public class MainMenuController implements Runnable {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        try {
-            synchronized (lock) {
-                lock.wait();
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        GUIAPP.waitForMessage();
     }
 
     @FXML
