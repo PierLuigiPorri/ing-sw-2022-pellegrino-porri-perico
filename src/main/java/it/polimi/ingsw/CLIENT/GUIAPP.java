@@ -19,7 +19,7 @@ public class GUIAPP extends Application implements View {
     private final Object lock;
     private final ClientMsgHandler msgHandler;
     private final AckSender ackSender;
-
+    private Stage stage;
     public GUIAPP(){
         lock = new Object();
         msgHandler = new ClientMsgHandler("127.0.0.1", 4000, lock); //Connection setup with this IP and Port numbers
@@ -36,6 +36,7 @@ public class GUIAPP extends Application implements View {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        stage=primaryStage;
         MainMenuController.setGUI(this);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/mainMenu.fxml")));
         Scene scene = new Scene(root);
@@ -47,6 +48,17 @@ public class GUIAPP extends Application implements View {
         primaryStage.show();
     }
 
+
+    public void setGameScene(String address){
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(address)));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     @Override
     public void stop(){

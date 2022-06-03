@@ -5,18 +5,14 @@ import it.polimi.ingsw.MESSAGES.CreationMessage;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.Objects;
 
 public class MainMenuController implements Runnable {
     private static GUIAPP GUI;
@@ -166,19 +162,7 @@ public class MainMenuController implements Runnable {
     private void waitGameStart() {
         disableButtons();
         GUI.waitForMessage();
-        try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/waitGameToStart.fxml")));
-            Scene scene = new Scene(root);
-            Stage window = new Stage();
-            window.setScene(scene);
-            Image icon = new Image("Graphical_Assets/sfondo.jpg");
-            window.getIcons().add(icon);
-            window.setTitle("Eriantys");
-            window.setResizable(false);
-            window.show();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        GUI.setGameScene("fxml/waitGameToStart.fxml");
     }
 
     @FXML
