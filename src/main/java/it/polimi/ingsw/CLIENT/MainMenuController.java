@@ -20,11 +20,12 @@ import java.util.Objects;
 
 public class MainMenuController implements Runnable {
 
+    //TODO: radiobuttons
     private ClientMsgHandler msgHandler;
     private Object lock;
+
     private Stage popupWindow;
-    private Button popupButton1, popupButton2;
-    private IntegerField popupIntField;
+    private Button popupButton1;
 
     @FXML
     private TextField nickname;
@@ -87,11 +88,13 @@ public class MainMenuController implements Runnable {
         else np = 0;
 
 
-        try {
-            msgHandler.send(new CreationMessage(0, nickname.getText(), gt, np));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        if(!nickname.getText().equals("")) {
+            try {
+                msgHandler.send(new CreationMessage(0, nickname.getText(), gt, np));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
 
         waitGameStart();
 
@@ -103,21 +106,35 @@ public class MainMenuController implements Runnable {
                 //menu();
             }
         }
+        }else {
+            showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
+            popupButton1.setOnAction(e -> {
+                popupWindow.close();
+            });
+        }
     }
 
     @FXML
     public void joinGame(ActionEvent event) {
-        displayJoinGamePopup("Join Game", "Which option do you prefer?");
-        waitGameStart();
+        if(!nickname.getText().equals("")) {
+            /////////////////////////////////
+            waitGameStart();
 
-        if (msgHandler.getResponses().isEmpty()) {
-            //startGame();
-        } else {
-            ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
-            //menu();
+            if (msgHandler.getResponses().isEmpty()) {
+                //startGame();
+            } else {
+                ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
+                //menu();
+            }
+        }else {
+            showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
+            popupButton1.setOnAction(e -> {
+                popupWindow.close();
+            });
         }
     }
 
+    @FXML
     private void waitGameStart() {
         disableButtons();
         try {
@@ -141,36 +158,10 @@ public class MainMenuController implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        enableButtons();
     }
 
-    public void displayJoinGamePopup(String title, String message) {
-
-        showPopup(title, message, "Join a random Game", "Join game with ID", "Enter here the ID of the game you want to join:");
-
-        popupButton1.setDefaultButton(true);
-        popupButton1.setOnAction(e -> {
-            try {
-                msgHandler.send(new CreationMessage(1, nickname.getText()));
-            } catch (Exception k) {
-                System.out.println(k.getMessage());
-            }
-            popupWindow.close();
-        });
-
-        popupButton2.setOnAction(e -> {
-            try {
-                msgHandler.send(new CreationMessage(2, nickname.getText(), popupIntField.getValue()));
-            } catch (Exception k) {
-                System.out.println(k.getMessage());
-            }
-            popupWindow.close();
-        });
-
-        popupWindow.showAndWait();
-    }
-
-    private void showPopup(String title, String message, String button1, String button2, String intField) {
+    @FXML
+    private void showPopup(String title, String message, String button1) {
         popupWindow = new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
         popupWindow.setTitle(title);
@@ -178,19 +169,12 @@ public class MainMenuController implements Runnable {
         popupWindow.setMinWidth(300);
         Label label = new Label();
         label.setText(message);
-        Label label1=new Label();
 
         if(button1!=null)
             popupButton1 =new Button(button1);
-        if(button2!=null)
-            popupButton2 =new Button(button2);
-        if(intField!=null){
-            label1.setText(intField);
-            popupIntField=new IntegerField();
-        }
 
         VBox layout = new VBox(15);
-        layout.getChildren().addAll(label, popupButton1, popupButton2, label1, popupIntField);
+        layout.getChildren().addAll(label, popupButton1);
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout);
         popupWindow.setScene(scene);
