@@ -5,6 +5,7 @@ import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.application.Application;
 import javafx.concurrent.Task;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,6 +21,7 @@ public class GUIAPP extends Application implements View {
     private final Object lock;
     private final ClientMsgHandler msgHandler;
     private final AckSender ackSender;
+    @FXML
     private Stage currentStage;
 
     public GUIAPP(){
@@ -36,10 +38,12 @@ public class GUIAPP extends Application implements View {
         msgHandler.setView(this);
     }
 
+    @FXML
     @Override
     public void start(Stage primaryStage) throws Exception {
         currentStage=new Stage();
         MainMenuController.setGUI(this);
+        BoardController.setGUI(this);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/mainMenu.fxml")));
         Scene scene = new Scene(root);
         currentStage.setScene(scene);
@@ -50,7 +54,7 @@ public class GUIAPP extends Application implements View {
         currentStage.show();
     }
 
-
+    @FXML
     public void setScene(String address){
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(address)));
@@ -107,6 +111,7 @@ public class GUIAPP extends Application implements View {
         return msgHandler.getUpdates();
     }
 
+    @FXML
     public void startGame(){
         if (!msgHandler.getUpdates().isEmpty()) {
             UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
