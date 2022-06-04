@@ -43,6 +43,7 @@ public class GUIAPP extends Application implements View {
     public void start(Stage primaryStage) throws Exception {
         currentStage=new Stage();
         MainMenuController.setGUI(this);
+        BoardController.setGUI(this);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/mainMenu.fxml")));
         Scene scene = new Scene(root);
         currentStage.setScene(scene);
