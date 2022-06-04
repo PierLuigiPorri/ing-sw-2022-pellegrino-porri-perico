@@ -15,7 +15,9 @@ import javafx.stage.Stage;
 public class MainMenuController{
 
     private static GUIAPP gui;
+    @FXML
     private Stage popupWindow;
+    @FXML
     private Button popupButton1;
     @FXML
     private TextField nicknameTextField, idTextField;
@@ -142,7 +144,7 @@ public class MainMenuController{
         newPane.setVisible(false);
         joinPane.setVisible(true);
     }
-
+    @FXML
     private void showPopup(String title, String message, String button1) {
         popupWindow = new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
