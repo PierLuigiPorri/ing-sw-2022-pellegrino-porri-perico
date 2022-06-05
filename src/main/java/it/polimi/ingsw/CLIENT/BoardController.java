@@ -67,7 +67,7 @@ public class BoardController {
 
         for (int i = 0; i < update.numIslands; i++) {
             String nick = update.whoOwnTowers.get(i);
-
+            //TODO:sistemare sta cosa
             if (nick.equals(userNickname)) {
                 setTowerOnIsland(islands, i, "WHITE");
             }

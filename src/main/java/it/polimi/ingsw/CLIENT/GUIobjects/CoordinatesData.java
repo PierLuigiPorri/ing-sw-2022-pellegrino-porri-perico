@@ -2,6 +2,7 @@ package it.polimi.ingsw.CLIENT.GUIobjects;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class CoordinatesData {
     private final static ArrayList<Coordinates> gateStudents=new ArrayList<>();
@@ -13,6 +14,8 @@ public abstract class CoordinatesData {
     private final static Coordinates motherNature=new Coordinates(108,3);
     private final static ArrayList<Coordinates> clouds3=new ArrayList<>();
     private final static ArrayList<Coordinates> clouds2=new ArrayList<>();
+
+    private final static HashMap<Integer, ArrayList<Coordinates>> islands=new HashMap<>();
 
     public static void loadCoordinates(){
         loadGate();
@@ -39,16 +42,112 @@ public abstract class CoordinatesData {
         islandStudents.add(new Coordinates(105,94));
         islandStudents.add(new Coordinates(37,94));
         islandStudents.add(new Coordinates(37,52));
+
+        ArrayList<Coordinates> coord=new ArrayList<>();
+        coord.add(new Coordinates(684,14));
+        coord.add(new Coordinates(864,404));
+        coord.add(new Coordinates(504,404));
+        islands.put(3,coord);
+        coord.clear();
+        coord.add(new Coordinates(684,14));
+        coord.add(new Coordinates(1044,214));
+        coord.add(new Coordinates(684,404));
+        coord.add(new Coordinates(324,214));
+        islands.put(4,coord);
+        coord.clear();
+        coord.add(new Coordinates(566,14));
+        coord.add(new Coordinates(808,14));
+        coord.add(new Coordinates(1044,214));
+        coord.add(new Coordinates(684,404));
+        coord.add(new Coordinates(324,214));
+        islands.put(5,coord);
+        coord.clear();
+        coord.add(new Coordinates(566,14));
+        coord.add(new Coordinates(808,14));
+        coord.add(new Coordinates(1044,214));
+        coord.add(new Coordinates(808,404));
+        coord.add(new Coordinates(566,404));
+        coord.add(new Coordinates(324,214));
+        islands.put(6,coord);
+        coord.clear();
+        coord.add(new Coordinates(466,14));
+        coord.add(new Coordinates(684,14));
+        coord.add(new Coordinates(907,14));
+        coord.add(new Coordinates(1044,214));
+        coord.add(new Coordinates(808,404));
+        coord.add(new Coordinates(566,404));
+        coord.add(new Coordinates(324,214));
+        islands.put(7,coord);
+        coord.clear();
+        coord.add(new Coordinates(466,14));
+        coord.add(new Coordinates(684,14));
+        coord.add(new Coordinates(907,14));
+        coord.add(new Coordinates(1044,214));
+        coord.add(new Coordinates(907,404));
+        coord.add(new Coordinates(684,404));
+        coord.add(new Coordinates(466,404));
+        coord.add(new Coordinates(324,214));
+        islands.put(8,coord);
+        coord.clear();
+        coord.add(new Coordinates(403,14));
+        coord.add(new Coordinates(579,14));
+        coord.add(new Coordinates(759,14));
+        coord.add(new Coordinates(939,14));
+        coord.add(new Coordinates(1044,214));
+        coord.add(new Coordinates(907,404));
+        coord.add(new Coordinates(684,404));
+        coord.add(new Coordinates(466,404));
+        coord.add(new Coordinates(324,214));
+        islands.put(9,coord);
+        coord.clear();
+        coord.add(new Coordinates(403,14));
+        coord.add(new Coordinates(579,14));
+        coord.add(new Coordinates(759,14));
+        coord.add(new Coordinates(939,14));
+        coord.add(new Coordinates(1044,214));
+        coord.add(new Coordinates(939,404));
+        coord.add(new Coordinates(759,404));
+        coord.add(new Coordinates(579,404));
+        coord.add(new Coordinates(403,404));
+        coord.add(new Coordinates(324,214));
+        islands.put(10,coord);
+        coord.clear();
+        coord.add(new Coordinates(324,14));
+        coord.add(new Coordinates(504,14));
+        coord.add(new Coordinates(684,14));
+        coord.add(new Coordinates(864,14));
+        coord.add(new Coordinates(1044,14));
+        coord.add(new Coordinates(1044,214));
+        coord.add(new Coordinates(939,404));
+        coord.add(new Coordinates(759,404));
+        coord.add(new Coordinates(579,404));
+        coord.add(new Coordinates(403,404));
+        coord.add(new Coordinates(324,214));
+        islands.put(11,coord);
+        coord.clear();
+        coord.add(new Coordinates(324,14));
+        coord.add(new Coordinates(504,14));
+        coord.add(new Coordinates(684,14));
+        coord.add(new Coordinates(864,14));
+        coord.add(new Coordinates(1044,14));
+        coord.add(new Coordinates(1044,214));
+        coord.add(new Coordinates(1044,404));
+        coord.add(new Coordinates(864,404));
+        coord.add(new Coordinates(684,404));
+        coord.add(new Coordinates(504,404));
+        coord.add(new Coordinates(324,404));
+        coord.add(new Coordinates(324,214));
+        islands.put(12,coord);
     }
 
     private static void loadClouds(){
-        clouds3.add(new Coordinates(90,24));
-        clouds3.add(new Coordinates(14,49));
-        clouds3.add(new Coordinates(73,103));
-        clouds2.add(new Coordinates(56,59));
         clouds2.add(new Coordinates(90,24));
         clouds2.add(new Coordinates(14,49));
         clouds2.add(new Coordinates(73,103));
+        clouds3.add(new Coordinates(56,59));
+        clouds3.add(new Coordinates(90,24));
+        clouds3.add(new Coordinates(14,49));
+        clouds3.add(new Coordinates(73,103));
     }
 
     public static Coordinates getTowersCoordinates() {
@@ -93,5 +192,9 @@ public abstract class CoordinatesData {
 
     public static ArrayList<Coordinates> getClouds3() {
         return clouds3;
+    }
+
+    public ArrayList<Coordinates> getIslandsCoord(int dim){
+        return islands.get(dim);
     }
 }
