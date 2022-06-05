@@ -18,6 +18,8 @@ import java.util.Objects;
 
 public class GUIAPP extends Application implements View {
 
+    private String userNickname;
+    private int playersNumber;
     private final Object lock;
     private final ClientMsgHandler msgHandler;
     private final AckSender ackSender;
@@ -141,6 +143,22 @@ public class GUIAPP extends Application implements View {
                 }
             }
         }
+    }
+
+    public void setUserNickname(String nickname){
+        this.userNickname=nickname;
+    }
+
+    public String getUserNickname(){
+        return this.userNickname;
+    }
+
+    public void setPlayersNumber(int number){
+        this.playersNumber=number;
+    }
+
+    public int getPlayersNumber(){
+        return this.playersNumber;
     }
 
     @Override

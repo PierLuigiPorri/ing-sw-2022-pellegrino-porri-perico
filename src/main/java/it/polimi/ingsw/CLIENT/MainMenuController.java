@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 
 
 public class MainMenuController{
+    private int gt; //Game Type
+    private int np; //Number of players
 
     private static GUIAPP gui;
     @FXML
@@ -42,15 +44,7 @@ public class MainMenuController{
             if(randomGame.isSelected()){
                 try {
                     gui.send(new CreationMessage(1, nicknameTextField.getText()));
-                    Thread.sleep(2000);
-                    if (gui.getResponses().isEmpty()) {
-                        gui.setScene("fxml/waitGameToStart.fxml");
-                    } else {
-                        ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
-                        showPopup(lastMessage.response, lastMessage.response,"ok");
-                        popupButton1.setOnAction(e -> popupWindow.close());
-                        popupWindow.showAndWait();
-                    }
+                    setNextScene();
                 }
                 catch (Exception e){
                     System.out.println(e.getMessage());
@@ -60,15 +54,7 @@ public class MainMenuController{
                 try {
                     int id=Integer.parseInt(idTextField.getText());
                     gui.send(new CreationMessage(2, nicknameTextField.getText(),id));
-                    Thread.sleep(2000);
-                    if (gui.getResponses().isEmpty()) {
-                        gui.setScene("fxml/waitGameToStart.fxml");
-                    } else {
-                        ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
-                        showPopup(lastMessage.response, lastMessage.response,"ok");
-                        popupButton1.setOnAction(e -> popupWindow.close());
-                        popupWindow.showAndWait();
-                    }
+                    setNextScene();
                 }
                 catch (Exception e){
                     System.out.println(e.getMessage());
@@ -79,7 +65,21 @@ public class MainMenuController{
                 System.exit(0);
             }
         } else {
-            showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
+            showPopup("NICKNAME REQUIRED", "You need to set your nickname first!");
+            popupButton1.setOnAction(e -> popupWindow.close());
+            popupWindow.showAndWait();
+        }
+    }
+
+    private void setNextScene() throws InterruptedException {
+        Thread.sleep(2000);
+        if (gui.getResponses().isEmpty()) {
+            gui.setScene("fxml/waitGameToStart.fxml");
+            gui.setUserNickname(nicknameTextField.getText());
+            gui.setPlayersNumber(np);
+        } else {
+            ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
+            showPopup(lastMessage.response, lastMessage.response);
             popupButton1.setOnAction(e -> popupWindow.close());
             popupWindow.showAndWait();
         }
@@ -87,8 +87,6 @@ public class MainMenuController{
 
     @FXML
     private void startNew(){
-        int gt; //Game Type
-        int np; //Number of players
 
         if (expertCheck.isSelected()) {
             gt = 1;
@@ -116,14 +114,16 @@ public class MainMenuController{
                 ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
                 if (lastMessage.allGood) {
                     gui.setScene("fxml/waitGameToStart.fxml");
+                    gui.setUserNickname(nicknameTextField.getText());
+                    gui.setPlayersNumber(np);
                 } else {
-                    showPopup("ERROR", "The creation of the game failed", "ok");
+                    showPopup("ERROR", "The creation of the game failed");
                     popupButton1.setOnAction(e -> popupWindow.close());
                     popupWindow.showAndWait();
                 }
             }
         }else {
-            showPopup("NICKNAME REQUIRED", "You need to set your nickname first!", "ok");
+            showPopup("NICKNAME REQUIRED", "You need to set your nickname first!");
             popupButton1.setOnAction(e -> popupWindow.close());
             popupWindow.showAndWait();
         }
@@ -141,7 +141,7 @@ public class MainMenuController{
         joinPane.setVisible(true);
     }
     @FXML
-    private void showPopup(String title, String message, String button1) {
+    private void showPopup(String title, String message) {
         popupWindow = new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
         popupWindow.setTitle(title);
@@ -150,8 +150,7 @@ public class MainMenuController{
         Label label = new Label();
         label.setText(message);
 
-        if(button1!=null)
-            popupButton1 =new Button(button1);
+        popupButton1 =new Button("ok");
 
         VBox layout = new VBox(15);
         layout.getChildren().addAll(label, popupButton1);
