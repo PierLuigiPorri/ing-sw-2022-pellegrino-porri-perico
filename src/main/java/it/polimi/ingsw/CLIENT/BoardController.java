@@ -30,7 +30,7 @@ public class BoardController {
     @FXML
     private Pane island1, island2, island3, island4, island5, island6, island7, island8, island9, island10, island11, island12;
     @FXML
-    private Pane gate;
+    private Pane gate, motherNature;
 
     public static void setGUI(GUIAPP guiApp){
         gui=guiApp;
@@ -40,6 +40,7 @@ public class BoardController {
         update=gui.getUpdate();
         CoordinatesData.loadCoordinates();
 
+        motherNatureUpdate();
         studentsOnIslandUpdate();
         studentsOnGateUpdate();
 
@@ -50,6 +51,33 @@ public class BoardController {
 
         professorsUpdate();
         hallUpdate();
+    }
+
+
+    private void towersUpdate(){
+        ArrayList<Pane> islands=new ArrayList<>();
+        arrayBuild(islands, island1, island2, island3, island4, island5, island6, island7, island8, island9, island10);
+        islands.add(island11);
+        islands.add(island12);
+
+        //for(int i=0; i<update.numIslands; i++){
+        //    islands.get(i).getChildren().add(update.towersOnIsland.get(i))
+        //}
+    }
+
+    private void motherNatureUpdate(){
+        ArrayList<Pane> islands=new ArrayList<>();
+        arrayBuild(islands, island1, island2, island3, island4, island5, island6, island7, island8, island9, island10);
+        islands.add(island11);
+        islands.add(island12);
+
+        for (int i=0; i<update.numIslands; i++){
+            if(update.motherNatureOnIsland.get(i)){
+                islands.get(i).getChildren().add(motherNature);
+                motherNature.setLayoutX(CoordinatesData.getMotherNatureCoordinates().getX());
+                motherNature.setLayoutY(CoordinatesData.getMotherNatureCoordinates().getY());
+            }
+        }
     }
 
     private void studentsOnIslandUpdate(){

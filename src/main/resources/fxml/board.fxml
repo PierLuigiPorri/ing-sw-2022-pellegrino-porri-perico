@@ -73,6 +73,15 @@
                   <Image url="@../Graphical_Assets/island3.png" />
                </image>
             </ImageView>
+            <Pane fx:id="motherNature" layoutX="88.0" layoutY="-17.0" prefHeight="74.0" prefWidth="74.0">
+               <children>
+                  <ImageView fitHeight="74.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Graphical_Assets/mother_nature.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </Pane>
       <Pane fx:id="island12" layoutX="324.0" layoutY="214.0" prefHeight="180.0" prefWidth="180.0">
