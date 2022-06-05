@@ -12,7 +12,7 @@
             <Image url="@../Graphical_Assets/sky_bg.jpg" />
          </image>
       </ImageView>
-      <Pane layoutX="504.0" layoutY="14.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island2" layoutX="504.0" layoutY="14.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -21,7 +21,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="684.0" layoutY="14.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island3" layoutX="684.0" layoutY="14.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -30,7 +30,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="864.0" layoutY="14.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island4" layoutX="864.0" layoutY="14.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -39,7 +39,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="1044.0" layoutY="14.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island5" layoutX="1044.0" layoutY="14.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -48,7 +48,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="324.0" layoutY="394.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island11" layoutX="324.0" layoutY="394.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -57,7 +57,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="1044.0" layoutY="214.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island6" layoutX="1044.0" layoutY="214.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -66,7 +66,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="324.0" layoutY="14.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island1" layoutX="324.0" layoutY="14.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -75,7 +75,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="324.0" layoutY="214.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island12" layoutX="324.0" layoutY="214.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -84,7 +84,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="504.0" layoutY="394.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island10" layoutX="504.0" layoutY="394.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -93,7 +93,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="1044.0" layoutY="404.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island7" layoutX="1044.0" layoutY="404.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -102,7 +102,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="864.0" layoutY="404.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island8" layoutX="864.0" layoutY="404.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -111,7 +111,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="684.0" layoutY="404.0" prefHeight="180.0" prefWidth="180.0">
+      <Pane fx:id="island9" layoutX="684.0" layoutY="404.0" prefHeight="180.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -120,7 +120,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane prefHeight="710.0" prefWidth="313.0">
+      <Pane fx:id="gate" prefHeight="710.0" prefWidth="313.0">
          <children>
             <ImageView fitHeight="340.0" fitWidth="706.0" layoutX="-200.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
                <image>

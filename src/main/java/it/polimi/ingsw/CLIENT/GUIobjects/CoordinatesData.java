@@ -80,8 +80,7 @@ public abstract class CoordinatesData {
     }
 
     public static int getIndex(Coordinates c){
-        for (Coordinates x :
-                gateStudents) {
+        for (Coordinates x : gateStudents) {
             if(c.getX() == x.getX() && c.getY() == x.getY())
                 return gateStudents.indexOf(x);
         }
