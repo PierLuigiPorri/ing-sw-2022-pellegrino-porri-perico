@@ -28,11 +28,7 @@ public class MainMenuController{
     @FXML
     private ToggleGroup nPlayers;
     @FXML
-    private Button newGame, joinGame, startNew, startJoin;
-    @FXML
     private RadioButton randomGame, idGame;
-    @FXML
-    private ToggleGroup joinType;
     @FXML
     private AnchorPane newPane, joinPane;
 

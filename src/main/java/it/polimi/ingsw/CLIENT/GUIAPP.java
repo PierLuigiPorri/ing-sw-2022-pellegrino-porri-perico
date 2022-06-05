@@ -21,6 +21,7 @@ public class GUIAPP extends Application implements View {
     private final Object lock;
     private final ClientMsgHandler msgHandler;
     private final AckSender ackSender;
+    private UpdateMessage update;
     @FXML
     private Stage currentStage;
 
@@ -174,7 +175,11 @@ public class GUIAPP extends Application implements View {
 
     @Override
     public void update(UpdateMessage update) {
+        this.update=update;
+    }
 
+    public UpdateMessage getUpdate(){
+        return update;
     }
 
     @Override
