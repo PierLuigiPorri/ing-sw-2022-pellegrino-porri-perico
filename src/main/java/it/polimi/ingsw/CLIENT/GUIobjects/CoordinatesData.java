@@ -194,7 +194,7 @@ public abstract class CoordinatesData {
         return clouds3;
     }
 
-    public ArrayList<Coordinates> getIslandsCoord(int dim){
+    public static ArrayList<Coordinates> getIslandsCoord(int dim){
         return islands.get(dim);
     }
 }

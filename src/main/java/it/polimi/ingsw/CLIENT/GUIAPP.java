@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -61,8 +62,12 @@ public class GUIAPP extends Application implements View {
     public void setScene(String address){
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(address)));
-            Scene scene = new Scene(root);
+            GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+            double width = gd.getDisplayMode().getWidth()*0.9;
+            double height = gd.getDisplayMode().getHeight()*0.9;
+            Scene scene = new Scene(root, width, height);
             currentStage.setScene(scene);
+            currentStage.centerOnScreen();
             currentStage.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());

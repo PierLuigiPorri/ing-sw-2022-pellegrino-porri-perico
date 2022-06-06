@@ -47,12 +47,15 @@
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
-      <artifactId>javafx</artifactId>
+      <artifactId>javafx-controls</artifactId>
       <version>18.0.1</version>
-      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>18.0.1</version>
     </dependency>
   </dependencies>
-
 
 
   <build>

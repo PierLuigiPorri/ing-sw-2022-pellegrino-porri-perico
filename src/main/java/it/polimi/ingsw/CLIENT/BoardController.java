@@ -1,9 +1,6 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.CLIENT.GUIobjects.CloudGUI;
-import it.polimi.ingsw.CLIENT.GUIobjects.CoordinatesData;
-import it.polimi.ingsw.CLIENT.GUIobjects.StudentGUI;
-import it.polimi.ingsw.CLIENT.GUIobjects.TowerGUI;
+import it.polimi.ingsw.CLIENT.GUIobjects.*;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.input.DragEvent;
@@ -18,6 +15,8 @@ public class BoardController {
     private int playersNumber;
     private String userNickname;
 
+    private ArrayList<IslandGUI> islands;
+
     @FXML
     private Pane redHall0, redHall1, redHall2, redHall3, redHall4, redHall5, redHall6, redHall7, redHall8, redHall9;
     @FXML
@@ -31,8 +30,6 @@ public class BoardController {
     @FXML
     private Pane redProfessor, blueProfessor, greenProfessor, yellowProfessor, pinkProfessor;
     @FXML
-    private Pane island1, island2, island3, island4, island5, island6, island7, island8, island9, island10, island11, island12;
-    @FXML
     private Pane gate, motherNature;
 
     public static void setGUI(GUIAPP guiApp) {
@@ -44,6 +41,8 @@ public class BoardController {
         this.playersNumber = gui.getPlayersNumber();
         update = gui.getUpdate();
         CoordinatesData.loadCoordinates();
+
+        createIslands();
 
         towersUpdate();
         motherNatureUpdate();
@@ -61,44 +60,34 @@ public class BoardController {
 
 
     private void towersUpdate() {
-        ArrayList<Pane> islands = new ArrayList<>();
-        arrayBuild(islands, island1, island2, island3, island4, island5, island6, island7, island8, island9, island10);
-        islands.add(island11);
-        islands.add(island12);
-
         for (int i = 0; i < update.numIslands; i++) {
             String nick = update.whoOwnTowers.get(i);
             //TODO:sistemare sta cosa
             if (nick.equals(userNickname)) {
-                setTowerOnIsland(islands, i, "WHITE");
+                setTowerOnIsland(i, "WHITE");
             }
             else if(nick.equals(update.players.get(0)) && !update.players.get(0).equals(userNickname)){
-                setTowerOnIsland(islands, i, "BLACK");
+                setTowerOnIsland(i, "BLACK");
             }
             else if(nick.equals(update.players.get(1)) && !update.players.get(1).equals(userNickname)){
-                setTowerOnIsland(islands, i, "GREY");
+                setTowerOnIsland(i, "GREY");
             }
             else if(nick.equals(update.players.get(2)) && !update.players.get(2).equals(userNickname)){
-                setTowerOnIsland(islands, i, "BLACK");
+                setTowerOnIsland(i, "BLACK");
             }
         }
     }
 
-    private void setTowerOnIsland(ArrayList<Pane> islands, int i, String color) {
-        for(int k=0; k<update.towersOnIsland.get(i); k++) {
+    private void setTowerOnIsland(int index, String color) {
+        for(int k=0; k<update.towersOnIsland.get(index); k++) {
             TowerGUI tower=new TowerGUI(color);
-            islands.get(i).getChildren().add(tower);
+            islands.get(index).getChildren().add(tower);
             tower.setLayoutY(CoordinatesData.getTowersCoordinates().getY());
             tower.setLayoutX(CoordinatesData.getTowersCoordinates().getX());
         }
     }
 
     private void motherNatureUpdate() {
-        ArrayList<Pane> islands = new ArrayList<>();
-        arrayBuild(islands, island1, island2, island3, island4, island5, island6, island7, island8, island9, island10);
-        islands.add(island11);
-        islands.add(island12);
-
         for (int i = 0; i < update.numIslands; i++) {
             if (update.motherNatureOnIsland.get(i)) {
                 islands.get(i).getChildren().add(motherNature);
@@ -109,19 +98,26 @@ public class BoardController {
     }
 
     private void studentsOnIslandUpdate() {
-        ArrayList<Pane> islands = new ArrayList<>();
-        arrayBuild(islands, island1, island2, island3, island4, island5, island6, island7, island8, island9, island10);
-        islands.add(island11);
-        islands.add(island12);
 
         for (int index : update.studentsOnIsland.keySet()) {
             for (int i = 1; i < update.studentsOnIsland.get(index).size(); i = i + 2) {
                 StudentGUI student = new StudentGUI(update.studentsOnIsland.get(index).get(i));
-                islands.get(index).getChildren().add(student);
+                islands.get(index).getChildren().add(student); ///// potrebbe andare alla fine del metodo la add dei children.
                 student.setLayoutX(CoordinatesData.getIsland(update.studentsOnIsland.get(index).get(i)).getX());
                 student.setLayoutY(CoordinatesData.getIsland(update.studentsOnIsland.get(index).get(i)).getY());
             }
         }
+    }
+
+    private void createIslands(){
+        islands=new ArrayList<>();
+
+        for (int index:update.studentsOnIsland.keySet()) {
+            islands.add(new IslandGUI(index));
+            islands.get(index).setLayoutX(CoordinatesData.getIslandsCoord(update.numIslands).get(index).getX());
+            islands.get(index).setLayoutY(CoordinatesData.getIslandsCoord(update.numIslands).get(index).getY());
+        }
+
     }
 
     private void studentsOnGateUpdate() {
@@ -217,7 +213,6 @@ public class BoardController {
     private void onDragOnIsland(DragEvent event){
 
     }
-
 
     public int userIndex() {
         return update.players.indexOf(userNickname);
