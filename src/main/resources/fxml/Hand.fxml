@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.HandController">
+   <children>
+      <ImageView fitHeight="452.0" fitWidth="644.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Graphical_Assets/sky_bg.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="13.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Assistente (1).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="137.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Assistente (2).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="257.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Assistente (3).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="386.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Assistente (4).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="519.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Assistente (5).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="519.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Assistente (10).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="386.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Assistente (9).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="257.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Assistente (18).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="13.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Assistente (6).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="137.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Assistente (7).png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Text fill="#ebde2d" layoutX="203.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THIS IS YOUR HAND!" wrappingWidth="230.966796875">
+         <font>
+            <Font name="System Bold Italic" size="22.0" />
+         </font>
+      </Text>
+      <Text fill="#d30101" layoutX="148.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT THE CARD YOU WANT TO PLAY!">
+         <font>
+            <Font name="Book Antiqua" size="17.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

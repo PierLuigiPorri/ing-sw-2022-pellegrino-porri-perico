@@ -15,7 +15,7 @@ public class BoardController {
     private UpdateMessage update;
     private int playersNumber;
     private String userNickname;
-
+    private MotherNatureGUI motherNature;
     private Coordinates selectedStudent;
 
     private ArrayList<IslandGUI> islands;
@@ -33,7 +33,7 @@ public class BoardController {
     @FXML
     private Pane redProfessor, blueProfessor, greenProfessor, yellowProfessor, pinkProfessor;
     @FXML
-    private Pane gate, motherNature;
+    private Pane gate;
 
     public static void setGUI(GUIAPP guiApp) {
         gui = guiApp;
@@ -91,6 +91,7 @@ public class BoardController {
     }
 
     private void motherNatureUpdate() {
+        motherNature=new MotherNatureGUI();
         for (int i = 0; i < update.numIslands; i++) {
             if (update.motherNatureOnIsland.get(i)) {
                 islands.get(i).getChildren().add(motherNature);
@@ -105,7 +106,7 @@ public class BoardController {
         for (int index : update.studentsOnIsland.keySet()) {
             for (int i = 1; i < update.studentsOnIsland.get(index).size(); i = i + 2) {
                 StudentGUI student = new StudentGUI(update.studentsOnIsland.get(index).get(i));
-                islands.get(index).getChildren().add(student); ///// potrebbe andare alla fine del metodo la add dei children.
+                islands.get(index).getChildren().add(student);
                 student.setLayoutX(CoordinatesData.getIsland(update.studentsOnIsland.get(index).get(i)).getX());
                 student.setLayoutY(CoordinatesData.getIsland(update.studentsOnIsland.get(index).get(i)).getY());
             }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.CharactersController">
+   <children>
+      <ImageView fitHeight="470.0" fitWidth="690.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Graphical_Assets/sky_bg.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="14.0" layoutY="38.0" prefHeight="232.0" prefWidth="153.0">
+         <children>
+            <ImageView fitHeight="232.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/CarteTOT_front.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="255.0" layoutY="38.0" prefHeight="232.0" prefWidth="153.0">
+         <children>
+            <ImageView fitHeight="271.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/CarteTOT_front6.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="495.0" layoutY="38.0" prefHeight="232.0" prefWidth="153.0">
+         <children>
+            <ImageView fitHeight="284.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/CarteTOT_front7.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="148.0" layoutY="296.0" prefHeight="121.0" prefWidth="107.0">
+         <children>
+            <ImageView fitHeight="121.0" fitWidth="107.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphical_Assets/Moneta_base.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Text fill="#25ff71" layoutX="166.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHARACTERS AVIABLE IN THIS GAME:" wrappingWidth="329.13671875">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="255.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU HAVE             COINS. IF THE CHARACTER HAS ALREADY BEEN ACTIVATED, THEN IT COSTS ONE COIN MORE THAN AS SHOWN BY THE CARD." wrappingWidth="402.13671875">
+         <fill>
+            <LinearGradient endX="0.29383886255924174" endY="0.6635071090047393" startX="0.4597156398104265">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8999999761581421" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.042641326785087585" green="0.46052631735801697" blue="0.11925357580184937" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Text>
+      <Pane layoutX="14.0" layoutY="272.0" prefHeight="48.0" prefWidth="153.0">
+         <children>
+            <Text fill="#ffcc00" layoutX="8.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ACTIVATED">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Text>
+         </children></Pane>
+      <Pane layoutX="255.0" layoutY="272.0" prefHeight="48.0" prefWidth="153.0">
+         <children>
+            <Text fill="#ffcc00" layoutX="8.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ACTIVATED">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Text>
+         </children></Pane>
+      <Pane layoutX="495.0" layoutY="270.0" prefHeight="48.0" prefWidth="153.0">
+         <children>
+            <Text fill="#ffcc00" layoutX="7.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ACTIVATED">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Text>
+         </children></Pane>
+   </children>
+</AnchorPane>
