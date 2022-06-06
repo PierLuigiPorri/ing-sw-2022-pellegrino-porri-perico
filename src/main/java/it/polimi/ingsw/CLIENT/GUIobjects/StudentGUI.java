@@ -6,6 +6,8 @@ import javafx.scene.layout.Pane;
 
 public class StudentGUI extends Pane {
     private final String color;
+    private double stageX, stageY;
+    private Coordinates coord;
 
 
     public StudentGUI(String color){
@@ -29,9 +31,23 @@ public class StudentGUI extends Pane {
         }
         this.setHeight(33);
         this.setWidth(34);
+        this.setOnMousePressed(mouseEvent -> {
+            stageX=mouseEvent.getX();
+            stageY=mouseEvent.getY();
+            coord=new Coordinates(this.getLayoutX(),this.getLayoutY());
+        });
+
+        this.setOnMouseDragged(mouseEvent -> {
+            this.setLayoutX(mouseEvent.getSceneX()-this.stageX);
+            this.setLayoutY(mouseEvent.getSceneY()-this.stageY);
+        });
     }
 
     public String getColor() {
         return color;
+    }
+
+    public Coordinates getCoord() {
+        return coord;
     }
 }

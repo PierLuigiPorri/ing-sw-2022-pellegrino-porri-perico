@@ -6,6 +6,7 @@ import it.polimi.ingsw.CLIENT.GUIobjects.StudentGUI;
 import it.polimi.ingsw.CLIENT.GUIobjects.TowerGUI;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
+import javafx.scene.input.DragEvent;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -212,6 +213,11 @@ public class BoardController {
         array.add(element9);
         array.add(element10);
     }
+
+    private void onDragOnIsland(DragEvent event){
+
+    }
+
 
     public int userIndex() {
         return update.players.indexOf(userNickname);

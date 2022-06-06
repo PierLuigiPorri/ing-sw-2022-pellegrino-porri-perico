@@ -2,19 +2,19 @@ package it.polimi.ingsw.CLIENT.GUIobjects;
 
 public class Coordinates {
 
-    private final int X;
-    private final int Y;
+    private final double X;
+    private final double Y;
 
-    public Coordinates(int x, int y){
+    public Coordinates(double x, double y){
         this.X=x;
         this.Y=y;
     }
 
-    public int getX(){
+    public double getX(){
         return X;
     }
 
-    public int getY(){
+    public double getY(){
         return Y;
     }
 }
