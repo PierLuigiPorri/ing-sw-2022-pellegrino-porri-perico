@@ -1,5 +1,6 @@
 package it.polimi.ingsw.CLIENT;
 
+import it.polimi.ingsw.MESSAGES.ActionMessage;
 import it.polimi.ingsw.MESSAGES.MessageType;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
@@ -24,6 +25,9 @@ public class GUIAPP extends Application implements View {
     private final Object lock;
     private final ClientMsgHandler msgHandler;
     private final AckSender ackSender;
+    private final ArrayList<Integer> inputInt;
+    private final ArrayList<String> inputStr;
+    private final ArrayList<Integer> int3=null;
     private UpdateMessage update;
     @FXML
     private Stage currentStage;
@@ -32,6 +36,8 @@ public class GUIAPP extends Application implements View {
         lock = new Object();
         msgHandler = new ClientMsgHandler("127.0.0.1", 4000, lock); //Connection setup with this IP and Port numbers
         ackSender = new AckSender(msgHandler, 5000);
+        inputInt=new ArrayList<>();
+        inputStr=new ArrayList<>();
     }
 
     @Override
@@ -171,29 +177,63 @@ public class GUIAPP extends Application implements View {
         System.out.println("è arrivato un update");
     }
 
+    public void perform(ArrayList<Integer> intpar, ArrayList<String> strpar, int action){
+        inputStr.add(userNickname);
+        inputStr.addAll(strpar);
+        inputInt.addAll(intpar);
+        switch (action){
+            case 3://moveMotherNature
+                moveMotherNature();
+                break;
+            case 0://gateToIsland
+                gateToIsland();
+                break;
+            case 1://gateToHall
+                gateToHall();
+                break;
+            case 2://cloudToGate
+                cloudToGate();
+                break;
+            case 4://playCard
+                playCard();
+                break;
+            case 5://activateCharacter
+                activateCharacter();
+                break;
+        }
+        inputInt.clear();
+        inputStr.clear();
+    }
+
+
     @Override
     public void moveMotherNature() {
-
+        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 3));
     }
 
     @Override
     public void gateToIsland() {
-
+        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 0));
     }
 
     @Override
     public void gateToHall() {
-
+        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 1));
     }
 
     @Override
     public void cloudToGate() {
+        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 2));
+    }
 
+    @Override
+    public void activateCharacter() {
+        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 5));
     }
 
     @Override
     public void playCard() {
-
+        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 4));
     }
 
     @Override

@@ -563,7 +563,7 @@ public class CLI implements View, Runnable {
         } else responseNeeded = false;
     }
 
-    public void activateCharacter() throws IOException {
+    public void activateCharacter() {
         boolean cancel = false;
         System.out.println("Which character would you like to activate? Digit the appropriate index:");
         seeCharacters();

@@ -31,16 +31,6 @@ public class StudentGUI extends Pane {
         }
         this.setHeight(33);
         this.setWidth(34);
-        this.setOnMousePressed(mouseEvent -> {
-            stageX=mouseEvent.getX();
-            stageY=mouseEvent.getY();
-            coord=new Coordinates(this.getLayoutX(),this.getLayoutY());
-        });
-
-        this.setOnMouseDragged(mouseEvent -> {
-            this.setLayoutX(mouseEvent.getSceneX()-this.stageX);
-            this.setLayoutY(mouseEvent.getSceneY()-this.stageY);
-        });
     }
 
     public String getColor() {
@@ -49,5 +39,16 @@ public class StudentGUI extends Pane {
 
     public Coordinates getCoord() {
         return coord;
+    }
+
+    public void pressed(double x,double y){
+        stageX=x;
+        stageY=y;
+        coord=new Coordinates(this.getLayoutX(),this.getLayoutY());
+    }
+
+    public void dragged(double x, double y){
+        this.setLayoutX(x-this.stageX);
+        this.setLayoutY(y-this.stageY);
     }
 }

@@ -14,6 +14,7 @@ public interface View {
     void cloudToGate();
 
     void playCard();
+    void activateCharacter();
 
     void update(UpdateMessage update);
 

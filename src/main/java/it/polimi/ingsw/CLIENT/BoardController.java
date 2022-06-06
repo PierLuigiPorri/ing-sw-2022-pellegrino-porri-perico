@@ -4,6 +4,7 @@ import it.polimi.ingsw.CLIENT.GUIobjects.*;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ public class BoardController {
     private UpdateMessage update;
     private int playersNumber;
     private String userNickname;
+
+    private Coordinates selectedStudent;
 
     private ArrayList<IslandGUI> islands;
 
@@ -210,8 +213,44 @@ public class BoardController {
         array.add(element10);
     }
 
-    private void onDragOnIsland(DragEvent event){
+    private void onDragOnIsland(DragEvent event, IslandGUI i) {
+        if(event.getSource() instanceof StudentGUI) {
+            ArrayList<Integer> par = new ArrayList<>();
+            par.add(CoordinatesData.getIndex(((StudentGUI) event.getSource()).getCoord()));
+            par.add(i.getIndex());
+            gui.perform(par, null, 0);
+        }
+        else if(event.getSource() instanceof MotherNatureGUI){
+            ArrayList<Integer> par=new ArrayList<>();
+            par.add(i.getIndex()+(i.getIndex()<update.motherNatureOnIsland.indexOf(true) ? update.numIslands : 0)-update.motherNatureOnIsland.indexOf(true));
+            gui.perform(par, null, 3);
+        }
+    }
 
+
+    private void onStudentPressed(MouseEvent mouseEvent, StudentGUI s) {
+        if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
+            s.pressed(mouseEvent.getX(), mouseEvent.getY());
+            selectedStudent = new Coordinates(mouseEvent.getX(), mouseEvent.getY());
+        }
+    }
+
+    private void onStudentDragged(DragEvent mouseEvent, StudentGUI s) {
+        if(update.phase.equals("Action") && userNickname.equals(update.order.get(0))){
+            s.dragged(mouseEvent.getSceneX(),mouseEvent.getSceneY());
+        }
+    }
+
+    private void onMotherNaturePressed(MouseEvent mouseEvent, MotherNatureGUI m){
+        if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
+            m.pressed(mouseEvent.getX(), mouseEvent.getY());
+        }
+    }
+
+    private void onMotherNatureDragged(DragEvent mouseEvent, MotherNatureGUI s){
+        if(update.phase.equals("Action") && userNickname.equals(update.order.get(0))){
+            s.dragged(mouseEvent.getSceneX(),mouseEvent.getSceneY());
+        }
     }
 
     public int userIndex() {
