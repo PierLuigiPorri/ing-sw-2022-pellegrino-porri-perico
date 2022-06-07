@@ -65,21 +65,17 @@ public class BoardController {
     private void towersUpdate() {
         for (int i = 0; i < update.numIslands; i++) {
             String nick = update.whoOwnTowers.get(i);
-            //TODO:sistemare sta cosa
-            if (nick.equals(userNickname)) {
+
+            if (nick.equals(update.players.get(0))) {
                 setTowerOnIsland(i, "WHITE");
-            }
-            else if(nick.equals(update.players.get(0)) && !update.players.get(0).equals(userNickname)){
+            } else if (nick.equals(update.players.get(1))) {
                 setTowerOnIsland(i, "BLACK");
-            }
-            else if(nick.equals(update.players.get(1)) && !update.players.get(1).equals(userNickname)){
+            } else if (nick.equals(update.players.get(2))) {
                 setTowerOnIsland(i, "GREY");
-            }
-            else if(nick.equals(update.players.get(2)) && !update.players.get(2).equals(userNickname)){
-                setTowerOnIsland(i, "BLACK");
             }
         }
     }
+
 
     private void setTowerOnIsland(int index, String color) {
         for(int k=0; k<update.towersOnIsland.get(index); k++) {
@@ -125,7 +121,7 @@ public class BoardController {
     }
 
     private void studentsOnGateUpdate() {
-        for (int i = 1; i < update.gatePlayer.get(0).size(); i = i + 2) {
+        for (int i = 1; i < update.gatePlayer.get(userIndex()).size(); i = i + 2) {
             StudentGUI student = new StudentGUI(update.gatePlayer.get(userIndex()).get(i));
             gate.getChildren().add(student);
             student.setLayoutX(CoordinatesData.getGate().get(i / 2).getX());
