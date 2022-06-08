@@ -16,7 +16,7 @@ public class BoardController {
     private int playersNumber;
     private String userNickname;
     private MotherNatureGUI motherNature;
-    private Coordinates selectedStudent;
+    private StudentGUI selectedStudent;
 
     private ArrayList<IslandGUI> islands;
 
@@ -34,6 +34,8 @@ public class BoardController {
     private Pane redProfessor, blueProfessor, greenProfessor, yellowProfessor, pinkProfessor;
     @FXML
     private Pane gate;
+    @FXML
+    private Pane hall;
 
     public static void setGUI(GUIAPP guiApp) {
         gui = guiApp;
@@ -93,6 +95,8 @@ public class BoardController {
                 islands.get(i).getChildren().add(motherNature);
                 motherNature.setLayoutX(CoordinatesData.getMotherNatureCoordinates().getX());
                 motherNature.setLayoutY(CoordinatesData.getMotherNatureCoordinates().getY());
+                motherNature.setOnMousePressed((e)->onMotherNaturePressed(e, motherNature));
+                motherNature.setOnMouseDragged((e)->onMotherNatureDragged(e, motherNature));
             }
         }
     }
@@ -116,6 +120,7 @@ public class BoardController {
             islands.add(new IslandGUI(index));
             islands.get(index).setLayoutX(CoordinatesData.getIslandsCoord(update.numIslands).get(index).getX());
             islands.get(index).setLayoutY(CoordinatesData.getIslandsCoord(update.numIslands).get(index).getY());
+            islands.get(index).setOnDragDropped((dragEvent)->onDragOnIsland(dragEvent, islands.get(index)));
         }
 
     }
@@ -126,6 +131,8 @@ public class BoardController {
             gate.getChildren().add(student);
             student.setLayoutX(CoordinatesData.getGate().get(i / 2).getX());
             student.setLayoutY(CoordinatesData.getGate().get(i / 2).getY());
+            student.setOnMousePressed((e)->onStudentPressed(e, student));
+            student.setOnMouseDragged((e)->onStudentDragged(e, student));
         }
     }
 
@@ -213,7 +220,7 @@ public class BoardController {
     private void onDragOnIsland(DragEvent event, IslandGUI i) {
         if(event.getSource() instanceof StudentGUI) {
             ArrayList<Integer> par = new ArrayList<>();
-            par.add(CoordinatesData.getIndex(((StudentGUI) event.getSource()).getCoord()));
+            par.add(CoordinatesData.getIndex(selectedStudent.getCoord()));
             par.add(i.getIndex());
             gui.perform(par, null, 0);
         }
@@ -228,11 +235,11 @@ public class BoardController {
     private void onStudentPressed(MouseEvent mouseEvent, StudentGUI s) {
         if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
             s.pressed(mouseEvent.getX(), mouseEvent.getY());
-            selectedStudent = new Coordinates(mouseEvent.getX(), mouseEvent.getY());
+            selectedStudent = s;
         }
     }
 
-    private void onStudentDragged(DragEvent mouseEvent, StudentGUI s) {
+    private void onStudentDragged(MouseEvent mouseEvent, StudentGUI s) {
         if(update.phase.equals("Action") && userNickname.equals(update.order.get(0))){
             s.dragged(mouseEvent.getSceneX(),mouseEvent.getSceneY());
         }
@@ -244,10 +251,16 @@ public class BoardController {
         }
     }
 
-    private void onMotherNatureDragged(DragEvent mouseEvent, MotherNatureGUI s){
+    private void onMotherNatureDragged(MouseEvent mouseEvent, MotherNatureGUI s){
         if(update.phase.equals("Action") && userNickname.equals(update.order.get(0))){
             s.dragged(mouseEvent.getSceneX(),mouseEvent.getSceneY());
         }
+    }
+    @FXML
+    private void onDragOnHall(){
+        ArrayList<String> par = new ArrayList<>();
+        par.add(selectedStudent.getColor());
+        gui.perform(null, par, 1);
     }
 
     public int userIndex() {

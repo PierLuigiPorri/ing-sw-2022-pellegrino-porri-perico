@@ -9,11 +9,11 @@ import java.util.Random;
 public class IslandGUI extends Pane {
 
     private int index;
-    private int red;
-    private int blue;
-    private int green;
-    private int yellow;
-    private int pink;
+    private int red=0;
+    private int blue=0;
+    private int green=0;
+    private int yellow=0;
+    private int pink=0;
 
     public IslandGUI(int i) {
         this.index = i;

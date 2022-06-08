@@ -174,8 +174,8 @@ public abstract class CoordinatesData {
                 return islandStudents.get(3);
             case "PINK":
                 return islandStudents.get(4);
-            default:return null;
         }
+        return new Coordinates(0,0);
     }
 
     public static int getIndex(Coordinates c){
