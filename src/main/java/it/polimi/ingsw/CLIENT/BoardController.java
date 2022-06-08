@@ -17,6 +17,7 @@ public class BoardController {
     private String userNickname;
     private MotherNatureGUI motherNature;
     private StudentGUI selectedStudent;
+    private CloudGUI selectedCloud;
 
     private ArrayList<IslandGUI> islands;
 
@@ -261,6 +262,16 @@ public class BoardController {
         ArrayList<String> par = new ArrayList<>();
         par.add(selectedStudent.getColor());
         gui.perform(null, par, 1);
+    }
+    @FXML
+    private void onCloudPressed(MouseEvent e){
+        selectedCloud=(CloudGUI) e.getSource();
+    }
+    @FXML
+    private void onCloudButtonPressed(){
+        ArrayList<Integer> par = new ArrayList<>();
+        par.add(selectedCloud.getIndex());
+        gui.perform(par, null, 2);
     }
 
     public int userIndex() {
