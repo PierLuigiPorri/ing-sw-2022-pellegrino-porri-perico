@@ -77,6 +77,7 @@ public class MainMenuController{
             gui.setScene("fxml/waitGameToStart.fxml");
             gui.setUserNickname(nicknameTextField.getText());
             gui.setPlayersNumber(np);
+            gui.setGameType(gt);
         } else {
             ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
             showPopup(lastMessage.response, lastMessage.response);
@@ -116,6 +117,7 @@ public class MainMenuController{
                     gui.setScene("fxml/waitGameToStart.fxml");
                     gui.setUserNickname(nicknameTextField.getText());
                     gui.setPlayersNumber(np);
+                    gui.setGameType(gt);
                 } else {
                     showPopup("ERROR", "The creation of the game failed");
                     popupButton1.setOnAction(e -> popupWindow.close());

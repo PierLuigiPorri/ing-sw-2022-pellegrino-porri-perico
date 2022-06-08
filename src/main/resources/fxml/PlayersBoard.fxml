@@ -600,7 +600,7 @@
             <ImageView fx:id="lastCardPlayed" fitHeight="200.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <Text fx:id="nameField" fill="#da3a3a" layoutX="329.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="nameField" fill="#da3a3a" layoutX="329.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="313.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -615,7 +615,7 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Text fx:id="coinsOwned" fill="#da3a3a" layoutX="355.0" layoutY="583.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="coinsOwned" fill="#da3a3a" layoutX="341.0" layoutY="583.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="63.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

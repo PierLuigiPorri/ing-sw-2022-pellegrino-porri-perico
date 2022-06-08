@@ -19,8 +19,9 @@ import java.util.Objects;
 
 public class GUIAPP extends Application implements View {
 
-    private String userNickname;
+    private String userNickname, playerNickname;
     private int playersNumber;
+    private int gameType;
     private final Object lock;
     private final ClientMsgHandler msgHandler;
     private final AckSender ackSender;
@@ -171,6 +172,14 @@ public class GUIAPP extends Application implements View {
         return this.playersNumber;
     }
 
+    public void setGameType(int number){
+        this.gameType=number;
+    }
+
+    public int getGameType(){
+        return this.gameType;
+    }
+
     @Override
     public void signalUpdate(){
         System.out.println("è arrivato un update");
@@ -242,6 +251,14 @@ public class GUIAPP extends Application implements View {
 
     public UpdateMessage getUpdate(){
         return update;
+    }
+
+    public void setPlayerNickname(String name){
+        this.playerNickname=name;
+    }
+
+    public String getPlayerNickname(){
+        return this.playerNickname;
     }
 
     @Override

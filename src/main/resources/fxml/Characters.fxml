@@ -69,7 +69,7 @@
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.042641326785087585" green="0.46052631735801697" blue="0.11925357580184937" />
+                        <Color red="0.04313725605607033" green="0.4588235318660736" blue="0.11764705926179886" />
                      </color>
                   </Stop>
                </stops>
@@ -103,5 +103,10 @@
                </font>
             </Text>
          </children></Pane>
+      <Text fill="#0b751e" layoutX="322.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="35.13671875">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

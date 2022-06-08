@@ -42,6 +42,7 @@ public class PlayersBoardController {
     public void refresh() {
         update = gui.getUpdate();
         CoordinatesData.loadCoordinates();
+        playerNickname=gui.getPlayerNickname();
 
         studentsOnGateUpdate();
         professorsUpdate();
@@ -144,21 +145,9 @@ public class PlayersBoardController {
         return update.players.indexOf(playerNickname);
     }
 
-    public void setPlayerNickname(String nickname){
-        this.playerNickname=nickname;
-    }
 
     private void arrayBuild(ArrayList<Pane> array, Pane element1, Pane element2, Pane element3, Pane element4, Pane element5, Pane element6, Pane element7, Pane element8, Pane element9, Pane element10) {
-        array.add(element1);
-        array.add(element2);
-        array.add(element3);
-        array.add(element4);
-        array.add(element5);
-        array.add(element6);
-        array.add(element7);
-        array.add(element8);
-        array.add(element9);
-        array.add(element10);
+        HandController.arrayBuild(array, element1, element2, element3, element4, element5, element6, element7, element8, element9, element10);
     }
 
 }
