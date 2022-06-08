@@ -35,8 +35,6 @@ public class BoardController {
     private Pane redProfessor, blueProfessor, greenProfessor, yellowProfessor, pinkProfessor;
     @FXML
     private Pane gate;
-    @FXML
-    private Pane hall;
 
     public static void setGUI(GUIAPP guiApp) {
         gui = guiApp;
@@ -146,6 +144,7 @@ public class BoardController {
                 student.setLayoutX(CoordinatesData.getClouds2().get(i / 2).getX());
                 student.setLayoutY(CoordinatesData.getClouds2().get(i / 2).getY());
             }
+            cloud.setOnMousePressed(this::onCloudPressed);
         }
     }
 
@@ -158,6 +157,7 @@ public class BoardController {
                 student.setLayoutX(CoordinatesData.getClouds3().get(i / 2).getX());
                 student.setLayoutY(CoordinatesData.getClouds3().get(i / 2).getY());
             }
+            cloud.setOnMousePressed(this::onCloudPressed);
         }
     }
 
@@ -263,7 +263,7 @@ public class BoardController {
         par.add(selectedStudent.getColor());
         gui.perform(null, par, 1);
     }
-    @FXML
+
     private void onCloudPressed(MouseEvent e){
         selectedCloud=(CloudGUI) e.getSource();
     }
