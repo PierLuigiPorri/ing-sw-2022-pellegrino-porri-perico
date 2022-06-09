@@ -19,7 +19,7 @@
       </ImageView>
       <Pane layoutX="14.0" layoutY="38.0" prefHeight="232.0" prefWidth="153.0">
          <children>
-            <ImageView fitHeight="232.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="character1" fitHeight="232.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Graphical_Assets/CarteTOT_front.jpg" />
                </image>
@@ -28,7 +28,7 @@
       </Pane>
       <Pane layoutX="255.0" layoutY="38.0" prefHeight="232.0" prefWidth="153.0">
          <children>
-            <ImageView fitHeight="271.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="character2" fitHeight="271.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Graphical_Assets/CarteTOT_front6.jpg" />
                </image>
@@ -37,7 +37,7 @@
       </Pane>
       <Pane layoutX="495.0" layoutY="38.0" prefHeight="232.0" prefWidth="153.0">
          <children>
-            <ImageView fitHeight="284.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="character3" fitHeight="284.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Graphical_Assets/CarteTOT_front7.jpg" />
                </image>
@@ -79,7 +79,7 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Text>
-      <Pane layoutX="14.0" layoutY="272.0" prefHeight="48.0" prefWidth="153.0">
+      <Pane fx:id="activated1" layoutX="14.0" layoutY="272.0" prefHeight="48.0" prefWidth="153.0" visible="false">
          <children>
             <Text fill="#ffcc00" layoutX="8.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ACTIVATED">
                <font>
@@ -87,7 +87,7 @@
                </font>
             </Text>
          </children></Pane>
-      <Pane layoutX="255.0" layoutY="272.0" prefHeight="48.0" prefWidth="153.0">
+      <Pane fx:id="activated2" layoutX="255.0" layoutY="272.0" prefHeight="48.0" prefWidth="153.0" visible="false">
          <children>
             <Text fill="#ffcc00" layoutX="8.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ACTIVATED">
                <font>
@@ -95,7 +95,7 @@
                </font>
             </Text>
          </children></Pane>
-      <Pane layoutX="495.0" layoutY="270.0" prefHeight="48.0" prefWidth="153.0">
+      <Pane fx:id="activated3" layoutX="495.0" layoutY="270.0" prefHeight="48.0" prefWidth="153.0" visible="false">
          <children>
             <Text fill="#ffcc00" layoutX="7.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ACTIVATED">
                <font>
@@ -103,7 +103,7 @@
                </font>
             </Text>
          </children></Pane>
-      <Text fill="#0b751e" layoutX="322.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="35.13671875">
+      <Text fx:id="coinsNumber" fill="#0b751e" layoutX="322.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="35.13671875">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

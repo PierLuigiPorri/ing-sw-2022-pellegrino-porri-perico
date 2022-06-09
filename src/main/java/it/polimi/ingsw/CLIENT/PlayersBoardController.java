@@ -49,12 +49,12 @@ public class PlayersBoardController {
         hallUpdate();
         setLastCardPlayed();
         nameField.setText(playerNickname);
-        coinsOwned.setText(""+update.coinsOnPlayer.get(userIndex())+"");
+        coinsOwned.setText(""+update.coinsOnPlayer.get(playerIndex())+"");
     }
 
     private void studentsOnGateUpdate() {
-        for (int i = 1; i < update.gatePlayer.get(userIndex()).size(); i = i + 2) {
-            StudentGUI student = new StudentGUI(update.gatePlayer.get(userIndex()).get(i));
+        for (int i = 1; i < update.gatePlayer.get(playerIndex()).size(); i = i + 2) {
+            StudentGUI student = new StudentGUI(update.gatePlayer.get(playerIndex()).get(i));
             gate.getChildren().add(student);
             student.setLayoutX(CoordinatesData.getGate().get(i / 2).getX());
             student.setLayoutY(CoordinatesData.getGate().get(i / 2).getY());
@@ -62,7 +62,7 @@ public class PlayersBoardController {
     }
 
     private void setLastCardPlayed(){
-        int value=update.lastCardPlayed.get(userIndex() + 1);
+        int value=update.lastCardPlayed.get(playerIndex() + 1);
         switch(value){
             case 1:
                 lastCardPlayed.setImage(new Image("src/main/resources/Graphical_Assets/Assistente (1).png"));
@@ -98,11 +98,11 @@ public class PlayersBoardController {
     }
 
     private void professorsUpdate() {
-        redProfessor.setVisible(update.professors.get(userIndex()).get(0));
-        blueProfessor.setVisible(update.professors.get(userIndex()).get(1));
-        greenProfessor.setVisible(update.professors.get(userIndex()).get(2));
-        yellowProfessor.setVisible(update.professors.get(userIndex()).get(3));
-        pinkProfessor.setVisible(update.professors.get(userIndex()).get(4));
+        redProfessor.setVisible(update.professors.get(playerIndex()).get(0));
+        blueProfessor.setVisible(update.professors.get(playerIndex()).get(1));
+        greenProfessor.setVisible(update.professors.get(playerIndex()).get(2));
+        yellowProfessor.setVisible(update.professors.get(playerIndex()).get(3));
+        pinkProfessor.setVisible(update.professors.get(playerIndex()).get(4));
     }
 
     private void hallUpdate() {
@@ -118,11 +118,11 @@ public class PlayersBoardController {
         arrayBuild(yellowHall, yellowHall0, yellowHall1, yellowHall2, yellowHall3, yellowHall4, yellowHall5, yellowHall6, yellowHall7, yellowHall8, yellowHall9);
         arrayBuild(pinkHall, pinkHall0, pinkHall1, pinkHall2, pinkHall3, pinkHall4, pinkHall5, pinkHall6, pinkHall7, pinkHall8, pinkHall9);
 
-        int redNumber = update.hallPlayer.get(userIndex()).get(0);
-        int blueNumber = update.hallPlayer.get(userIndex()).get(1);
-        int greenNumber = update.hallPlayer.get(userIndex()).get(2);
-        int yellowNumber = update.hallPlayer.get(userIndex()).get(3);
-        int pinkNumber = update.hallPlayer.get(userIndex()).get(4);
+        int redNumber = update.hallPlayer.get(playerIndex()).get(0);
+        int blueNumber = update.hallPlayer.get(playerIndex()).get(1);
+        int greenNumber = update.hallPlayer.get(playerIndex()).get(2);
+        int yellowNumber = update.hallPlayer.get(playerIndex()).get(3);
+        int pinkNumber = update.hallPlayer.get(playerIndex()).get(4);
 
         for (int i = 0; i < redNumber; i++) {
             redHall.get(i).setVisible(true);
@@ -141,7 +141,7 @@ public class PlayersBoardController {
         }
     }
 
-    public int userIndex() {
+    public int playerIndex() {
         return update.players.indexOf(playerNickname);
     }
 

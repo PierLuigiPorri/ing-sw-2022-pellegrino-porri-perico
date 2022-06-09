@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
@@ -21,8 +22,14 @@
             </image></ImageView>
         <ButtonBar layoutX="310.0" layoutY="436.0" prefHeight="182.0" prefWidth="297.0">
             <buttons>
-                <Button fx:id="newGame" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="52.0" prefWidth="147.0" style="-fx-background-color: rgba(48,110,204,0.81); -fx-background-radius: 100;" text="New Game" textAlignment="CENTER" />
-                <Button fx:id="joinGame" layoutX="161.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#joinGame" prefHeight="52.0" prefWidth="179.0" style="-fx-background-color: rgba(48,110,204,0.81); -fx-background-radius: 100;" text="Join Game" textAlignment="CENTER" />
+                <Button fx:id="newGame" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="52.0" prefWidth="147.0" style="-fx-background-color: rgba(48,110,204,0.81); -fx-background-radius: 100;" text="New Game" textAlignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+                <Button fx:id="joinGame" layoutX="161.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#joinGame" prefHeight="52.0" prefWidth="179.0" style="-fx-background-color: rgba(48,110,204,0.81); -fx-background-radius: 100;" text="Join Game" textAlignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             </buttons>
         </ButtonBar>
       <AnchorPane prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: rgba(100,100,100,0.36);" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="5.0">
@@ -48,18 +55,30 @@
                      <toggleGroup>
                         <ToggleGroup fx:id="nPlayers" />
                      </toggleGroup>
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
                   </RadioButton>
                   <RadioButton fx:id="threePlayers" layoutX="150.0" layoutY="98.0" mnemonicParsing="false" text="THREE PLAYERS" toggleGroup="$nPlayers">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
                   </RadioButton>
                   <CheckBox fx:id="expertCheck" layoutX="12.0" layoutY="144.0" mnemonicParsing="false" text="EXPERT GAME" textFill="RED">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
                   </CheckBox>
-                   <Button fx:id="startNew" layoutX="100.0" layoutY="180.0" mnemonicParsing="false" onMouseClicked="#startNew" prefHeight="36.0" prefWidth="101.0" style="-fx-background-radius: 100; -fx-background-color: rgba(48,110,204,0.81);" text="Start" />
+                   <Button fx:id="startNew" layoutX="100.0" layoutY="180.0" mnemonicParsing="false" onMouseClicked="#startNew" prefHeight="36.0" prefWidth="101.0" style="-fx-background-radius: 100; -fx-background-color: rgba(48,110,204,0.81);" text="Start">
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor></Button>
                   <Label layoutX="75.0" layoutY="69.0" text="HOW MANY PLAYERS?">
                      <font>
                         <Font name="System Bold" size="14.0" />
@@ -81,13 +100,22 @@
                      <toggleGroup>
                         <ToggleGroup fx:id="joinType" />
                      </toggleGroup>
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
                    </RadioButton>
                    <RadioButton fx:id="idGame" layoutX="14.0" layoutY="89.0" mnemonicParsing="false" text="JOIN A GAME WITH ID" toggleGroup="$joinType">
                        <font>
                            <Font name="System Bold" size="14.0" />
                        </font>
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
                    </RadioButton>
-                   <Button fx:id="startJoin" layoutX="100.0" layoutY="180.0" mnemonicParsing="false" onMouseClicked="#startJoin" prefHeight="36.0" prefWidth="101.0" style="-fx-background-radius: 100; -fx-background-color: rgba(48,110,204,0.81);" text="Start" />
+                   <Button fx:id="startJoin" layoutX="100.0" layoutY="180.0" mnemonicParsing="false" onMouseClicked="#startJoin" prefHeight="36.0" prefWidth="101.0" style="-fx-background-radius: 100; -fx-background-color: rgba(48,110,204,0.81);" text="Start">
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor></Button>
                   <TextField fx:id="idTextField" layoutX="14.0" layoutY="126.0" promptText="Set the ID of the game..." />
                </children></Pane></AnchorPane>
          </children>

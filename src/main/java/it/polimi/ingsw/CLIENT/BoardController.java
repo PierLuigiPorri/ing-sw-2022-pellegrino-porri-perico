@@ -49,8 +49,8 @@ public class BoardController {
 
     public void refresh() {
         this.userNickname = gui.getUserNickname();
-        this.playersNumber = gui.getPlayersNumber();
-        this.gameType = gui.getGameType();
+        this.playersNumber = update.players.size();
+        this.gameType = update.game_Type;
         update = gui.getUpdate();
         CoordinatesData.loadCoordinates();
 

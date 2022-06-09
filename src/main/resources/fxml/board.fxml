@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -616,32 +617,44 @@
                </image>
             </ImageView>
          </children></Pane>
-      <Button fx:id="seePlayer1Hall" layoutX="320.0" layoutY="623.0" mnemonicParsing="false" onAction="#seePlayer1Hall" onMouseClicked="#seePlayer1Hall" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE PLAYER HALL" textFill="WHITE">
+      <Button fx:id="seePlayer1Hall" layoutX="320.0" layoutY="652.0" mnemonicParsing="false" onAction="#seePlayer1Hall" onMouseClicked="#seePlayer1Hall" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE PLAYER HALL" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button fx:id="seeYourHand" layoutX="556.0" layoutY="623.0" mnemonicParsing="false" onAction="#SeeYourHand" onMouseClicked="#SeeYourHand" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE YOUR HAND" textFill="WHITE">
+      <Button fx:id="seeYourHand" layoutX="557.0" layoutY="652.0" mnemonicParsing="false" onAction="#SeeYourHand" onMouseClicked="#SeeYourHand" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE YOUR HAND" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button fx:id="seePlayer2Hall" disable="true" layoutX="792.0" layoutY="623.0" mnemonicParsing="false" onAction="#seePlayer2Hall" onMouseClicked="#seePlayer2Hall" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE PLAYER HALL" textFill="WHITE" visible="false">
+      <Button fx:id="seePlayer2Hall" disable="true" layoutX="1029.0" layoutY="652.0" mnemonicParsing="false" onAction="#seePlayer2Hall" onMouseClicked="#seePlayer2Hall" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE PLAYER HALL" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button fx:id="seeCharacter" disable="true" layoutX="1029.0" layoutY="623.0" mnemonicParsing="false" onAction="#SeeCharacter" onMouseClicked="#SeeCharacter" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE CHARACTER" textFill="WHITE" visible="false">
+      <Button fx:id="seeCharacter" disable="true" layoutX="792.0" layoutY="652.0" mnemonicParsing="false" onAction="#SeeCharacter" onMouseClicked="#SeeCharacter" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE CHARACTER" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Text fx:id="player1" fill="#b59a00" layoutX="320.0" layoutY="616.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="player2" fill="#b59a00" layoutX="792.0" layoutY="615.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
+      <Text fx:id="player2" fill="#b59a00" layoutX="1029.0" layoutY="646.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

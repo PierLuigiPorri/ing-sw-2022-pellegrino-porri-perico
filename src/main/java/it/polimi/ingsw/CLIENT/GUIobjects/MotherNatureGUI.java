@@ -1,5 +1,6 @@
 package it.polimi.ingsw.CLIENT.GUIobjects;
 
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -12,6 +13,7 @@ public class MotherNatureGUI extends Pane {
         this.setHeight(80);
         this.setWidth(80);
         this.getChildren().add(new ImageView(new Image("src/main/resources/Graphical_Assets/mother_nature.png")));
+        this.setCursor(Cursor.HAND);
     }
 
     public void pressed(double x,double y){

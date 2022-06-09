@@ -1,5 +1,6 @@
 package it.polimi.ingsw.CLIENT.GUIobjects;
 
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -31,6 +32,7 @@ public class StudentGUI extends Pane {
         }
         this.setHeight(33);
         this.setWidth(34);
+        this.setCursor(Cursor.HAND);
     }
 
     public String getColor() {

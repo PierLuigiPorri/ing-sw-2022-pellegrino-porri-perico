@@ -164,21 +164,6 @@ public class GUIAPP extends Application implements View {
         return this.userNickname;
     }
 
-    public void setPlayersNumber(int number){
-        this.playersNumber=number;
-    }
-
-    public int getPlayersNumber(){
-        return this.playersNumber;
-    }
-
-    public void setGameType(int number){
-        this.gameType=number;
-    }
-
-    public int getGameType(){
-        return this.gameType;
-    }
 
     @Override
     public void signalUpdate(){

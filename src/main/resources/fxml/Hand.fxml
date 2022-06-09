@@ -13,7 +13,7 @@
             <Image url="@../Graphical_Assets/sky_bg.jpg" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="card1" layoutX="13.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+      <AnchorPane fx:id="card0" layoutX="13.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -22,7 +22,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="card2" layoutX="137.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+      <AnchorPane fx:id="card1" layoutX="137.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -31,7 +31,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="card3" layoutX="257.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+      <AnchorPane fx:id="card2" layoutX="257.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -40,7 +40,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="card4" layoutX="386.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+      <AnchorPane fx:id="card3" layoutX="386.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -49,7 +49,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="card5" layoutX="519.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+      <AnchorPane fx:id="card4" layoutX="519.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -58,7 +58,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="card10" layoutX="519.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
+      <AnchorPane fx:id="card9" layoutX="519.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -67,7 +67,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="card9" layoutX="386.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
+      <AnchorPane fx:id="card8" layoutX="386.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -76,7 +76,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="card8" layoutX="257.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
+      <AnchorPane fx:id="card7" layoutX="257.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -85,7 +85,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="card6" layoutX="13.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
+      <AnchorPane fx:id="card5" layoutX="13.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -94,7 +94,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="card7" layoutX="137.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
+      <AnchorPane fx:id="card6" layoutX="137.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
