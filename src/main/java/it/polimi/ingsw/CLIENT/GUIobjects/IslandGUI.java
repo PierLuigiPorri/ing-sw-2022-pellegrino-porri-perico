@@ -14,6 +14,7 @@ public class IslandGUI extends Pane {
     private int green=0;
     private int yellow=0;
     private int pink=0;
+    private int towers=0;
 
     public IslandGUI(int i) {
         this.index = i;
@@ -58,23 +59,31 @@ public class IslandGUI extends Pane {
         return pink;
     }
 
-    public void setRed(int red) {
+    public void setRed() {
         this.red++;
     }
 
-    public void setBlue(int blue) {
+    public void setBlue() {
         this.blue++;
     }
 
-    public void setGreen(int green) {
+    public void setGreen() {
         this.green++;
     }
 
-    public void setYellow(int yellow) {
+    public void setYellow() {
         this.yellow++;
     }
 
-    public void setPink(int pink) {
+    public void setPink() {
         this.pink++;
+    }
+
+    public int getTowers() {
+        return towers;
+    }
+
+    public void setTowers(int towers) {
+        this.towers = towers;
     }
 }

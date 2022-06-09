@@ -107,11 +107,14 @@ public class BoardController {
 
 
     private void setTowerOnIsland(int index, String color) {
-        for (int k = 0; k < update.towersOnIsland.get(index); k++) {
+        if(update.towersOnIsland.get(index)!=0) {
             TowerGUI tower = new TowerGUI(color);
             islands.get(index).getChildren().add(tower);
             tower.setLayoutY(CoordinatesData.getTowersCoordinates().getY());
             tower.setLayoutX(CoordinatesData.getTowersCoordinates().getX());
+            if(update.towersOnIsland.get(index)>1){
+                islands.get(index).getChildren().add(new TowerCountPane(update.towersOnIsland.get(index)));
+            }
         }
     }
 
@@ -131,11 +134,69 @@ public class BoardController {
     private void studentsOnIslandUpdate() {
 
         for (int index : update.studentsOnIsland.keySet()) {
-            for (int i = 1; i < update.studentsOnIsland.get(index).size(); i = i + 2) {
-                StudentGUI student = new StudentGUI(update.studentsOnIsland.get(index).get(i));
+            for (int i = 1; i < update.studentsOnIsland.get(index).size(); i = i + 2){
+                switch(update.studentsOnIsland.get(index).get(i)){
+                    case "RED":
+                        islands.get(index).setRed();
+                        break;
+                    case "BLUE":
+                        islands.get(index).setBlue();
+                        break;
+                    case "GREEN":
+                        islands.get(index).setGreen();
+                        break;
+                    case "YELLOW":
+                        islands.get(index).setYellow();
+                        break;
+                    case "PINK":
+                        islands.get(index).setPink();
+                        break;
+                }
+            }
+            if(islands.get(index).getRed()>0) {
+                StudentGUI student = new StudentGUI("RED");
                 islands.get(index).getChildren().add(student);
-                student.setLayoutX(CoordinatesData.getIsland(update.studentsOnIsland.get(index).get(i)).getX());
-                student.setLayoutY(CoordinatesData.getIsland(update.studentsOnIsland.get(index).get(i)).getY());
+                student.setLayoutX(CoordinatesData.getIsland("RED").getX());
+                student.setLayoutY(CoordinatesData.getIsland("RED").getY());
+                if(islands.get(index).getRed()>1){
+                    islands.get(index).getChildren().add(new CountPane("RED", islands.get(index).getRed()));
+                }
+            }
+            if(islands.get(index).getBlue()>0) {
+                StudentGUI student = new StudentGUI("BLUE");
+                islands.get(index).getChildren().add(student);
+                student.setLayoutX(CoordinatesData.getIsland("BLUE").getX());
+                student.setLayoutY(CoordinatesData.getIsland("BLUE").getY());
+                if(islands.get(index).getBlue()>1){
+                    islands.get(index).getChildren().add(new CountPane("BLUE", islands.get(index).getBlue()));
+                }
+            }
+            if(islands.get(index).getGreen()>0) {
+                StudentGUI student = new StudentGUI("GREEN");
+                islands.get(index).getChildren().add(student);
+                student.setLayoutX(CoordinatesData.getIsland("GREEN").getX());
+                student.setLayoutY(CoordinatesData.getIsland("GREEN").getY());
+                if(islands.get(index).getGreen()>1){
+                    islands.get(index).getChildren().add(new CountPane("GREEN", islands.get(index).getGreen()));
+                }
+            }
+            if(islands.get(index).getYellow()>0) {
+                StudentGUI student = new StudentGUI("YELLOW");
+                islands.get(index).getChildren().add(student);
+                student.setLayoutX(CoordinatesData.getIsland("YELLOW").getX());
+                student.setLayoutY(CoordinatesData.getIsland("YELLOW").getY());
+                if(islands.get(index).getYellow()>1){
+                    islands.get(index).getChildren().add(new CountPane("YELLOW", islands.get(index).getYellow()));
+                }
+            }
+            if(islands.get(index).getPink()>0) {
+                StudentGUI student = new StudentGUI("PINK");
+                islands.get(index).getChildren().add(student);
+                student.setLayoutX(CoordinatesData.getIsland("PINK").getX());
+                student.setLayoutY(CoordinatesData.getIsland("PINK").getY());
+                if(islands.get(index).getPink()>1){
+                    islands.get(index).getChildren().add(new CountPane("PINK", islands.get(index).getPink()));
+                }
             }
         }
     }

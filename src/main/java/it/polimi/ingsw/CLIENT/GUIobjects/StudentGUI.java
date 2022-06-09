@@ -30,7 +30,7 @@ public class StudentGUI extends Pane {
                 this.getChildren().add(new ImageView(new Image("src/main/resources/Graphical_Assets/student_pink.png")));
                 break;
         }
-        this.setHeight(33);
+        this.setHeight(34);
         this.setWidth(34);
         this.setCursor(Cursor.HAND);
     }
