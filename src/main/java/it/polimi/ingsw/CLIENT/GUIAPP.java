@@ -5,6 +5,7 @@ import it.polimi.ingsw.MESSAGES.MessageType;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,7 @@ public class GUIAPP extends Application implements View {
     private final ArrayList<String> inputStr;
     private final ArrayList<Integer> int3=null;
     private UpdateMessage update;
+    public boolean gameStarted;
     @FXML
     private Stage currentStage;
 
@@ -38,6 +40,7 @@ public class GUIAPP extends Application implements View {
         ackSender = new AckSender(msgHandler, 5000);
         inputInt=new ArrayList<>();
         inputStr=new ArrayList<>();
+        gameStarted=false;
     }
 
     @Override
@@ -68,30 +71,19 @@ public class GUIAPP extends Application implements View {
     public void setScene(String address){
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(address)));
-            GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-            double width = gd.getDisplayMode().getWidth()*0.9;
-            double height = gd.getDisplayMode().getHeight()*0.9;
-            Scene scene = new Scene(root, width, height);
+            //GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+            //double width = gd.getDisplayMode().getWidth()*0.9;
+            //double height = gd.getDisplayMode().getHeight()*0.9;
+            //Scene scene = new Scene(root, width, height);
+            Scene scene = new Scene(root);
             currentStage.setScene(scene);
+            //currentStage.setMaximized(true);
             currentStage.centerOnScreen();
             currentStage.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        delay(1000, () -> startGame());
-    }
-
-    public static void delay(long millis, Runnable continuation) {
-        Task<Void> sleeper = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                try { Thread.sleep(millis); }
-                catch (InterruptedException e) { }
-                return null;
-            }
-        };
-        sleeper.setOnSucceeded(event -> continuation.run());
-        new Thread(sleeper).start();
+        //delay(1000, () -> startGame());
     }
 
     public void waitForMessage(){
@@ -127,7 +119,8 @@ public class GUIAPP extends Application implements View {
 
     @FXML
     public void startGame(){
-        if (!msgHandler.getUpdates().isEmpty()) {
+        setScene("fxml/board.fxml");
+        /*if (!msgHandler.getUpdates().isEmpty()) {
             UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
             System.out.println(firstUpd.update);
             update(firstUpd);
@@ -153,7 +146,7 @@ public class GUIAPP extends Application implements View {
                     setScene("fxml/mainMenu.fxml");
                 }
             }
-        }
+        }*/
     }
 
     public void setUserNickname(String nickname){
@@ -167,7 +160,9 @@ public class GUIAPP extends Application implements View {
 
     @Override
     public void signalUpdate(){
+        //Runs on Message Handler Thread
         System.out.println("è arrivato un update");
+        Platform.runLater(() -> update(msgHandler.getUpdates().remove(0)));
     }
 
     public void perform(ArrayList<Integer> intpar, ArrayList<String> strpar, int action){
@@ -232,6 +227,12 @@ public class GUIAPP extends Application implements View {
     @Override
     public void update(UpdateMessage update) {
         this.update=update;
+        if(gameStarted==false){
+            startGame();
+            gameStarted=true;
+        }
+        System.out.println("Ho applicato l'update");
+        System.out.println(update.update);
     }
 
     public UpdateMessage getUpdate(){

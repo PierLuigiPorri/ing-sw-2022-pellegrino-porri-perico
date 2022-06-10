@@ -2,6 +2,7 @@ package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.MESSAGES.CreationMessage;
 import it.polimi.ingsw.MESSAGES.ResponseMessage;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -44,7 +45,8 @@ public class MainMenuController{
             if(randomGame.isSelected()){
                 try {
                     gui.send(new CreationMessage(1, nicknameTextField.getText()));
-                    setNextScene();
+                    //gui.startGame();
+                    delay(1000, () -> checkJoin());
                 }
                 catch (Exception e){
                     System.out.println(e.getMessage());
@@ -54,7 +56,8 @@ public class MainMenuController{
                 try {
                     int id=Integer.parseInt(idTextField.getText());
                     gui.send(new CreationMessage(2, nicknameTextField.getText(),id));
-                    setNextScene();
+                    //gui.startGame();
+                    delay(1000, () -> checkJoin());
                 }
                 catch (Exception e){
                     System.out.println(e.getMessage());
@@ -71,16 +74,30 @@ public class MainMenuController{
         }
     }
 
-    private void setNextScene() throws InterruptedException {
-        Thread.sleep(2000);
-        if (gui.getResponses().isEmpty()) {
-            gui.setScene("fxml/waitGameToStart.fxml");
-            gui.setUserNickname(nicknameTextField.getText());
-        } else {
-            ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
-            showPopup(lastMessage.response, lastMessage.response);
-            popupButton1.setOnAction(e -> popupWindow.close());
-            popupWindow.showAndWait();
+    public static void delay(long millis, Runnable continuation) {
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try { Thread.sleep(millis); }
+                catch (InterruptedException e) { }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(event -> continuation.run());
+        new Thread(sleeper).start();
+    }
+
+    private void checkJoin() {
+        if(!gui.gameStarted){
+            if (gui.getResponses().isEmpty()) {
+                gui.setScene("fxml/waitGameToStart.fxml");
+                gui.setUserNickname(nicknameTextField.getText());
+            } else {
+                ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
+                showPopup(lastMessage.response, lastMessage.response);
+                popupButton1.setOnAction(e -> popupWindow.close());
+                popupWindow.showAndWait();
+            }
         }
     }
 
