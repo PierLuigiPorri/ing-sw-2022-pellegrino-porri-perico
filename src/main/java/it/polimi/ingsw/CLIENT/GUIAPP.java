@@ -116,39 +116,6 @@ public class GUIAPP extends Application implements View {
     public ArrayList<UpdateMessage> getUpdates(){
         return msgHandler.getUpdates();
     }
-
-    @FXML
-    public void startGame(){
-        setScene("fxml/board.fxml");
-        /*if (!msgHandler.getUpdates().isEmpty()) {
-            UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
-            System.out.println(firstUpd.update);
-            update(firstUpd);
-            setScene("fxml/board.fxml");
-        } else {
-            try {
-                synchronized (lock) {
-                    lock.wait();
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if (!msgHandler.getUpdates().isEmpty()) {
-                UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
-                System.out.println(firstUpd.update);
-                update(firstUpd);
-                setScene("fxml/board.fxml");
-            }
-            else{
-                if (!msgHandler.getResponses().isEmpty()){
-                    ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
-                    System.out.println(lastMessage.response);
-                    setScene("fxml/mainMenu.fxml");
-                }
-            }
-        }*/
-    }
-
     public void setUserNickname(String nickname){
         this.userNickname=nickname;
     }
@@ -228,9 +195,9 @@ public class GUIAPP extends Application implements View {
     public void update(UpdateMessage update) {
         this.update=update;
         if(gameStarted==false){
-            startGame();
             gameStarted=true;
         }
+        setScene("fxml/board.fxml");
         System.out.println("Ho applicato l'update");
         System.out.println(update.update);
     }
