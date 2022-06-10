@@ -74,7 +74,7 @@ public class MainMenuController{
         }
     }
 
-    public static void delay(long millis, Runnable continuation) {
+    public void delay(long millis, Runnable continuation) {
         Task<Void> sleeper = new Task<Void>() {
             @Override
             protected Void call() throws Exception {

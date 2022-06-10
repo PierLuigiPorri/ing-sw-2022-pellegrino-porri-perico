@@ -48,10 +48,10 @@ public class BoardController {
     }
 
     public void refresh() {
+        update = gui.getUpdate();
         this.userNickname = gui.getUserNickname();
         this.playersNumber = update.players.size();
         this.gameType = update.game_Type;
-        update = gui.getUpdate();
         CoordinatesData.loadCoordinates();
 
         playersNicknames();

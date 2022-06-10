@@ -31,6 +31,7 @@ public class GUIAPP extends Application implements View {
     private final ArrayList<Integer> int3=null;
     private UpdateMessage update;
     public boolean gameStarted;
+    private BoardController boardController;
     @FXML
     private Stage currentStage;
 
@@ -41,6 +42,7 @@ public class GUIAPP extends Application implements View {
         inputInt=new ArrayList<>();
         inputStr=new ArrayList<>();
         gameStarted=false;
+        boardController=new BoardController();
     }
 
     @Override
@@ -70,7 +72,10 @@ public class GUIAPP extends Application implements View {
     @FXML
     public void setScene(String address){
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(address)));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(address));
+            if(address=="\"fxml/board.fxml\""){
+            fxmlLoader.setController(boardController);}
+            Parent root = fxmlLoader.load();
             //GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
             //double width = gd.getDisplayMode().getWidth()*0.9;
             //double height = gd.getDisplayMode().getHeight()*0.9;
@@ -198,6 +203,7 @@ public class GUIAPP extends Application implements View {
             gameStarted=true;
         }
         setScene("fxml/board.fxml");
+        boardController.refresh();
         System.out.println("Ho applicato l'update");
         System.out.println(update.update);
     }
