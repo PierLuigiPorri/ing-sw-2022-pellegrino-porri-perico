@@ -2,7 +2,8 @@ package it.polimi.ingsw.CLIENT.GUIobjects;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.util.Random;
 
@@ -22,12 +23,25 @@ public class IslandGUI extends Pane {
         this.setWidth(180);
         Random rand = new Random();
         int type = rand.nextInt(3);
-        if (type == 0)
-            this.getChildren().add(new ImageView(new Image("src/main/resources/Graphical_Assets/island1.png")));
-        else if (type == 1)
-            this.getChildren().add(new ImageView(new Image("src/main/resources/Graphical_Assets/island2.png")));
-        else
-            this.getChildren().add(new ImageView(new Image("src/main/resources/Graphical_Assets/island3.png")));
+        if (type == 0) {
+            Image im = new Image("Graphical_Assets/island1.png");
+            ImageView iv=new ImageView(im);
+            iv.setFitHeight(180);
+            iv.setFitWidth(180);
+            this.getChildren().add(iv);
+        } else if (type == 1) {
+            Image im =new Image("Graphical_Assets/island2.png");
+            ImageView iv=new ImageView(im);
+            iv.setFitHeight(180);
+            iv.setFitWidth(180);
+            this.getChildren().add(iv);
+        }else{
+            Image im =new Image("Graphical_Assets/island3.png");
+            ImageView iv=new ImageView(im);
+            iv.setFitHeight(180);
+            iv.setFitWidth(180);
+            this.getChildren().add(iv);
+        }
     }
 
 

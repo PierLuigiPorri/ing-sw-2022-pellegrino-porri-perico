@@ -39,7 +39,7 @@ public class HandController {
 
     public void playCard(){
         strPar.add(userNickname);
-        gui.perform(intPar, strPar, 4);
+        gui.perform(intPar, strPar, null,4);
 
         intPar.clear();
         strPar.clear();

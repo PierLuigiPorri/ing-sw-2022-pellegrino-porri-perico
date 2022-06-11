@@ -3,17 +3,22 @@ package it.polimi.ingsw.CLIENT;
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class BoardController {
+public class BoardController{
 
-    private static GUIAPP gui;
+    private GUIAPP gui;
     private UpdateMessage update;
     private int playersNumber;
     private int gameType;
@@ -42,26 +47,31 @@ public class BoardController {
     private Button seePlayer2Hall, seeCharacter;
     @FXML
     private Text player1, player2;
+    @FXML
+    private Pane root;
 
-    public static void setGUI(GUIAPP guiApp) {
+    public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
     }
 
     public void refresh() {
         update = gui.getUpdate();
+        System.out.println(update.players);
         this.userNickname = gui.getUserNickname();
         this.playersNumber = update.players.size();
         this.gameType = update.game_Type;
         CoordinatesData.loadCoordinates();
 
-        playersNicknames();
-        player1.setText(player1Nickname);
+        //playersNicknames();
+        //player1.setText(player1Nickname);
+        studentsOnGateUpdate();
         createIslands();
+
 
         towersUpdate();
         motherNatureUpdate();
         studentsOnIslandUpdate();
-        studentsOnGateUpdate();
+
 
         if(gameType==1){
             seeCharacter.setVisible(true);
@@ -99,7 +109,7 @@ public class BoardController {
                 setTowerOnIsland(i, "WHITE");
             } else if (nick.equals(update.players.get(1))) {
                 setTowerOnIsland(i, "BLACK");
-            } else if (nick.equals(update.players.get(2))) {
+            } else if (update.players.size()==3 && nick.equals(update.players.get(2))) {
                 setTowerOnIsland(i, "GREY");
             }
         }
@@ -137,65 +147,65 @@ public class BoardController {
             for (int i = 1; i < update.studentsOnIsland.get(index).size(); i = i + 2){
                 switch(update.studentsOnIsland.get(index).get(i)){
                     case "RED":
-                        islands.get(index).setRed();
+                        islands.get(index-1).setRed();
                         break;
                     case "BLUE":
-                        islands.get(index).setBlue();
+                        islands.get(index-1).setBlue();
                         break;
                     case "GREEN":
-                        islands.get(index).setGreen();
+                        islands.get(index-1).setGreen();
                         break;
                     case "YELLOW":
-                        islands.get(index).setYellow();
+                        islands.get(index-1).setYellow();
                         break;
                     case "PINK":
-                        islands.get(index).setPink();
+                        islands.get(index-1).setPink();
                         break;
                 }
             }
-            if(islands.get(index).getRed()>0) {
+            if(islands.get(index-1).getRed()>0) {
                 StudentGUI student = new StudentGUI("RED");
-                islands.get(index).getChildren().add(student);
+                islands.get(index-1).getChildren().add(student);
                 student.setLayoutX(CoordinatesData.getIsland("RED").getX());
                 student.setLayoutY(CoordinatesData.getIsland("RED").getY());
-                if(islands.get(index).getRed()>1){
-                    islands.get(index).getChildren().add(new CountPane("RED", islands.get(index).getRed()));
+                if(islands.get(index-1).getRed()>1){
+                    islands.get(index-1).getChildren().add(new CountPane("RED", islands.get(index).getRed()));
                 }
             }
-            if(islands.get(index).getBlue()>0) {
+            if(islands.get(index-1).getBlue()>0) {
                 StudentGUI student = new StudentGUI("BLUE");
-                islands.get(index).getChildren().add(student);
+                islands.get(index-1).getChildren().add(student);
                 student.setLayoutX(CoordinatesData.getIsland("BLUE").getX());
                 student.setLayoutY(CoordinatesData.getIsland("BLUE").getY());
-                if(islands.get(index).getBlue()>1){
-                    islands.get(index).getChildren().add(new CountPane("BLUE", islands.get(index).getBlue()));
+                if(islands.get(index-1).getBlue()>1){
+                    islands.get(index-1).getChildren().add(new CountPane("BLUE", islands.get(index).getBlue()));
                 }
             }
-            if(islands.get(index).getGreen()>0) {
+            if(islands.get(index-1).getGreen()>0) {
                 StudentGUI student = new StudentGUI("GREEN");
-                islands.get(index).getChildren().add(student);
+                islands.get(index-1).getChildren().add(student);
                 student.setLayoutX(CoordinatesData.getIsland("GREEN").getX());
                 student.setLayoutY(CoordinatesData.getIsland("GREEN").getY());
-                if(islands.get(index).getGreen()>1){
-                    islands.get(index).getChildren().add(new CountPane("GREEN", islands.get(index).getGreen()));
+                if(islands.get(index-1).getGreen()>1){
+                    islands.get(index-1).getChildren().add(new CountPane("GREEN", islands.get(index).getGreen()));
                 }
             }
-            if(islands.get(index).getYellow()>0) {
+            if(islands.get(index-1).getYellow()>0) {
                 StudentGUI student = new StudentGUI("YELLOW");
-                islands.get(index).getChildren().add(student);
+                islands.get(index-1).getChildren().add(student);
                 student.setLayoutX(CoordinatesData.getIsland("YELLOW").getX());
                 student.setLayoutY(CoordinatesData.getIsland("YELLOW").getY());
-                if(islands.get(index).getYellow()>1){
-                    islands.get(index).getChildren().add(new CountPane("YELLOW", islands.get(index).getYellow()));
+                if(islands.get(index-1).getYellow()>1){
+                    islands.get(index-1).getChildren().add(new CountPane("YELLOW", islands.get(index).getYellow()));
                 }
             }
-            if(islands.get(index).getPink()>0) {
+            if(islands.get(index-1).getPink()>0) {
                 StudentGUI student = new StudentGUI("PINK");
-                islands.get(index).getChildren().add(student);
+                islands.get(index-1).getChildren().add(student);
                 student.setLayoutX(CoordinatesData.getIsland("PINK").getX());
                 student.setLayoutY(CoordinatesData.getIsland("PINK").getY());
-                if(islands.get(index).getPink()>1){
-                    islands.get(index).getChildren().add(new CountPane("PINK", islands.get(index).getPink()));
+                if(islands.get(index-1).getPink()>1){
+                    islands.get(index-1).getChildren().add(new CountPane("PINK", islands.get(index).getPink()));
                 }
             }
         }
@@ -206,16 +216,17 @@ public class BoardController {
 
         for (int index : update.studentsOnIsland.keySet()) {
             islands.add(new IslandGUI(index));
-            islands.get(index).setLayoutX(CoordinatesData.getIslandsCoord(update.numIslands).get(index).getX());
-            islands.get(index).setLayoutY(CoordinatesData.getIslandsCoord(update.numIslands).get(index).getY());
-            islands.get(index).setOnDragDropped((dragEvent) -> onDragOnIsland(dragEvent, islands.get(index)));
+            root.getChildren().add(islands.get(index-1));
+            islands.get(index-1).setLayoutX(CoordinatesData.getIslandsCoord(update.numIslands).get(index-1).getX());
+            islands.get(index-1).setLayoutY(CoordinatesData.getIslandsCoord(update.numIslands).get(index-1).getY());
+            islands.get(index-1).setOnDragDropped((dragEvent) -> onDragOnIsland(dragEvent, islands.get(index-1)));
         }
 
     }
 
     private void studentsOnGateUpdate() {
         for (int i = 1; i < update.gatePlayer.get(userIndex()).size(); i = i + 2) {
-            StudentGUI student = new StudentGUI(update.gatePlayer.get(userIndex()).get(i));
+            StudentGUI student = new StudentGUI(update.gatePlayer.get(0).get(i));
             gate.getChildren().add(student);
             student.setLayoutX(CoordinatesData.getGate().get(i / 2).getX());
             student.setLayoutY(CoordinatesData.getGate().get(i / 2).getY());
@@ -227,6 +238,7 @@ public class BoardController {
     private void studentsOnCloud2Update() {
         for (int index : update.studentsOnCloud.keySet()) {
             CloudGUI cloud = new CloudGUI(playersNumber, index);
+            root.getChildren().add(cloud);
             for (int i = 1; i < update.studentsOnCloud.get(index).size(); i = i + 2) {
                 StudentGUI student = new StudentGUI(update.studentsOnCloud.get(index).get(i));
                 cloud.getChildren().add(student);
@@ -234,6 +246,16 @@ public class BoardController {
                 student.setLayoutY(CoordinatesData.getClouds2().get(i / 2).getY());
             }
             cloud.setOnMousePressed(this::onCloudPressed);
+            Button button=new Button("Get Students!");
+            button.setFont(Font.font("papyrus",16));
+            button.setStyle("-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100");
+            button.setLayoutX(49);
+            button.setLayoutY(138);
+            button.setDisable(true);
+            button.setVisible(false);
+            button.setOnMousePressed((e)->onCloudButtonPressed());
+            cloud.getChildren().add(button);
+            cloud.setButton(button);
         }
     }
 
@@ -247,6 +269,16 @@ public class BoardController {
                 student.setLayoutY(CoordinatesData.getClouds3().get(i / 2).getY());
             }
             cloud.setOnMousePressed(this::onCloudPressed);
+            Button button=new Button("Get Students!");
+            button.setFont(Font.font("papyrus",16));
+            button.setStyle("-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100");
+            button.setLayoutX(49);
+            button.setLayoutY(138);
+            button.setDisable(true);
+            button.setVisible(false);
+            button.setOnMousePressed((e)->onCloudButtonPressed());
+            cloud.getChildren().add(button);
+            cloud.setButton(button);
         }
     }
 
@@ -303,11 +335,11 @@ public class BoardController {
             ArrayList<Integer> par = new ArrayList<>();
             par.add(CoordinatesData.getIndex(selectedStudent.getCoord()));
             par.add(i.getIndex());
-            gui.perform(par, null, 0);
+            gui.perform(par, null, null,0);
         } else if (event.getSource() instanceof MotherNatureGUI) {
             ArrayList<Integer> par = new ArrayList<>();
             par.add(i.getIndex() + (i.getIndex() < update.motherNatureOnIsland.indexOf(true) ? update.numIslands : 0) - update.motherNatureOnIsland.indexOf(true));
-            gui.perform(par, null, 3);
+            gui.perform(par, null, null,3);
         }
     }
 
@@ -341,23 +373,26 @@ public class BoardController {
     private void onDragOnHall() {
         ArrayList<String> par = new ArrayList<>();
         par.add(selectedStudent.getColor());
-        gui.perform(null, par, 1);
+        gui.perform(null, par, null,1);
     }
+
 
     private void onCloudPressed(MouseEvent e) {
         selectedCloud = (CloudGUI) e.getSource();
+        selectedCloud.button.setVisible(true);
+        selectedCloud.button.setDisable(false);
     }
 
-    @FXML
+
     private void onCloudButtonPressed() {
         ArrayList<Integer> par = new ArrayList<>();
         par.add(selectedCloud.getIndex());
-        gui.perform(par, null, 2);
+        gui.perform(par, null, null,2);
     }
 
     public int userIndex() {
-        return update.players.indexOf(userNickname);
-    }
+        return 0;
+    }//TODO
 
     @FXML
     public void seePlayer1Hall() {

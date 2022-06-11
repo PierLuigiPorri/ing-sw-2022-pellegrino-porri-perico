@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -26,7 +27,7 @@ public class GUIAPP extends Application implements View {
     private final Object lock;
     private final ClientMsgHandler msgHandler;
     private final AckSender ackSender;
-    private final ArrayList<Integer> inputInt;
+    private final ArrayList<Integer> inputInt, third;
     private final ArrayList<String> inputStr;
     private final ArrayList<Integer> int3=null;
     private UpdateMessage update;
@@ -34,6 +35,7 @@ public class GUIAPP extends Application implements View {
     private BoardController boardController;
     @FXML
     private Stage currentStage;
+    private Stage shownStage;
 
     public GUIAPP(){
         lock = new Object();
@@ -41,8 +43,8 @@ public class GUIAPP extends Application implements View {
         ackSender = new AckSender(msgHandler, 5000);
         inputInt=new ArrayList<>();
         inputStr=new ArrayList<>();
+        third=new ArrayList<>();
         gameStarted=false;
-        boardController=new BoardController();
     }
 
     @Override
@@ -58,7 +60,6 @@ public class GUIAPP extends Application implements View {
     public void start(Stage primaryStage) throws Exception {
         currentStage=new Stage();
         MainMenuController.setGUI(this);
-        BoardController.setGUI(this);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/mainMenu.fxml")));
         Scene scene = new Scene(root);
         currentStage.setScene(scene);
@@ -73,9 +74,11 @@ public class GUIAPP extends Application implements View {
     public void setScene(String address){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(address));
-            if(address=="\"fxml/board.fxml\""){
-            fxmlLoader.setController(boardController);}
             Parent root = fxmlLoader.load();
+            if(address.equals("fxml/board.fxml")){
+                boardController=fxmlLoader.getController();
+                boardController.setGUI(this);
+            }
             //GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
             //double width = gd.getDisplayMode().getWidth()*0.9;
             //double height = gd.getDisplayMode().getHeight()*0.9;
@@ -84,7 +87,7 @@ public class GUIAPP extends Application implements View {
             currentStage.setScene(scene);
             //currentStage.setMaximized(true);
             currentStage.centerOnScreen();
-            currentStage.show();
+            shownStage=currentStage;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -137,10 +140,14 @@ public class GUIAPP extends Application implements View {
         Platform.runLater(() -> update(msgHandler.getUpdates().remove(0)));
     }
 
-    public void perform(ArrayList<Integer> intpar, ArrayList<String> strpar, int action){
+    public void perform(ArrayList<Integer> intpar, ArrayList<String> strpar, ArrayList<Integer> third, int action){
         inputStr.add(userNickname);
-        inputStr.addAll(strpar);
-        inputInt.addAll(intpar);
+        if(strpar != null)
+            inputStr.addAll(strpar);
+        if(intpar!=null)
+            inputInt.addAll(intpar);
+        if(third!=null)
+            this.third.addAll(third);
         switch (action){
             case 3://moveMotherNature
                 moveMotherNature();
@@ -199,13 +206,14 @@ public class GUIAPP extends Application implements View {
     @Override
     public void update(UpdateMessage update) {
         this.update=update;
-        if(gameStarted==false){
+        if(!gameStarted){
             gameStarted=true;
         }
         setScene("fxml/board.fxml");
         boardController.refresh();
         System.out.println("Ho applicato l'update");
         System.out.println(update.update);
+        currentStage.show();
     }
 
     public UpdateMessage getUpdate(){
