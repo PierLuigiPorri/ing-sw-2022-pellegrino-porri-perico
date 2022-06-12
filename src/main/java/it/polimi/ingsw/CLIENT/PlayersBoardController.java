@@ -49,7 +49,8 @@ public class PlayersBoardController {
         hallUpdate();
         setLastCardPlayed();
         nameField.setText(playerNickname);
-        coinsOwned.setText(""+update.coinsOnPlayer.get(playerIndex())+"");
+        if(!update.coinsOnPlayer.isEmpty())
+            coinsOwned.setText(""+update.coinsOnPlayer.get(playerIndex())+"");
     }
 
     private void studentsOnGateUpdate() {
@@ -62,38 +63,40 @@ public class PlayersBoardController {
     }
 
     private void setLastCardPlayed(){
-        int value=update.lastCardPlayed.get(playerIndex() + 1);
-        switch(value){
-            case 1:
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (1).png"));
-                break;
-            case 2:
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (2).png"));
-                break;
-            case 3:
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (3).png"));
-                break;
-            case 4:
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (4).png"));
-                break;
-            case 5:
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (5).png"));
-                break;
-            case 6:
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (6).png"));
-                break;
-            case 7:
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (7).png"));
-                break;
-            case 8:
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (8).png"));
-                break;
-            case 9:
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (9).png"));
-                break;
-            case 10:
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (10).png"));
-                break;
+        if(!update.lastCardPlayed.isEmpty()) {
+            int value = update.lastCardPlayed.get(playerIndex() + 1);
+            switch (value) {
+                case 1:
+                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (1).png"));
+                    break;
+                case 2:
+                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (2).png"));
+                    break;
+                case 3:
+                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (3).png"));
+                    break;
+                case 4:
+                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (4).png"));
+                    break;
+                case 5:
+                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (5).png"));
+                    break;
+                case 6:
+                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (6).png"));
+                    break;
+                case 7:
+                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (7).png"));
+                    break;
+                case 8:
+                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (8).png"));
+                    break;
+                case 9:
+                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (9).png"));
+                    break;
+                case 10:
+                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (10).png"));
+                    break;
+            }
         }
     }
 
@@ -142,7 +145,6 @@ public class PlayersBoardController {
     }
 
     public int playerIndex() {
-        System.out.println(playerNickname);
         return update.players.indexOf(playerNickname);
     }
 

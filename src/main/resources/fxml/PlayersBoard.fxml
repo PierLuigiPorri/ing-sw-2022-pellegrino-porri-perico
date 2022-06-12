@@ -615,9 +615,9 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Text fx:id="coinsOwned" fill="#da3a3a" layoutX="341.0" layoutY="583.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="63.0">
+      <Text fx:id="coinsOwned" fill="#da3a3a" layoutX="378.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="63.0">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="35.0" />
          </font>
       </Text>
       <ImageView fitHeight="91.0" fitWidth="120.0" layoutX="396.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">

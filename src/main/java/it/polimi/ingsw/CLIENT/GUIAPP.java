@@ -6,15 +6,14 @@ import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import java.awt.*;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -22,8 +21,6 @@ import java.util.Objects;
 public class GUIAPP extends Application implements View {
 
     private String userNickname, playerNickname;
-    private int playersNumber;
-    private int gameType;
     private final Object lock;
     private final ClientMsgHandler msgHandler;
     private final AckSender ackSender;
@@ -39,7 +36,6 @@ public class GUIAPP extends Application implements View {
     private CharacterParametersController characterParametersController;
     @FXML
     private Stage currentStage;
-    private Stage shownStage;
 
     public GUIAPP(){
         lock = new Object();
@@ -75,7 +71,7 @@ public class GUIAPP extends Application implements View {
     }
 
     @FXML
-    public void setScene(String address){
+    public void setScene(String address) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(address));
             Parent root = fxmlLoader.load();
@@ -112,7 +108,6 @@ public class GUIAPP extends Application implements View {
             currentStage.setScene(scene);
             //currentStage.setMaximized(true);
             currentStage.centerOnScreen();
-            shownStage=currentStage;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -122,7 +117,6 @@ public class GUIAPP extends Application implements View {
     public void waitForMessage(){
         try {
             synchronized (lock) {
-                //System.out.println("Ora dormo");
                 lock.wait();
             }
         } catch (InterruptedException e) {

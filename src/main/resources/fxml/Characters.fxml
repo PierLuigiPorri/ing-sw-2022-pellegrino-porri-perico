@@ -93,9 +93,9 @@
             <Font name="Papyrus" size="14.0" />
          </font>
       </Text>
-      <Text fx:id="coinsNumber" fill="#0b751e" layoutX="259.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="26.8828125">
+      <Text fx:id="coinsNumber" fill="#0b751e" layoutX="258.0" layoutY="532.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" textAlignment="CENTER" wrappingWidth="26.8828125">
          <font>
-            <Font name="Papyrus" size="18.0" />
+            <Font name="Papyrus" size="26.0" />
          </font>
       </Text>
       <Button fx:id="confirmButton" disable="true" layoutX="681.0" layoutY="526.0" mnemonicParsing="false" onAction="#activateCharacter" onMousePressed="#activateCharacter" prefHeight="48.0" prefWidth="129.0" style="-fx-background-radius: 100; -fx-background-color: rgba(160, 40, 236, 0.7);" text="Activate!">

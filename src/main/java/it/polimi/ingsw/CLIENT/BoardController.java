@@ -389,7 +389,6 @@ public class BoardController{
     }
 
     public int userIndex() {
-        System.out.println(userNickname);
         return update.players.indexOf(userNickname);
     }
 
