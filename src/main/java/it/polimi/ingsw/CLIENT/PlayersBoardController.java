@@ -142,6 +142,7 @@ public class PlayersBoardController {
     }
 
     public int playerIndex() {
+        System.out.println(playerNickname);
         return update.players.indexOf(playerNickname);
     }
 

@@ -3,18 +3,13 @@ package it.polimi.ingsw.CLIENT;
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class BoardController{
 
@@ -62,8 +57,8 @@ public class BoardController{
         this.gameType = update.game_Type;
         CoordinatesData.loadCoordinates();
 
-        //playersNicknames();
-        //player1.setText(player1Nickname);
+        playersNicknames();
+        player1.setText(player1Nickname);
         studentsOnGateUpdate();
         createIslands();
 
@@ -226,7 +221,7 @@ public class BoardController{
 
     private void studentsOnGateUpdate() {
         for (int i = 1; i < update.gatePlayer.get(userIndex()).size(); i = i + 2) {
-            StudentGUI student = new StudentGUI(update.gatePlayer.get(0).get(i));
+            StudentGUI student = new StudentGUI(update.gatePlayer.get(userIndex()).get(i));
             gate.getChildren().add(student);
             student.setLayoutX(CoordinatesData.getGate().get(i / 2).getX());
             student.setLayoutY(CoordinatesData.getGate().get(i / 2).getY());
@@ -245,18 +240,22 @@ public class BoardController{
                 student.setLayoutX(CoordinatesData.getClouds2().get(i / 2).getX());
                 student.setLayoutY(CoordinatesData.getClouds2().get(i / 2).getY());
             }
-            cloud.setOnMousePressed(this::onCloudPressed);
-            Button button=new Button("Get Students!");
-            button.setFont(Font.font("papyrus",16));
-            button.setStyle("-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100");
-            button.setLayoutX(49);
-            button.setLayoutY(138);
-            button.setDisable(true);
-            button.setVisible(false);
-            button.setOnMousePressed((e)->onCloudButtonPressed());
-            cloud.getChildren().add(button);
-            cloud.setButton(button);
+            cloudStyle(cloud);
         }
+    }
+
+    private void cloudStyle(CloudGUI cloud) {
+        cloud.setOnMousePressed(this::onCloudPressed);
+        Button button=new Button("Get Students!");
+        button.setFont(Font.font("papyrus",16));
+        button.setStyle("-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100");
+        button.setLayoutX(49);
+        button.setLayoutY(138);
+        button.setDisable(true);
+        button.setVisible(false);
+        button.setOnMousePressed((e)->onCloudButtonPressed());
+        cloud.getChildren().add(button);
+        cloud.setButton(button);
     }
 
     private void studentsOnCloud3Update() {
@@ -268,17 +267,7 @@ public class BoardController{
                 student.setLayoutX(CoordinatesData.getClouds3().get(i / 2).getX());
                 student.setLayoutY(CoordinatesData.getClouds3().get(i / 2).getY());
             }
-            cloud.setOnMousePressed(this::onCloudPressed);
-            Button button=new Button("Get Students!");
-            button.setFont(Font.font("papyrus",16));
-            button.setStyle("-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100");
-            button.setLayoutX(49);
-            button.setLayoutY(138);
-            button.setDisable(true);
-            button.setVisible(false);
-            button.setOnMousePressed((e)->onCloudButtonPressed());
-            cloud.getChildren().add(button);
-            cloud.setButton(button);
+            cloudStyle(cloud);
         }
     }
 
@@ -391,8 +380,9 @@ public class BoardController{
     }
 
     public int userIndex() {
-        return 0;
-    }//TODO
+        System.out.println(userNickname);
+        return update.players.indexOf(userNickname);
+    }
 
     @FXML
     public void seePlayer1Hall() {

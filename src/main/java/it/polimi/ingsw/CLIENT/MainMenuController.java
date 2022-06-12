@@ -67,6 +67,8 @@ public class MainMenuController{
                 System.out.println("Errore");
                 System.exit(0);
             }
+            gui.setUserNickname(nicknameTextField.getText());
+            System.out.println((nicknameTextField.getText()));
         } else {
             showPopup("NICKNAME REQUIRED", "You need to set your nickname first!");
             popupButton1.setOnAction(e -> popupWindow.close());
