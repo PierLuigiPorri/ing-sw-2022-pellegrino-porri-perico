@@ -627,14 +627,29 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text fx:id="player1" fill="#b59a00" layoutX="313.0" layoutY="613.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
+            <Text fx:id="player1" fill="#b59a00" layoutX="332.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Text>
+            <Text fx:id="player2" fill="#b59a00" layoutX="782.0" layoutY="624.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text fx:id="player2" fill="#b59a00" layoutX="806.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
+            <Text fx:id="updateText1" fill="#b51d1d" layoutX="14.0" layoutY="734.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="724.1367492675781">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Text>
+            <Text fx:id="updateText2" fill="#b51d1d" layoutX="12.0" layoutY="777.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="724.1367492675781">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Text>
+            <Text fx:id="updateText3" fill="#b51d1d" layoutX="14.0" layoutY="833.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="724.1367492675781">
+               <font>
+                  <Font name="System Bold" size="22.0" />
                </font>
             </Text>
          </children>
