@@ -106,37 +106,19 @@ public class CharactersController{
                 imageView.setImage(new Image("Graphical_Assets/CarteTOT_front.jpg"));
                 break;
             case 1:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front2.jpg"));
+                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front12.jpg"));
                 break;
             case 2:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front3.jpg"));
-                break;
-            case 3:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front4.jpg"));
-                break;
-            case 4:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front5.jpg"));
-                break;
-            case 5:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front6.jpg"));
-                break;
-            case 6:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front7.jpg"));
-                break;
-            case 7:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front8.jpg"));
-                break;
-            case 8:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front9.jpg"));
-                break;
-            case 9:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front10.jpg"));
-                break;
-            case 10:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front11.jpg"));
-                break;
             case 11:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front12.jpg"));
+            case 10:
+            case 9:
+            case 8:
+            case 7:
+            case 6:
+            case 5:
+            case 4:
+            case 3:
+                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front"+idCharacter+".jpg"));
                 break;
         }
         imageView.setCursor(Cursor.HAND);

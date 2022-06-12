@@ -12,14 +12,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.CharactersController">
+<AnchorPane prefHeight="624.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.CharactersController">
    <children>
-      <ImageView fitHeight="470.0" fitWidth="690.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="653.0" fitWidth="886.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Graphical_Assets/sky_bg.jpg" />
          </image>
       </ImageView>
-      <Pane fx:id="character1" layoutX="14.0" layoutY="34.0" prefHeight="240.0" prefWidth="159.0">
+      <Pane fx:id="character1" layoutX="88.0" layoutY="99.0" prefHeight="240.0" prefWidth="159.0">
          <children>
             <ImageView fx:id="image1" fitHeight="232.0" fitWidth="153.0" layoutX="3.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
             <Text fx:id="activated1" fill="YELLOW" layoutX="30.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+1!" visible="false" wrappingWidth="26.8828125">
@@ -32,7 +32,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Pane>
-      <Pane fx:id="character2" layoutX="251.0" layoutY="34.0" prefHeight="240.0" prefWidth="159.0">
+      <Pane fx:id="character2" layoutX="364.0" layoutY="99.0" prefHeight="240.0" prefWidth="159.0">
          <children>
             <ImageView fx:id="image2" fitHeight="232.0" fitWidth="153.0" layoutX="3.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
             <Text fx:id="activated2" fill="YELLOW" layoutX="28.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+1!" visible="false" wrappingWidth="35.13671875">
@@ -45,7 +45,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Pane>
-      <Pane fx:id="character3" layoutX="483.0" layoutY="34.0" prefHeight="240.0" prefWidth="159.0">
+      <Pane fx:id="character3" layoutX="634.0" layoutY="99.0" prefHeight="240.0" prefWidth="159.0">
          <children>
             <ImageView fx:id="image3" fitHeight="232.0" fitWidth="153.0" layoutX="3.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
             <Text fx:id="activated3" fill="YELLOW" layoutX="27.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+1!" visible="false" wrappingWidth="26.8828125">
@@ -58,7 +58,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Pane>
-      <Pane layoutX="14.0" layoutY="339.0" prefHeight="121.0" prefWidth="107.0">
+      <Pane layoutX="40.0" layoutY="498.0" prefHeight="121.0" prefWidth="107.0">
          <children>
             <ImageView fitHeight="121.0" fitWidth="107.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -67,12 +67,12 @@
             </ImageView>
          </children>
       </Pane>
-      <Text fill="#25ff71" layoutX="121.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT A CHARACTER:" textAlignment="CENTER" wrappingWidth="431.13671875">
+      <Text fill="#25ff71" layoutX="194.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT A CHARACTER:" textAlignment="CENTER" wrappingWidth="431.13671875">
          <font>
             <Font name="Papyrus" size="24.0" />
          </font>
       </Text>
-      <Text layoutX="120.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU HAVE             COINS. IF THE CHARACTER HAS ALREADY BEEN ACTIVATED, IT COSTS ONE COIN MORE THAN AS SHOWN ON THE CARD." wrappingWidth="302.13671875">
+      <Text layoutX="157.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU HAVE             COINS. IF THE CHARACTER HAS ALREADY BEEN ACTIVATED, IT COSTS ONE COIN MORE THAN AS SHOWN ON THE CARD." wrappingWidth="371.13671875">
          <fill>
             <LinearGradient endX="0.29383886255924174" endY="0.6635071090047393" startX="0.4597156398104265">
                <stops>
@@ -90,15 +90,15 @@
             </LinearGradient>
          </fill>
          <font>
-            <Font name="Papyrus" size="12.0" />
+            <Font name="Papyrus" size="14.0" />
          </font>
       </Text>
-      <Text fx:id="coinsNumber" fill="#0b751e" layoutX="202.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="35.13671875">
+      <Text fx:id="coinsNumber" fill="#0b751e" layoutX="259.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="26.8828125">
          <font>
-            <Font name="Papyrus" size="12.0" />
+            <Font name="Papyrus" size="18.0" />
          </font>
       </Text>
-      <Button fx:id="confirmButton" disable="true" layoutX="483.0" layoutY="379.0" mnemonicParsing="false" onAction="#activateCharacter" onMousePressed="#activateCharacter" prefHeight="48.0" prefWidth="129.0" style="-fx-background-radius: 100; -fx-background-color: rgba(160, 40, 236, 0.7);" text="Activate!">
+      <Button fx:id="confirmButton" disable="true" layoutX="681.0" layoutY="526.0" mnemonicParsing="false" onAction="#activateCharacter" onMousePressed="#activateCharacter" prefHeight="48.0" prefWidth="129.0" style="-fx-background-radius: 100; -fx-background-color: rgba(160, 40, 236, 0.7);" text="Activate!">
          <font>
             <Font name="Papyrus" size="24.0" />
          </font>
@@ -106,17 +106,17 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Text fx:id="effect1" layoutX="21.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="144.13671875">
+      <Text fx:id="effect1" layoutX="88.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="159.0">
          <font>
-            <Font name="Papyrus" size="11.0" />
+            <Font name="Papyrus" size="13.0" />
          </font></Text>
-      <Text fx:id="effect2" layoutX="258.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="144.13671875">
+      <Text fx:id="effect2" layoutX="364.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="159.0">
          <font>
-            <Font name="Papyrus" size="11.0" />
+            <Font name="Papyrus" size="13.0" />
          </font></Text>
-      <Text fx:id="effect3" layoutX="490.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="144.13671875">
+      <Text fx:id="effect3" layoutX="634.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="159.0">
          <font>
-            <Font name="Papyrus" size="11.0" />
+            <Font name="Papyrus" size="13.0" />
          </font></Text>
    </children>
 </AnchorPane>

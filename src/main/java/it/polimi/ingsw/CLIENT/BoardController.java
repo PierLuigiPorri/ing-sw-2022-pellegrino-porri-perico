@@ -246,6 +246,7 @@ public class BoardController{
 
     private void cloudStyle(CloudGUI cloud) {
         cloud.setOnMousePressed(this::onCloudPressed);
+        cloud.setOnMouseExited(this::onCloudExited);
         Button button=new Button("Get Students!");
         button.setFont(Font.font("papyrus",16));
         button.setStyle("-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100");
@@ -370,6 +371,11 @@ public class BoardController{
         selectedCloud = (CloudGUI) e.getSource();
         selectedCloud.button.setVisible(true);
         selectedCloud.button.setDisable(false);
+    }
+
+    public void onCloudExited(MouseEvent e){
+        selectedCloud.button.setVisible(false);
+        selectedCloud.button.setDisable(true);
     }
 
 
