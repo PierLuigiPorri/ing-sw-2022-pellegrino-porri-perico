@@ -1,6 +1,7 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
+import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,7 +46,7 @@ public class BoardController{
     @FXML
     private Pane root;
     @FXML
-    private Text updateText1, updateText2, updateText3;
+    private Text updateText1, updateText2, updateText3, logMessage;
 
     public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
@@ -64,6 +65,7 @@ public class BoardController{
         studentsOnGateUpdate();
         createIslands();
 
+        setLogMessage();
         setUpdateText();
         towersUpdate();
         motherNatureUpdate();
@@ -411,6 +413,10 @@ public class BoardController{
             updateText2.setText(update.update.get(1));
         if(update.update.size()==3)
             updateText3.setText(update.update.get(2));
+    }
+
+    private void setLogMessage(){
+
     }
 
     @FXML

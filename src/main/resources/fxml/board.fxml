@@ -652,6 +652,11 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Text>
+            <Text fx:id="logMessage" fill="#ff6600" layoutX="844.0" layoutY="734.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="381.13671875">
+               <font>
+                  <Font name="System Bold Italic" size="22.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>
