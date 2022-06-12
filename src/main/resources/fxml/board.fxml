@@ -621,7 +621,7 @@
             </Button>
             <Button fx:id="seeCharacter" disable="true" layoutX="1018.0" layoutY="632.0" mnemonicParsing="false" onAction="#SeeCharacter" onMouseClicked="#SeeCharacter" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE CHARACTERS" textFill="WHITE" visible="false">
                <font>
-                  <Font name="Papyrus" size="15.0" />
+                  <Font name="Papyrus" size="14.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />

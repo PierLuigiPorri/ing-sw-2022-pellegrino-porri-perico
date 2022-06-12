@@ -5,6 +5,7 @@ import it.polimi.ingsw.CLIENT.GUIobjects.IslandGUI;
 import it.polimi.ingsw.CLIENT.GUIobjects.StudentGUI;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -13,11 +14,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class CharactersController {
+public class CharactersController{
 
-    private static GUIAPP gui;
+    private GUIAPP gui;
     private UpdateMessage update;
     private String userNickname;
     private int selectedChar;
@@ -37,9 +40,10 @@ public class CharactersController {
     private IslandGUI selectedIsland;
     private StudentGUI selectedStudent;
 
-    public static void setGui(GUIAPP gui) {
-        CharactersController.gui = gui;
+    public void setGui(GUIAPP gui) {
+        this.gui = gui;
     }
+
 
     public void refresh(){
         update = gui.getUpdate();
@@ -326,5 +330,6 @@ public class CharactersController {
                 return 0;
         }
     }
+
 
 }

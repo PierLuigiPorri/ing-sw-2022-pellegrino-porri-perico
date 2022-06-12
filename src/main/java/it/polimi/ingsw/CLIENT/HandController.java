@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 public class HandController {
-    private static GUIAPP gui;
+    private GUIAPP gui;
     private UpdateMessage update;
     ArrayList<Integer> intPar=new ArrayList<>();
     ArrayList<String> strPar=new ArrayList<>();
@@ -18,7 +18,7 @@ public class HandController {
     @FXML
     private Pane card0, card1, card2, card3, card4, card5, card6, card7, card8, card9;
 
-    public static void setGUI(GUIAPP guiApp) {
+    public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
     }
 

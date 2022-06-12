@@ -33,6 +33,9 @@ public class GUIAPP extends Application implements View {
     private UpdateMessage update;
     public boolean gameStarted;
     private BoardController boardController;
+    private PlayersBoardController playersBoardController;
+    private HandController handController;
+    private CharactersController charactersController;
     @FXML
     private Stage currentStage;
     private Stage shownStage;
@@ -75,9 +78,26 @@ public class GUIAPP extends Application implements View {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(address));
             Parent root = fxmlLoader.load();
-            if(address.equals("fxml/board.fxml")){
-                boardController=fxmlLoader.getController();
-                boardController.setGUI(this);
+            switch(address){
+                case "fxml/board.fxml":
+                    boardController=fxmlLoader.getController();
+                    boardController.setGUI(this);
+                    break;
+                case "fxml/PlayersBoard.fxml":
+                    playersBoardController=fxmlLoader.getController();
+                    playersBoardController.setGUI(this);
+                    playersBoardController.refresh();
+                break;
+                case "fxml/Hand.fxml":
+                    handController=fxmlLoader.getController();
+                    handController.setGUI(this);
+                    handController.refresh();
+                    break;
+                case "fxml/Characters.fxml":
+                    charactersController=fxmlLoader.getController();
+                    charactersController.setGui(this);
+                    charactersController.refresh();
+                    break;
             }
             //GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
             //double width = gd.getDisplayMode().getWidth()*0.9;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PlayersBoardController {
 
-    private static GUIAPP gui;
+    private GUIAPP gui;
     private UpdateMessage update;
     private String playerNickname;
 
@@ -35,7 +35,7 @@ public class PlayersBoardController {
     @FXML
     private ImageView lastCardPlayed;
 
-    public static void setGUI(GUIAPP guiApp) {
+    public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
     }
 

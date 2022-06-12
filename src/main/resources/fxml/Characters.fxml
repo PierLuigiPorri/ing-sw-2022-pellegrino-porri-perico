@@ -67,12 +67,12 @@
             </ImageView>
          </children>
       </Pane>
-      <Text fill="#25ff71" layoutX="166.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT A CHARACTER:" textAlignment="CENTER" wrappingWidth="329.13671875">
+      <Text fill="#25ff71" layoutX="121.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT A CHARACTER:" textAlignment="CENTER" wrappingWidth="431.13671875">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Papyrus" size="24.0" />
          </font>
       </Text>
-      <Text layoutX="120.0" layoutY="400.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU HAVE             COINS. IF THE CHARACTER HAS ALREADY BEEN ACTIVATED, IT COSTS ONE COIN MORE THAN AS SHOWN ON THE CARD." wrappingWidth="270.13671875">
+      <Text layoutX="120.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU HAVE             COINS. IF THE CHARACTER HAS ALREADY BEEN ACTIVATED, IT COSTS ONE COIN MORE THAN AS SHOWN ON THE CARD." wrappingWidth="302.13671875">
          <fill>
             <LinearGradient endX="0.29383886255924174" endY="0.6635071090047393" startX="0.4597156398104265">
                <stops>
@@ -90,12 +90,12 @@
             </LinearGradient>
          </fill>
          <font>
-            <Font name="System Bold Italic" size="12.0" />
+            <Font name="Papyrus" size="12.0" />
          </font>
       </Text>
-      <Text fx:id="coinsNumber" fill="#0b751e" layoutX="322.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="35.13671875">
+      <Text fx:id="coinsNumber" fill="#0b751e" layoutX="202.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="35.13671875">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Papyrus" size="12.0" />
          </font>
       </Text>
       <Button fx:id="confirmButton" disable="true" layoutX="483.0" layoutY="379.0" mnemonicParsing="false" onAction="#activateCharacter" onMousePressed="#activateCharacter" prefHeight="48.0" prefWidth="129.0" style="-fx-background-radius: 100; -fx-background-color: rgba(160, 40, 236, 0.7);" text="Activate!">
@@ -106,8 +106,17 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Text fx:id="effect1" layoutX="21.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.13671875" />
-      <Text fx:id="effect2" layoutX="258.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.13671875" />
-      <Text fx:id="effect3" layoutX="490.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.13671875" />
+      <Text fx:id="effect1" layoutX="21.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="144.13671875">
+         <font>
+            <Font name="Papyrus" size="11.0" />
+         </font></Text>
+      <Text fx:id="effect2" layoutX="258.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="144.13671875">
+         <font>
+            <Font name="Papyrus" size="11.0" />
+         </font></Text>
+      <Text fx:id="effect3" layoutX="490.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="144.13671875">
+         <font>
+            <Font name="Papyrus" size="11.0" />
+         </font></Text>
    </children>
 </AnchorPane>
