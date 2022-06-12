@@ -14,13 +14,13 @@ public class TowerGUI extends Pane {
         this.setHeight(46);
         switch (color){
             case "BLACK":
-                this.getChildren().add(new ImageView(new Image("src/main/resources/Graphical_Assets/black_tower.png")));
+                this.getChildren().add(new ImageView(new Image("Graphical_Assets/black_tower.png")));
                 break;
             case "GREY":
-                this.getChildren().add(new ImageView(new Image("src/main/resources/Graphical_Assets/grey_tower.png")));
+                this.getChildren().add(new ImageView(new Image("Graphical_Assets/grey_tower.png")));
                 break;
             case "WHITE":
-                this.getChildren().add(new ImageView(new Image("src/main/resources/Graphical_Assets/white_tower.png")));
+                this.getChildren().add(new ImageView(new Image("Graphical_Assets/white_tower.png")));
         }
     }
 
