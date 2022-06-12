@@ -53,4 +53,12 @@ public class StudentGUI extends Pane {
         this.setLayoutX(x-this.stageX);
         this.setLayoutY(y-this.stageY);
     }
+
+    public void setSelected(){
+        this.setStyle("-fx-background-color: yellow");
+    }
+
+    public void deselect(){
+        this.setStyle(null);
+    }
 }

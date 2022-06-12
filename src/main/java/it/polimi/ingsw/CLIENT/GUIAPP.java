@@ -36,6 +36,7 @@ public class GUIAPP extends Application implements View {
     private PlayersBoardController playersBoardController;
     private HandController handController;
     private CharactersController charactersController;
+    private CharacterParametersController characterParametersController;
     @FXML
     private Stage currentStage;
     private Stage shownStage;
@@ -98,6 +99,10 @@ public class GUIAPP extends Application implements View {
                     charactersController.setGui(this);
                     charactersController.refresh();
                     break;
+                case "characterParametersSelection.fxml":
+                    characterParametersController=fxmlLoader.getController();
+                    characterParametersController.setGUI(this);
+                    characterParametersController.refresh();
             }
             //GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
             //double width = gd.getDisplayMode().getWidth()*0.9;

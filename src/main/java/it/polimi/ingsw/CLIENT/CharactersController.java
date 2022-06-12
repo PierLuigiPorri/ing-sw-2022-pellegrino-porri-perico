@@ -101,26 +101,7 @@ public class CharactersController{
     }
 
     public void setImage(ImageView imageView, int idCharacter){
-        switch(idCharacter){
-            case 0:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front.jpg"));
-                break;
-            case 1:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front12.jpg"));
-                break;
-            case 2:
-            case 11:
-            case 10:
-            case 9:
-            case 8:
-            case 7:
-            case 6:
-            case 5:
-            case 4:
-            case 3:
-                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front"+idCharacter+".jpg"));
-                break;
-        }
+        imageView.setImage(new Image("Graphical_Assets/CarteTOT_front"+idCharacter+".jpg"));
         imageView.setCursor(Cursor.HAND);
     }
 
@@ -160,9 +141,11 @@ public class CharactersController{
                         System.out.println("What's the index of the island you want to determine the influence of?");
                         i = getIntInput();
                         if (i == -1) {
-                            cancel = true;
-                            break;
-                        }
+
+
+                         cancel = true;
+                                                      break;
+                        }\
                         checkIntInput(1, 12, i, "What's the index of the island you want to determine the influence of?\n");
                         a.add(inputInt.get(inputInt.size() - 1));
                     break;*/

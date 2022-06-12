@@ -100,4 +100,12 @@ public class IslandGUI extends Pane {
     public void setTowers(int towers) {
         this.towers = towers;
     }
+
+    public void setSelected(){
+        this.setStyle("-fx-background-color: yellow");
+    }
+
+    public void deselect(){
+        this.setStyle(null);
+    }
 }
