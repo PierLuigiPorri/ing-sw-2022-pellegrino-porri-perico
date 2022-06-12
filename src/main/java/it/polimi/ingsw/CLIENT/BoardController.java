@@ -44,6 +44,8 @@ public class BoardController{
     private Text player1, player2;
     @FXML
     private Pane root;
+    @FXML
+    private Text updateText1, updateText2, updateText3;
 
     public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
@@ -62,7 +64,7 @@ public class BoardController{
         studentsOnGateUpdate();
         createIslands();
 
-
+        setUpdateText();
         towersUpdate();
         motherNatureUpdate();
         studentsOnIslandUpdate();
@@ -262,6 +264,7 @@ public class BoardController{
     private void studentsOnCloud3Update() {
         for (int index : update.studentsOnCloud.keySet()) {
             CloudGUI cloud = new CloudGUI(playersNumber, index);
+            root.getChildren().add(cloud);
             for (int i = 0; i < update.studentsOnCloud.get(index).size(); i = i + 2) {
                 StudentGUI student = new StudentGUI(update.studentsOnCloud.get(index).get(i));
                 cloud.getChildren().add(student);
@@ -400,6 +403,15 @@ public class BoardController{
     public void seePlayer2Hall() {
         gui.setPlayerNickname(player2Nickname);
         gui.setScene("fxml/PlayersBoard.fxml");
+    }
+
+    private void setUpdateText(){
+        if(update.update.size()==1)
+            updateText1.setText(update.update.get(0));
+        if(update.update.size()==2)
+            updateText2.setText(update.update.get(1));
+        if(update.update.size()==3)
+            updateText3.setText(update.update.get(2));
     }
 
     @FXML
