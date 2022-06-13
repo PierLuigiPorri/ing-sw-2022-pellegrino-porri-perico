@@ -13,6 +13,7 @@ public class StudentGUI extends Pane {
 
     public StudentGUI(String color){
         this.color=color;
+        this.setStyle("-fx-background-color: rgba(255, 255, 255, 0.2)");
         switch(color){
             case "RED":
                 this.getChildren().add(new ImageView(new Image("Graphical_Assets/student_red.png")));
@@ -59,6 +60,6 @@ public class StudentGUI extends Pane {
     }
 
     public void deselect(){
-        this.setStyle(null);
+        this.setStyle("-fx-background-color: rgba(255, 255, 255, 0.2)");
     }
 }

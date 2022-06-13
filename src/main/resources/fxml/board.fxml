@@ -9,12 +9,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.BoardController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.BoardController">
    <children>
-      <Pane fx:id="root" prefHeight="900.0" prefWidth="1267.0">
+      <Pane fx:id="root" prefHeight="720.0" prefWidth="1280.0">
          <children>
             <Pane fx:id="hall" onDragDropped="#onDragOnHall" prefHeight="377.0" prefWidth="280.0" />
-            <ImageView fitHeight="900.0" fitWidth="1300.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true">
                <image>
                   <Image url="@../Graphical_Assets/sky_bg.jpg" />
                </image>
@@ -595,15 +595,15 @@
                   </Pane>
                </children>
             </Pane>
-            <Button fx:id="seePlayer1Hall" layoutX="313.0" layoutY="632.0" mnemonicParsing="false" onAction="#seePlayer1Hall" onMouseClicked="#seePlayer1Hall" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE OPPONENT'S HALL" textFill="WHITE">
+            <Button fx:id="seePlayer1Hall" layoutX="306.0" layoutY="606.0" mnemonicParsing="false" onAction="#seePlayer1Hall" onMouseClicked="#seePlayer1Hall" prefHeight="46.0" prefWidth="136.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="OPPONENT'S HALL" textFill="WHITE">
                <font>
-                  <Font name="Papyrus" size="12.0" />
+                  <Font name="Papyrus" size="9.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="seeYourHand" layoutX="529.0" layoutY="632.0" mnemonicParsing="false" onAction="#SeeYourHand" onMouseClicked="#SeeYourHand" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE YOUR HAND" textFill="WHITE">
+            <Button fx:id="seeYourHand" layoutX="308.0" layoutY="661.0" mnemonicParsing="false" onAction="#SeeYourHand" onMouseClicked="#SeeYourHand" prefHeight="46.0" prefWidth="136.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE HAND" textFill="WHITE">
                <font>
                   <Font name="Papyrus" size="15.0" />
                </font>
@@ -611,28 +611,28 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="seePlayer2Hall" disable="true" layoutX="760.0" layoutY="632.0" mnemonicParsing="false" onAction="#seePlayer2Hall" onMouseClicked="#seePlayer2Hall" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE OPPONENT 2'S HALL" textFill="WHITE" visible="false">
+            <Button fx:id="seePlayer2Hall" disable="true" layoutX="453.0" layoutY="606.0" mnemonicParsing="false" onAction="#seePlayer2Hall" onMouseClicked="#seePlayer2Hall" prefHeight="46.0" prefWidth="136.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="OPPONENT 2'S HALL" textFill="WHITE">
                <font>
-                  <Font name="Papyrus" size="11.0" />
+                  <Font name="Papyrus" size="9.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="seeCharacter" disable="true" layoutX="1018.0" layoutY="632.0" mnemonicParsing="false" onAction="#SeeCharacter" onMouseClicked="#SeeCharacter" prefHeight="57.0" prefWidth="208.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE CHARACTERS" textFill="WHITE" visible="false">
+            <Button fx:id="seeCharacter" disable="true" layoutX="453.0" layoutY="661.0" mnemonicParsing="false" onAction="#SeeCharacter" onMouseClicked="#SeeCharacter" prefHeight="46.0" prefWidth="136.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="SEE CHARACTERS" textFill="WHITE">
                <font>
-                  <Font name="Papyrus" size="14.0" />
+                  <Font name="Papyrus" size="9.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text fx:id="player1" fill="#b59a00" layoutX="332.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
+            <Text fx:id="player1" fill="#b59a00" layoutX="319.0" layoutY="598.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Text>
-            <Text fx:id="player2" fill="#b59a00" layoutX="782.0" layoutY="624.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
+            <Text fx:id="player2" fill="#b59a00" layoutX="462.0" layoutY="598.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="208.0">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -652,7 +652,7 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Text>
-            <Text fx:id="logMessage" fill="#ff6600" layoutX="844.0" layoutY="734.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="381.13671875">
+            <Text fx:id="logMessage" fill="#ff6600" layoutX="886.0" layoutY="596.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="381.13671875">
                <font>
                   <Font name="System Bold Italic" size="22.0" />
                </font>
