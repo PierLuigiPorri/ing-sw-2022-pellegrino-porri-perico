@@ -28,7 +28,7 @@ public class CloudGUI extends Pane {
                     this.setLayoutY(229);
                     break;
             }
-            this.getChildren().add(new ImageView(new Image("Graphical_Assets/cloud_card_1.png")));
+            this.getChildren().add(new ImageView(new Image("Graphical_Assets/cloud_card_5_2_and_4_players_game.png")));
         }
         else{
             switch(index){
