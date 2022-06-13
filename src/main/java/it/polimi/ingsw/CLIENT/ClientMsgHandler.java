@@ -92,6 +92,7 @@ public class ClientMsgHandler implements Runnable{
         else {
             ResponseMessage rMex=(ResponseMessage) message;
             this.responses.add(rMex);
+            view.signalResponse();
         }
     }
 

@@ -21,4 +21,6 @@ public interface View {
     void setKill();
 
     void signalUpdate();
+
+    void signalResponse();
 }

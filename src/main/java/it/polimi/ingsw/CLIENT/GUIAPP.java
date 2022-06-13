@@ -152,14 +152,6 @@ public class GUIAPP extends Application implements View {
         return this.userNickname;
     }
 
-
-    @Override
-    public void signalUpdate(){
-        //Runs on Message Handler Thread
-        System.out.println("è arrivato un update");
-        Platform.runLater(() -> update(msgHandler.getUpdates().remove(0)));
-    }
-
     public void perform(ArrayList<Integer> intpar, ArrayList<String> strpar, ArrayList<Integer> third, int action){
         inputStr.add(userNickname);
         if(strpar != null)
@@ -224,6 +216,13 @@ public class GUIAPP extends Application implements View {
     }
 
     @Override
+    public void signalUpdate(){
+        //Runs on Message Handler Thread
+        System.out.println("è arrivato un update");
+        Platform.runLater(() -> update(msgHandler.getUpdates().remove(0)));
+    }
+
+    @Override
     public void update(UpdateMessage up) {
         this.update=up;
         if(!gameStarted){
@@ -244,6 +243,22 @@ public class GUIAPP extends Application implements View {
             popupButton1.setOnAction(e -> popupWindow.close());
             popupWindow.showAndWait();
         }
+    }
+
+    @Override
+    public void signalResponse(){
+        if(!msgHandler.getResponses().isEmpty()) {
+            if(!msgHandler.getResponses().get(msgHandler.getResponses().size() - 1).allGood) {
+                String s = msgHandler.getResponses().get(msgHandler.getResponses().size() - 1).response;
+                Platform.runLater(() -> response(s));
+            }
+        }
+    }
+
+    public void response(String r){
+        showPopup("ERROR", r);
+        popupButton1.setOnAction(e -> popupWindow.close());
+        popupWindow.showAndWait();
     }
 
     public UpdateMessage getUpdate(){
