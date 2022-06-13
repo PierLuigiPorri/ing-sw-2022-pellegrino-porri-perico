@@ -62,7 +62,6 @@ public class Controller implements Observer{
                 game.playCard(player, index);
             } catch (ImpossibleActionException | BoundException e) {
                 Objects.requireNonNull(getCorrectCm(player)).send(new ResponseMessage(e.getMessage(),false));
-                (Objects.requireNonNull(getCorrectCm(player))).send(new ResponseMessage(e.getMessage(),false));
             }
     }
 
