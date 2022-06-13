@@ -53,7 +53,7 @@ public class BoardController{
 
     public void refresh() {
         update = gui.getUpdate();
-        System.out.println(update.players);
+        System.out.println(update.order);
         this.userNickname = gui.getUserNickname();
         this.playersNumber = update.players.size();
         this.gameType = update.game_Type;
