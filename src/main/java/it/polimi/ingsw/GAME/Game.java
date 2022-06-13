@@ -63,11 +63,6 @@ public class Game extends Observable {
             }
         }
         this.motherNature = new MotherNature(board.islands.getIsland(1));
-        if (this.gameType == 1) {
-            for (Player p : this.players) {
-                p.addCoin();
-            }
-        }
         roundMaster = new RoundMaster(players);
 
         order.addAll(players);

@@ -3,6 +3,7 @@ package it.polimi.ingsw.CLIENT;
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -16,6 +17,8 @@ public class CharacterParametersController {
     private Pane selectionPane;
     @FXML
     private Text desc;
+    @FXML
+    private Button activate;
     private GUIAPP gui;
     private UpdateMessage update;
     private int playersNumber;

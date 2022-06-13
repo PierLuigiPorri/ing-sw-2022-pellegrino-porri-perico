@@ -26,7 +26,6 @@ public class ModelView extends Observable implements Observer {
         this.update = new UpdateMessage();
         update.charactersNum = 0;
         update.update = (ArrayList<String>) arg;
-        update.update= update.update.stream().map(str->ANSI_CYAN+str+ANSI_RESET).collect(Collectors.toCollection(ArrayList::new));
         setGameAttributes();
         setBoardAttributes();
         setPlayersAttributes();

@@ -220,7 +220,7 @@ public class CLI implements View, Runnable {
             }
             if (!msgHandler.getUpdates().isEmpty()) {
                 for (UpdateMessage up : msgHandler.getUpdates()) {
-                    up.update.forEach(System.out::println);
+                    up.update.forEach((u)-> System.out.println(ANSI_CYAN+up+ANSI_RESET));
                 }
                 update(msgHandler.getUpdates().get(msgHandler.getUpdates().size() - 1));
             }
