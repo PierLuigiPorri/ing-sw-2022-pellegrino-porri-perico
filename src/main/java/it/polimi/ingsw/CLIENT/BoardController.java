@@ -1,7 +1,6 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
-import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -220,7 +219,6 @@ public class BoardController{
             islands.get(index-1).setLayoutY(CoordinatesData.getIslandsCoord(update.numIslands).get(index-1).getY());
             islands.get(index-1).setOnDragDropped((dragEvent) -> onDragOnIsland(dragEvent, islands.get(index-1)));
         }
-
     }
 
     private void studentsOnGateUpdate() {
@@ -379,8 +377,10 @@ public class BoardController{
     }
 
     public void onCloudExited(MouseEvent e){
+        if(selectedCloud != null){
         selectedCloud.button.setVisible(false);
         selectedCloud.button.setDisable(true);
+        }
     }
 
 
