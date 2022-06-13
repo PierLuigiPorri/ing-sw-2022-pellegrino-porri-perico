@@ -45,7 +45,7 @@ public class BoardController{
     @FXML
     private Pane root;
     @FXML
-    private Text updateText1, updateText2, updateText3, logMessage;
+    private Text updateText1, updateText2, updateText3, logMessage1, logMessage2, logMessage3;
 
     public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
@@ -417,6 +417,72 @@ public class BoardController{
 
     private void setLogMessage(){
 
+            String currentPhase = update.phase;
+            if (currentPhase.equals("Planning"))
+                introducePhase(0);
+            else
+                introducePhase(1);
+
+        logMessage1.setText("\nPlayers that have to play, in order:" + update.order);
+        if (update.phase.equals("Planning")) {    //Planning Phase
+            if (update.order.get(0).equals(userNickname)) {             //Player's turn
+                introduceTurn(0);
+            } else {                                            //not Player's turn
+                introduceTurn(1);
+            }
+        } else {                                                     //Action Phase
+            if (update.order.get(0).equals(userNickname) && update.playersMoves.get(0) != 0) {  //Player's turn, student managing
+                introduceTurn(3);
+            } else if (update.order.get(0).equals(userNickname) && !update.cloudtaken) {                   //Player's turn, cloud sub-phase
+                introduceTurn(4);
+            } else if (update.order.get(0).equals(userNickname)) {                              //Player's turn, MN sub-phase
+                introduceTurn(5);
+            } else {                                                                     //not Player's turn
+                if (!userNickname.equals(update.order.get(0))) {
+                    introduceTurn(2);
+                }
+            }
+        }
+    }
+
+    private void introducePhase(int phase) {
+        switch (phase) {
+            case 0:
+                logMessage2.setText("\nTurn " + update.turnNumber + "!" + "\nPlanning Time!" +
+                        "\nNow's your chance to, you know, plan." +
+                        "\nYou should all play a card. The best stuff happens later.");
+                break;
+            case 1:
+                logMessage2.setText("\nTurn " + update.turnNumber + "!" + "\nAction time!" +
+                        "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
+                        "\nMove students. Activate special effects. Move digital imaginary tokens. Your call.");
+        }
+    }
+
+    private void introduceTurn(int turn) {
+        switch (turn) {
+            case 0://Player's turn, Planning phase
+                logMessage3.setText("\n" + "Now! Fire your card!" +
+                        "\nRemember, you can't play a card that has already been played this round. Just don't." );
+                break;
+            case 1://Planning phase, not player's turn
+                logMessage3.setText("\n" + "It's not your time to play a card. Hold..." );
+                break;
+            case 2://Action phase, not player's turn
+                logMessage3.setText("\n" + "Not your time to shine yet, somebody else is playing." +
+                        "\nBe ready for when your turn comes." );
+                break;
+            case 3://Action phase, player's turn
+                logMessage3.setText("\n" + "Your turn!");
+                break;
+            case 4://End of action phase, player's turn, cloud sub-phase
+                logMessage3.setText("\n" + "You moved your students, you get new ones. That's how it works. Go get some from a cloud!" );
+                break;
+            case 5://End of action phase, player's turn, MN movement
+                logMessage3.setText("\n" + "OK! Good student managing. Now let's end this round. " +
+                        "\nTime to politely ask Lady Mother Nature to relocate on an Island of your choosing." );
+                break;
+        }
     }
 
     @FXML
