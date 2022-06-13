@@ -247,6 +247,7 @@ public class GUIAPP extends Application implements View {
 
     @Override
     public void signalResponse(){
+        //Runs on Message Handler Thread
         if(!msgHandler.getResponses().isEmpty()) {
             if(!msgHandler.getResponses().get(msgHandler.getResponses().size() - 1).allGood) {
                 String s = msgHandler.getResponses().get(msgHandler.getResponses().size() - 1).response;
