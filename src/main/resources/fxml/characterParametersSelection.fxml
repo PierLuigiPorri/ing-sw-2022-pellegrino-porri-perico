@@ -4,549 +4,395 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.CLIENT.CharacterParametersController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.CharacterParametersController">
 
     <Pane fx:id="root" prefHeight="900.0" prefWidth="1267.0">
         <ImageView fitHeight="900.0" fitWidth="1300.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../Graphical_Assets/sky_bg.jpg"/>
+            <Image url="@../Graphical_Assets/sky_bg.jpg" />
         </ImageView>
         <Pane fx:id="gate" prefHeight="710.0" prefWidth="313.0">
-            <ImageView fitHeight="340.0" fitWidth="706.0" layoutX="-200.0" layoutY="200.0" pickOnBounds="true"
-                       preserveRatio="true" rotate="-90.0">
-                <Image url="@../Graphical_Assets/Plancia_DEF.png"/>
+            <ImageView fitHeight="340.0" fitWidth="706.0" layoutX="-200.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+                <Image url="@../Graphical_Assets/Plancia_DEF.png" />
             </ImageView>
-            <Pane fx:id="redHall0" layoutX="86.0" layoutY="544.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="redHall0" layoutX="86.0" layoutY="544.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../Graphical_Assets/student_red.png"/>
+                    <Image url="@../Graphical_Assets/student_red.png" />
                 </ImageView>
             </Pane>
-            <Pane fx:id="redHall4" layoutX="86.0" layoutY="410.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="redHall4" layoutX="86.0" layoutY="410.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../Graphical_Assets/student_red.png"/>
+                    <Image url="@../Graphical_Assets/student_red.png" />
                 </ImageView>
             </Pane>
-            <Pane fx:id="redHall3" layoutX="86.0" layoutY="443.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="redHall3" layoutX="86.0" layoutY="443.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_red.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="redHall1" layoutX="86.0" layoutY="511.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_red.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="redHall2" layoutX="86.0" layoutY="476.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_red.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="redHall6" layoutX="86.0" layoutY="342.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_red.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="redHall5" layoutX="86.0" layoutY="375.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_red.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="redHall7" layoutX="86.0" layoutY="309.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_red.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="redHall8" layoutX="86.0" layoutY="274.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_red.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="redHall9" layoutX="86.0" layoutY="241.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_red.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="yellowHall0" layoutX="136.0" layoutY="544.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_yellow.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="yellowHall4" layoutX="136.0" layoutY="410.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_yellow.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="yellowHall3" layoutX="136.0" layoutY="443.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_yellow.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="yellowHall1" layoutX="136.0" layoutY="511.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_yellow.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="yellowHall2" layoutX="136.0" layoutY="476.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_yellow.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="yellowHall6" layoutX="136.0" layoutY="342.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_yellow.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="yellowHall5" layoutX="136.0" layoutY="375.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_yellow.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="yellowHall7" layoutX="136.0" layoutY="309.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_yellow.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="yellowHall8" layoutX="136.0" layoutY="274.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_yellow.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="yellowHall9" layoutX="136.0" layoutY="241.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_yellow.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="blueHall0" layoutX="236.0" layoutY="544.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_blue.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="blueHall4" layoutX="236.0" layoutY="410.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_blue.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="blueHall3" layoutX="236.0" layoutY="443.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_blue.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="blueHall1" layoutX="236.0" layoutY="511.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_blue.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="blueHall2" layoutX="236.0" layoutY="476.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_blue.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="blueHall6" layoutX="236.0" layoutY="342.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_blue.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="blueHall5" layoutX="236.0" layoutY="375.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_blue.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="blueHall7" layoutX="236.0" layoutY="309.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_blue.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="blueHall8" layoutX="236.0" layoutY="274.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../Graphical_Assets/student_blue.png" />
+                </ImageView>
+            </Pane>
+            <Pane fx:id="blueHall9" layoutX="236.0" layoutY="241.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../Graphical_Assets/student_red.png"/>
+                        <Image url="@../Graphical_Assets/student_blue.png" />
                     </image>
                 </ImageView>
             </Pane>
-            <Pane fx:id="redHall1" layoutX="86.0" layoutY="511.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../Graphical_Assets/student_red.png"/>
-                    </image>
-                </ImageView>
-            </Pane>
-            <Pane fx:id="redHall2" layoutX="86.0" layoutY="476.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../Graphical_Assets/student_red.png"/>
-                    </image>
-                </ImageView>
-            </Pane>
-            <Pane fx:id="redHall6" layoutX="86.0" layoutY="342.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../Graphical_Assets/student_red.png"/>
-                    </image>
-                </ImageView>
-            </Pane>
-            <Pane fx:id="redHall5" layoutX="86.0" layoutY="375.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="pinkHall0" layoutX="187.0" layoutY="544.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_red.png"/>
+                            <Image url="@../Graphical_Assets/student_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="redHall7" layoutX="86.0" layoutY="309.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="pinkHall4" layoutX="187.0" layoutY="410.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_red.png"/>
+                            <Image url="@../Graphical_Assets/student_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="redHall8" layoutX="86.0" layoutY="274.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="pinkHall3" layoutX="187.0" layoutY="443.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_red.png"/>
+                            <Image url="@../Graphical_Assets/student_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="redHall9" layoutX="86.0" layoutY="241.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="pinkHall1" layoutX="187.0" layoutY="511.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_red.png"/>
+                            <Image url="@../Graphical_Assets/student_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowHall0" layoutX="136.0" layoutY="544.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="pinkHall2" layoutX="187.0" layoutY="476.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_yellow.png"/>
+                            <Image url="@../Graphical_Assets/student_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowHall4" layoutX="136.0" layoutY="410.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="pinkHall6" layoutX="187.0" layoutY="342.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_yellow.png"/>
+                            <Image url="@../Graphical_Assets/student_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowHall3" layoutX="136.0" layoutY="443.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="pinkHall5" layoutX="187.0" layoutY="375.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_yellow.png"/>
+                            <Image url="@../Graphical_Assets/student_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowHall1" layoutX="136.0" layoutY="511.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="pinkHall7" layoutX="187.0" layoutY="309.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_yellow.png"/>
+                            <Image url="@../Graphical_Assets/student_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowHall2" layoutX="136.0" layoutY="476.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="pinkHall8" layoutX="187.0" layoutY="274.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_yellow.png"/>
+                            <Image url="@../Graphical_Assets/student_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowHall6" layoutX="136.0" layoutY="342.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="pinkHall9" layoutX="187.0" layoutY="241.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_yellow.png"/>
+                            <Image url="@../Graphical_Assets/student_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowHall5" layoutX="136.0" layoutY="375.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="greenHall0" layoutX="37.0" layoutY="544.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_yellow.png"/>
+                            <Image url="@../Graphical_Assets/student_green.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowHall7" layoutX="136.0" layoutY="309.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="greenHall4" layoutX="37.0" layoutY="410.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_yellow.png"/>
+                            <Image url="@../Graphical_Assets/student_green.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowHall8" layoutX="136.0" layoutY="274.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="greenHall3" layoutX="37.0" layoutY="443.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_yellow.png"/>
+                            <Image url="@../Graphical_Assets/student_green.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowHall9" layoutX="136.0" layoutY="241.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="greenHall1" layoutX="37.0" layoutY="511.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_yellow.png"/>
+                            <Image url="@../Graphical_Assets/student_green.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="blueHall0" layoutX="236.0" layoutY="544.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="greenHall2" layoutX="37.0" layoutY="476.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_blue.png"/>
+                            <Image url="@../Graphical_Assets/student_green.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="blueHall4" layoutX="236.0" layoutY="410.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="greenHall6" layoutX="37.0" layoutY="342.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_blue.png"/>
+                            <Image url="@../Graphical_Assets/student_green.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="blueHall3" layoutX="236.0" layoutY="443.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="greenHall5" layoutX="37.0" layoutY="375.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_blue.png"/>
+                            <Image url="@../Graphical_Assets/student_green.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="blueHall1" layoutX="236.0" layoutY="511.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="greenHall7" layoutX="37.0" layoutY="309.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_blue.png"/>
+                            <Image url="@../Graphical_Assets/student_green.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="blueHall2" layoutX="236.0" layoutY="476.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="greenHall8" layoutX="37.0" layoutY="274.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_blue.png"/>
+                            <Image url="@../Graphical_Assets/student_green.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="blueHall6" layoutX="236.0" layoutY="342.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
+            <Pane fx:id="greenHall9" layoutX="37.0" layoutY="241.0" prefHeight="33.0" prefWidth="34.0" style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/student_blue.png"/>
+                            <Image url="@../Graphical_Assets/student_green.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="blueHall5" layoutX="236.0" layoutY="375.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_blue.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="blueHall7" layoutX="236.0" layoutY="309.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_blue.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="blueHall8" layoutX="236.0" layoutY="274.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_blue.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="blueHall9" layoutX="236.0" layoutY="241.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_blue.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="pinkHall0" layoutX="187.0" layoutY="544.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_pink.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="pinkHall4" layoutX="187.0" layoutY="410.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_pink.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="pinkHall3" layoutX="187.0" layoutY="443.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_pink.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="pinkHall1" layoutX="187.0" layoutY="511.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_pink.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="pinkHall2" layoutX="187.0" layoutY="476.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_pink.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="pinkHall6" layoutX="187.0" layoutY="342.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_pink.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="pinkHall5" layoutX="187.0" layoutY="375.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_pink.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="pinkHall7" layoutX="187.0" layoutY="309.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_pink.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="pinkHall8" layoutX="187.0" layoutY="274.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_pink.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="pinkHall9" layoutX="187.0" layoutY="241.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_pink.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="greenHall0" layoutX="37.0" layoutY="544.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_green.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="greenHall4" layoutX="37.0" layoutY="410.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_green.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="greenHall3" layoutX="37.0" layoutY="443.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_green.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="greenHall1" layoutX="37.0" layoutY="511.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_green.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="greenHall2" layoutX="37.0" layoutY="476.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_green.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="greenHall6" layoutX="37.0" layoutY="342.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_green.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="greenHall5" layoutX="37.0" layoutY="375.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_green.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="greenHall7" layoutX="37.0" layoutY="309.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_green.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="greenHall8" layoutX="37.0" layoutY="274.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_green.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="greenHall9" layoutX="37.0" layoutY="241.0" prefHeight="33.0" prefWidth="34.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.2);" visible="false">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Graphical_Assets/student_green.png"/>
-                        </image>
-                    </ImageView>
-                </children>
-            </Pane>
-            <Pane fx:id="blueProfessor" layoutX="230.0" layoutY="168.0" prefHeight="46.0" prefWidth="46.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.3);" visible="false">
+            <Pane fx:id="blueProfessor" layoutX="230.0" layoutY="168.0" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: rgba(255, 255, 255, 0.3);" visible="false">
                 <children>
                     <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/teacher_blue.png"/>
+                            <Image url="@../Graphical_Assets/teacher_blue.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="pinkProfessor" layoutX="181.0" layoutY="168.0" prefHeight="46.0" prefWidth="46.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.3);" visible="false">
+            <Pane fx:id="pinkProfessor" layoutX="181.0" layoutY="168.0" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: rgba(255, 255, 255, 0.3);" visible="false">
                 <children>
                     <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/teacher_pink.png"/>
+                            <Image url="@../Graphical_Assets/teacher_pink.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="yellowProfessor" layoutX="130.0" layoutY="168.0" prefHeight="46.0" prefWidth="46.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.3);" visible="false">
+            <Pane fx:id="yellowProfessor" layoutX="130.0" layoutY="168.0" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: rgba(255, 255, 255, 0.3);" visible="false">
                 <children>
                     <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/teacher_yellow.png"/>
+                            <Image url="@../Graphical_Assets/teacher_yellow.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="redProfessor" layoutX="80.0" layoutY="168.0" prefHeight="46.0" prefWidth="46.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.3);" visible="false">
+            <Pane fx:id="redProfessor" layoutX="80.0" layoutY="168.0" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: rgba(255, 255, 255, 0.3);" visible="false">
                 <children>
                     <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/teacher_red.png"/>
+                            <Image url="@../Graphical_Assets/teacher_red.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Pane fx:id="greenProfessor" layoutX="31.0" layoutY="168.0" prefHeight="46.0" prefWidth="46.0"
-                  style="-fx-background-color: rgba(255, 255, 255, 0.3);" visible="false">
+            <Pane fx:id="greenProfessor" layoutX="31.0" layoutY="168.0" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: rgba(255, 255, 255, 0.3);" visible="false">
                 <children>
                     <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/teacher_green.png"/>
+                            <Image url="@../Graphical_Assets/teacher_green.png" />
                         </image>
                     </ImageView>
                 </children>
@@ -555,7 +401,7 @@
                 <children>
                     <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/white_tower.png"/>
+                            <Image url="@../Graphical_Assets/white_tower.png" />
                         </image>
                     </ImageView>
                 </children>
@@ -564,7 +410,7 @@
                 <children>
                     <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/white_tower.png"/>
+                            <Image url="@../Graphical_Assets/white_tower.png" />
                         </image>
                     </ImageView>
                 </children>
@@ -573,7 +419,7 @@
                 <children>
                     <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/white_tower.png"/>
+                            <Image url="@../Graphical_Assets/white_tower.png" />
                         </image>
                     </ImageView>
                 </children>
@@ -582,7 +428,7 @@
                 <children>
                     <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/white_tower.png"/>
+                            <Image url="@../Graphical_Assets/white_tower.png" />
                         </image>
                     </ImageView>
                 </children>
@@ -591,7 +437,7 @@
                 <children>
                     <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/white_tower.png"/>
+                            <Image url="@../Graphical_Assets/white_tower.png" />
                         </image>
                     </ImageView>
                 </children>
@@ -600,7 +446,7 @@
                 <children>
                     <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/white_tower.png"/>
+                            <Image url="@../Graphical_Assets/white_tower.png" />
                         </image>
                     </ImageView>
                 </children>
@@ -609,7 +455,7 @@
                 <children>
                     <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/white_tower.png"/>
+                            <Image url="@../Graphical_Assets/white_tower.png" />
                         </image>
                     </ImageView>
                 </children>
@@ -618,12 +464,35 @@
                 <children>
                     <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../Graphical_Assets/white_tower.png"/>
+                            <Image url="@../Graphical_Assets/white_tower.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
         </Pane>
-        <Pane fx:id="selectionPane" layoutX="313.0" layoutY="610.0" prefHeight="277.0" prefWidth="949.0"/>
+        <Pane fx:id="selectionPane" layoutX="313.0" layoutY="610.0" prefHeight="277.0" prefWidth="949.0">
+         <children>
+            <Text fx:id="desc" layoutX="268.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="413.13671875">
+               <font>
+                  <Font name="Papyrus" size="24.0" />
+               </font>
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.10000000149011612" blue="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Text>
+         </children></Pane>
     </Pane>
 </AnchorPane>

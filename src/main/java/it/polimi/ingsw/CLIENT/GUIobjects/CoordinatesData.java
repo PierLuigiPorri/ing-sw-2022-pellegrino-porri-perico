@@ -14,6 +14,7 @@ public abstract class CoordinatesData {
     private final static Coordinates motherNature=new Coordinates(87,-15);
     private final static ArrayList<Coordinates> clouds3=new ArrayList<>();
     private final static ArrayList<Coordinates> clouds2=new ArrayList<>();
+    private final static ArrayList<Coordinates> colorButtons= new ArrayList<>();
 
     private final static HashMap<Integer, ArrayList<Coordinates>> islands=new HashMap<>();
 
@@ -21,6 +22,7 @@ public abstract class CoordinatesData {
         loadGate();
         loadIslands();
         loadClouds();
+        loadSelections();
     }
 
     private static void loadGate(){
@@ -33,6 +35,15 @@ public abstract class CoordinatesData {
         gateStudents.add(6,new Coordinates(188,651));
         gateStudents.add(7,new Coordinates(236,608));
         gateStudents.add(8,new Coordinates(236,651));
+    }
+
+    private static void loadSelections(){
+        //RED,BLUE,GREEN,YELLOW,PINK
+        colorButtons.add(new Coordinates(46,68));
+        colorButtons.add(new Coordinates(230,68));
+        colorButtons.add(new Coordinates(414,68));
+        colorButtons.add(new Coordinates(580,68));
+        colorButtons.add(new Coordinates(769,68));
     }
 
     private static void loadIslands(){
@@ -184,6 +195,21 @@ public abstract class CoordinatesData {
                 return gateStudents.indexOf(x);
         }
         return -1;
+    }
+    public static Coordinates getButtons(String color){
+        switch (color){
+            case "RED":
+                return colorButtons.get(0);
+            case "BLUE":
+                return colorButtons.get(1);
+            case "GREEN":
+                return colorButtons.get(2);
+            case "YELLOW":
+                return colorButtons.get(3);
+            case "PINK":
+                return colorButtons.get(4);
+        }
+        return new Coordinates(0,0);
     }
 
     public static ArrayList<Coordinates> getClouds2() {

@@ -3,13 +3,19 @@ package it.polimi.ingsw.CLIENT;
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 
 import java.util.ArrayList;
 
 public class CharacterParametersController {
 
+    @FXML
+    private Pane selectionPane;
+    @FXML
+    private Text desc;
     private GUIAPP gui;
     private UpdateMessage update;
     private int playersNumber;
@@ -18,6 +24,7 @@ public class CharacterParametersController {
     private MotherNatureGUI motherNature;
     private StudentGUI selectedStudent;
     private CloudGUI selectedCloud;
+    private String selectedColor;
 
     private ArrayList<IslandGUI> islands;
 
@@ -42,7 +49,7 @@ public class CharacterParametersController {
         gui = guiApp;
     }
 
-    public void refresh() {
+    public void refresh(int selection) {
         update = gui.getUpdate();
         System.out.println(update.players);
         this.userNickname = gui.getUserNickname();
@@ -66,6 +73,51 @@ public class CharacterParametersController {
         }
         professorsUpdate();
         hallUpdate();
+        switch (selection) {
+            case 0: //Student AND Island selection
+                break;
+            case 2: //Island selection
+            case 4:
+                break;
+            case 6: //Student swapping, case 1
+                break;
+            case 9: //Student swapping, case 2
+                break;
+            case 10: //Student selection
+                break;
+            case 8: //Color selection
+            case 11:
+                desc.setText("CHOOSE A COLOR!");
+                ColorButton red=new ColorButton("RED");
+                ColorButton blue=new ColorButton("BLUE");
+                ColorButton yellow=new ColorButton("YELLOW");
+                ColorButton green=new ColorButton("GREEN");
+                ColorButton pink=new ColorButton("PINK");
+                red.setLayoutX(CoordinatesData.getButtons("RED").getX());
+                red.setLayoutY(CoordinatesData.getButtons("RED").getY());
+                blue.setLayoutX(CoordinatesData.getButtons("BLUE").getX());
+                blue.setLayoutY(CoordinatesData.getButtons("BLUE").getY());
+                green.setLayoutX(CoordinatesData.getButtons("GREEN").getX());
+                green.setLayoutY(CoordinatesData.getButtons("GREEN").getY());
+                yellow.setLayoutX(CoordinatesData.getButtons("YELLOW").getX());
+                yellow.setLayoutY(CoordinatesData.getButtons("YELLOW").getY());
+                pink.setLayoutX(CoordinatesData.getButtons("PINK").getX());
+                pink.setLayoutY(CoordinatesData.getButtons("PINK").getY());
+                ToggleGroup group=new ToggleGroup();
+                red.setToggleGroup(group);
+                blue.setToggleGroup(group);
+                green.setToggleGroup(group);
+                yellow.setToggleGroup(group);
+                pink.setToggleGroup(group);
+                selectionPane.getChildren().add(red);
+                selectionPane.getChildren().add(blue);
+                selectionPane.getChildren().add(green);
+                selectionPane.getChildren().add(yellow);
+                selectionPane.getChildren().add(pink);
+                break;
+            default:
+                break;
+        }
     }
 
     private void towersUpdate() {
