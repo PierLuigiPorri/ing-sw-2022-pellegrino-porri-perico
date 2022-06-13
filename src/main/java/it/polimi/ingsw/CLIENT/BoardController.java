@@ -407,6 +407,7 @@ public class BoardController{
     }
 
     private void setUpdateText(){
+        System.out.println(update.update);
         if(update.update.size()==1)
             updateText1.setText(update.update.get(0));
         if(update.update.size()==2)
@@ -423,7 +424,7 @@ public class BoardController{
             else
                 introducePhase(1);
 
-        logMessage1.setText("\nPlayers that have to play, in order:" + update.order);
+        logMessage1.setText("Players that have to play, in order: " + update.order);
         if (update.phase.equals("Planning")) {    //Planning Phase
             if (update.order.get(0).equals(userNickname)) {             //Player's turn
                 introduceTurn(0);
@@ -448,39 +449,39 @@ public class BoardController{
     private void introducePhase(int phase) {
         switch (phase) {
             case 0:
-                logMessage2.setText("\nTurn " + update.turnNumber + "!" + "\nPlanning Time!" +
-                        "\nNow's your chance to, you know, plan." +
-                        "\nYou should all play a card. The best stuff happens later.");
+                logMessage2.setText(" Turn " + update.turnNumber + "!" + " Planning Time!" +
+                        " Now's your chance to, you know, plan." +
+                        " You should all play a card. The best stuff happens later.");
                 break;
             case 1:
-                logMessage2.setText("\nTurn " + update.turnNumber + "!" + "\nAction time!" +
-                        "\nThis is the big league. Now is when the game is decided. Every round. Let's go!" +
-                        "\nMove students. Activate special effects. Move digital imaginary tokens. Your call.");
+                logMessage2.setText(" Turn " + update.turnNumber + "!" + " Action time!" +
+                        " This is the big league. Now is when the game is decided. Every round. Let's go!" +
+                        " Move students. Activate special effects. Move digital imaginary tokens. Your call.");
         }
     }
 
     private void introduceTurn(int turn) {
         switch (turn) {
             case 0://Player's turn, Planning phase
-                logMessage3.setText("\n" + "Now! Fire your card!" +
-                        "\nRemember, you can't play a card that has already been played this round. Just don't." );
+                logMessage3.setText(" " + "Now! Fire your card!" +
+                        " Remember, you can't play a card that has already been played this round. Just don't." );
                 break;
             case 1://Planning phase, not player's turn
-                logMessage3.setText("\n" + "It's not your time to play a card. Hold..." );
+                logMessage3.setText( " It's not your time to play a card. Hold..." );
                 break;
             case 2://Action phase, not player's turn
-                logMessage3.setText("\n" + "Not your time to shine yet, somebody else is playing." +
-                        "\nBe ready for when your turn comes." );
+                logMessage3.setText(" " + "Not your time to shine yet, somebody else is playing." +
+                        " Be ready for when your turn comes." );
                 break;
             case 3://Action phase, player's turn
-                logMessage3.setText("\n" + "Your turn!");
+                logMessage3.setText(" Your turn!");
                 break;
             case 4://End of action phase, player's turn, cloud sub-phase
-                logMessage3.setText("\n" + "You moved your students, you get new ones. That's how it works. Go get some from a cloud!" );
+                logMessage3.setText(" You moved your students, you get new ones. That's how it works. Go get some from a cloud!" );
                 break;
             case 5://End of action phase, player's turn, MN movement
-                logMessage3.setText("\n" + "OK! Good student managing. Now let's end this round. " +
-                        "\nTime to politely ask Lady Mother Nature to relocate on an Island of your choosing." );
+                logMessage3.setText(" " + "OK! Good student managing. Now let's end this round. " +
+                        "Time to politely ask Lady Mother Nature to relocate on an Island of your choosing." );
                 break;
         }
     }

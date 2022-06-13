@@ -642,27 +642,31 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(123, 202, 240, 0.7);">
                      <children>
-                        <Text fx:id="updateText1" fill="#b51d1d" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="333.00000000000006">
-                           <font>
-                              <Font name="System Bold" size="22.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="updateText2" fill="#b51d1d" layoutX="2.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="330.0">
-                           <font>
-                              <Font name="System Bold" size="22.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="updateText3" fill="#b51d1d" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="330.0">
-                           <font>
-                              <Font name="System Bold" size="22.0" />
-                           </font>
-                        </Text>
+                        <Pane prefHeight="200.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Text fx:id="updateText1" fill="#b51d1d" layoutX="2.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="333.00000000000006">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="updateText2" fill="#b51d1d" layoutX="2.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="330.0">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="updateText3" fill="#b51d1d" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="330.0">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
                      </children></AnchorPane>
               </content>
             </ScrollPane>
             <Text fx:id="logMessage1" layoutX="589.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="346.0" />
             <Text fx:id="logMessage2" layoutX="589.0" layoutY="608.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="346.0" />
-            <Text fx:id="logMessage3" layoutX="589.0" layoutY="665.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="346.0" />
+            <Text fx:id="logMessage3" layoutX="589.0" layoutY="674.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="346.0" />
          </children>
       </Pane>
    </children>

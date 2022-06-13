@@ -348,22 +348,32 @@ public class Game extends Observable {
         if (roundMaster.round.getCurrentPhase().equals("Planning")) {
             if (index >= 0 && index < 10) {
                 Player player1 = playerTranslator(player);
-                int i = 0;
-                while (!players.get(i).equals(player1)) {
-                    i++;
+                int card1=100, card2=100;
+                if(!cardsPlayed.isEmpty()) {
+                    card1 = cardsPlayed.get(0).getValue();
+                    if(cardsPlayed.size()==2)
+                        card2=cardsPlayed.get(1).getValue();
                 }
-                if (order.get(0).equals(this.players.get(i))) {
-                    cardsPlayed.add(this.players.get(i).playCard(index));
-                    order.remove(0);
-                    update.add("\n" + player + " played their card!");
-                } else throw new ImpossibleActionException("\nNot " + players.get(i).nickname + "'s turn!\n");
+                int value=player1.getHand().cards.get(index).getValue();
+                if(value!=card1 && value!=card2) {
+
+                    int i = 0;
+                    while (!players.get(i).equals(player1)) {
+                        i++;
+                    }
+                    if (order.get(0).equals(this.players.get(i))) {
+                        cardsPlayed.add(this.players.get(i).playCard(index));
+                        order.remove(0);
+                        update.add("\n" + player + " played their card!");
+                    } else throw new ImpossibleActionException("\nNot " + players.get(i).nickname + "'s turn!\n");
 //When Order.get(0) is equal to NULL, means every player has played. So is time to change phase into "Action";
-                if (order.isEmpty()) {
-                    changePhase();
-                }
-                setChanged();
-                notifyObservers(update);
-                update.clear();
+                    if (order.isEmpty()) {
+                        changePhase();
+                    }
+                    setChanged();
+                    notifyObservers(update);
+                    update.clear();
+                } else throw new ImpossibleActionException("\nYou can't play a card which is already been played from someone else!\n");
             } else throw new ImpossibleActionException("\nNo card with " + index + " as index\n");
         }
     }
