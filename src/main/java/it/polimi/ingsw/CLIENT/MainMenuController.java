@@ -166,9 +166,7 @@ public class MainMenuController{
         popupWindow.setMinWidth(100);
         Label label = new Label();
         label.setText(message);
-
-        popupButton1 =new Button("ok");
-
+        popupButton1 =new Button("OK");
         VBox layout = new VBox(15);
         layout.getChildren().addAll(label, popupButton1);
         layout.setAlignment(Pos.CENTER);

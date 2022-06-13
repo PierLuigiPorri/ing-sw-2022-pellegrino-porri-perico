@@ -8,9 +8,13 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -228,11 +232,41 @@ public class GUIAPP extends Application implements View {
         if(!gameStarted){
             gameStarted=true;
         }
-        setScene("fxml/board.fxml");
-        boardController.refresh();
-        System.out.println("Ho applicato l'update");
-        System.out.println(update.update);
-        currentStage.show();
+        if(!update.gameEnded) {
+            setScene("fxml/board.fxml");
+            boardController.refresh();
+            System.out.println("Ho applicato l'update");
+            System.out.println(update.update);
+            currentStage.show();
+        }
+        else{
+            gameStarted=false;
+            setScene("fxml/mainMenu.fxml");
+            currentStage.show();
+            showPopup("GAME ENDED", update.update.get(0));
+            popupButton1.setOnAction(e -> popupWindow.close());
+            popupWindow.showAndWait();
+        }
+    }
+
+    private Stage popupWindow;
+    private Button popupButton1;
+    private void showPopup(String title, String message) {
+        popupWindow = new Stage();
+        popupWindow.initModality(Modality.APPLICATION_MODAL);
+        popupWindow.setTitle(title);
+        popupWindow.setMinHeight(200);
+        popupWindow.setMinWidth(200);
+        javafx.scene.control.Label label = new javafx.scene.control.Label();
+        label.setText(message);
+
+        popupButton1 =new Button("OK");
+
+        VBox layout = new VBox(15);
+        layout.getChildren().addAll(label, popupButton1);
+        layout.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(layout);
+        popupWindow.setScene(scene);
     }
 
     public UpdateMessage getUpdate(){
