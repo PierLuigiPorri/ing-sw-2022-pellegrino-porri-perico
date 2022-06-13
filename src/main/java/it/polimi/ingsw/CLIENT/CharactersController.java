@@ -182,16 +182,6 @@ public class CharactersController{
                             checkIntInput(0, 3, i, "What's the index?");
                             c.add(inputInt.get(inputInt.size() - 1));
                     break;*/
-                /*case 8:   //Serve la selezione del colore
-                        System.out.println("What color would you like to disable?");
-                        String in = getStrInput();
-                        if (in.equals("-1")) {
-                            cancel = true;
-                            break;
-                        }
-                        checkStrInput(in, "What color would you like to disable?");
-                        b.add(inputStr.get(inputStr.size() - 1));
-                    break;*/
                 /*case 9:   //Questo non è impossibile ma è un lavoro enorme
                         System.out.println("How many students would you like to swap?");
                         i = getIntInput();
@@ -225,16 +215,11 @@ public class CharactersController{
                         checkIntInput(0, 3, i, "What is the index on the card of the student you want to add?");
                         a.add(inputInt.get(inputInt.size() - 1));
                     break;*/
-                /*case 11:  //Serve la selezione del colore
-                        System.out.println("What color would you like to affect?");
-                        String in = getStrInput();
-                        if (in.equals("-1")) {
-                            cancel = true;
-                            break;
-                        }
-                        checkStrInput(in, "Which color?");
-                        b.add(inputStr.get(inputStr.size() - 1));
-                    break;*/
+                case 8:
+                case 11:  //Serve la selezione del colore
+                        gui.setScene("characterParametersSelection.fxml");
+                        gui.characterParametersController.refresh(selectedChar);
+                    break;
                 default:
                     break;
             }

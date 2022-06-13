@@ -16,6 +16,7 @@ public class IslandGUI extends Pane {
     private int yellow=0;
     private int pink=0;
     private int towers=0;
+    private boolean selected=false;
 
     public IslandGUI(int i) {
         this.index = i;
@@ -103,9 +104,11 @@ public class IslandGUI extends Pane {
 
     public void setSelected(){
         this.setStyle("-fx-background-color: yellow");
+        selected=true;
     }
 
     public void deselect(){
         this.setStyle(null);
+        selected=false;
     }
 }

@@ -3,8 +3,10 @@ package it.polimi.ingsw.CLIENT;
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -47,12 +49,15 @@ public class CharacterParametersController {
     private Pane gate;
     @FXML
     private Pane root;
+    private ToggleGroup group;
+    private int index;
 
     public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
     }
 
     public void refresh(int selection) {
+        this.index=selection;
         update = gui.getUpdate();
         System.out.println(update.players);
         this.userNickname = gui.getUserNickname();
@@ -81,6 +86,7 @@ public class CharacterParametersController {
                 break;
             case 2: //Island selection
             case 4:
+                desc.setText("CHOOSE AN ISLAND!");
                 break;
             case 6: //Student swapping, case 1
                 break;
@@ -106,17 +112,23 @@ public class CharacterParametersController {
                 yellow.setLayoutY(CoordinatesData.getButtons("YELLOW").getY());
                 pink.setLayoutX(CoordinatesData.getButtons("PINK").getX());
                 pink.setLayoutY(CoordinatesData.getButtons("PINK").getY());
-                ToggleGroup group=new ToggleGroup();
+                group=new ToggleGroup();
                 red.setToggleGroup(group);
                 blue.setToggleGroup(group);
                 green.setToggleGroup(group);
                 yellow.setToggleGroup(group);
                 pink.setToggleGroup(group);
+                red.setOnMousePressed(this::colorHighlight);
+                blue.setOnMousePressed(this::colorHighlight);
+                green.setOnMousePressed(this::colorHighlight);
+                yellow.setOnMousePressed(this::colorHighlight);
+                pink.setOnMousePressed(this::colorHighlight);
                 selectionPane.getChildren().add(red);
                 selectionPane.getChildren().add(blue);
                 selectionPane.getChildren().add(green);
                 selectionPane.getChildren().add(yellow);
                 selectionPane.getChildren().add(pink);
+                activate.setOnMousePressed(this::colorConfirmed);
                 break;
             default:
                 break;
@@ -329,6 +341,47 @@ public class CharacterParametersController {
     public int userIndex() {
         System.out.println(userNickname);
         return update.players.indexOf(userNickname);
+    }
+
+    private void colorHighlight(MouseEvent e){
+        for (IslandGUI i:islands) {
+            for (Node s:i.getChildren()){
+                if (s instanceof StudentGUI){
+                    if( ((StudentGUI) s).getColor().equals(((ColorButton)e.getSource()).color)){
+                        ((StudentGUI) s).setSelected();
+                    }else
+                        ((StudentGUI) s).deselect();
+                }
+            }
+        }
+        for (Node s:gate.getChildren()){
+            if (s instanceof StudentGUI){
+                if( ((StudentGUI) s).getColor().equals(((ColorButton)e.getSource()).color)){
+                    ((StudentGUI) s).setSelected();
+                }else
+                    ((StudentGUI) s).deselect();
+            }
+        }
+    }
+
+    private void colorConfirmed(MouseEvent e){
+        ArrayList<Integer> a = new ArrayList<>();
+        ArrayList<String> b = new ArrayList<>();
+        a.add(index);
+        b.add(((ColorButton)group.getSelectedToggle()).color);
+        for (IslandGUI i:islands) {
+            for (Node s:i.getChildren()){
+                if (s instanceof StudentGUI){
+                    ((StudentGUI) s).deselect();
+                }
+            }
+        }
+        for (Node s:gate.getChildren()){
+            if (s instanceof StudentGUI){
+                ((StudentGUI) s).deselect();
+            }
+        }
+        gui.perform(a,b,null,5);
     }
 
 }
