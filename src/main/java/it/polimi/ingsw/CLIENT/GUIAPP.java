@@ -224,8 +224,8 @@ public class GUIAPP extends Application implements View {
     }
 
     @Override
-    public void update(UpdateMessage update) {
-        this.update=update;
+    public void update(UpdateMessage up) {
+        this.update=up;
         if(!gameStarted){
             gameStarted=true;
         }
