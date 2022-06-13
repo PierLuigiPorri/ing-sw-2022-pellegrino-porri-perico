@@ -144,9 +144,6 @@ public class GUIAPP extends Application implements View {
         return msgHandler.getResponses();
     }
 
-    public ArrayList<UpdateMessage> getUpdates(){
-        return msgHandler.getUpdates();
-    }
     public void setUserNickname(String nickname){
         this.userNickname=nickname;
     }
@@ -249,6 +246,24 @@ public class GUIAPP extends Application implements View {
         }
     }
 
+    public UpdateMessage getUpdate(){
+        return update;
+    }
+
+    public void setPlayerNickname(String name){
+        this.playerNickname=name;
+    }
+
+    public String getPlayerNickname(){
+        return this.playerNickname;
+    }
+
+    @Override
+    public void setKill() {
+
+    }
+
+    //Popup stuff
     private Stage popupWindow;
     private Button popupButton1;
     private void showPopup(String title, String message) {
@@ -267,22 +282,5 @@ public class GUIAPP extends Application implements View {
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout);
         popupWindow.setScene(scene);
-    }
-
-    public UpdateMessage getUpdate(){
-        return update;
-    }
-
-    public void setPlayerNickname(String name){
-        this.playerNickname=name;
-    }
-
-    public String getPlayerNickname(){
-        return this.playerNickname;
-    }
-
-    @Override
-    public void setKill() {
-
     }
 }
