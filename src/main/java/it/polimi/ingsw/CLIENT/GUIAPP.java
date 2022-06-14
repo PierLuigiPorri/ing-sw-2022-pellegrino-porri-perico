@@ -25,8 +25,8 @@ public class GUIAPP extends Application implements View {
 
     private String userNickname, playerNickname;
     private final Object lock;
-    private final ClientMsgHandler msgHandler;
-    private final AckSender ackSender;
+    private ClientMsgHandler msgHandler;
+    private AckSender ackSender;
     private final ArrayList<Integer> inputInt, third;
     private final ArrayList<String> inputStr;
     private final ArrayList<Integer> int3=null;
@@ -43,28 +43,18 @@ public class GUIAPP extends Application implements View {
 
     public GUIAPP(){
         lock = new Object();
-        msgHandler = new ClientMsgHandler("127.0.0.1", 4000, lock); //Connection setup with this IP and Port numbers
-        ackSender = new AckSender(msgHandler, 5000);
         inputInt=new ArrayList<>();
         inputStr=new ArrayList<>();
         third=new ArrayList<>();
         gameStarted=false;
     }
 
-    @Override
-    public void init(){
-        msgHandler.setAckSender(ackSender);
-        new Thread(ackSender).start();
-        new Thread(msgHandler).start();
-        msgHandler.setView(this);
-    }
-
     @FXML
     @Override
     public void start(Stage primaryStage) throws Exception {
         currentStage=new Stage();
-        MainMenuController.setGUI(this);
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/mainMenu.fxml")));
+        IPController.setGUI(this);
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/IP_choice.fxml")));
         Scene scene = new Scene(root);
         currentStage.setScene(scene);
         Image icon=new Image("Graphical_Assets/sfondo.jpg");
@@ -72,6 +62,17 @@ public class GUIAPP extends Application implements View {
         currentStage.setTitle("Eriantys");
         currentStage.setResizable(false);
         currentStage.show();
+    }
+
+    public void connect(String ip){
+        msgHandler = new ClientMsgHandler(ip, 4000, lock); //Connection setup with this IP and Port numbers
+        ackSender = new AckSender(msgHandler, 5000);
+        msgHandler.setAckSender(ackSender);
+        new Thread(ackSender).start();
+        new Thread(msgHandler).start();
+        msgHandler.setView(this);
+        MainMenuController.setGUI(this);
+        setScene("fxml/mainMenu.fxml");
     }
 
     @FXML
