@@ -29,14 +29,12 @@ public class CharacterParametersController {
     private GUIAPP gui;
     private UpdateMessage update;
     private int playersNumber;
-    private int gameType;
     private String userNickname;
     private MotherNatureGUI motherNature;
     private StudentGUI selectedStudent=null;
-    private CloudGUI selectedCloud;
     private String selectedColor;
     private IslandGUI selectedIsland=null;
-    private ArrayList<StudentGUI> studentsOnCard=new ArrayList<>();
+    private final ArrayList<StudentGUI> studentsOnCard=new ArrayList<>();
 
     private ArrayList<IslandGUI> islands;
 
@@ -70,7 +68,6 @@ public class CharacterParametersController {
         System.out.println(update.players);
         this.userNickname = gui.getUserNickname();
         this.playersNumber = update.players.size();
-        this.gameType = update.game_Type;
         CoordinatesData.loadCoordinates();
         createIslands();
         studentsOnGateUpdate();
@@ -460,6 +457,7 @@ public class CharacterParametersController {
                         ((StudentGUI) s).deselect();
                 }
             }
+            selectedColor=((ColorButton) e.getSource()).color;
             this.activate.setDisable(false);
         }
     }
@@ -469,7 +467,7 @@ public class CharacterParametersController {
         ArrayList<Integer> a = new ArrayList<>();
         ArrayList<String> b = new ArrayList<>();
         a.add(index);
-        b.add(((ColorButton) group.getSelectedToggle()).color);
+        b.add(selectedColor);
         for (IslandGUI i : islands) {
             for (Node s : i.getChildren()) {
                 if (s instanceof StudentGUI) {
