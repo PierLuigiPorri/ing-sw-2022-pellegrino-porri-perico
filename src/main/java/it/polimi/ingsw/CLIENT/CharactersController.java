@@ -242,6 +242,7 @@ public class CharactersController{
 
     public void backToBoard(){
         gui.setScene("fxml/board.fxml");
+        gui.boardController.refresh();
     }
 
 }

@@ -594,7 +594,7 @@
       </Pane>
       <Text fill="#00ff1a" layoutX="329.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THIS IS THE BOARD OF:">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="Papyrus" size="20.0" />
          </font>
       </Text>
       <Pane layoutX="372.0" layoutY="284.0" prefHeight="200.0" prefWidth="137.0">
@@ -609,12 +609,12 @@
       </Text>
       <Text fill="#ffe330" layoutX="329.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LAST CARD PLAYED:">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="Papyrus" size="20.0" />
          </font>
       </Text>
       <Text fill="#ff1818" layoutX="329.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COINS OWNED:">
          <font>
-            <Font size="20.0" />
+            <Font name="Papyrus" size="20.0" />
          </font>
       </Text>
       <Text fx:id="coinsOwned" fill="#da3a3a" layoutX="378.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="63.0">

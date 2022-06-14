@@ -12,8 +12,6 @@ public class ModelView extends Observable implements Observer {
     private UpdateMessage update;
     private final Game game;
 
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_RESET = "\u001B[0m";
 
     public ModelView(Game game, GameManager gameManager) {
         this.update = new UpdateMessage();

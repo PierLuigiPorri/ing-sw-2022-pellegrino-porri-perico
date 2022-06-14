@@ -386,7 +386,6 @@ public class BoardController{
         }
     }
 
-
     private void onCloudButtonPressed() {
         ArrayList<Integer> par = new ArrayList<>();
         par.add(selectedCloud.getIndex());
@@ -411,7 +410,7 @@ public class BoardController{
 
     private void setUpdateText(){
         for (String s:update.update) {
-            updateMessageLog.appendText(s);
+            updateMessageLog.appendText("\n"+s);
         }
     }
 

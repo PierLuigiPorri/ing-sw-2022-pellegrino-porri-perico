@@ -32,7 +32,7 @@ public class GUIAPP extends Application implements View {
     private final ArrayList<Integer> int3=null;
     private UpdateMessage update;
     public boolean gameStarted;
-    private BoardController boardController;
+    public BoardController boardController;
     private PlayersBoardController playersBoardController;
     private HandController handController;
     private CharactersController charactersController;
@@ -185,32 +185,44 @@ public class GUIAPP extends Application implements View {
 
     @Override
     public void moveMotherNature() {
-        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 3));
+        ArrayList<Integer> integers=new ArrayList<>(inputInt);
+        ArrayList<String> strings=new ArrayList<>(inputStr);
+        msgHandler.send(new ActionMessage(integers, strings, int3, 3));
     }
 
     @Override
     public void gateToIsland() {
-        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 0));
+        ArrayList<Integer> integers=new ArrayList<>(inputInt);
+        ArrayList<String> strings=new ArrayList<>(inputStr);
+        msgHandler.send(new ActionMessage(integers, strings, int3, 0));
     }
 
     @Override
     public void gateToHall() {
-        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 1));
+        ArrayList<Integer> integers=new ArrayList<>(inputInt);
+        ArrayList<String> strings=new ArrayList<>(inputStr);
+        msgHandler.send(new ActionMessage(integers, strings, int3, 1));
     }
 
     @Override
     public void cloudToGate() {
-        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 2));
+        ArrayList<Integer> integers=new ArrayList<>(inputInt);
+        ArrayList<String> strings=new ArrayList<>(inputStr);
+        msgHandler.send(new ActionMessage(integers, strings, int3, 2));
     }
 
     @Override
     public void activateCharacter() {
-        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 5));
+        ArrayList<Integer> integers=new ArrayList<>(inputInt);
+        ArrayList<String> strings=new ArrayList<>(inputStr);
+        msgHandler.send(new ActionMessage(integers, strings, int3, 5));
     }
 
     @Override
     public void playCard() {
-        msgHandler.send(new ActionMessage(inputInt, inputStr, int3, 4));
+        ArrayList<Integer> integers=new ArrayList<>(inputInt);
+        ArrayList<String> strings=new ArrayList<>(inputStr);
+        msgHandler.send(new ActionMessage(integers, strings, int3, 4));
     }
 
     @Override

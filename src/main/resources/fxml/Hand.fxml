@@ -105,14 +105,14 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Text fill="#ebde2d" layoutX="203.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THIS IS YOUR HAND!" wrappingWidth="230.966796875">
+      <Text fill="#ebde2d" layoutX="169.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THIS IS YOUR HAND!" wrappingWidth="297.966796875">
          <font>
-            <Font name="System Bold Italic" size="22.0" />
+            <Font name="Papyrus" size="22.0" />
          </font>
       </Text>
-      <Text fill="#d30101" layoutX="148.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT THE CARD YOU WANT TO PLAY!">
+      <Text fill="#d30101" layoutX="36.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT THE CARD YOU WANT TO PLAY!">
          <font>
-            <Font name="Book Antiqua" size="17.0" />
+            <Font name="Papyrus" size="17.0" />
          </font>
       </Text>
       <Button layoutX="499.0" layoutY="391.0" mnemonicParsing="false" onAction="#backToBoard" onMouseClicked="#backToBoard" prefHeight="54.0" prefWidth="123.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="BACK TO BOARD">

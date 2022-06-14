@@ -155,6 +155,7 @@ public class PlayersBoardController {
 
     public void backToBoard(){
         gui.setScene("fxml/board.fxml");
+        gui.boardController.refresh();
     }
 
 }

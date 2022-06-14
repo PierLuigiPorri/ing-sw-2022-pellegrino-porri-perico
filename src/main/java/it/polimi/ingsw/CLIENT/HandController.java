@@ -33,7 +33,7 @@ public class HandController {
         arrayBuild(cards, card0, card1, card2, card3, card4, card5, card6, card7, card8, card9);
         setCards();
 
-        if(!update.phase.equals("Planning") && !update.order.get(0).equals(userNickname))
+        if(!update.phase.equals("Planning") || !update.order.get(0).equals(userNickname))
             disableAllCards(true);
 
         onMouseClicked(cards);
@@ -179,6 +179,7 @@ public class HandController {
 
     public void backToBoard(){
         gui.setScene("fxml/board.fxml");
+        gui.boardController.refresh();
     }
 
 }
