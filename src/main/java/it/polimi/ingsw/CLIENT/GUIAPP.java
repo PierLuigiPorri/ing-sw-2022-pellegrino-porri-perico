@@ -6,19 +6,24 @@ import it.polimi.ingsw.MESSAGES.ResponseMessage;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class GUIAPP extends Application implements View {
@@ -57,11 +62,28 @@ public class GUIAPP extends Application implements View {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml/IP_choice.fxml")));
         Scene scene = new Scene(root);
         currentStage.setScene(scene);
+        currentStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
         Image icon=new Image("Graphical_Assets/sfondo.jpg");
         currentStage.getIcons().add(icon);
         currentStage.setTitle("Eriantys");
         currentStage.setResizable(false);
         currentStage.show();
+    }
+
+    private void closeWindowEvent(WindowEvent event) {
+        System.out.println("Window close request ...");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.getButtonTypes().remove(ButtonType.OK);
+            alert.getButtonTypes().add(ButtonType.CANCEL);
+            alert.getButtonTypes().add(ButtonType.YES);
+            alert.setTitle("CLOSE APPLICATION");
+            alert.setContentText("Are you sure you want to close the application?");
+            alert.initOwner(currentStage.getOwner());
+            Optional<ButtonType> res = alert.showAndWait();
+            if(res.isPresent()) {
+                if(res.get().equals(ButtonType.CANCEL))
+                    event.consume();
+            }
     }
 
     public void connect(String ip){
