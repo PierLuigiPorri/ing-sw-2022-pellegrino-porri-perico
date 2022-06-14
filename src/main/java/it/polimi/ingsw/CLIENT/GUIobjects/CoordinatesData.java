@@ -15,6 +15,8 @@ public abstract class CoordinatesData {
     private final static ArrayList<Coordinates> clouds3=new ArrayList<>();
     private final static ArrayList<Coordinates> clouds2=new ArrayList<>();
     private final static ArrayList<Coordinates> colorButtons= new ArrayList<>();
+    private final static ArrayList<Coordinates> cardStudents4=new ArrayList<>();
+    private final static ArrayList<Coordinates> cardStudents6=new ArrayList<>();
 
     private final static HashMap<Integer, ArrayList<Coordinates>> islands=new HashMap<>();
 
@@ -44,6 +46,16 @@ public abstract class CoordinatesData {
         colorButtons.add(new Coordinates(414,68));
         colorButtons.add(new Coordinates(580,68));
         colorButtons.add(new Coordinates(769,68));
+        cardStudents4.add(new Coordinates(21,39));
+        cardStudents4.add(new Coordinates(21,87));
+        cardStudents4.add(new Coordinates(104,21));
+        cardStudents4.add(new Coordinates(104,87));
+        cardStudents6.add(new Coordinates(21,8));
+        cardStudents6.add(new Coordinates(21,56));
+        cardStudents6.add(new Coordinates(21,97));
+        cardStudents6.add(new Coordinates(104,97));
+        cardStudents6.add(new Coordinates(104,56));
+        cardStudents6.add(new Coordinates(104,8));
     }
 
     private static void loadIslands(){
@@ -210,6 +222,13 @@ public abstract class CoordinatesData {
                 return colorButtons.get(4);
         }
         return new Coordinates(0,0);
+    }
+
+    public static ArrayList<Coordinates> getCardStudents(int num){
+        if(num==4)
+            return cardStudents4;
+        else
+            return cardStudents6;
     }
 
     public static ArrayList<Coordinates> getClouds2() {

@@ -112,53 +112,12 @@ public class CharactersController{
             ArrayList<String> b = new ArrayList<>();
             a.add(selectedChar);
             switch (selectedChar) {
-                /*case 0: //Serve prima la selezione dello studente, poi la selezione dell'isola
-                    int i, x;
-                        System.out.println("What's the position of the student on the card you want to move?");
-                        i = getIntInput();
-                        if (i == -1) {
-                            cancel = true;
-                            break;
-                        }
-                        checkIntInput(0, 3, i, "What's the position of the student on the card you want to move?\n");
-                        a.add(inputInt.get(inputInt.size() - 1));
-                        System.out.println("What's the index of the island on which you want to move the student?");
-                        x = getIntInput();
-                        if (x == -1) {
-                            cancel = true;
-                            break;
-                        }
-                        checkIntInput(1, 12, x, "What's the index of the island on which you want to move the student?");
-                        a.add(inputInt.get(inputInt.size() - 1));
-                    break;*/
                 case 1:
                 case 7:
                 case 3:
                 case 5:
                     gui.perform(a, b, null,5);
                     break;
-                /*case 2:  //Serve la selezione dell'isola
-                        System.out.println("What's the index of the island you want to determine the influence of?");
-                        i = getIntInput();
-                        if (i == -1) {
-
-
-                         cancel = true;
-                                                      break;
-                        }\
-                        checkIntInput(1, 12, i, "What's the index of the island you want to determine the influence of?\n");
-                        a.add(inputInt.get(inputInt.size() - 1));
-                    break;*/
-                /*case 4:   //Serve la selezione dell'isola
-                        System.out.println("What's the index of the island you want to put the counter on?");
-                        i = getIntInput();
-                        if (i == -1) {
-                            cancel = true;
-                            break;
-                        }
-                        checkIntInput(1, 12, i, "What's the index of the island you want to put the counter on?\n");
-                        a.add(inputInt.get(inputInt.size() - 1));
-                    break;*/
                 /*case 6:   //Questo è impossibile non so come farlo
                         System.out.println("How many students do you want to swap?");
                         i = getIntInput();
@@ -215,10 +174,13 @@ public class CharactersController{
                         checkIntInput(0, 3, i, "What is the index on the card of the student you want to add?");
                         a.add(inputInt.get(inputInt.size() - 1));
                     break;*/
+                case 0:
+                case 2:
+                case 4:
                 case 8:
-                case 11:  //Serve la selezione del colore
-                        gui.setScene("characterParametersSelection.fxml");
-                        gui.characterParametersController.refresh(selectedChar);
+                case 11:
+                    gui.setScene("characterParametersSelection.fxml");
+                    gui.characterParametersController.refresh(selectedChar);
                     break;
                 default:
                     break;

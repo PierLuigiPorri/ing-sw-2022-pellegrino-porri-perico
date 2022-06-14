@@ -61,8 +61,9 @@ public class BoardController{
 
         playersNicknames();
         player1.setText(player1Nickname);
-        studentsOnGateUpdate();
         createIslands();
+        studentsOnGateUpdate();
+
 
         setLogMessage();
         setUpdateText();

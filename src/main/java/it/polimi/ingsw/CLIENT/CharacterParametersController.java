@@ -3,11 +3,16 @@ package it.polimi.ingsw.CLIENT;
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
@@ -27,9 +32,11 @@ public class CharacterParametersController {
     private int gameType;
     private String userNickname;
     private MotherNatureGUI motherNature;
-    private StudentGUI selectedStudent;
+    private StudentGUI selectedStudent=null;
     private CloudGUI selectedCloud;
     private String selectedColor;
+    private IslandGUI selectedIsland=null;
+    private ArrayList<StudentGUI> studentsOnCard=new ArrayList<>();
 
     private ArrayList<IslandGUI> islands;
 
@@ -51,23 +58,22 @@ public class CharacterParametersController {
     private Pane root;
     private ToggleGroup group;
     private int index;
+    private Text selectedText;
 
     public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
     }
 
     public void refresh(int selection) {
-        this.index=selection;
+        this.index = selection;
         update = gui.getUpdate();
         System.out.println(update.players);
         this.userNickname = gui.getUserNickname();
         this.playersNumber = update.players.size();
         this.gameType = update.game_Type;
         CoordinatesData.loadCoordinates();
-
-        studentsOnGateUpdate();
         createIslands();
-
+        studentsOnGateUpdate();
 
         towersUpdate();
         motherNatureUpdate();
@@ -83,25 +89,102 @@ public class CharacterParametersController {
         hallUpdate();
         switch (selection) {
             case 0: //Student AND Island selection
+                desc.setText("CHOOSE A STUDENT AND AN ISLAND!");
+                for(IslandGUI i:islands){
+                    i.setOnMousePressed(this::onIslandSelected);
+                }
+                selectedText=new Text();
+                selectedText.setFont(Font.font("papyrus",16));
+                LinearGradient paint = new LinearGradient(
+                        0.0, 0.0, 1.0, 1.0, true, CycleMethod.NO_CYCLE,
+                        new Stop(0.0, new Color(0.0, 0.0, 0.0, 1.0)),
+                        new Stop(1.0, new Color(1.0, 0.0, 0.0, 1.0)));
+                selectedText.setFill(paint);
+                selectedText.setLayoutX(373);
+                selectedText.setLayoutY(130);
+                selectionPane.getChildren().add(selectedText);
+                Pane p=new Pane();
+                p.setPrefWidth(159);
+                p.setPrefHeight(240);
+                p.setLayoutX(103);
+                p.setLayoutY(40);
+                ImageView imageView=new ImageView();
+                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front0.jpg"));
+                imageView.setCursor(Cursor.HAND);
+                p.getChildren().add(imageView);
+                CharacterGUI studs=new CharacterGUI(4);
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(10)).size(); i+=2){
+                    StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(10)).get(i));
+                    student.setOnMousePressed(this::studentPressed);
+                    studentsOnCard.add(student);
+                    studs.getChildren().add(student);
+                }
+                p.getChildren().add(studs);
+                selectionPane.getChildren().add(p);
+                activate.setOnMousePressed(this::studentIslandConfirmed);
                 break;
             case 2: //Island selection
             case 4:
                 desc.setText("CHOOSE AN ISLAND!");
+                selectedText=new Text();
+                selectedText.setFont(Font.font("papyrus",16));
+                paint = new LinearGradient(
+                        0.0, 0.0, 1.0, 1.0, true, CycleMethod.NO_CYCLE,
+                        new Stop(0.0, new Color(0.0, 0.0, 0.0, 1.0)),
+                        new Stop(1.0, new Color(1.0, 0.0, 0.0, 1.0)));
+                selectedText.setFill(paint);
+                selectedText.setLayoutY(130);
+                selectedText.setLayoutX(245);
+                selectionPane.getChildren().add(selectedText);
+                for(IslandGUI i:islands){
+                    i.setOnMousePressed(this::onIslandSelected);
+                }
+                activate.setOnMousePressed(this::islandConfirmed);
                 break;
             case 6: //Student swapping, case 1
                 break;
             case 9: //Student swapping, case 2
                 break;
             case 10: //Student selection
+                desc.setText("CHOOSE A STUDENT ON THE CARD!");
+                selectedText=new Text();
+                selectedText.setFont(Font.font("papyrus",16));
+                paint = new LinearGradient(
+                        0.0, 0.0, 1.0, 1.0, true, CycleMethod.NO_CYCLE,
+                        new Stop(0.0, new Color(0.0, 0.0, 0.0, 1.0)),
+                        new Stop(1.0, new Color(1.0, 0.0, 0.0, 1.0)));
+                selectedText.setFill(paint);
+                selectedText.setLayoutX(373);
+                selectedText.setLayoutY(130);
+                selectionPane.getChildren().add(selectedText);
+                p=new Pane();
+                p.setPrefWidth(159);
+                p.setPrefHeight(240);
+                p.setLayoutX(103);
+                p.setLayoutY(40);
+                 imageView=new ImageView();
+                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front10.jpg"));
+                imageView.setCursor(Cursor.HAND);
+                p.getChildren().add(imageView);
+                studs=new CharacterGUI(4);
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(10)).size(); i+=2){
+                    StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(10)).get(i));
+                    student.setOnMousePressed(this::studentPressed);
+                    studentsOnCard.add(student);
+                    studs.getChildren().add(student);
+                }
+                p.getChildren().add(studs);
+                selectionPane.getChildren().add(p);
+                activate.setOnMousePressed(this::studentConfirmed);
                 break;
             case 8: //Color selection
             case 11:
                 desc.setText("CHOOSE A COLOR!");
-                ColorButton red=new ColorButton("RED");
-                ColorButton blue=new ColorButton("BLUE");
-                ColorButton yellow=new ColorButton("YELLOW");
-                ColorButton green=new ColorButton("GREEN");
-                ColorButton pink=new ColorButton("PINK");
+                ColorButton red = new ColorButton("RED");
+                ColorButton blue = new ColorButton("BLUE");
+                ColorButton yellow = new ColorButton("YELLOW");
+                ColorButton green = new ColorButton("GREEN");
+                ColorButton pink = new ColorButton("PINK");
                 red.setLayoutX(CoordinatesData.getButtons("RED").getX());
                 red.setLayoutY(CoordinatesData.getButtons("RED").getY());
                 blue.setLayoutX(CoordinatesData.getButtons("BLUE").getX());
@@ -112,7 +195,7 @@ public class CharacterParametersController {
                 yellow.setLayoutY(CoordinatesData.getButtons("YELLOW").getY());
                 pink.setLayoutX(CoordinatesData.getButtons("PINK").getX());
                 pink.setLayoutY(CoordinatesData.getButtons("PINK").getY());
-                group=new ToggleGroup();
+                group = new ToggleGroup();
                 red.setToggleGroup(group);
                 blue.setToggleGroup(group);
                 green.setToggleGroup(group);
@@ -343,44 +426,125 @@ public class CharacterParametersController {
         return update.players.indexOf(userNickname);
     }
 
-    private void colorHighlight(MouseEvent e){
-        for (IslandGUI i:islands) {
-            for (Node s:i.getChildren()){
-                if (s instanceof StudentGUI){
-                    if( ((StudentGUI) s).getColor().equals(((ColorButton)e.getSource()).color)){
+    private void colorHighlight(MouseEvent e) {
+        if(e.getSource().equals(group.getSelectedToggle())){
+            activate.setDisable(true);
+            for (IslandGUI i : islands) {
+                for (Node s : i.getChildren()) {
+                    if (s instanceof StudentGUI) {
+                        ((StudentGUI) s).deselect();
+                    }
+                }
+            }
+            for (Node s : gate.getChildren()) {
+                if (s instanceof StudentGUI) {
+                    ((StudentGUI) s).deselect();
+                }
+            }
+        }else {
+            for (IslandGUI i : islands) {
+                for (Node s : i.getChildren()) {
+                    if (s instanceof StudentGUI) {
+                        if (((StudentGUI) s).getColor().equals(((ColorButton) e.getSource()).color)) {
+                            ((StudentGUI) s).setSelected();
+                        } else
+                            ((StudentGUI) s).deselect();
+                    }
+                }
+            }
+            for (Node s : gate.getChildren()) {
+                if (s instanceof StudentGUI) {
+                    if (((StudentGUI) s).getColor().equals(((ColorButton) e.getSource()).color)) {
                         ((StudentGUI) s).setSelected();
-                    }else
+                    } else
                         ((StudentGUI) s).deselect();
                 }
             }
-        }
-        for (Node s:gate.getChildren()){
-            if (s instanceof StudentGUI){
-                if( ((StudentGUI) s).getColor().equals(((ColorButton)e.getSource()).color)){
-                    ((StudentGUI) s).setSelected();
-                }else
-                    ((StudentGUI) s).deselect();
-            }
+            this.activate.setDisable(false);
         }
     }
 
-    private void colorConfirmed(MouseEvent e){
+    private void colorConfirmed(MouseEvent e) {
+        activate.setDisable(true);
         ArrayList<Integer> a = new ArrayList<>();
         ArrayList<String> b = new ArrayList<>();
         a.add(index);
-        b.add(((ColorButton)group.getSelectedToggle()).color);
-        for (IslandGUI i:islands) {
-            for (Node s:i.getChildren()){
-                if (s instanceof StudentGUI){
+        b.add(((ColorButton) group.getSelectedToggle()).color);
+        for (IslandGUI i : islands) {
+            for (Node s : i.getChildren()) {
+                if (s instanceof StudentGUI) {
                     ((StudentGUI) s).deselect();
                 }
             }
         }
-        for (Node s:gate.getChildren()){
-            if (s instanceof StudentGUI){
+        for (Node s : gate.getChildren()) {
+            if (s instanceof StudentGUI) {
                 ((StudentGUI) s).deselect();
             }
         }
+        gui.perform(a, b, null, 5);
+    }
+
+    private void onIslandSelected(MouseEvent e){
+        if(selectedIsland!=null){
+            selectedIsland.deselect();
+        }
+        ((IslandGUI)e.getSource()).setSelected();
+        selectedIsland=((IslandGUI) e.getSource());
+        selectedText.setText("SELECTED ISLAND "+selectedIsland.getIndex()+"!");
+        if(index==0){
+            if(selectedStudent!=null&&selectedIsland!=null)
+                activate.setDisable(false);
+        }else
+            activate.setDisable(false);
+    }
+
+    private void islandConfirmed(MouseEvent e){
+        selectedText.setText("CONFIRMED!");
+        activate.setDisable(true);
+        ArrayList<Integer> a = new ArrayList<>();
+        ArrayList<String> b = new ArrayList<>();
+        a.add(index);
+        a.add(selectedIsland.getIndex());
+        selectedIsland.deselect();
+        gui.perform(a,b,null,5);
+    }
+
+    private void studentPressed(MouseEvent e){
+        if(selectedStudent!=null){
+            selectedStudent.deselect();
+        }
+        ((StudentGUI)e.getSource()).setSelected();
+        selectedStudent= (StudentGUI) e.getSource();
+        selectedText.setText("SELECTED "+selectedStudent.getColor()+" STUDENT!");
+        if(index==0){
+            if(selectedStudent!=null&&selectedIsland!=null)
+                activate.setDisable(false);
+        }else
+            activate.setDisable(false);
+    }
+
+    private void studentConfirmed(MouseEvent e){
+        selectedText.setText("CONFIRMED!");
+        activate.setDisable(true);
+        ArrayList<Integer> a = new ArrayList<>();
+        ArrayList<String> b = new ArrayList<>();
+        a.add(index);
+        a.add(studentsOnCard.indexOf(selectedStudent));
+        selectedStudent.deselect();
+        gui.perform(a,b,null,5);
+    }
+
+    private void studentIslandConfirmed(MouseEvent e){
+        selectedText.setText("CONFIRMED!");
+        activate.setDisable(true);
+        ArrayList<Integer> a = new ArrayList<>();
+        ArrayList<String> b = new ArrayList<>();
+        a.add(index);
+        a.add(studentsOnCard.indexOf(selectedStudent));
+        a.add(selectedIsland.getIndex());
+        selectedIsland.deselect();
+        selectedStudent.deselect();
         gui.perform(a,b,null,5);
     }
 

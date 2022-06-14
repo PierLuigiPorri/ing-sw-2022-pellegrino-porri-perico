@@ -28,24 +28,36 @@ public class CloudGUI extends Pane {
                     this.setLayoutY(229);
                     break;
             }
-            this.getChildren().add(new ImageView(new Image("Graphical_Assets/cloud_card_5_2_and_4_players_game.png")));
+            ImageView image=new ImageView(new Image("Graphical_Assets/cloud_card_5_2_and_4_players_game.png"));
+            image.setFitHeight(150);
+            image.setFitWidth(150);
+            this.getChildren().add(image);
         }
         else{
             switch(index){
                 case 0:
                     this.setLayoutX(699);
                     this.setLayoutY(171);
-                    this.getChildren().add(new ImageView(new Image("Graphical_Assets/cloud_card_1.png")));
+                    ImageView image=new ImageView(new Image("Graphical_Assets/cloud_card_1.png"));
+                    image.setFitHeight(150);
+                    image.setFitWidth(150);
+                    this.getChildren().add(image);
                     break;
                 case 1:
                     this.setLayoutX(574);
                     this.setLayoutY(291);
-                    this.getChildren().add(new ImageView(new Image("Graphical_Assets/cloud_card_2.png")));
+                    image=new ImageView(new Image("Graphical_Assets/cloud_card_2.png"));
+                    image.setFitHeight(150);
+                    image.setFitWidth(150);
+                    this.getChildren().add(image);
                     break;
                 case 2:
                     this.setLayoutX(837);
                     this.setLayoutY(291);
-                    this.getChildren().add(new ImageView(new Image("Graphical_Assets/cloud_card_3.png")));
+                    image=new ImageView(new Image("Graphical_Assets/cloud_card_3.png"));
+                    image.setFitHeight(150);
+                    image.setFitWidth(150);
+                    this.getChildren().add(image);
                     break;
             }
         }
