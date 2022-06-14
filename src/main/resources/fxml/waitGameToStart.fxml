@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="525.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.MainMenuController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="525.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.WaitController">
     <children>
         <ImageView fitHeight="634.0" fitWidth="619.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -23,6 +23,11 @@
             <Text fill="#54d7ff" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The game will start soon!" wrappingWidth="462.13671875">
                <font>
                   <Font name="Arial Narrow" size="48.0" />
+               </font>
+            </Text>
+            <Text fx:id="idLabel" layoutX="153.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game ID:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Text>
          </children>

@@ -37,6 +37,7 @@ public class GUIAPP extends Application implements View {
     private final ArrayList<Integer> int3=null;
     private UpdateMessage update;
     public boolean gameStarted;
+    public WaitController waitController;
     public BoardController boardController;
     private PlayersBoardController playersBoardController;
     private HandController handController;
@@ -45,6 +46,7 @@ public class GUIAPP extends Application implements View {
     @FXML
     private Stage currentStage;
     public String updateLog="";
+    public String gameid;
 
     public GUIAPP(){
         lock = new Object();
@@ -52,6 +54,10 @@ public class GUIAPP extends Application implements View {
         inputStr=new ArrayList<>();
         third=new ArrayList<>();
         gameStarted=false;
+    }
+
+    public void setGameid(String gameid) {
+        this.gameid = gameid;
     }
 
     @FXML
@@ -103,6 +109,10 @@ public class GUIAPP extends Application implements View {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(address));
             Parent root = fxmlLoader.load();
             switch(address){
+                case "fxml/waitGameToStart.fxml":
+                    waitController=fxmlLoader.getController();
+                    waitController.setGame(gameid);
+                    break;
                 case "fxml/board.fxml":
                     boardController=fxmlLoader.getController();
                     boardController.setGUI(this);

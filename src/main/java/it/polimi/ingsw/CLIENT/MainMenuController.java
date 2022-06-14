@@ -46,7 +46,7 @@ public class MainMenuController{
                 try {
                     gui.send(new CreationMessage(1, nicknameTextField.getText()));
                     //gui.startGame();
-                    delay(1000, () -> checkJoin());
+                    delay(1000, () -> checkJoin("Random"));
                 }
                 catch (Exception e){
                     System.out.println(e.getMessage());
@@ -54,10 +54,10 @@ public class MainMenuController{
             }
             else if(idGame.isSelected()){
                 try {
-                    int id=Integer.parseInt(idTextField.getText());
+                    Integer id=Integer.parseInt(idTextField.getText());
                     gui.send(new CreationMessage(2, nicknameTextField.getText(),id));
                     //gui.startGame();
-                    delay(1000, () -> checkJoin());
+                    delay(1000, () -> checkJoin(id.toString()));
                 }
                 catch (Exception e){
                     System.out.println(e.getMessage());
@@ -89,9 +89,10 @@ public class MainMenuController{
         new Thread(sleeper).start();
     }
 
-    private void checkJoin() {
+    private void checkJoin(String gameid) {
         if(!gui.gameStarted){
             if (gui.getResponses().isEmpty()) {
+                gui.setGameid(gameid);
                 gui.setScene("fxml/waitGameToStart.fxml");
                 gui.setUserNickname(nicknameTextField.getText());
             } else {
@@ -131,6 +132,7 @@ public class MainMenuController{
             if (!gui.getResponses().isEmpty()) {
                 ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
                 if (lastMessage.allGood) {
+                    gui.setGameid(lastMessage.gameid.toString());
                     gui.setScene("fxml/waitGameToStart.fxml");
                     gui.setUserNickname(nicknameTextField.getText());
                 } else {
