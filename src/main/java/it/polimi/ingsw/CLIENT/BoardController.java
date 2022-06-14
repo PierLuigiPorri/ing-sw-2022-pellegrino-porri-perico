@@ -409,9 +409,6 @@ public class BoardController{
     }
 
     private void setUpdateText(){
-        /*for (String s:update.update) {
-            updateMessageLog.appendText("\n"+s);
-        }*/
         updateMessageLog.setText(gui.updateLog);
     }
 
