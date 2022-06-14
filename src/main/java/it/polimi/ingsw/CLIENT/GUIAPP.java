@@ -298,16 +298,26 @@ public class GUIAPP extends Application implements View {
         //Runs on Message Handler Thread
         if(!msgHandler.getResponses().isEmpty()) {
             if(!msgHandler.getResponses().get(msgHandler.getResponses().size() - 1).allGood) {
+                boolean b=msgHandler.getResponses().get(msgHandler.getResponses().size() - 1).gameEnded;
                 String s = msgHandler.getResponses().get(msgHandler.getResponses().size() - 1).response;
-                Platform.runLater(() -> response(s));
+                Platform.runLater(() -> response(b, s));
             }
         }
     }
 
-    public void response(String r){
-        showPopup("ERROR", r);
-        popupButton1.setOnAction(e -> popupWindow.close());
-        popupWindow.showAndWait();
+    public void response(boolean gameEnded, String message){
+        if(gameEnded){
+            setScene("fxml/mainMenu.fxml");
+            currentStage.show();
+            showPopup("GAME ENDED", message);
+            popupButton1.setOnAction(e -> popupWindow.close());
+            popupWindow.showAndWait();
+        }
+        else {
+            showPopup("ERROR", message);
+            popupButton1.setOnAction(e -> popupWindow.close());
+            popupWindow.showAndWait();
+        }
     }
 
     public UpdateMessage getUpdate(){

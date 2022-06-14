@@ -157,12 +157,12 @@ public class Starter{
             while(i<games.size()){
                 if(id==games.get(i).getId()){
                     //Ho trovato la partita con questo ID
-                    games.get(i).getCm1().send(new ResponseMessage("The game you had joined has been deleted", false, null));
+                    games.get(i).getCm1().send(new ResponseMessage("The game you had joined has been deleted", false, null, true));
                     if(games.get(i).getnJoined()==2){
-                        games.get(i).getCm2().send(new ResponseMessage("The game you had joined has been deleted", false, null));
+                        games.get(i).getCm2().send(new ResponseMessage("The game you had joined has been deleted", false, null, true));
                     }
                     if(games.get(i).getnJoined()==3){
-                        games.get(i).getCm3().send(new ResponseMessage("The game you had joined has been deleted", false, null));
+                        games.get(i).getCm3().send(new ResponseMessage("The game you had joined has been deleted", false, null, true));
                     }
                     games.remove(i);
                 }
