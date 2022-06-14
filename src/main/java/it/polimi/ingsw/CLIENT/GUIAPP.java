@@ -290,11 +290,6 @@ public class GUIAPP extends Application implements View {
         return this.playerNickname;
     }
 
-    @Override
-    public void setKill() {
-
-    }
-
     //Popup stuff
     private Stage popupWindow;
     private Button popupButton1;

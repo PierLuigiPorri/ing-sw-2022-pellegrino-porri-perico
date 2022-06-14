@@ -882,7 +882,6 @@ public class CLI implements View, Runnable {
         inputStr.clear();
     }
 
-    @Override
     public void setKill() {
         this.kill = true;
     }
