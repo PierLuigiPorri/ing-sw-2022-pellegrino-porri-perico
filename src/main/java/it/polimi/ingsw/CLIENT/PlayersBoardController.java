@@ -153,4 +153,8 @@ public class PlayersBoardController {
         HandController.arrayBuild(array, element1, element2, element3, element4, element5, element6, element7, element8, element9, element10);
     }
 
+    public void backToBoard(){
+        gui.setScene("fxml/board.fxml");
+    }
+
 }

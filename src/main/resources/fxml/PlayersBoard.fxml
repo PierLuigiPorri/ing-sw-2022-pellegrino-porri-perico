@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -7,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="691.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.PlayersBoardController">
+<AnchorPane prefHeight="710.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.PlayersBoardController">
    <children>
-      <ImageView fitHeight="710.0" fitWidth="369.0" layoutX="289.0" pickOnBounds="true">
+      <ImageView fitHeight="710.0" fitWidth="658.0" pickOnBounds="true">
          <image>
             <Image url="@../Graphical_Assets/sky_bg.jpg" />
          </image>
@@ -625,5 +627,13 @@
             <Image url="@../Graphical_Assets/Moneta_base.png" />
          </image>
       </ImageView>
+      <Button layoutX="409.0" layoutY="621.0" mnemonicParsing="false" onAction="#backToBoard" onMouseClicked="#backToBoard" prefHeight="65.0" prefWidth="153.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="BACK TO BOARD">
+         <font>
+            <Font name="Papyrus" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
