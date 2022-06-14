@@ -4,6 +4,7 @@ import it.polimi.ingsw.CLIENT.GUIobjects.*;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -21,7 +22,6 @@ public class BoardController{
     private MotherNatureGUI motherNature;
     private StudentGUI selectedStudent;
     private CloudGUI selectedCloud;
-
     private ArrayList<IslandGUI> islands;
 
     @FXML
@@ -45,7 +45,9 @@ public class BoardController{
     @FXML
     private Pane root;
     @FXML
-    private Text updateText1, updateText2, updateText3, logMessage1, logMessage2, logMessage3;
+    private Text logMessage1, logMessage2, logMessage3;
+    @FXML
+    private TextArea updateMessageLog;
 
     public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
@@ -407,13 +409,9 @@ public class BoardController{
     }
 
     private void setUpdateText(){
-        System.out.println(update.update);
-        if(update.update.size()==1)
-            updateText1.setText(update.update.get(0));
-        if(update.update.size()==2)
-            updateText2.setText(update.update.get(1));
-        if(update.update.size()==3)
-            updateText3.setText(update.update.get(2));
+        for (String s:update.update) {
+            updateMessageLog.appendText(s);
+        }
     }
 
     private void setLogMessage(){
@@ -481,7 +479,7 @@ public class BoardController{
                 break;
             case 5://End of action phase, player's turn, MN movement
                 logMessage3.setText(" " + "OK! Good student managing. Now let's end this round. " +
-                        "Time to politely ask Lady Mother Nature to relocate on an Island of your choosing." );
+                        " Time to politely ask Lady Mother Nature to relocate on an Island of your choosing." );
                 break;
         }
     }

@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -642,25 +643,10 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(123, 202, 240, 0.7);">
                      <children>
-                        <Pane prefHeight="200.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Text fx:id="updateText1" fill="#b51d1d" layoutX="2.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="333.00000000000006">
-                                 <font>
-                                    <Font name="System Bold" size="22.0" />
-                                 </font>
-                              </Text>
-                              <Text fx:id="updateText2" fill="#b51d1d" layoutX="2.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="330.0">
-                                 <font>
-                                    <Font name="System Bold" size="22.0" />
-                                 </font>
-                              </Text>
-                              <Text fx:id="updateText3" fill="#b51d1d" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="330.0">
-                                 <font>
-                                    <Font name="System Bold" size="22.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
+                        <TextArea fx:id="updateMessageLog" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(123, 202, 240, 0.7);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font></TextArea>
                      </children></AnchorPane>
               </content>
             </ScrollPane>

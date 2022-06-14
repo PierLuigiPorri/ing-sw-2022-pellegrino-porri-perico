@@ -177,4 +177,8 @@ public class HandController {
         card9.setVisible(b);
     }
 
+    public void backToBoard(){
+        gui.setScene("fxml/board.fxml");
+    }
+
 }

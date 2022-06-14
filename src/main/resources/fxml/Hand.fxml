@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -113,5 +115,13 @@
             <Font name="Book Antiqua" size="17.0" />
          </font>
       </Text>
+      <Button layoutX="499.0" layoutY="391.0" mnemonicParsing="false" onAction="#backToBoard" onMouseClicked="#backToBoard" prefHeight="54.0" prefWidth="123.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="BACK TO BOARD">
+         <font>
+            <Font name="Papyrus" size="9.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

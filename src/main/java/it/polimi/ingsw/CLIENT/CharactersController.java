@@ -5,7 +5,6 @@ import it.polimi.ingsw.CLIENT.GUIobjects.IslandGUI;
 import it.polimi.ingsw.CLIENT.GUIobjects.StudentGUI;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -14,9 +13,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class CharactersController{
 
@@ -281,5 +278,8 @@ public class CharactersController{
         }
     }
 
+    public void backToBoard(){
+        gui.setScene("fxml/board.fxml");
+    }
 
 }
