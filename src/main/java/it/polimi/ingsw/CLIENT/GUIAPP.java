@@ -39,6 +39,7 @@ public class GUIAPP extends Application implements View {
     public CharacterParametersController characterParametersController;
     @FXML
     private Stage currentStage;
+    public String updateLog="";
 
     public GUIAPP(){
         lock = new Object();
@@ -239,6 +240,10 @@ public class GUIAPP extends Application implements View {
             gameStarted=true;
         }
         if(!update.gameEnded) {
+            for (String s:update.update) {
+                s = s.replace("\n", "");
+                updateLog = s + "\n" +updateLog;
+            }
             setScene("fxml/board.fxml");
             boardController.refresh();
             System.out.println("Ho applicato l'update");
