@@ -1,11 +1,13 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
+import it.polimi.ingsw.GAME.Student;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,15 +28,21 @@ public class CharacterParametersController {
     private Text desc;
     @FXML
     private Button activate;
+    private Button confirmMax;
+    private TextField max;
     private GUIAPP gui;
     private UpdateMessage update;
     private int playersNumber;
     private String userNickname;
     private MotherNatureGUI motherNature;
     private StudentGUI selectedStudent=null;
-    private String selectedColor;
+    private ArrayList<StudentGUI> selectedStudents1=new ArrayList<>();
+    private ArrayList<StudentGUI> selectedStudents2=new ArrayList<>();
+    private String selectedColor=null;
+    private String selectedColor2=null;
     private IslandGUI selectedIsland=null;
     private final ArrayList<StudentGUI> studentsOnCard=new ArrayList<>();
+    private final ArrayList<StudentGUI> studentsOnGate=new ArrayList<>();
 
     private ArrayList<IslandGUI> islands;
 
@@ -55,7 +63,9 @@ public class CharacterParametersController {
     @FXML
     private Pane root;
     private ToggleGroup group;
+    private ToggleGroup group2;
     private int index;
+    private int maxSwappable;
     private Text selectedText;
 
     public void setGUI(GUIAPP guiApp) {
@@ -107,12 +117,13 @@ public class CharacterParametersController {
                 p.setLayoutY(40);
                 ImageView imageView=new ImageView();
                 imageView.setImage(new Image("Graphical_Assets/CarteTOT_front0.jpg"));
-                imageView.setCursor(Cursor.HAND);
                 p.getChildren().add(imageView);
                 CharacterGUI studs=new CharacterGUI(4);
                 for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(10)).size(); i+=2){
                     StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(10)).get(i));
                     student.setOnMousePressed(this::studentPressed);
+                    student.setLayoutX(CoordinatesData.getCardStudents(4).get(i/2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(4).get(i/2).getY());
                     studentsOnCard.add(student);
                     studs.getChildren().add(student);
                 }
@@ -139,8 +150,61 @@ public class CharacterParametersController {
                 activate.setOnMousePressed(this::islandConfirmed);
                 break;
             case 6: //Student swapping, case 1
+                desc.setText("CHOOSE HOW MANY STUDENTS TO SWAP!");
+                max=new TextField("How many?");
+                max.setLayoutX(404);
+                max.setLayoutY(126);
+                confirmMax=new Button("NEXT!");
+                confirmMax.setLayoutY(126);
+                confirmMax.setLayoutX(555);
+                confirmMax.setPrefWidth(140);
+                confirmMax.setPrefHeight(40);
+                confirmMax.setStyle("-fx-background-radius:100; -fx-background-color: cyan");
+                confirmMax.setFont(Font.font("papyrus",14));
+                confirmMax.setOnMousePressed(this::confirmMaxPressed);
+                selectionPane.getChildren().add(max);
+                selectionPane.getChildren().add(confirmMax);
+                p=new Pane();
+                p.setPrefWidth(159);
+                p.setPrefHeight(240);
+                p.setLayoutX(103);
+                p.setLayoutY(40);
+                imageView=new ImageView();
+                imageView.setImage(new Image("Graphical_Assets/CarteTOT_front6.jpg"));
+                p.getChildren().add(imageView);
+                studs=new CharacterGUI(6);
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i+=2){
+                    StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(index)).get(i));
+                    student.setOnMousePressed(this::studentPressed);
+                    student.setLayoutX(CoordinatesData.getCardStudents(6).get(i/2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(6).get(i/2).getY());
+                    student.setDisable(true);
+                    studentsOnCard.add(student);
+                    studs.getChildren().add(student);
+                }
+                p.getChildren().add(studs);
+                selectionPane.getChildren().add(p);
+                activate.setOnMousePressed(this::gateCardSwapConfirmed);
                 break;
             case 9: //Student swapping, case 2
+                desc.setText("CHOOSE HOW MANY STUDENTS TO SWAP!");
+                Text t=new Text("Choose here which colors to swap in the hall:");
+                t.setFont(Font.font("papyrus",14));
+                max=new TextField("How many?");
+                max.setLayoutX(404);
+                max.setLayoutY(126);
+                confirmMax=new Button("NEXT!");
+                confirmMax.setLayoutY(126);
+                confirmMax.setLayoutX(555);
+                confirmMax.setPrefWidth(140);
+                confirmMax.setPrefHeight(40);
+                confirmMax.setStyle("-fx-background-radius:100; -fx-background-color: cyan");
+                confirmMax.setFont(Font.font("papyrus",14));
+                confirmMax.setOnMousePressed(this::confirmMaxPressed);
+                selectionPane.getChildren().add(max);
+                selectionPane.getChildren().add(confirmMax);
+                selectionPane.getChildren().add(t);
+                activate.setOnMousePressed(this::gateHallSwapConfirmed);
                 break;
             case 10: //Student selection
                 desc.setText("CHOOSE A STUDENT ON THE CARD!");
@@ -161,12 +225,13 @@ public class CharacterParametersController {
                 p.setLayoutY(40);
                  imageView=new ImageView();
                 imageView.setImage(new Image("Graphical_Assets/CarteTOT_front10.jpg"));
-                imageView.setCursor(Cursor.HAND);
                 p.getChildren().add(imageView);
                 studs=new CharacterGUI(4);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(10)).size(); i+=2){
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i+=2){
                     StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(10)).get(i));
                     student.setOnMousePressed(this::studentPressed);
+                    student.setLayoutX(CoordinatesData.getCardStudents(4).get(i/2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(4).get(i/2).getY());
                     studentsOnCard.add(student);
                     studs.getChildren().add(student);
                 }
@@ -338,6 +403,7 @@ public class CharacterParametersController {
     private void studentsOnGateUpdate() {
         for (int i = 1; i < update.gatePlayer.get(userIndex()).size(); i = i + 2) {
             StudentGUI student = new StudentGUI(update.gatePlayer.get(userIndex()).get(i));
+            studentsOnGate.add(student);
             gate.getChildren().add(student);
             student.setLayoutX(CoordinatesData.getGate().get(i / 2).getX());
             student.setLayoutY(CoordinatesData.getGate().get(i / 2).getY());
@@ -509,17 +575,61 @@ public class CharacterParametersController {
     }
 
     private void studentPressed(MouseEvent e){
-        if(selectedStudent!=null){
-            selectedStudent.deselect();
-        }
-        ((StudentGUI)e.getSource()).setSelected();
-        selectedStudent= (StudentGUI) e.getSource();
-        selectedText.setText("SELECTED "+selectedStudent.getColor()+" STUDENT!");
-        if(index==0){
-            if(selectedStudent!=null&&selectedIsland!=null)
+        if(index==6){
+            if(selectedStudents1.contains((StudentGUI) e.getSource())){
+                selectedStudents1.remove(((StudentGUI) e.getSource()));
+                ((StudentGUI) e.getSource()).deselect();
+            }else{
+                if(selectedStudents1.size()<maxSwappable){
+                    ((StudentGUI) e.getSource()).setSelected();
+                    selectedStudents1.add(((StudentGUI) e.getSource()));
+                }
+                if (selectedStudents1.size()==maxSwappable&&selectedStudents2.size()==maxSwappable){
+                    activate.setDisable(false);
+                }
+            }
+        } else {
+            if (selectedStudent != null) {
+                selectedStudent.deselect();
+            }
+            ((StudentGUI) e.getSource()).setSelected();
+            selectedStudent = (StudentGUI) e.getSource();
+            selectedText.setText("SELECTED " + selectedStudent.getColor() + " STUDENT!");
+            if (index == 0) {
+                if (selectedStudent != null && selectedIsland != null)
+                    activate.setDisable(false);
+            } else
                 activate.setDisable(false);
-        }else
-            activate.setDisable(false);
+        }
+    }
+    private void studentPressedOnGate(MouseEvent e){
+        if(index==6) {
+            if (selectedStudents2.contains((StudentGUI) e.getSource())) {
+                selectedStudents2.remove(((StudentGUI) e.getSource()));
+                ((StudentGUI) e.getSource()).deselect();
+            } else {
+                if (selectedStudents2.size() < maxSwappable) {
+                    ((StudentGUI) e.getSource()).setSelected();
+                    selectedStudents2.add(((StudentGUI) e.getSource()));
+                }
+                if (selectedStudents1.size() == maxSwappable && selectedStudents2.size() == maxSwappable) {
+                    activate.setDisable(false);
+                }
+            }
+        }else{
+            if (selectedStudents1.contains((StudentGUI) e.getSource())) {
+                selectedStudents1.remove(((StudentGUI) e.getSource()));
+                ((StudentGUI) e.getSource()).deselect();
+            } else {
+                if (selectedStudents1.size() < maxSwappable) {
+                    ((StudentGUI) e.getSource()).setSelected();
+                    selectedStudents1.add(((StudentGUI) e.getSource()));
+                }
+                if(selectedColor!=null && selectedColor2!=null && selectedStudents1.size()==maxSwappable){
+                    activate.setDisable(false);
+                }
+            }
+        }
     }
 
     private void studentConfirmed(MouseEvent e){
@@ -545,6 +655,141 @@ public class CharacterParametersController {
         selectedStudent.deselect();
         gui.perform(a,b,null,5);
     }
+    private void confirmMaxPressed(MouseEvent e){
+        if (max.getText().equals("1") || max.getText().equals("2") || (max.getText().equals("3") && index==6)){
+            maxSwappable= Integer.parseInt(max.getText());
+            max.setDisable(true);
+            confirmMax.setText("CONFIRMED!");
+            confirmMax.setDisable(true);
+            desc.setText("CHOOSE THE STUDENTS!");
+            if(index==6){
+                for (StudentGUI s:studentsOnCard){
+                    s.setDisable(false);
+                }
+            }else{
+                selectionPane.getChildren().remove(confirmMax);
+                selectionPane.getChildren().remove(max);
+                ColorButton red = new ColorButton("RED");
+                ColorButton blue = new ColorButton("BLUE");
+                ColorButton yellow = new ColorButton("YELLOW");
+                ColorButton green = new ColorButton("GREEN");
+                ColorButton pink = new ColorButton("PINK");
+                red.setLayoutX(120);
+                red.setLayoutY(126);
+                blue.setLayoutX(268);
+                blue.setLayoutY(126);
+                green.setLayoutX(430);
+                green.setLayoutY(126);
+                yellow.setLayoutX(592);
+                yellow.setLayoutY((126));
+                pink.setLayoutX(764);
+                pink.setLayoutY(126);
+                group = new ToggleGroup();
+                red.setToggleGroup(group);
+                blue.setToggleGroup(group);
+                green.setToggleGroup(group);
+                yellow.setToggleGroup(group);
+                pink.setToggleGroup(group);
+                red.setOnMousePressed(this::colorSelection1);
+                blue.setOnMousePressed(this::colorSelection1);
+                green.setOnMousePressed(this::colorSelection1);
+                yellow.setOnMousePressed(this::colorSelection1);
+                pink.setOnMousePressed(this::colorSelection1);
+                selectionPane.getChildren().add(red);
+                selectionPane.getChildren().add(blue);
+                selectionPane.getChildren().add(green);
+                selectionPane.getChildren().add(yellow);
+                selectionPane.getChildren().add(pink);
+                if (maxSwappable==2){
+                    ColorButton red2 = new ColorButton("RED");
+                    ColorButton blue2 = new ColorButton("BLUE");
+                    ColorButton yellow2 = new ColorButton("YELLOW");
+                    ColorButton green2 = new ColorButton("GREEN");
+                    ColorButton pink2 = new ColorButton("PINK");
+                    red2.setLayoutX(120);
+                    red2.setLayoutY(183);
+                    blue2.setLayoutX(268);
+                    blue2.setLayoutY(183);
+                    green2.setLayoutX(430);
+                    green2.setLayoutY(183);
+                    yellow2.setLayoutX(592);
+                    yellow2.setLayoutY((183));
+                    pink2.setLayoutX(764);
+                    pink2.setLayoutY(183);
+                    group2 = new ToggleGroup();
+                    red2.setToggleGroup(group2);
+                    blue2.setToggleGroup(group2);
+                    green2.setToggleGroup(group2);
+                    yellow2.setToggleGroup(group2);
+                    pink2.setToggleGroup(group2);
+                    red2.setOnMousePressed(this::colorSelection2);
+                    blue2.setOnMousePressed(this::colorSelection2);
+                    green2.setOnMousePressed(this::colorSelection2);
+                    yellow2.setOnMousePressed(this::colorSelection2);
+                    pink2.setOnMousePressed(this::colorSelection2);
+                    selectionPane.getChildren().add(red2);
+                    selectionPane.getChildren().add(blue2);
+                    selectionPane.getChildren().add(green2);
+                    selectionPane.getChildren().add(yellow2);
+                    selectionPane.getChildren().add(pink2);
+                }
+            }
+            for (StudentGUI j: studentsOnGate){
+                j.setOnMousePressed(this::studentPressedOnGate);
+            }
+        } else{
+            if (index==6)
+                desc.setText("COME ON. A NUMBER UP TO 3.");
+            else
+                desc.setText("COME ON. A NUMBER UP TO 2.");
+            confirmMax.setText("RETRY!");
+        }
+    }
+    private void gateCardSwapConfirmed(MouseEvent e){
+        activate.setDisable(true);
+        ArrayList<Integer> a = new ArrayList<>(), c;
+        ArrayList<String> b = new ArrayList<>();
+        a.add(index);
+        for (StudentGUI s:selectedStudents1){
+            a.add(studentsOnCard.indexOf(s));
+            s.deselect();
+        }
+        c=new ArrayList<>();
+        for (StudentGUI k : selectedStudents2) {
+            c.add(studentsOnGate.indexOf(k));
+            k.deselect();
+        }
+        gui.perform(a, b, c, 5);
+    }
+
+    private void colorSelection1(MouseEvent e){
+        selectedColor=((ColorButton) e.getSource()).color;
+        if(selectedColor!=null && selectedColor2!=null){
+            activate.setDisable(false);
+        }
+    }
+    private void colorSelection2(MouseEvent e){
+        selectedColor2=((ColorButton) e.getSource()).color;
+        if(selectedColor!=null && selectedColor2!=null && selectedStudents1.size()==maxSwappable){
+            activate.setDisable(false);
+        }
+    }
+
+    private void gateHallSwapConfirmed(MouseEvent e){
+        activate.setDisable(true);
+        ArrayList<Integer> a = new ArrayList<>();
+        ArrayList<String> b = new ArrayList<>();
+        a.add(index);
+        for (StudentGUI s:selectedStudents1){
+            a.add(studentsOnGate.indexOf(s));
+            s.deselect();
+        }
+        b.add(selectedColor);
+        if(selectedColor2!=null)
+            b.add(selectedColor2);
+        gui.perform(a,b,null,5);
+    }
+
 
 }
 

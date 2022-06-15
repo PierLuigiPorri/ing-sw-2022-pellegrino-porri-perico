@@ -1,11 +1,14 @@
 package it.polimi.ingsw.CLIENT;
 
 
+import it.polimi.ingsw.CLIENT.GUIobjects.CharacterGUI;
+import it.polimi.ingsw.CLIENT.GUIobjects.CoordinatesData;
 import it.polimi.ingsw.CLIENT.GUIobjects.IslandGUI;
 import it.polimi.ingsw.CLIENT.GUIobjects.StudentGUI;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -53,6 +56,8 @@ public class CharactersController{
         effect1.setText(characterEffect(update.idCharacter.get(0)));
         effect2.setText(characterEffect(update.idCharacter.get(1)));
         effect3.setText(characterEffect(update.idCharacter.get(2)));
+        setStudents();
+
 
         if(update.activated.get(0)) {
             character1.setBorder(new Border(new BorderStroke(Color.YELLOW, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -101,6 +106,71 @@ public class CharactersController{
         imageView.setImage(new Image("Graphical_Assets/CarteTOT_front"+idCharacter+".jpg"));
         imageView.setCursor(Cursor.HAND);
     }
+    private void setStudents(){
+        if(update.idCharacter.get(0)==0||update.idCharacter.get(0)==6||update.idCharacter.get(0)==10){
+            CharacterGUI studs;
+            if(update.idCharacter.get(0)==6){
+                studs=new CharacterGUI(6);
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(0))).size(); i+=2) {
+                    StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(0))).get(i));
+                    student.setLayoutX(CoordinatesData.getCardStudents(6).get(i / 2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(6).get(i / 2).getY());
+                    studs.getChildren().add(student);
+                }
+            } else{
+                studs=new CharacterGUI(4);
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(0))).size(); i+=2) {
+                    StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(0))).get(i));
+                    student.setLayoutX(CoordinatesData.getCardStudents(4).get(i / 2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(4).get(i / 2).getY());
+                    studs.getChildren().add(student);
+                }
+            }
+            character1.getChildren().add(studs);
+        }
+        if(update.idCharacter.get(1)==0||update.idCharacter.get(1)==6||update.idCharacter.get(1)==10){
+            CharacterGUI studs;
+            if(update.idCharacter.get(1)==6){
+                studs=new CharacterGUI(6);
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(1))).size(); i+=2) {
+                    StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(1))).get(i));
+                    student.setLayoutX(CoordinatesData.getCardStudents(6).get(i / 2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(6).get(i / 2).getY());
+                    studs.getChildren().add(student);
+                }
+            } else{
+                studs=new CharacterGUI(4);
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(1))).size(); i+=2) {
+                    StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(1))).get(i));
+                    student.setLayoutX(CoordinatesData.getCardStudents(4).get(i / 2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(4).get(i / 2).getY());
+                    studs.getChildren().add(student);
+                }
+            }
+            character2.getChildren().add(studs);
+        }
+        if(update.idCharacter.get(2)==0||update.idCharacter.get(2)==6||update.idCharacter.get(2)==10){
+            CharacterGUI studs;
+            if(update.idCharacter.get(2)==6){
+                studs=new CharacterGUI(6);
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(2))).size(); i+=2) {
+                    StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(2))).get(i));
+                    student.setLayoutX(CoordinatesData.getCardStudents(6).get(i / 2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(6).get(i / 2).getY());
+                    studs.getChildren().add(student);
+                }
+            } else{
+                studs=new CharacterGUI(4);
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(2))).size(); i+=2) {
+                    StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(2))).get(i));
+                    student.setLayoutX(CoordinatesData.getCardStudents(4).get(i / 2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(4).get(i / 2).getY());
+                    studs.getChildren().add(student);
+                }
+            }
+            character3.getChildren().add(studs);
+        }
+    }
 
     @FXML
     private void activateCharacter(){
@@ -115,66 +185,13 @@ public class CharactersController{
                 case 5:
                     gui.perform(a, b, null,5);
                     break;
-                /*case 6:   //Questo è impossibile non so come farlo
-                        System.out.println("How many students do you want to swap?");
-                        i = getIntInput();
-                        if (i == -1) {
-                            cancel = true;
-                            break;
-                        }
-                        checkIntInput(1, 3, i, "How many students do you want to swap?");
-                        int max = inputInt.get(inputInt.size() - 1);
-                        inputInt.remove(inputInt.size() - 1);
-                        System.out.println("What are the indexes on the Character card of the students you want to swap?");
-                        for (int z = 0; z < max; z++) {
-                            i = getIntInput();
-                            checkIntInput(0, 3, i, "What's the index?");
-                            a.add(inputInt.get(inputInt.size() - 1));
-                        }
-                        c = new ArrayList<>();
-                        System.out.println("What are the indexes on the gate of the students you want to swap?");
-                        for (int z = 0; z < max; z++) {
-                            i = getIntInput();
-                            checkIntInput(0, 3, i, "What's the index?");
-                            c.add(inputInt.get(inputInt.size() - 1));
-                    break;*/
-                /*case 9:   //Questo non è impossibile ma è un lavoro enorme
-                        System.out.println("How many students would you like to swap?");
-                        i = getIntInput();
-                        if (i == -1) {
-                            cancel = true;
-                            break;
-                        }
-                        checkIntInput(1, 2, i, "How many students would you like to swap?");
-                        int max = inputInt.get(inputInt.size() - 1);
-                        inputInt.remove(inputInt.size() - 1);
-                        System.out.println("What are the indexes of the students on the gate you want to swap?");
-                        for (int z = 0; z < max; z++) {
-                            i = getIntInput();
-                            checkIntInput(0, 9, i, "What's the index?");
-                            a.add(inputInt.get(inputInt.size() - 1));
-                        }
-                        System.out.println("Which colors would you like to swap in you hall?");
-                        for (int z = 0; z < max; z++) {
-                            String in = getStrInput();
-                            checkStrInput(in, "Which color?");
-                            b.add(inputStr.get(inputStr.size() - 1));
-                        }
-                    break;*/
-                /*case 10:  //Serve la selezione dello studente
-                        System.out.println("What is the index on the card of the student you want to add?");
-                        i = getIntInput();
-                        if (i == -1) {
-                            cancel = true;
-                            break;
-                        }
-                        checkIntInput(0, 3, i, "What is the index on the card of the student you want to add?");
-                        a.add(inputInt.get(inputInt.size() - 1));
-                    break;*/
+                case 6:   //Questo è impossibile ma in qualche modo l'ho fatto
+                case 9:
                 case 0:
                 case 2:
                 case 4:
                 case 8:
+                case 10:
                 case 11:
                     gui.setScene("characterParametersSelection.fxml");
                     gui.characterParametersController.refresh(selectedChar);
