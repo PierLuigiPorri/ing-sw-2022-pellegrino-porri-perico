@@ -70,4 +70,6 @@ public class Player {
     }
 
     public void removeTower(){this.tower_count--;}
+
+    public void addTower(){this.tower_count++;}
 }

@@ -21,7 +21,7 @@ public class Game extends Observable {
     private final Board board;
     public final ColorTracker red, blue, green, yellow, pink; // professors.
     public RoundMaster roundMaster; //rounds manager.
-    private Player winner;
+    private String winner;
     public CharacterSelector characterSelector = null;
     public final MotherNature motherNature;
     private int MNbonus = 0; // additional movement to Mother Nature; is called by a Character.
@@ -139,20 +139,40 @@ public class Game extends Observable {
         update.clear();
     }
 
-    public Player gameEnd() {
-        int[] x;
-        x = new int[3];
-        int min;
-        x[0] = this.players.get(0).getTower_count();
-        x[1] = this.players.get(1).getTower_count();
-        x[2] = this.players.get(2).getTower_count();
-        min = Math.min(Math.min(x[0], x[1]), x[2]);
-        if (min == x[0])
-            return this.players.get(0);
-        else if (min == x[1])
-            return this.players.get(1);
-        else
-            return this.players.get(2);
+    private void gameEnd() {
+        winner=calculateWinner();
+        update.add("GAME OVER! Winner: "+winner);
+        setChanged();
+        notifyObservers(update);
+        update.clear();
+    }
+
+    private String calculateWinner(){
+        int min=players.get(0).getTower_count();
+        Player minPlayer=players.get(0);
+        boolean first=true;
+        boolean draw=false;
+        for(Player p : players){
+            if(!first){
+                if(p.getTower_count()<min){
+                    min=p.getTower_count();
+                    minPlayer=p;
+                    draw=false;
+                }
+                else if(p.getTower_count()==min){
+                    draw=true;
+                }
+            }
+            else{
+                first=false;
+            }
+        }
+        if(!draw) {
+            return minPlayer.nickname;
+        }
+        else{
+            return "It's a draw!";
+        }
     }
 
     public void gateToHall(String name, String color) throws ImpossibleActionException {
@@ -310,13 +330,29 @@ public class Game extends Observable {
             Collections.sort(p);
             if (!p.get(p.size() - 1).equals(p.get(p.size() - 2))) {
                 if (this.board.islands.getIsland(index).towers.isEmpty()) {
+                    //I'm sure it's not a superisland
                     this.board.islands.getIsland(index).addTower(players.get(q.indexOf(p.get(p.size() - 1))));
                     players.get(q.indexOf(p.get(p.size() - 1))).removeTower();
                     update.add("\nYou better start worrying because " + players.get(q.indexOf(p.get(p.size() - 1))).nickname + " just placed a Tower on Island " + index + "!");
+                    if(players.get(q.indexOf(p.get(p.size() - 1))).getTower_count()==0){
+                        gameEnd();
+                    }
                 } else if (!players.get(q.indexOf(p.get(p.size() - 1))).equals(this.board.islands.getIsland(index).getPlayer())) {
+                    //Could be a superisland
                     swapTowers(index, players.get(q.indexOf(p.get(p.size() - 1))));
-                    players.get(q.indexOf(p.get(p.size() - 1))).removeTower();
+                    for(int i=0; i<board.islands.getIsland(index).getTowers().size(); i++) {
+                        //I remove a tower for any tower placed
+                        if(!(players.get(q.indexOf(p.get(p.size() - 1))).getTower_count()==0)) {
+                            players.get(q.indexOf(p.get(p.size() - 1))).removeTower();
+                        }
+                        else{
+                            gameEnd();
+                        }
+                    }
                     update.add("\nPOWER PLAY! " + players.get(q.indexOf(p.get(p.size() - 1))).nickname + " just took all of " + this.board.islands.getIsland(index).getPlayer().nickname + "'s Towers on Island " + index + "!");
+                    if(players.get(q.indexOf(p.get(p.size() - 1))).getTower_count()==0){
+                        gameEnd();
+                    }
                 }
             } else
                 update.add("\nMother Nature stopped on Island " + index + ", and nothing happened. She's disappointed.");
@@ -325,8 +361,11 @@ public class Game extends Observable {
 
     public void swapTowers(int index, Player player1) throws ImpossibleActionException {
         if (board.islands.getIsland(index).towers != null) {
-            for (Tower t : board.islands.getIsland(index).towers)
+            Player playerLosingTowers=board.islands.getIsland(index).getPlayer();
+            for (Tower t : board.islands.getIsland(index).towers) {
                 t.setPlayer(player1);
+                playerLosingTowers.addTower();
+            }
         } else throw new ImpossibleActionException("\nNo towers in this island.\n");
     }
 
@@ -340,6 +379,9 @@ public class Game extends Observable {
             update.add("\nIt's happening everybody!\n" + "Island " + index1 + " and Island " + index2 + " just merged into one! " +
                     "We have a new Island " + Math.min(index1, index2) + "!" +
                     "\nThere are only " + board.islands.size() + " left!");
+        }
+        if(board.islands.size()<=3){
+            gameEnd();
         }
     }
 

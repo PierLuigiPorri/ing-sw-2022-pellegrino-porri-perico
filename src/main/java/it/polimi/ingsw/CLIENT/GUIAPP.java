@@ -287,7 +287,7 @@ public class GUIAPP extends Application implements View {
             gameStarted=false;
             setScene("fxml/mainMenu.fxml");
             currentStage.show();
-            showPopup("GAME ENDED", update.update.get(0));
+            showPopup("GAME ENDED", update.update.get(update.update.size() -1));
             popupButton1.setOnAction(e -> popupWindow.close());
             popupWindow.showAndWait();
         }
