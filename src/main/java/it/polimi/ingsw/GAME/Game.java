@@ -30,6 +30,7 @@ public class Game extends Observable {
     private Player PwBonus;
     public boolean cloudEmptied=false;
     private final ModelView modelView;
+    private boolean lastRound;
     private boolean gameOver;
 
     private final ArrayList<String> update;
@@ -50,6 +51,7 @@ public class Game extends Observable {
         this.bag = new Bag();
         this.board = new Board(playerCount);
         this.order = new ArrayList<>();
+        this.lastRound=false;
         this.gameOver=false;
 
         this.players.add(new Player(playerCount, nick1, this));
@@ -113,35 +115,40 @@ public class Game extends Observable {
     }
 
     public void changePhase() throws BoundException, ImpossibleActionException {
-        // If the current phase is Planning, then the clouds need to be restored.
-        if (roundMaster.round.getCurrentPhase().equals("Planning")) {
-            for (int i = 0; i < playerCount + 1; i++) {
-                bagToCloud(0);
-                bagToCloud(1);
-                if (playerCount == 3) {
-                    bagToCloud(2);
+        if(lastRound && roundMaster.round.getCurrentPhase().equals("Action")) {
+            gameEnd();
+        }
+        else {
+            // If the current phase is Planning, then the clouds need to be restored.
+            if (roundMaster.round.getCurrentPhase().equals("Planning")) {
+                for (int i = 0; i < playerCount + 1; i++) {
+                    bagToCloud(0);
+                    bagToCloud(1);
+                    if (playerCount == 3) {
+                        bagToCloud(2);
+                    }
                 }
             }
-        }
-        int[] tmp = new int[3];
-        for (int i = 0; i < cardsPlayed.size(); i++) {
-            tmp[i] = cardsPlayed.get(i).getValue();
-        }
-        if (roundMaster.round.getCurrentPhase().equals("Action"))
-            cardsPlayed = new ArrayList<>();
+            int[] tmp = new int[3];
+            for (int i = 0; i < cardsPlayed.size(); i++) {
+                tmp[i] = cardsPlayed.get(i).getValue();
+            }
+            if (roundMaster.round.getCurrentPhase().equals("Action"))
+                cardsPlayed = new ArrayList<>();
 
-        this.order = roundMaster.changePhase(tmp);
-        if(gameType==1)
-            characterSelector.effects.restore();
+            this.order = roundMaster.changePhase(tmp);
+            if (gameType == 1)
+                characterSelector.effects.restore();
 
-        //reset the maxmoves of all players.
-        for (Player p : players) {
-            p.maxMoves = playerCount + 1;
+            //reset the maxmoves of all players.
+            for (Player p : players) {
+                p.maxMoves = playerCount + 1;
+            }
+            update.add("\nNext phase!");
+            setChanged();
+            notifyObservers(update);
+            update.clear();
         }
-        update.add("\nNext phase!");
-        setChanged();
-        notifyObservers(update);
-        update.clear();
     }
 
     private void gameEnd() {
@@ -214,7 +221,7 @@ public class Game extends Observable {
     }
 
     public void bagEmptyHandler(){
-        //TODO: settare che questo è l'ultimo round
+        lastRound=true;
         System.out.println("Bag vuota");
     }
 
@@ -447,7 +454,9 @@ public class Game extends Observable {
         cardsPlayed.add(this.players.get(playerIndex).playCard(cardIndex)); //Removes and returns the card
         order.remove(0);
         update.add("\n" + this.players.get(playerIndex).nickname + " played their card!");
-
+        if(players.get(playerIndex).getHand().cards.isEmpty()){
+            lastRound=true;
+        }
         //When order is empty, it means that every player has played. So it's time to change phase into "Action";
         if (order.isEmpty()) {
             changePhase();
