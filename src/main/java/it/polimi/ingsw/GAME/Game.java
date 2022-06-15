@@ -349,34 +349,64 @@ public class Game extends Observable {
         if (roundMaster.round.getCurrentPhase().equals("Planning")) {
             if (index >= 0 && index < 10) {
                 Player player1 = playerTranslator(player);
-                int card1=100, card2=100;
-                if(!cardsPlayed.isEmpty()) {
-                    card1 = cardsPlayed.get(0).getValue();
-                    if(cardsPlayed.size()==2)
-                        card2=cardsPlayed.get(1).getValue();
+                int i = 0;
+                while (!players.get(i).equals(player1)) {
+                    i++;
                 }
-                int value=player1.getHand().cards.get(index).getValue();
-                if(value!=card1 && value!=card2) {
-
-                    int i = 0;
-                    while (!players.get(i).equals(player1)) {
-                        i++;
+                if (order.get(0).equals(this.players.get(i))) {
+                    int card1=100, card2=100;
+                    if(!cardsPlayed.isEmpty()) {
+                        card1 = cardsPlayed.get(0).getValue();
+                        if(cardsPlayed.size()==2)
+                            card2=cardsPlayed.get(1).getValue();
                     }
-                    if (order.get(0).equals(this.players.get(i))) {
-                        cardsPlayed.add(this.players.get(i).playCard(index));
+                    int value=player1.getHand().cards.get(index).getValue();
+                    if(value!=card1 && value!=card2) {
+                        cardsPlayed.add(this.players.get(i).playCard(index)); //Removes and returns the card
                         order.remove(0);
                         update.add("\n" + player + " played their card!");
-                    } else throw new ImpossibleActionException("\nNot " + players.get(i).nickname + "'s turn!\n");
-//When Order.get(0) is equal to NULL, means every player has played. So is time to change phase into "Action";
-                    if (order.isEmpty()) {
-                        changePhase();
+
+                        //When order is empty, it means that every player has played. So it's time to change phase into "Action";
+                        if (order.isEmpty()) {
+                            changePhase();
+                        }
+                        setChanged();
+                        notifyObservers(update);
+                        update.clear();
+                    } else {
+                        //The card has already been played
+                        boolean onlyUsedCards=true;
+                        for (Card handCard : players.get(i).getHand().cards)
+                        {
+                            boolean found=false;
+                            for(Card playedCard : cardsPlayed){
+                                if(handCard.getValue()==playedCard.getValue()){
+                                    found=true;
+                                }
+                            }
+                            if(!found){
+                                onlyUsedCards=false;
+                            }
+                        }
+                        if(onlyUsedCards){
+                            //La deve comunque giocare ed essere inserito in ordine dopo l'altro giocatore
+                            cardsPlayed.add(this.players.get(i).playCard(index)); //Removes and returns the card
+                            order.remove(0);
+                            update.add("\n" + player + " played their card!");
+
+                            //When order is empty, it means that every player has played. So it's time to change phase into "Action";
+                            if (order.isEmpty()) {
+                                changePhase();
+                            }
+                            setChanged();
+                            notifyObservers(update);
+                            update.clear();
+                        }
+                        else throw new ImpossibleActionException("\nYou can't play a card which has already been played by someone else!\n");
                     }
-                    setChanged();
-                    notifyObservers(update);
-                    update.clear();
-                } else throw new ImpossibleActionException("\nYou can't play a card which is already been played from someone else!\n");
+                } else throw new ImpossibleActionException("\nNot " + players.get(i).nickname + "'s turn!\n");
             } else throw new ImpossibleActionException("\nNo card with " + index + " as index\n");
-        }
+        } else throw new ImpossibleActionException("\nIt's not planning phase!\n");
     }
 
     public void activateCharacter(String player, int id, int parAC1, String parA2, ArrayList<Integer> parAC3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) throws ImpossibleActionException {

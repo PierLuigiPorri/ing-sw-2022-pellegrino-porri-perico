@@ -4,9 +4,9 @@ public class Card {
     private final int movement;
     private int value;
 
-    public Card(int movimento, int valore){
-        this.movement = movimento;
-        this.value = valore;
+    public Card(int movement, int value){
+        this.movement = movement;
+        this.value = value;
     }
 
     public int getValue() {
