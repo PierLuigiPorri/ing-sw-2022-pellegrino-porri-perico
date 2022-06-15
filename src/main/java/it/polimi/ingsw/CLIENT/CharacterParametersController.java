@@ -1,10 +1,8 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
-import it.polimi.ingsw.GAME.Student;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -34,10 +32,9 @@ public class CharacterParametersController {
     private UpdateMessage update;
     private int playersNumber;
     private String userNickname;
-    private MotherNatureGUI motherNature;
     private StudentGUI selectedStudent=null;
-    private ArrayList<StudentGUI> selectedStudents1=new ArrayList<>();
-    private ArrayList<StudentGUI> selectedStudents2=new ArrayList<>();
+    private final ArrayList<StudentGUI> selectedStudents1=new ArrayList<>();
+    private final ArrayList<StudentGUI> selectedStudents2=new ArrayList<>();
     private String selectedColor=null;
     private String selectedColor2=null;
     private IslandGUI selectedIsland=null;
@@ -63,7 +60,6 @@ public class CharacterParametersController {
     @FXML
     private Pane root;
     private ToggleGroup group;
-    private ToggleGroup group2;
     private int index;
     private int maxSwappable;
     private Text selectedText;
@@ -308,7 +304,7 @@ public class CharacterParametersController {
     }
 
     private void motherNatureUpdate() {
-        motherNature = new MotherNatureGUI();
+        MotherNatureGUI motherNature = new MotherNatureGUI();
         for (int i = 0; i < update.numIslands; i++) {
             if (update.motherNatureOnIsland.get(i)) {
                 islands.get(i).getChildren().add(motherNature);
@@ -716,7 +712,7 @@ public class CharacterParametersController {
                     yellow2.setLayoutY((183));
                     pink2.setLayoutX(764);
                     pink2.setLayoutY(183);
-                    group2 = new ToggleGroup();
+                    ToggleGroup group2 = new ToggleGroup();
                     red2.setToggleGroup(group2);
                     blue2.setToggleGroup(group2);
                     green2.setToggleGroup(group2);

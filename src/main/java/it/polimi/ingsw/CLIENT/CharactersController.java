@@ -3,12 +3,10 @@ package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.CLIENT.GUIobjects.CharacterGUI;
 import it.polimi.ingsw.CLIENT.GUIobjects.CoordinatesData;
-import it.polimi.ingsw.CLIENT.GUIobjects.IslandGUI;
 import it.polimi.ingsw.CLIENT.GUIobjects.StudentGUI;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,13 +15,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class CharactersController{
+public class CharactersController {
 
     private GUIAPP gui;
     private UpdateMessage update;
     private String userNickname;
-    private int selectedChar;
+    private int selectedChar = -1;
 
     @FXML
     private Pane character1, character2, character3;
@@ -32,24 +31,22 @@ public class CharactersController{
     @FXML
     private Text activated1, activated2, activated3;
     @FXML
-    private ImageView image1, image2,image3;
+    private ImageView image1, image2, image3;
     @FXML
     private Text effect1, effect2, effect3;
     @FXML
     private Button confirmButton;
-    private IslandGUI selectedIsland;
-    private StudentGUI selectedStudent;
 
     public void setGui(GUIAPP gui) {
         this.gui = gui;
     }
 
 
-    public void refresh(){
+    public void refresh() {
         update = gui.getUpdate();
-        userNickname=gui.getUserNickname();
+        userNickname = gui.getUserNickname();
 
-        coinsNumber.setText(""+update.coinsOnPlayer.get(userIndex())+"");
+        coinsNumber.setText("" + update.coinsOnPlayer.get(userIndex()) + "");
         setImage(image1, update.idCharacter.get(0));
         setImage(image2, update.idCharacter.get(1));
         setImage(image3, update.idCharacter.get(2));
@@ -59,67 +56,95 @@ public class CharactersController{
         setStudents();
 
 
-        if(update.activated.get(0)) {
+        if (update.activated.get(0)) {
             character1.setBorder(new Border(new BorderStroke(Color.YELLOW, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             activated1.setVisible(true);
         }
-        if(update.activated.get(1)){
+        if (update.activated.get(1)) {
             character2.setBorder(new Border(new BorderStroke(Color.YELLOW, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             activated2.setVisible(true);
         }
-        if(update.activated.get(2)){
+        if (update.activated.get(2)) {
             character3.setBorder(new Border(new BorderStroke(Color.YELLOW, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             activated3.setVisible(true);
         }
 
-        character1.setOnMousePressed(e->{
-            selectedChar=update.idCharacter.get(0);
-            confirmButton.setVisible(true);
-            confirmButton.setDisable(false);
+        character1.setOnMousePressed(e -> {
+            if (Objects.equals(update.order.get(0), userNickname) && Objects.equals(update.phase, "ACTION")) {
+                if (selectedChar != -1) {
+                    if (selectedChar == update.idCharacter.get(1))
+                        character2.setBorder(null);
+                    else
+                        character3.setBorder(null);
+                }
+                selectedChar = update.idCharacter.get(0);
+                character1.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                confirmButton.setVisible(true);
+                confirmButton.setDisable(false);
+            }
         });
 
-        character2.setOnMousePressed(e->{
-            selectedChar=update.idCharacter.get(1);
-            confirmButton.setVisible(true);
-            confirmButton.setDisable(false);
+        character2.setOnMousePressed(e -> {
+            if (Objects.equals(update.order.get(0), userNickname) && Objects.equals(update.phase, "ACTION")) {
+                if (selectedChar != -1) {
+                    if (selectedChar == update.idCharacter.get(0))
+                        character1.setBorder(null);
+                    else
+                        character3.setBorder(null);
+                }
+                selectedChar = update.idCharacter.get(1);
+                character2.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                confirmButton.setVisible(true);
+                confirmButton.setDisable(false);
+            }
         });
 
-        character3.setOnMousePressed(e->{
-            selectedChar=update.idCharacter.get(2);
-            confirmButton.setVisible(true);
-            confirmButton.setDisable(false);
+        character3.setOnMousePressed(e -> {
+            if (Objects.equals(update.order.get(0), userNickname) && Objects.equals(update.phase, "ACTION")) {
+                if (selectedChar != -1) {
+                    if (selectedChar == update.idCharacter.get(0))
+                        character1.setBorder(null);
+                    else
+                        character2.setBorder(null);
+                }
+                selectedChar = update.idCharacter.get(2);
+                character3.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                confirmButton.setVisible(true);
+                confirmButton.setDisable(false);
+            }
         });
 
 
-        if(update.phase.equals("Planning")) {
+        if (update.phase.equals("Planning")) {
             character1.setDisable(true);
             character2.setDisable(true);
             character3.setDisable(true);
         }
     }
 
-    public int userIndex(){
+    public int userIndex() {
         return update.players.indexOf(userNickname);
     }
 
-    public void setImage(ImageView imageView, int idCharacter){
-        imageView.setImage(new Image("Graphical_Assets/CarteTOT_front"+idCharacter+".jpg"));
+    public void setImage(ImageView imageView, int idCharacter) {
+        imageView.setImage(new Image("Graphical_Assets/CarteTOT_front" + idCharacter + ".jpg"));
         imageView.setCursor(Cursor.HAND);
     }
-    private void setStudents(){
-        if(update.idCharacter.get(0)==0||update.idCharacter.get(0)==6||update.idCharacter.get(0)==10){
+
+    private void setStudents() {
+        if (update.idCharacter.get(0) == 0 || update.idCharacter.get(0) == 6 || update.idCharacter.get(0) == 10) {
             CharacterGUI studs;
-            if(update.idCharacter.get(0)==6){
-                studs=new CharacterGUI(6);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(0))).size(); i+=2) {
+            if (update.idCharacter.get(0) == 6) {
+                studs = new CharacterGUI(6);
+                for (int i = 1; i < update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(0))).size(); i += 2) {
                     StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(0))).get(i));
                     student.setLayoutX(CoordinatesData.getCardStudents(6).get(i / 2).getX());
                     student.setLayoutY(CoordinatesData.getCardStudents(6).get(i / 2).getY());
                     studs.getChildren().add(student);
                 }
-            } else{
-                studs=new CharacterGUI(4);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(0))).size(); i+=2) {
+            } else {
+                studs = new CharacterGUI(4);
+                for (int i = 1; i < update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(0))).size(); i += 2) {
                     StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(0))).get(i));
                     student.setLayoutX(CoordinatesData.getCardStudents(4).get(i / 2).getX());
                     student.setLayoutY(CoordinatesData.getCardStudents(4).get(i / 2).getY());
@@ -128,19 +153,19 @@ public class CharactersController{
             }
             character1.getChildren().add(studs);
         }
-        if(update.idCharacter.get(1)==0||update.idCharacter.get(1)==6||update.idCharacter.get(1)==10){
+        if (update.idCharacter.get(1) == 0 || update.idCharacter.get(1) == 6 || update.idCharacter.get(1) == 10) {
             CharacterGUI studs;
-            if(update.idCharacter.get(1)==6){
-                studs=new CharacterGUI(6);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(1))).size(); i+=2) {
+            if (update.idCharacter.get(1) == 6) {
+                studs = new CharacterGUI(6);
+                for (int i = 1; i < update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(1))).size(); i += 2) {
                     StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(1))).get(i));
                     student.setLayoutX(CoordinatesData.getCardStudents(6).get(i / 2).getX());
                     student.setLayoutY(CoordinatesData.getCardStudents(6).get(i / 2).getY());
                     studs.getChildren().add(student);
                 }
-            } else{
-                studs=new CharacterGUI(4);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(1))).size(); i+=2) {
+            } else {
+                studs = new CharacterGUI(4);
+                for (int i = 1; i < update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(1))).size(); i += 2) {
                     StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(1))).get(i));
                     student.setLayoutX(CoordinatesData.getCardStudents(4).get(i / 2).getX());
                     student.setLayoutY(CoordinatesData.getCardStudents(4).get(i / 2).getY());
@@ -149,19 +174,19 @@ public class CharactersController{
             }
             character2.getChildren().add(studs);
         }
-        if(update.idCharacter.get(2)==0||update.idCharacter.get(2)==6||update.idCharacter.get(2)==10){
+        if (update.idCharacter.get(2) == 0 || update.idCharacter.get(2) == 6 || update.idCharacter.get(2) == 10) {
             CharacterGUI studs;
-            if(update.idCharacter.get(2)==6){
-                studs=new CharacterGUI(6);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(2))).size(); i+=2) {
+            if (update.idCharacter.get(2) == 6) {
+                studs = new CharacterGUI(6);
+                for (int i = 1; i < update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(2))).size(); i += 2) {
                     StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(2))).get(i));
                     student.setLayoutX(CoordinatesData.getCardStudents(6).get(i / 2).getX());
                     student.setLayoutY(CoordinatesData.getCardStudents(6).get(i / 2).getY());
                     studs.getChildren().add(student);
                 }
-            } else{
-                studs=new CharacterGUI(4);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(2))).size(); i+=2) {
+            } else {
+                studs = new CharacterGUI(4);
+                for (int i = 1; i < update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(2))).size(); i += 2) {
                     StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(update.idCharacter.get(2))).get(i));
                     student.setLayoutX(CoordinatesData.getCardStudents(4).get(i / 2).getX());
                     student.setLayoutY(CoordinatesData.getCardStudents(4).get(i / 2).getY());
@@ -173,9 +198,9 @@ public class CharactersController{
     }
 
     @FXML
-    private void activateCharacter(){
-        if(update.coinsOnPlayer.get(userIndex()) >= characterCost(selectedChar)){
-            ArrayList<Integer> a = new ArrayList<>(), c;
+    private void activateCharacter() {
+        if (update.coinsOnPlayer.get(userIndex()) >= characterCost(selectedChar)) {
+            ArrayList<Integer> a = new ArrayList<>();
             ArrayList<String> b = new ArrayList<>();
             a.add(selectedChar);
             switch (selectedChar) {
@@ -183,7 +208,7 @@ public class CharactersController{
                 case 7:
                 case 3:
                 case 5:
-                    gui.perform(a, b, null,5);
+                    gui.perform(a, b, null, 5);
                     break;
                 case 6:   //Questo è impossibile ma in qualche modo l'ho fatto
                 case 9:
@@ -199,7 +224,7 @@ public class CharactersController{
                 default:
                     break;
             }
-        }else{
+        } else {
             //TODO:popup no soldi :)
         }
     }
@@ -257,7 +282,7 @@ public class CharactersController{
         }
     }
 
-    public void backToBoard(){
+    public void backToBoard() {
         gui.setScene("fxml/board.fxml");
         gui.boardController.refresh();
     }
