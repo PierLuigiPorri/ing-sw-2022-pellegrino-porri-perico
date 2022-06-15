@@ -30,6 +30,7 @@ public class Game extends Observable {
     private Player PwBonus;
     public boolean cloudEmptied=false;
     private final ModelView modelView;
+    private boolean gameOver;
 
     private final ArrayList<String> update;
 
@@ -49,6 +50,7 @@ public class Game extends Observable {
         this.bag = new Bag();
         this.board = new Board(playerCount);
         this.order = new ArrayList<>();
+        this.gameOver=false;
 
         this.players.add(new Player(playerCount, nick1, this));
         this.players.add(new Player(playerCount, nick2, this));
@@ -77,6 +79,10 @@ public class Game extends Observable {
         setChanged();
         notifyObservers(update);
         update.clear();
+    }
+
+    public boolean getGameOver(){
+        return gameOver;
     }
 
     public ModelView getModelView() {
@@ -141,6 +147,7 @@ public class Game extends Observable {
     private void gameEnd() {
         winner=calculateWinner();
         update.add("GAME OVER! Winner: "+winner);
+        gameOver=true;
         setChanged();
         notifyObservers(update);
         update.clear();

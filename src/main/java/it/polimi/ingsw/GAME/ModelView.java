@@ -22,6 +22,9 @@ public class ModelView extends Observable implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         this.update = new UpdateMessage();
+        if(game.getGameOver()){
+            update.gameEnded=true;
+        }
         update.charactersNum = 0;
         update.update = (ArrayList<String>) arg;
         update.update= update.update.stream().collect(Collectors.toCollection(ArrayList::new));
