@@ -57,8 +57,8 @@ public class Game extends Observable {
 
         for (Player p : players) {
             for (int i = 0; i < p.getGate().getMAX(); i++) {
-                if (!this.getBg().getStudents().isEmpty()) {
-                    p.getGate().addInitialStud(this.getBg().extractStudent());
+                if (!this.getBag().getStudents().isEmpty()) {
+                    p.getGate().addInitialStud(this.getBag().extractStudent());
                 }
             }
         }
@@ -179,7 +179,7 @@ public class Game extends Observable {
 
     public void bagToCloud(int index) throws BoundException, ImpossibleActionException {
         if (index >= 0 && index <= 3 && board.clouds.get(index).students.size() < playerCount + 1) {
-            if (!this.getBg().getStudents().isEmpty()) {
+            if (!this.getBag().getStudents().isEmpty()) {
                 board.clouds.get(index).addStudent(bag.extractStudent().getColor());
             } else throw new ImpossibleActionException("\nThe bag is empty!");
 
@@ -214,7 +214,7 @@ public class Game extends Observable {
                         for(Student s:board.clouds.get(cIndex).students){
                             addToGate(p, s.getColor());
                         }
-                        while(!getB().clouds.get(cIndex).emptyCloud()){
+                        while(!getBoard().clouds.get(cIndex).emptyCloud()){
                             removeFromCloud(cIndex, 0);
                         }
                         update.add("\nStay sharp! " + p.nickname + " just snatched the students from Cloud number " + cIndex + "!");
@@ -256,7 +256,7 @@ public class Game extends Observable {
                             if (board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(r.getId())) || board.islands.getIsland(r.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
                                 int min = Math.min(tmp.getId(), r.getId());
                                 mergeIslands(tmp.getId(), r.getId());
-                                tmp = getB().islands.getIsland(min);
+                                tmp = getBoard().islands.getIsland(min);
                             } else
                                 throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
                         }
@@ -397,11 +397,11 @@ public class Game extends Observable {
         return players;
     }
 
-    public Board getB() {
+    public Board getBoard() {
         return board;
     }
 
-    public Bag getBg() {
+    public Bag getBag() {
         return bag;
     }
 

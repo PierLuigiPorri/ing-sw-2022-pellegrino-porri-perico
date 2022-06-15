@@ -29,21 +29,21 @@ public class MergeIslandTest {
     @Test
     public void mergeIslandsTest() {
         if (game != null) {
-            Assert.assertEquals(12, game.getB().islands.size());
+            Assert.assertEquals(12, game.getBoard().islands.size());
             //game.mergeIslands(1, 3); returns the correct exceptions. it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException:
             // The islands are not consecutive, impossible to merge!
-            Assert.assertEquals(12, game.getB().islands.size());
+            Assert.assertEquals(12, game.getBoard().islands.size());
             game.mergeIslands(1, 2);
-            Assert.assertEquals(12, game.getB().islands.size());
-            game.getB().islands.getIsland(11).addTower(player);
-            game.getB().islands.getIsland(12).addTower(player);
+            Assert.assertEquals(12, game.getBoard().islands.size());
+            game.getBoard().islands.getIsland(11).addTower(player);
+            game.getBoard().islands.getIsland(12).addTower(player);
             game.mergeIslands(11, 12);
-            Assert.assertFalse(game.getB().islands.contains(game.getB().islands.getIsland(12)));
-            Assert.assertEquals(11, game.getB().islands.size());
-            game.getB().islands.getIsland(1).addTower(player);
+            Assert.assertFalse(game.getBoard().islands.contains(game.getBoard().islands.getIsland(12)));
+            Assert.assertEquals(11, game.getBoard().islands.size());
+            game.getBoard().islands.getIsland(1).addTower(player);
             game.mergeIslands(1, 11);
-            Assert.assertEquals(10, game.getB().islands.size());
-            Assert.assertEquals(game.getB().islands.getIsland(10).getIslandCount(), 3);
+            Assert.assertEquals(10, game.getBoard().islands.size());
+            Assert.assertEquals(game.getBoard().islands.getIsland(10).getIslandCount(), 3);
 
             System.out.println("TEST PASSATO!");
         }

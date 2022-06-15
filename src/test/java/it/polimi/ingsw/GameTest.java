@@ -57,13 +57,13 @@ public class GameTest {
 
 
                 for (int i = 0; i < 3; i++) {
-                    tm1[i] = game.getB().clouds.get(0).getStudents().get(i);
-                    tm2[i] = game.getB().clouds.get(1).getStudents().get(i);
+                    tm1[i] = game.getBoard().clouds.get(0).getStudents().get(i);
+                    tm2[i] = game.getBoard().clouds.get(1).getStudents().get(i);
                 }
 
                 game.CloudToGate("PIER", 0);
 
-                Assert.assertTrue(game.getB().clouds.get(0).emptyCloud());
+                Assert.assertTrue(game.getBoard().clouds.get(0).emptyCloud());
                 Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
                 game.moveMotherNature("PIER", game.order.get(0).getLastCardPlayed().getMovement());
@@ -76,7 +76,7 @@ public class GameTest {
 
                 game.CloudToGate("PAOLO", 1);
 
-                Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
+                Assert.assertTrue(game.getBoard().clouds.get(1).emptyCloud());
                 Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
                 game.moveMotherNature("PAOLO", game.order.get(0).getLastCardPlayed().getMovement());
@@ -107,12 +107,12 @@ public class GameTest {
                 game.gateToIsland("PIER", 0, 7);
 
                 for (int i = 0; i < 3; i++) {
-                    tm1[i] = game.getB().clouds.get(0).getStudents().get(i);
-                    tm2[i] = game.getB().clouds.get(1).getStudents().get(i);
+                    tm1[i] = game.getBoard().clouds.get(0).getStudents().get(i);
+                    tm2[i] = game.getBoard().clouds.get(1).getStudents().get(i);
                 }
                 game.CloudToGate("PIER", 0);
 
-                Assert.assertTrue(game.getB().clouds.get(0).emptyCloud());
+                Assert.assertTrue(game.getBoard().clouds.get(0).emptyCloud());
                 Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
                 game.moveMotherNature("PIER", game.order.get(0).getLastCardPlayed().getMovement());
@@ -122,7 +122,7 @@ public class GameTest {
                 game.gateToIsland("PAOLO", 0, 9);
                 game.gateToIsland("PAOLO", 0, 4);
                 game.CloudToGate("PAOLO", 1);
-                Assert.assertTrue(game.getB().clouds.get(1).emptyCloud());
+                Assert.assertTrue(game.getBoard().clouds.get(1).emptyCloud());
 
                 game.moveMotherNature("PAOLO", game.order.get(0).getLastCardPlayed().getMovement());
                 Assert.assertEquals("Planning", game.roundMaster.round.getCurrentPhase());

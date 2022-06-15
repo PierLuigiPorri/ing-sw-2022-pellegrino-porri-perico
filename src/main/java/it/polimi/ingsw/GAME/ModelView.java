@@ -43,7 +43,7 @@ public class ModelView extends Observable implements Observer {
         update.turnNumber = game.roundMaster.getRoundCount();
         update.game_Type = game.getGameType();
         update.nPlayers = game.getPlayerCount();
-        update.numIslands = game.getB().islands.size();
+        update.numIslands = game.getBoard().islands.size();
     }
 
 
@@ -53,20 +53,20 @@ public class ModelView extends Observable implements Observer {
             update.lastCardPlayed.add(c.getValue());
         }
 
-        for (int k = 1; k <= game.getB().islands.size(); k++) {
-            if (game.getB().islands.getIsland(k).motherNature)
+        for (int k = 1; k <= game.getBoard().islands.size(); k++) {
+            if (game.getBoard().islands.getIsland(k).motherNature)
                 update.motherNatureOnIsland.add(true);
             else update.motherNatureOnIsland.add(false);
         }
 
-        for (int k = 1; k <= game.getB().islands.size(); k++) {
-            update.towersOnIsland.add(game.getB().islands.getIsland(k).towers.size());
+        for (int k = 1; k <= game.getBoard().islands.size(); k++) {
+            update.towersOnIsland.add(game.getBoard().islands.getIsland(k).towers.size());
         }
         update.cloudtaken=game.cloudEmptied;
         ArrayList<String> tmp;
-        for (int i = 0; i < game.getB().clouds.size(); i++) {
+        for (int i = 0; i < game.getBoard().clouds.size(); i++) {
             tmp = new ArrayList<>();
-            for (Student s : game.getB().clouds.get(i).students) {
+            for (Student s : game.getBoard().clouds.get(i).students) {
                 tmp.add(s.getColorInCLI());
                 tmp.add(s.getColor());
 
@@ -74,17 +74,17 @@ public class ModelView extends Observable implements Observer {
             update.studentsOnCloud.put(i, tmp);
         }
 
-        update.cloudsNumber = game.getB().clouds.size();
+        update.cloudsNumber = game.getBoard().clouds.size();
 
-        for (int i = 1; i <= game.getB().islands.size(); i++) {
-            if (game.getB().islands.getIsland(i).getPlayer() != null)
-                update.whoOwnTowers.add(game.getB().islands.getIsland(i).getPlayer().nickname);
+        for (int i = 1; i <= game.getBoard().islands.size(); i++) {
+            if (game.getBoard().islands.getIsland(i).getPlayer() != null)
+                update.whoOwnTowers.add(game.getBoard().islands.getIsland(i).getPlayer().nickname);
             else update.whoOwnTowers.add("NONE");
         }
 
-        for (int i = 1; i <= game.getB().islands.size(); i++) {
+        for (int i = 1; i <= game.getBoard().islands.size(); i++) {
             tmp = new ArrayList<>();
-            for (Student s : game.getB().islands.getIsland(i).getStudents()) {
+            for (Student s : game.getBoard().islands.getIsland(i).getStudents()) {
                 tmp.add(s.getColorInCLI());
                 tmp.add(s.getColor());
             }
@@ -190,8 +190,8 @@ public class ModelView extends Observable implements Observer {
                 }
             }
 
-            for (int i = 1; i <= game.getB().islands.size(); i++) {
-                update.numTDOnIsland.add(game.getB().islands.getIsland(i).TD);
+            for (int i = 1; i <= game.getBoard().islands.size(); i++) {
+                update.numTDOnIsland.add(game.getBoard().islands.getIsland(i).TD);
             }
 
             CharacterType c;

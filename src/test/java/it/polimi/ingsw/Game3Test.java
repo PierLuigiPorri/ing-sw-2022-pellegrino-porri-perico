@@ -32,10 +32,10 @@ public class Game3Test {
     public void game3Simulation() {
         if (game3 != null) {
             Assert.assertEquals(3, game3.getPlayers().size());
-            Assert.assertEquals(12, game3.getB().islands.size());
-            Assert.assertEquals(3, game3.getB().clouds.size());
-            Assert.assertEquals(0, game3.getB().islands.getIsland(1).getStudents().size());
-            Assert.assertEquals(0, game3.getB().islands.getIsland(6).getStudents().size());
+            Assert.assertEquals(12, game3.getBoard().islands.size());
+            Assert.assertEquals(3, game3.getBoard().clouds.size());
+            Assert.assertEquals(0, game3.getBoard().islands.getIsland(1).getStudents().size());
+            Assert.assertEquals(0, game3.getBoard().islands.getIsland(6).getStudents().size());
             Assert.assertEquals(0, game3.roundMaster.getRoundCount());
             try {
                 Assert.assertEquals("Planning", game3.roundMaster.round.getCurrentPhase());
@@ -57,9 +57,9 @@ public class Game3Test {
                 game3.gateToHall("PIER", tmp1[3].getColor());
 
                 for (int i = 0; i < 4; i++) {
-                    tm1[i] = game3.getB().clouds.get(0).getStudents().get(i);
-                    tm2[i] = game3.getB().clouds.get(1).getStudents().get(i);
-                    tm3[i] = game3.getB().clouds.get(2).getStudents().get(i);
+                    tm1[i] = game3.getBoard().clouds.get(0).getStudents().get(i);
+                    tm2[i] = game3.getBoard().clouds.get(1).getStudents().get(i);
+                    tm3[i] = game3.getBoard().clouds.get(2).getStudents().get(i);
                 }
 
                 game3.CloudToGate("PIER", 0);
