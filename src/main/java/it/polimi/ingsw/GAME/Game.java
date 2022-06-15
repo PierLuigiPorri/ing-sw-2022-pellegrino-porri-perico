@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GAME;
 
+import it.polimi.ingsw.EXCEPTIONS.BagEmptyException;
 import it.polimi.ingsw.EXCEPTIONS.BoundException;
 import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
@@ -57,8 +58,10 @@ public class Game extends Observable {
 
         for (Player p : players) {
             for (int i = 0; i < p.getGate().getMAX(); i++) {
-                if (!this.getBag().getStudents().isEmpty()) {
+                try {
                     p.getGate().addInitialStud(this.getBag().extractStudent());
+                }catch (BagEmptyException e){
+                    bagEmptyHandler();
                 }
             }
         }
@@ -107,14 +110,10 @@ public class Game extends Observable {
         // If the current phase is Planning, then the clouds need to be restored.
         if (roundMaster.round.getCurrentPhase().equals("Planning")) {
             for (int i = 0; i < playerCount + 1; i++) {
-                if (bag.getSize() == 0)
-                    throw new BoundException("\nThe bag is empty!\n");
-                else {
-                    bagToCloud(0);
-                    bagToCloud(1);
-                    if (playerCount == 3) {
-                        bagToCloud(2);
-                    }
+                bagToCloud(0);
+                bagToCloud(1);
+                if (playerCount == 3) {
+                    bagToCloud(2);
                 }
             }
         }
@@ -199,11 +198,17 @@ public class Game extends Observable {
 
     public void bagToCloud(int index) throws BoundException, ImpossibleActionException {
         if (index >= 0 && index <= 3 && board.clouds.get(index).students.size() < playerCount + 1) {
-            if (!this.getBag().getStudents().isEmpty()) {
+            try {
                 board.clouds.get(index).addStudent(bag.extractStudent().getColor());
-            } else throw new ImpossibleActionException("\nThe bag is empty!");
-
+            }catch (BagEmptyException e){
+                bagEmptyHandler();
+            }
         } else throw new BoundException("\nINDEX OUT OF BOUND!\n");
+    }
+
+    public void bagEmptyHandler(){
+        //TODO: settare che questo è l'ultimo round
+        System.out.println("Bag vuota");
     }
 
     public void gateToIsland(String name, int index, int indexIsland) throws BoundException, ImpossibleActionException {

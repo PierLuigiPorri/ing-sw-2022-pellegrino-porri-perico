@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GAME;
 
+import it.polimi.ingsw.EXCEPTIONS.BagEmptyException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.util.ArrayList;
@@ -19,22 +20,16 @@ public class Bag {
         }else throw new ImpossibleActionException("The Bag is full, impossible to add students");
     }
 
-    public Student extractStudent() {
-        Student last = this.students.get(this.students.size() - 1);
-        this.students.remove(this.students.size() - 1);
-        return last;
-    }
-
-    public ArrayList<Student> getStudents() {
-        return students;
+    public Student extractStudent() throws BagEmptyException {
+        if(students.size()>0) {
+            Student last = this.students.get(this.students.size() - 1);
+            this.students.remove(this.students.size() - 1);
+            return last;
+        }
+        else throw new BagEmptyException("Bag empty");
     }
 
     public int getMAX() {
         return MAX;
     }
-
-    public int getSize() {
-        return this.students.size();
-    }
-
 }

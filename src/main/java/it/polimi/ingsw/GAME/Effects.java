@@ -1,6 +1,7 @@
 package it.polimi.ingsw.GAME;
 
 
+import it.polimi.ingsw.EXCEPTIONS.BagEmptyException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.util.ArrayList;
@@ -20,12 +21,20 @@ public final class Effects{
             case 10:
                 c.setMAX(4);
                     for(int i=0; i<c.getMAX(); i++) {
-                        c.students.add(this.game.getBag().extractStudent());
+                        try {
+                            c.students.add(this.game.getBag().extractStudent());
+                        }catch (BagEmptyException e){
+                            game.bagEmptyHandler();
+                        }
                     }
                 break;
             case 6: c.setMAX(6);
                     for(int i=0; i<c.getMAX(); i++) {
-                        c.students.add(game.getBag().extractStudent());
+                        try {
+                            c.students.add(this.game.getBag().extractStudent());
+                        }catch (BagEmptyException e){
+                            game.bagEmptyHandler();
+                        }
                     }
                     break;
             default:break;
@@ -81,7 +90,11 @@ public final class Effects{
             case 0:
                 game.addStudentToIsland(c.students.get(par1).getColor(), par2);
                 c.students.remove(par1);
-                c.students.add(game.getBag().extractStudent());
+                try {
+                    c.students.add(this.game.getBag().extractStudent());
+                }catch (BagEmptyException e){
+                    game.bagEmptyHandler();
+                }
                 return player.nickname+" just moved a "+c.students.get(par1).getColor()+" student on Island "+par2+"!";
             case 4:
                 game.getBoard().islands.getIsland(par1).addTD();
@@ -91,7 +104,11 @@ public final class Effects{
                 game.addStudentToHall(c.students.get(par1).getColor(), player);
                 String color=c.students.get(par1).getColor();
                 c.getStudents().remove(par1);
-                c.students.add(game.getBag().extractStudent());
+                try {
+                    c.students.add(this.game.getBag().extractStudent());
+                }catch (BagEmptyException e){
+                    game.bagEmptyHandler();
+                }
                 return "\nHeads up! "+player.nickname+" placed a "+color+" in their Hall! They're getting ahead!";
             case 6:
                 Student tmp;
