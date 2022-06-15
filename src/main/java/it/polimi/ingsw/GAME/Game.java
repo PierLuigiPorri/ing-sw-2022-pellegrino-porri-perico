@@ -172,6 +172,7 @@ public class Game extends Observable {
         }
         else{
             return "It's a draw!";
+            //TODO: Controllo di chi ha più professori per risolvere i pareggi
         }
     }
 
@@ -403,17 +404,7 @@ public class Game extends Observable {
                     }
                     int value=player1.getHand().cards.get(index).getValue();
                     if(value!=card1 && value!=card2) {
-                        cardsPlayed.add(this.players.get(i).playCard(index)); //Removes and returns the card
-                        order.remove(0);
-                        update.add("\n" + player + " played their card!");
-
-                        //When order is empty, it means that every player has played. So it's time to change phase into "Action";
-                        if (order.isEmpty()) {
-                            changePhase();
-                        }
-                        setChanged();
-                        notifyObservers(update);
-                        update.clear();
+                        actuallyPlayCard(i, index);
                     } else {
                         //The card has already been played
                         boolean onlyUsedCards=true;
@@ -431,23 +422,27 @@ public class Game extends Observable {
                         }
                         if(onlyUsedCards){
                             //La deve comunque giocare ed essere inserito in ordine dopo l'altro giocatore
-                            cardsPlayed.add(this.players.get(i).playCard(index)); //Removes and returns the card
-                            order.remove(0);
-                            update.add("\n" + player + " played their card!");
-
-                            //When order is empty, it means that every player has played. So it's time to change phase into "Action";
-                            if (order.isEmpty()) {
-                                changePhase();
-                            }
-                            setChanged();
-                            notifyObservers(update);
-                            update.clear();
+                            actuallyPlayCard(i, index);
                         }
                         else throw new ImpossibleActionException("\nYou can't play a card which has already been played by someone else!\n");
                     }
                 } else throw new ImpossibleActionException("\nNot " + players.get(i).nickname + "'s turn!\n");
             } else throw new ImpossibleActionException("\nNo card with " + index + " as index\n");
         } else throw new ImpossibleActionException("\nIt's not planning phase!\n");
+    }
+
+    private void actuallyPlayCard(int playerIndex, int cardIndex) throws ImpossibleActionException, BoundException{
+        cardsPlayed.add(this.players.get(playerIndex).playCard(cardIndex)); //Removes and returns the card
+        order.remove(0);
+        update.add("\n" + this.players.get(playerIndex).nickname + " played their card!");
+
+        //When order is empty, it means that every player has played. So it's time to change phase into "Action";
+        if (order.isEmpty()) {
+            changePhase();
+        }
+        setChanged();
+        notifyObservers(update);
+        update.clear();
     }
 
     public void activateCharacter(String player, int id, int parAC1, String parA2, ArrayList<Integer> parAC3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) throws ImpossibleActionException {
