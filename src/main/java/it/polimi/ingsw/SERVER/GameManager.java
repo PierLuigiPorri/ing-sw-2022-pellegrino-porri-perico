@@ -56,6 +56,12 @@ public class GameManager extends Observable implements Runnable, Observer {
             cm.send(update);
         }
         System.out.println("Server sends the update to all clients");
+        if(update.gameEnded){
+            for (ConnectionManager cm: connectionManagers) {
+                cm.setGameHasBeenCreated(false);
+            }
+            this.kill=true; //Kill this thread
+        }
     }
 
     public void playerDisconnected(String player){
