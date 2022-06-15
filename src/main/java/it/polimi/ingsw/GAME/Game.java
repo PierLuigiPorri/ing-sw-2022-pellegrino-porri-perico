@@ -129,8 +129,7 @@ public class Game extends Observable {
         if(gameType==1)
             characterSelector.effects.restore();
 
-
-//reset the maxmoves of all players.
+        //reset the maxmoves of all players.
         for (Player p : players) {
             p.maxMoves = playerCount + 1;
         }
