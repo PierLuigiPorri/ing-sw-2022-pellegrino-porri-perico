@@ -8,7 +8,7 @@ public class MotherNature {
         this.island = island ;
     }
 
-    public Island getIsola() {
+    public Island getIsland() {
         return this.island;
     }
 

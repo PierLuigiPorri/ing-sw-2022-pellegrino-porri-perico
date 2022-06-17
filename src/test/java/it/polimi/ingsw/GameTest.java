@@ -116,7 +116,7 @@ public class GameTest {
                 Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
                 game.moveMotherNature("PIER", game.order.get(0).getLastCardPlayed().getMovement());
-                Assert.assertEquals(8, game.motherNature.getIsola().getId());
+                Assert.assertEquals(8, game.motherNature.getIsland().getId());
 
                 game.gateToHall("PAOLO", tmp1[0].getColor());
                 game.gateToIsland("PAOLO", 0, 9);

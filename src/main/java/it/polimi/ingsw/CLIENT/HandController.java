@@ -17,6 +17,7 @@ public class HandController {
 
     @FXML
     private Pane card0, card1, card2, card3, card4, card5, card6, card7, card8, card9;
+    private ArrayList<Integer> originalIndexes=new ArrayList<>();
 
     public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
@@ -25,6 +26,10 @@ public class HandController {
     public void refresh(){
         update=gui.getUpdate();
         this.userNickname=gui.getUserNickname();
+        //originalIndexes init
+        for(int i=0; i<10; i++){
+            originalIndexes.add(-1);
+        }
 
         disableAllCards(true);
         setVisibleCards(false);
@@ -52,7 +57,7 @@ public class HandController {
             if(!card.isDisable()) {
                 card.setOnMouseClicked(e -> {
                     card.setDisable(true);
-                    intPar.add(cards.indexOf(card));
+                    intPar.add(originalIndexes.get(cards.indexOf(card)));
                     playCard();
                 });
             }
@@ -114,51 +119,61 @@ public class HandController {
                     card0.setDisable(false);
                     card0.setVisible(true);
                     card0.setCursor(Cursor.HAND);
+                    originalIndexes.set(0, i/2);
                     break;
                 case 2:
                     card1.setDisable(false);
                     card1.setVisible(true);
                     card1.setCursor(Cursor.HAND);
+                    originalIndexes.set(1, i/2);
                     break;
                 case 3:
                     card2.setDisable(false);
                     card2.setVisible(true);
                     card2.setCursor(Cursor.HAND);
+                    originalIndexes.set(2, i/2);
                     break;
                 case 4:
                     card3.setDisable(false);
                     card3.setVisible(true);
                     card3.setCursor(Cursor.HAND);
+                    originalIndexes.set(3, i/2);
                     break;
                 case 5:
                     card4.setDisable(false);
                     card4.setVisible(true);
                     card4.setCursor(Cursor.HAND);
+                    originalIndexes.set(4, i/2);
                     break;
                 case 6:
                     card5.setDisable(false);
                     card5.setVisible(true);
                     card5.setCursor(Cursor.HAND);
+                    originalIndexes.set(5, i/2);
                     break;
                 case 7:
                     card6.setDisable(false);
                     card6.setVisible(true);
                     card6.setCursor(Cursor.HAND);
+                    originalIndexes.set(6, i/2);
                     break;
                 case 8:
                     card7.setDisable(false);
                     card7.setVisible(true);
                     card7.setCursor(Cursor.HAND);
+                    originalIndexes.set(7, i/2);
                     break;
                 case 9:
                     card8.setDisable(false);
                     card8.setVisible(true);
                     card8.setCursor(Cursor.HAND);
+                    originalIndexes.set(8, i/2);
                     break;
                 case 10:
                     card9.setDisable(false);
                     card9.setVisible(true);
                     card9.setCursor(Cursor.HAND);
+                    originalIndexes.set(9, i/2);
                     break;
             }
         }

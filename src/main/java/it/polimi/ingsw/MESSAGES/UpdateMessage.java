@@ -15,7 +15,7 @@ public class UpdateMessage extends MessageType{
     public int cloudsNumber;
     public boolean cloudtaken=false;
 
-    public LinkedHashMap<Integer, ArrayList<Integer>> handPlayer;
+    public LinkedHashMap<Integer, ArrayList<Integer>> handPlayer; //In order: player, movement, value
 
 
     public ArrayList<Integer> coinsOnPlayer;     //[positions] 0:order.get(0); 1: order.get(1); 2: order.get(2);

@@ -278,8 +278,8 @@ public class Game extends Observable {
             if(cloudEmptied) {
                 if (player1.maxMoves == 0 && order.get(0).equals(player1)) {
                     if (movement <= order.get(0).getLastCardPlayed().getMovement() + MNbonus) {
-                        motherNature.getIsola().setMotherNature(false);
-                        Island tmp = motherNature.getIsola();
+                        motherNature.getIsland().setMotherNature(false);
+                        Island tmp = motherNature.getIsland();
                         for (int i = 0; i < movement; i++) {
                             tmp = tmp.next;
                         }
@@ -301,6 +301,7 @@ public class Game extends Observable {
                                     int min = Math.min(tmp.getId(), r.getId());
                                     mergeIslands(tmp.getId(), r.getId());
                                     tmp = getBoard().islands.getIsland(min);
+                                    motherNature.setIsland(tmp);
                                 } else
                                     throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
                             }
@@ -460,7 +461,7 @@ public class Game extends Observable {
     private void actuallyPlayCard(int playerIndex, int cardIndex) throws ImpossibleActionException, BoundException{
         cardsPlayed.add(this.players.get(playerIndex).playCard(cardIndex)); //Removes and returns the card
         order.remove(0);
-        update.add("\n" + this.players.get(playerIndex).nickname + " played their card!");
+        update.add("\n" + this.players.get(playerIndex).nickname + " played card with index "+cardIndex);
         if(players.get(playerIndex).getHand().cards.isEmpty()){
             lastRound=true;
         }

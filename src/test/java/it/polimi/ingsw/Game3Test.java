@@ -65,7 +65,7 @@ public class Game3Test {
                 game3.CloudToGate("PIER", 0);
 
                 game3.moveMotherNature("PIER", game3.order.get(0).getLastCardPlayed().getMovement());
-                Assert.assertEquals(game3.motherNature.getIsola().getId(), 3);
+                Assert.assertEquals(game3.motherNature.getIsland().getId(), 3);
 
 
                 game3.gateToHall("Gandalf", tmp2[0].getColor());
@@ -78,7 +78,7 @@ public class Game3Test {
 
 
                 game3.moveMotherNature("Gandalf", game3.order.get(0).getLastCardPlayed().getMovement());
-                Assert.assertEquals(game3.motherNature.getIsola().getId(), 6);
+                Assert.assertEquals(game3.motherNature.getIsland().getId(), 6);
 
                 game3.gateToHall("PAOLO", tmp2[0].getColor());
                 game3.gateToIsland("PAOLO", 0, 7);
@@ -90,7 +90,7 @@ public class Game3Test {
 
 
                 game3.moveMotherNature("PAOLO", game3.order.get(0).getLastCardPlayed().getMovement());
-                Assert.assertEquals(game3.motherNature.getIsola().getId(), 10);
+                Assert.assertEquals(game3.motherNature.getIsland().getId(), 10);
 
                 System.out.println("TEST PASSATO!");
             } catch (ImpossibleActionException | BoundException | ConsecutiveIslandException e) {
