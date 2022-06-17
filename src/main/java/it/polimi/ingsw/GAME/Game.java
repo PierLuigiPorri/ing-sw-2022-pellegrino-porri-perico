@@ -309,7 +309,10 @@ public class Game extends Observable {
                         if (!tmp.towers.isEmpty() && !tmp.next.towers.isEmpty()) {
                             if (tmp.getPlayer().equals(tmp.next.getPlayer())) {
                                 if (board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(tmp.next.getId())) || board.islands.getIsland(tmp.next.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
+                                    int min=tmp.getId();
                                     mergeIslands(tmp.getId(), tmp.next.getId());
+                                    tmp = getBoard().islands.getIsland(min);
+                                    motherNature.setIsland(tmp);
                                 } else
                                     throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
                             }
