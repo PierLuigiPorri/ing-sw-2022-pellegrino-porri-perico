@@ -16,7 +16,7 @@ public class AckReceiver implements Runnable{
     public void run() {
         while(!kill){
             try {
-                Thread.sleep(30000);
+                Thread.sleep(60000);
             } catch (InterruptedException e){}
             try {
                 cm.clearAck();
