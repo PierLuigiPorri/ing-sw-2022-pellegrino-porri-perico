@@ -194,14 +194,16 @@ public class Game extends Observable {
             Player player1 = playerTranslator(name);
             if (order.get(0).equals(player1)) {
                 if (player1.getGate().getColorsInGate().contains(color)) {
-                    addStudentToHall(color, player1);
-                    int i = 0;
-                    while (!(player1.getGate().students.get(i).getColor().equals(color))) {
-                        i++;
-                    }
-                    removeFromGate(player1, i);
-                    player1.maxMoves--;
-                    update.add("\nHeads up! " + player1.nickname + " moved a " + color + " student to their hall!");
+                    if(player1.maxMoves>0) {
+                        addStudentToHall(color, player1);
+                        int i = 0;
+                        while (!(player1.getGate().students.get(i).getColor().equals(color))) {
+                            i++;
+                        }
+                        removeFromGate(player1, i);
+                        player1.maxMoves--;
+                        update.add("\nHeads up! " + player1.nickname + " moved a " + color + " student to their hall!");
+                    }else throw new ImpossibleActionException("You can't move any more students! Get your new bad boys from the cloud");
                 } else throw new ImpossibleActionException("No such color in " + player1.nickname + "'s gate.");
             } else throw new ImpossibleActionException("Is not your turn.");
         } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
@@ -231,11 +233,13 @@ public class Game extends Observable {
             if (order.get(0).equals(player1)) {
                 if (player1.getGate().getColorsInGate().contains(player1.getGate().getStudents().get(index).getColor())) {
                     if (player1.getGate().students.size() >= player1.getGate().MAX - 2) {
-                        addStudentToIsland(player1.getGate().getStudents().get(index).getColor(), indexIsland);
-                        String color=player1.getGate().getStudents().get(index).getColor();
-                        removeFromGate(player1, index);
-                        player1.maxMoves--;
-                        update.add("\nSomething's happened!\n" + player1.nickname + " moved a " + color + " student to Island " + indexIsland + "!");
+                        if(player1.maxMoves>0) {
+                            addStudentToIsland(player1.getGate().getStudents().get(index).getColor(), indexIsland);
+                            String color=player1.getGate().getStudents().get(index).getColor();
+                            removeFromGate(player1, index);
+                            player1.maxMoves--;
+                            update.add("\nSomething's happened!\n" + player1.nickname + " moved a " + color + " student to Island " + indexIsland + "!");
+                        }else throw new ImpossibleActionException("You can't move any more students! Get your new bad boys from the cloud");
                     } else throw new BoundException("\n" + player1.nickname + " can't place anymore students.\n");
                 } else throw new ImpossibleActionException("\nNot such color in " + player1.nickname + "'s gate");
             } else throw new ImpossibleActionException("\nIs not your turn.");
