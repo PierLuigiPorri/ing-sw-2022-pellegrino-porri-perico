@@ -4,7 +4,7 @@ import java.net.*;
 
 public class ServerApp
 {
-    private static int port=4000; //Connection port
+    private static int port=50000; //Connection port
     private static int connectedClients=0;
 
     public static void main(String[] args)
