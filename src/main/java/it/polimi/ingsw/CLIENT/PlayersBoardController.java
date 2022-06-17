@@ -63,8 +63,8 @@ public class PlayersBoardController {
     }
 
     private void setLastCardPlayed(){
-        if(!update.lastCardPlayed.isEmpty()) {
-            int value = update.lastCardPlayed.get(playerIndex() + 1);
+        if(update.lastCardsPlayed.size() > (playerIndex()*2) + 1) {
+            int value = update.lastCardsPlayed.get((playerIndex()*2) + 1);
             switch (value) {
                 case 1:
                     lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (1).png"));

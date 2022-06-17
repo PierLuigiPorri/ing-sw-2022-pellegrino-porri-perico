@@ -52,8 +52,8 @@ public class ModelView extends Observable implements Observer {
 
     private void setBoardAttributes() {
         for (Card c : game.getCardsPlayed()) {
-            update.lastCardPlayed.add(c.getMovement());
-            update.lastCardPlayed.add(c.getValue());
+            update.lastCardsPlayed.add(c.getMovement());
+            update.lastCardsPlayed.add(c.getValue());
         }
 
         for (int k = 1; k <= game.getBoard().islands.size(); k++) {

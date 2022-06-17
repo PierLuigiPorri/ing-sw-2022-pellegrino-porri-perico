@@ -32,8 +32,8 @@ public class UpdateMessage extends MessageType{
     public LinkedHashMap<Integer, ArrayList<Boolean>> professors;
 
 
-    public ArrayList<Integer> lastCardPlayed;
-    //[positions] of lastCardPlayed:
+    public ArrayList<Integer> lastCardsPlayed;
+    //[positions] of lastCardsPlayed:
     // 0:Movement of the last card played by game.getOrder(0); 1: Value of the last card played by game.getOrder(0);
     // 2: Movement of the last card played by game.getOrder(1); 3: Value of the last card played by game.getOrder(1);
     // 4:Movement of the last card played by game.getOrder(2); 5:Value of the last card played by game.getOrder(2);
@@ -68,7 +68,7 @@ public class UpdateMessage extends MessageType{
         this.coinsOnPlayer = new ArrayList<>();
         this.towersOnPlayer = new ArrayList<>();
         this.players=new ArrayList<>();
-        this.lastCardPlayed = new ArrayList<>();
+        this.lastCardsPlayed = new ArrayList<>();
         this.motherNatureOnIsland = new ArrayList<>();
         this.towersOnIsland = new ArrayList<>();
         this.idCharacter = new ArrayList<>();

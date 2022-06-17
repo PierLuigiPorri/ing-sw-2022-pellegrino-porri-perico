@@ -253,13 +253,13 @@ public class CLI implements View, Runnable {
         System.out.println("\nPlayers that have to play, in order:" + update.order);
         if (update.phase.equals("Planning")) {    //Planning Phase
             //TODO:fixare l'ordine di stampa delle carte
-            if (!update.lastCardPlayed.isEmpty()) {
+            if (!update.lastCardsPlayed.isEmpty()) {
                 ArrayList<String> played = new ArrayList<>(update.players);
                 played.removeAll(update.order);
                 System.out.println("\nHere's the cards that have already been played (Movement,Value):");
                 played.forEach(System.out::println);
-                for (int i = 0; i < update.lastCardPlayed.size(); i = i + 2) {
-                    System.out.print(update.lastCardPlayed.get(i) + ", " + update.lastCardPlayed.get(i + 1) + "; ");
+                for (int i = 0; i < update.lastCardsPlayed.size(); i = i + 2) {
+                    System.out.print(update.lastCardsPlayed.get(i) + ", " + update.lastCardsPlayed.get(i + 1) + "; ");
                 }
             }
             if (update.order.get(0).equals(nick)) {             //Player's turn
