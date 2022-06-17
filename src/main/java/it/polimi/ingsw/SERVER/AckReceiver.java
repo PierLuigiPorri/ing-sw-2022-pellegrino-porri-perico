@@ -16,11 +16,11 @@ public class AckReceiver implements Runnable{
     public void run() {
         while(!kill){
             try {
-                Thread.sleep(20000);
+                Thread.sleep(30000);
             } catch (InterruptedException e){}
             try {
                 cm.clearAck();
-                System.out.println("ACK ricevuti");
+                System.out.println("ACK ricevuti da "+cm.toString());
             }catch (EmptyQueueException e){
                 kill=true;
                 cm.clientDisconnected();
