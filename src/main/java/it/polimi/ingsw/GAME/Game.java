@@ -400,7 +400,7 @@ public class Game extends Observable {
         } else throw new ImpossibleActionException("\nNo towers in this island.\n");
     }
 
-    public void mergeIslands(int index1, int index2) {
+    public void mergeIslands(int index1, int index2){
         //TODO: restituire la nuova isola creata. Controllare MoveMotherNature.
         Island i1, i2;
         i1 = board.islands.getIsland(index1);
@@ -411,6 +411,7 @@ public class Game extends Observable {
                     "We have a new Island " + Math.min(index1, index2) + "!" +
                     "\nThere are only " + board.islands.size() + " left!");
         }
+        else System.out.println("Errore nel merge");
         if(board.islands.size()<=3){
             gameEnd();
         }
