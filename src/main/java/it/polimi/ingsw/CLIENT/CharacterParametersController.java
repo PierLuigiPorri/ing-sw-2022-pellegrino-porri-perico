@@ -113,6 +113,8 @@ public class CharacterParametersController {
                 p.setLayoutY(40);
                 ImageView imageView=new ImageView();
                 imageView.setImage(new Image("Graphical_Assets/CarteTOT_front0.jpg"));
+                imageView.setFitWidth(159);
+                imageView.setFitHeight(240);
                 p.getChildren().add(imageView);
                 CharacterGUI studs=new CharacterGUI(4);
                 for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(10)).size(); i+=2){
@@ -167,6 +169,8 @@ public class CharacterParametersController {
                 p.setLayoutY(40);
                 imageView=new ImageView();
                 imageView.setImage(new Image("Graphical_Assets/CarteTOT_front6.jpg"));
+                imageView.setFitWidth(159);
+                imageView.setFitHeight(240);
                 p.getChildren().add(imageView);
                 studs=new CharacterGUI(6);
                 for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i+=2){
@@ -221,6 +225,8 @@ public class CharacterParametersController {
                 p.setLayoutY(40);
                  imageView=new ImageView();
                 imageView.setImage(new Image("Graphical_Assets/CarteTOT_front10.jpg"));
+                imageView.setFitWidth(159);
+                imageView.setFitHeight(240);
                 p.getChildren().add(imageView);
                 studs=new CharacterGUI(4);
                 for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i+=2){

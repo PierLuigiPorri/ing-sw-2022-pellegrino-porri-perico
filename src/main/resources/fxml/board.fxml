@@ -594,7 +594,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="hall" layoutX="4.0" layoutY="231.0" onDragDropped="#onDragOnHall" prefHeight="365.0" prefWidth="298.0" />
+                  <Pane fx:id="hall" layoutX="4.0" layoutY="231.0" onDragDropped="#onDragOnHall" onDragOver="#onDragHallOver" prefHeight="365.0" prefWidth="298.0" />
                </children>
             </Pane>
             <Button fx:id="seePlayer1Hall" layoutX="306.0" layoutY="606.0" mnemonicParsing="false" onAction="#seePlayer1Hall" onMouseClicked="#seePlayer1Hall" prefHeight="46.0" prefWidth="136.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="OPPONENT'S HALL" textFill="WHITE">
@@ -645,7 +645,7 @@
                      <children>
                         <TextArea fx:id="updateMessageLog" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(123, 202, 240, 0.7);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
-                              <Font name="Papyrus" size="20.0" />
+                              <Font name="Papyrus" size="14.0" />
                            </font></TextArea>
                      </children></AnchorPane>
               </content>

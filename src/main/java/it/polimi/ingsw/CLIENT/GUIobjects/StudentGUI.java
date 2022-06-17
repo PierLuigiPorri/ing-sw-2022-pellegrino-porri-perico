@@ -5,7 +5,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public class StudentGUI extends Pane {
+import java.io.Serializable;
+
+public class StudentGUI extends Pane implements Serializable {
     private final String color;
     private double stageX, stageY;
     private Coordinates coord;

@@ -5,20 +5,18 @@ import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 
 import java.util.ArrayList;
 
 public class BoardController {
 
+
     private GUIAPP gui;
     private UpdateMessage update;
     private int playersNumber;
-    private int gameType;
     private String userNickname, player1Nickname, player2Nickname;
     private MotherNatureGUI motherNature;
     private StudentGUI selectedStudent;
@@ -59,7 +57,7 @@ public class BoardController {
         System.out.println(update.order);
         this.userNickname = gui.getUserNickname();
         this.playersNumber = update.players.size();
-        this.gameType = update.game_Type;
+        int gameType = update.game_Type;
         CoordinatesData.loadCoordinates();
 
         playersNicknames();
@@ -139,6 +137,7 @@ public class BoardController {
                 motherNature.setLayoutY(CoordinatesData.getMotherNatureCoordinates().getY());
                 motherNature.setOnMousePressed((e) -> onMotherNaturePressed(e, motherNature));
                 motherNature.setOnMouseDragged((e) -> onMotherNatureDragged(e, motherNature));
+                motherNature.setOnDragDetected(this::MNDragHandling);
             }
         }
     }
@@ -171,7 +170,7 @@ public class BoardController {
                 student.setLayoutX(CoordinatesData.getIsland("RED").getX());
                 student.setLayoutY(CoordinatesData.getIsland("RED").getY());
                 if (islands.get(index - 1).getRed() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("RED", islands.get(index).getRed()));
+                    islands.get(index - 1).getChildren().add(new CountPane("RED", islands.get(index-1).getRed()));
                 }
             }
             if (islands.get(index - 1).getBlue() > 0) {
@@ -180,7 +179,7 @@ public class BoardController {
                 student.setLayoutX(CoordinatesData.getIsland("BLUE").getX());
                 student.setLayoutY(CoordinatesData.getIsland("BLUE").getY());
                 if (islands.get(index - 1).getBlue() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("BLUE", islands.get(index).getBlue()));
+                    islands.get(index - 1).getChildren().add(new CountPane("BLUE", islands.get(index-1).getBlue()));
                 }
             }
             if (islands.get(index - 1).getGreen() > 0) {
@@ -189,7 +188,7 @@ public class BoardController {
                 student.setLayoutX(CoordinatesData.getIsland("GREEN").getX());
                 student.setLayoutY(CoordinatesData.getIsland("GREEN").getY());
                 if (islands.get(index - 1).getGreen() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("GREEN", islands.get(index).getGreen()));
+                    islands.get(index - 1).getChildren().add(new CountPane("GREEN", islands.get(index-1).getGreen()));
                 }
             }
             if (islands.get(index - 1).getYellow() > 0) {
@@ -198,7 +197,7 @@ public class BoardController {
                 student.setLayoutX(CoordinatesData.getIsland("YELLOW").getX());
                 student.setLayoutY(CoordinatesData.getIsland("YELLOW").getY());
                 if (islands.get(index - 1).getYellow() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("YELLOW", islands.get(index).getYellow()));
+                    islands.get(index - 1).getChildren().add(new CountPane("YELLOW", islands.get(index-1).getYellow()));
                 }
             }
             if (islands.get(index - 1).getPink() > 0) {
@@ -207,7 +206,7 @@ public class BoardController {
                 student.setLayoutX(CoordinatesData.getIsland("PINK").getX());
                 student.setLayoutY(CoordinatesData.getIsland("PINK").getY());
                 if (islands.get(index - 1).getPink() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("PINK", islands.get(index).getPink()));
+                    islands.get(index - 1).getChildren().add(new CountPane("PINK", islands.get(index-1).getPink()));
                 }
             }
         }
@@ -222,6 +221,8 @@ public class BoardController {
             islands.get(index - 1).setLayoutX(CoordinatesData.getIslandsCoord(update.numIslands).get(index - 1).getX());
             islands.get(index - 1).setLayoutY(CoordinatesData.getIslandsCoord(update.numIslands).get(index - 1).getY());
             islands.get(index - 1).setOnDragDropped((dragEvent) -> onDragOnIsland(dragEvent, islands.get(index - 1)));
+            islands.get(index-1).setOnDragOver(this::onDragIslandOver);
+
         }
     }
 
@@ -233,6 +234,7 @@ public class BoardController {
             student.setLayoutY(CoordinatesData.getGate().get(i / 2).getY());
             student.setOnMousePressed((e) -> onStudentPressed(e, student));
             student.setOnMouseDragged((e) -> onStudentDragged(e, student));
+            student.setOnDragDetected(this::studentDragHandling);
         }
     }
 
@@ -328,23 +330,53 @@ public class BoardController {
     }
 
     private void onDragOnIsland(DragEvent event, IslandGUI i) {
-        if (event.getSource() instanceof StudentGUI) {
+        if (event.getDragboard().getString().equals("MotherNature")) {
+            ArrayList<Integer> par = new ArrayList<>();
+            par.add(i.getIndex() + (i.getIndex() < (update.motherNatureOnIsland.indexOf(true)+1) ? update.numIslands : 0) - (update.motherNatureOnIsland.indexOf(true)+1));
+            System.out.println(i.getIndex());
+            System.out.println(update.motherNatureOnIsland.indexOf(true));
+            System.out.println(par);
+            gui.perform(par, null, null, 3);
+        } else {
             ArrayList<Integer> par = new ArrayList<>();
             par.add(CoordinatesData.getIndex(selectedStudent.getCoord()));
             par.add(i.getIndex());
             gui.perform(par, null, null, 0);
-        } else if (event.getSource() instanceof MotherNatureGUI) {
-            ArrayList<Integer> par = new ArrayList<>();
-            par.add(i.getIndex() + (i.getIndex() < update.motherNatureOnIsland.indexOf(true) ? update.numIslands : 0) - update.motherNatureOnIsland.indexOf(true));
-            gui.perform(par, null, null, 3);
+        }
+        event.setDropCompleted(true);
+        event.consume();
+    }
+    private void onDragIslandOver(DragEvent e){
+        if(e.getDragboard().hasString()){
+            e.acceptTransferModes(TransferMode.ANY);
+            e.consume();
         }
     }
+
+    @FXML
+    private void onDragHallOver(DragEvent e){
+        if(e.getDragboard().hasString()){
+            e.acceptTransferModes(TransferMode.ANY);
+            e.consume();
+        }
+    }
+
 
 
     private void onStudentPressed(MouseEvent mouseEvent, StudentGUI s) {
         if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
             s.pressed(mouseEvent.getX(), mouseEvent.getY());
             selectedStudent = s;
+            s.getParent().toFront();
+        }
+    }
+    private void studentDragHandling(MouseEvent e){
+        if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
+            Dragboard db = selectedStudent.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent cp = new ClipboardContent();
+            cp.putString(selectedStudent.getColor());
+            db.setContent(cp);
+            e.consume();
         }
     }
 
@@ -356,7 +388,17 @@ public class BoardController {
 
     private void onMotherNaturePressed(MouseEvent mouseEvent, MotherNatureGUI m) {
         if (update.phase.equals("Action") && userNickname.equals(update.order.get(0)) && update.cloudtaken) {
-            m.pressed(mouseEvent.getX(), mouseEvent.getY());
+            m.pressed(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+            m.getParent().toFront();
+        }
+    }
+    private void MNDragHandling(MouseEvent e){
+        if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
+            Dragboard db = motherNature.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent cp = new ClipboardContent();
+            cp.putString("MotherNature");
+            db.setContent(cp);
+            e.consume();
         }
     }
 
@@ -367,10 +409,14 @@ public class BoardController {
     }
 
     @FXML
-    private void onDragOnHall() {
-        ArrayList<String> par = new ArrayList<>();
-        par.add(selectedStudent.getColor());
-        gui.perform(null, par, null, 1);
+    private void onDragOnHall(DragEvent event) {
+        if(event.getDragboard().hasString()) {
+            ArrayList<String> par = new ArrayList<>();
+            par.add(selectedStudent.getColor());
+            gui.perform(null, par, null, 1);
+            event.setDropCompleted(true);
+            event.consume();
+        }
     }
 
 

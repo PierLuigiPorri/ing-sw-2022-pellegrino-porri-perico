@@ -132,7 +132,7 @@ public class GUIAPP extends Application implements View {
                     charactersController.setGui(this);
                     charactersController.refresh();
                     break;
-                case "characterParametersSelection.fxml":
+                case "fxml/characterParametersSelection.fxml":
                     characterParametersController=fxmlLoader.getController();
                     characterParametersController.setGUI(this);
             }

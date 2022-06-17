@@ -5,7 +5,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public class MotherNatureGUI extends Pane {
+import java.io.Serializable;
+
+public class MotherNatureGUI extends Pane implements Serializable {
 
     private double stageX, stageY;
 
@@ -22,7 +24,7 @@ public class MotherNatureGUI extends Pane {
     }
 
     public void dragged(double x, double y){
-        this.setLayoutX(x-this.stageX);
-        this.setLayoutY(y-this.stageY);
+        this.setTranslateX(x-this.stageX);
+        this.setTranslateY(y-this.stageY);
     }
 }

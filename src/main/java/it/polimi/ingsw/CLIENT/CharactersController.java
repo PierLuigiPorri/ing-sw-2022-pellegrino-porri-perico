@@ -70,7 +70,7 @@ public class CharactersController {
         }
 
         character1.setOnMousePressed(e -> {
-            if (Objects.equals(update.order.get(0), userNickname) && Objects.equals(update.phase, "ACTION")) {
+            if (update.order.get(0).equals(userNickname) && update.phase.equals("Action")) {
                 if (selectedChar != -1) {
                     if (selectedChar == update.idCharacter.get(1))
                         character2.setBorder(null);
@@ -85,7 +85,7 @@ public class CharactersController {
         });
 
         character2.setOnMousePressed(e -> {
-            if (Objects.equals(update.order.get(0), userNickname) && Objects.equals(update.phase, "ACTION")) {
+            if (update.order.get(0).equals(userNickname) && update.phase.equals("Action")) {
                 if (selectedChar != -1) {
                     if (selectedChar == update.idCharacter.get(0))
                         character1.setBorder(null);
@@ -100,7 +100,7 @@ public class CharactersController {
         });
 
         character3.setOnMousePressed(e -> {
-            if (Objects.equals(update.order.get(0), userNickname) && Objects.equals(update.phase, "ACTION")) {
+            if (update.order.get(0).equals(userNickname) && update.phase.equals("Action")) {
                 if (selectedChar != -1) {
                     if (selectedChar == update.idCharacter.get(0))
                         character1.setBorder(null);
@@ -218,7 +218,7 @@ public class CharactersController {
                 case 8:
                 case 10:
                 case 11:
-                    gui.setScene("characterParametersSelection.fxml");
+                    gui.setScene("fxml/characterParametersSelection.fxml");
                     gui.characterParametersController.refresh(selectedChar);
                     break;
                 default:
