@@ -70,8 +70,11 @@ public class Circularlist {
         if(first == head) {
             head = i;
             while(p!=tail){
-                p.next.id--;
+                p.id--;
                 p=p.next;
+            }
+            if(p==tail){
+                p.id--;
             }
         }
         else if(second==head){
