@@ -94,7 +94,7 @@ public class GUIAPP extends Application implements View {
 
     public void connect(String ip){
         msgHandler = new ClientMsgHandler(ip, 50000, lock); //Connection setup with this IP and Port numbers
-        ackSender = new AckSender(msgHandler, 5000);
+        ackSender = new AckSender(msgHandler, 1000);
         msgHandler.setAckSender(ackSender);
         new Thread(ackSender).start();
         new Thread(msgHandler).start();
