@@ -105,13 +105,23 @@ public class BoardController {
         for (int i = 0; i < update.numIslands; i++) {
             String nick = update.whoOwnTowers.get(i);
 
-            if (nick.equals(update.players.get(0))) {
+            if(nick.equals(userNickname)){
+                setTowerOnIsland(i, "WHITE");
+            }
+            else if(nick.equals(player1Nickname)){
+                setTowerOnIsland(i, "BLACK");
+            }
+            else if(nick.equals(player2Nickname)){
+                setTowerOnIsland(i, "GREY");
+            }
+
+            /*if (nick.equals(update.players.get(0))) {
                 setTowerOnIsland(i, "WHITE");
             } else if (nick.equals(update.players.get(1))) {
                 setTowerOnIsland(i, "BLACK");
             } else if (update.players.size() == 3 && nick.equals(update.players.get(2))) {
                 setTowerOnIsland(i, "GREY");
-            }
+            }*/
         }
     }
 

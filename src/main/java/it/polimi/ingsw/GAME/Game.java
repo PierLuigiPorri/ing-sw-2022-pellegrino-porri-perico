@@ -275,47 +275,50 @@ public class Game extends Observable {
     public void moveMotherNature(String name, int movement) throws ImpossibleActionException, ConsecutiveIslandException, BoundException {
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
             Player player1 = playerTranslator(name);
-            if (player1.maxMoves == 0 && order.get(0).equals(player1)) {
-                if (movement <= order.get(0).getLastCardPlayed().getMovement() + MNbonus) {
-                    motherNature.getIsola().setMotherNature(false);
-                    Island tmp = motherNature.getIsola();
-                    for (int i = 0; i < movement; i++) {
-                        tmp = tmp.next;
-                    }
-                    tmp.setMotherNature(true);
-                    motherNature.setIsland(tmp);
-                    cloudEmptied=false;
+            if(cloudEmptied) {
+                if (player1.maxMoves == 0 && order.get(0).equals(player1)) {
+                    if (movement <= order.get(0).getLastCardPlayed().getMovement() + MNbonus) {
+                        motherNature.getIsola().setMotherNature(false);
+                        Island tmp = motherNature.getIsola();
+                        for (int i = 0; i < movement; i++) {
+                            tmp = tmp.next;
+                        }
+                        tmp.setMotherNature(true);
+                        motherNature.setIsland(tmp);
+                        cloudEmptied = false;
 
 //At the end of Mother Nature's movement, it's time to calculate influence on the island in which She stopped.
-                    determineInfluence(tmp.getId());
+                        determineInfluence(tmp.getId());
 
 //Islands need to be merged if and only if, once the Influence is determined,
 //the next or the previous island is controlled by the same player.
-                    Island r = tmp;
-                    while (!r.next.equals(tmp))
-                        r = r.next;
-                    if (!r.towers.isEmpty() && !tmp.towers.isEmpty()) {
-                        if (r.getPlayer().equals(tmp.getPlayer())) {
-                            if (board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(r.getId())) || board.islands.getIsland(r.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
-                                int min = Math.min(tmp.getId(), r.getId());
-                                mergeIslands(tmp.getId(), r.getId());
-                                tmp = getBoard().islands.getIsland(min);
-                            } else
-                                throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
+                        Island r = tmp;
+                        while (!r.next.equals(tmp))
+                            r = r.next;
+                        if (!r.towers.isEmpty() && !tmp.towers.isEmpty()) {
+                            if (r.getPlayer().equals(tmp.getPlayer())) {
+                                if (board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(r.getId())) || board.islands.getIsland(r.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
+                                    int min = Math.min(tmp.getId(), r.getId());
+                                    mergeIslands(tmp.getId(), r.getId());
+                                    tmp = getBoard().islands.getIsland(min);
+                                } else
+                                    throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
+                            }
                         }
-                    }
-                    if(!tmp.towers.isEmpty() && !tmp.next.towers.isEmpty()) {
-                        if (tmp.getPlayer().equals(tmp.next.getPlayer())) {
-                            if (board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(tmp.next.getId())) || board.islands.getIsland(tmp.next.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
-                                mergeIslands(tmp.getId(), tmp.next.getId());
-                            } else
-                                throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
+                        if (!tmp.towers.isEmpty() && !tmp.next.towers.isEmpty()) {
+                            if (tmp.getPlayer().equals(tmp.next.getPlayer())) {
+                                if (board.islands.getIsland(tmp.getId()).next.equals(board.islands.getIsland(tmp.next.getId())) || board.islands.getIsland(tmp.next.getId()).next.equals(board.islands.getIsland(tmp.getId()))) {
+                                    mergeIslands(tmp.getId(), tmp.next.getId());
+                                } else
+                                    throw new ConsecutiveIslandException("\nThe islands are not consecutive, impossible to merge!");
+                            }
                         }
-                    }
-                    order.remove(0);
-                } else throw new ImpossibleActionException("\nNo card has this movement value.");
-            } else throw new ImpossibleActionException("\nIs not your turn or you still have to place students.");
-        } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Students! \n");
+                        order.remove(0);
+                    } else throw new ImpossibleActionException("\nNo card has this movement value.");
+
+                } else throw new ImpossibleActionException("\nIs not your turn or you still have to place students.");
+            }else throw new ImpossibleActionException("\nPick your cloud before moving mother nature!");
+        } else throw new ImpossibleActionException("\nNot the correct phase in which you can move Mother nature! \n");
 
         if (order.isEmpty())
             changePhase();
