@@ -22,7 +22,7 @@
             </Text>
             <Text fill="#54d7ff" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The game will start soon!" wrappingWidth="462.13671875">
                <font>
-                  <Font name="Arial Narrow" size="48.0" />
+                  <Font name="Papyrus" size="42.0" />
                </font>
             </Text>
             <Text fx:id="idLabel" layoutX="153.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game ID:">
