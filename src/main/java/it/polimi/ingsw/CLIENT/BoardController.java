@@ -25,7 +25,7 @@ public class BoardController {
     private MotherNatureGUI motherNature;
     private StudentGUI selectedStudent;
     private CloudGUI selectedCloud;
-
+    private int gameType;
     private ArrayList<IslandGUI> islands;
 
     @FXML
@@ -52,6 +52,8 @@ public class BoardController {
     private Text logMessage1, logMessage2, logMessage3;
     @FXML
     private TextArea updateMessageLog;
+    @FXML
+    private ImageView tower1, tower2, tower3, tower4, tower5, tower6, tower7, tower8;
 
     public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
@@ -62,7 +64,7 @@ public class BoardController {
         System.out.println(update.order);
         this.userNickname = gui.getUserNickname();
         this.playersNumber = update.players.size();
-        int gameType = update.game_Type;
+        gameType = update.game_Type;
         CoordinatesData.loadCoordinates();
 
         playersNicknames();
@@ -90,6 +92,8 @@ public class BoardController {
             seePlayer2Hall.setVisible(true);
             seePlayer2Hall.setDisable(false);
             player2.setText(player2Nickname);
+            tower8.setVisible(false);
+            tower7.setVisible(false);
         }
         professorsUpdate();
         hallUpdate();
@@ -118,8 +122,38 @@ public class BoardController {
                 setTowerOnIsland(i, "GREY");
             }
         }
+        if (userNickname.equals(player1Nickname)) {
+            setTowerImage("Graphical_Assets/black_tower.png");
+        }
+        if (userNickname.equals(player2Nickname)) {
+            setTowerImage("Graphical_Assets/grey_tower.png");
+        }
+
+        int k = 8 - update.towersOnPlayer.get(userIndex());
+        ArrayList<ImageView> towers = new ArrayList<>();
+        towers.add(tower1);
+        towers.add(tower2);
+        towers.add(tower3);
+        towers.add(tower4);
+        towers.add(tower5);
+        towers.add(tower6);
+        towers.add(tower7);
+        towers.add(tower8);
+        for (int i = 0; i < k; i++) {
+            towers.get(i).setVisible(false);
+        }
     }
 
+    private void setTowerImage(String address) {
+        tower1.setImage(new Image(address));
+        tower2.setImage(new Image(address));
+        tower3.setImage(new Image(address));
+        tower4.setImage(new Image(address));
+        tower5.setImage(new Image(address));
+        tower6.setImage(new Image(address));
+        tower7.setImage(new Image(address));
+        tower8.setImage(new Image(address));
+    }
 
     private void setTowerOnIsland(int index, String color) {
         if (update.towersOnIsland.get(index) != 0) {
@@ -144,16 +178,18 @@ public class BoardController {
                 motherNature.setOnMouseDragged((e) -> onMotherNatureDragged(e, motherNature));
                 motherNature.setOnDragDetected(this::MNDragHandling);
             }
-            if (update.numTDOnIsland.get(i)) {
-                Pane pn = new Pane();
-                pn.setLayoutX(CoordinatesData.getMotherNatureCoordinates().getX());
-                pn.setLayoutY(CoordinatesData.getMotherNatureCoordinates().getY());
-                pn.setPrefWidth(80);
-                pn.setPrefHeight(80);
-                ImageView td = new ImageView(new Image("Graphical_Assets/deny_island_icon.png"));
-                td.setFitWidth(80);
-                td.setFitHeight(80);
-                pn.getChildren().add(td);
+            if (gameType == 1) {
+                if (update.numTDOnIsland.get(i)) {
+                    Pane pn = new Pane();
+                    pn.setLayoutX(CoordinatesData.getMotherNatureCoordinates().getX());
+                    pn.setLayoutY(CoordinatesData.getMotherNatureCoordinates().getY());
+                    pn.setPrefWidth(80);
+                    pn.setPrefHeight(80);
+                    ImageView td = new ImageView(new Image("Graphical_Assets/deny_island_icon.png"));
+                    td.setFitWidth(80);
+                    td.setFitHeight(80);
+                    pn.getChildren().add(td);
+                }
             }
         }
     }

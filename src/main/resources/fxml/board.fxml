@@ -524,7 +524,7 @@
                   </Pane>
                   <Pane layoutX="63.0" layoutY="29.0" prefHeight="46.0" prefWidth="46.0">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tower1" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Graphical_Assets/white_tower.png" />
                            </image>
@@ -533,7 +533,7 @@
                   </Pane>
                   <Pane layoutX="114.0" layoutY="29.0" prefHeight="46.0" prefWidth="46.0">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tower2" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Graphical_Assets/white_tower.png" />
                            </image>
@@ -542,7 +542,7 @@
                   </Pane>
                   <Pane layoutX="113.0" layoutY="82.0" prefHeight="46.0" prefWidth="46.0">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tower6" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Graphical_Assets/white_tower.png" />
                            </image>
@@ -551,7 +551,7 @@
                   </Pane>
                   <Pane layoutX="63.0" layoutY="82.0" prefHeight="46.0" prefWidth="46.0">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tower5" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Graphical_Assets/white_tower.png" />
                            </image>
@@ -560,7 +560,7 @@
                   </Pane>
                   <Pane layoutX="158.0" layoutY="82.0" prefHeight="46.0" prefWidth="46.0">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tower7" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Graphical_Assets/white_tower.png" />
                            </image>
@@ -569,7 +569,7 @@
                   </Pane>
                   <Pane layoutX="203.0" layoutY="82.0" prefHeight="46.0" prefWidth="46.0">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tower8" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Graphical_Assets/white_tower.png" />
                            </image>
@@ -578,7 +578,7 @@
                   </Pane>
                   <Pane layoutX="203.0" layoutY="29.0" prefHeight="46.0" prefWidth="46.0">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tower4" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Graphical_Assets/white_tower.png" />
                            </image>
@@ -587,7 +587,7 @@
                   </Pane>
                   <Pane layoutX="158.0" layoutY="29.0" prefHeight="46.0" prefWidth="46.0">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tower3" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Graphical_Assets/white_tower.png" />
                            </image>
