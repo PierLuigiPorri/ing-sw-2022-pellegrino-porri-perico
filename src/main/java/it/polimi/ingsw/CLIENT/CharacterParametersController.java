@@ -190,7 +190,7 @@ public class CharacterParametersController {
                 desc.setText("CHOOSE HOW MANY STUDENTS TO SWAP!");
                 Text t=new Text("Choose here which colors to swap in the hall:");
                 t.setFont(Font.font("papyrus",14));
-                max=new TextField("How many?");
+                max=new TextField();
                 max.setLayoutX(404);
                 max.setLayoutY(126);
                 confirmMax=new Button("NEXT!");
@@ -348,7 +348,7 @@ public class CharacterParametersController {
                 student.setLayoutX(CoordinatesData.getIsland("RED").getX());
                 student.setLayoutY(CoordinatesData.getIsland("RED").getY());
                 if (islands.get(index - 1).getRed() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("RED", islands.get(index).getRed()));
+                    islands.get(index - 1).getChildren().add(new CountPane("RED", islands.get(index-1).getRed()));
                 }
             }
             if (islands.get(index - 1).getBlue() > 0) {
@@ -357,7 +357,7 @@ public class CharacterParametersController {
                 student.setLayoutX(CoordinatesData.getIsland("BLUE").getX());
                 student.setLayoutY(CoordinatesData.getIsland("BLUE").getY());
                 if (islands.get(index - 1).getBlue() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("BLUE", islands.get(index).getBlue()));
+                    islands.get(index - 1).getChildren().add(new CountPane("BLUE", islands.get(index-1).getBlue()));
                 }
             }
             if (islands.get(index - 1).getGreen() > 0) {
@@ -366,7 +366,7 @@ public class CharacterParametersController {
                 student.setLayoutX(CoordinatesData.getIsland("GREEN").getX());
                 student.setLayoutY(CoordinatesData.getIsland("GREEN").getY());
                 if (islands.get(index - 1).getGreen() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("GREEN", islands.get(index).getGreen()));
+                    islands.get(index - 1).getChildren().add(new CountPane("GREEN", islands.get(index-1).getGreen()));
                 }
             }
             if (islands.get(index - 1).getYellow() > 0) {
@@ -375,7 +375,7 @@ public class CharacterParametersController {
                 student.setLayoutX(CoordinatesData.getIsland("YELLOW").getX());
                 student.setLayoutY(CoordinatesData.getIsland("YELLOW").getY());
                 if (islands.get(index - 1).getYellow() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("YELLOW", islands.get(index).getYellow()));
+                    islands.get(index - 1).getChildren().add(new CountPane("YELLOW", islands.get(index-1).getYellow()));
                 }
             }
             if (islands.get(index - 1).getPink() > 0) {
@@ -384,7 +384,7 @@ public class CharacterParametersController {
                 student.setLayoutX(CoordinatesData.getIsland("PINK").getX());
                 student.setLayoutY(CoordinatesData.getIsland("PINK").getY());
                 if (islands.get(index - 1).getPink() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("PINK", islands.get(index).getPink()));
+                    islands.get(index - 1).getChildren().add(new CountPane("PINK", islands.get(index-1).getPink()));
                 }
             }
         }
@@ -627,7 +627,7 @@ public class CharacterParametersController {
                     ((StudentGUI) e.getSource()).setSelected();
                     selectedStudents1.add(((StudentGUI) e.getSource()));
                 }
-                if(selectedColor!=null && selectedColor2!=null && selectedStudents1.size()==maxSwappable){
+                if((maxSwappable==1 && selectedColor!=null && selectedStudents1.size()==maxSwappable) || (maxSwappable>1 && selectedColor!=null && selectedColor2!=null && selectedStudents1.size()==maxSwappable)){
                     activate.setDisable(false);
                 }
             }
@@ -766,7 +766,7 @@ public class CharacterParametersController {
 
     private void colorSelection1(MouseEvent e){
         selectedColor=((ColorButton) e.getSource()).color;
-        if(selectedColor!=null && selectedColor2!=null){
+        if((maxSwappable==1 && selectedColor!=null && selectedStudents1.size()==maxSwappable) || (maxSwappable>1 && selectedColor!=null && selectedColor2!=null && selectedStudents1.size()==maxSwappable)){
             activate.setDisable(false);
         }
     }
