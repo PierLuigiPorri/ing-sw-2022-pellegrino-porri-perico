@@ -3,6 +3,7 @@ package it.polimi.ingsw.CLIENT;
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.*;
@@ -15,7 +16,7 @@ import javafx.scene.text.*;
 
 import java.util.ArrayList;
 
-public class BoardController{
+public class BoardController {
 
     private GUIAPP gui;
     private UpdateMessage update;
@@ -109,23 +110,13 @@ public class BoardController{
         for (int i = 0; i < update.numIslands; i++) {
             String nick = update.whoOwnTowers.get(i);
 
-            if(nick.equals(userNickname)){
+            if (nick.equals(userNickname)) {
                 setTowerOnIsland(i, "WHITE");
-            }
-            else if(nick.equals(player1Nickname)){
+            } else if (nick.equals(player1Nickname)) {
                 setTowerOnIsland(i, "BLACK");
-            }
-            else if(nick.equals(player2Nickname)){
+            } else if (nick.equals(player2Nickname)) {
                 setTowerOnIsland(i, "GREY");
             }
-
-            /*if (nick.equals(update.players.get(0))) {
-                setTowerOnIsland(i, "WHITE");
-            } else if (nick.equals(update.players.get(1))) {
-                setTowerOnIsland(i, "BLACK");
-            } else if (update.players.size() == 3 && nick.equals(update.players.get(2))) {
-                setTowerOnIsland(i, "GREY");
-            }*/
         }
     }
 
@@ -133,9 +124,9 @@ public class BoardController{
     private void setTowerOnIsland(int index, String color) {
         if (update.towersOnIsland.get(index) != 0) {
             TowerGUI tower = new TowerGUI(color);
-            islands.get(index).getChildren().add(tower);
             tower.setLayoutY(CoordinatesData.getTowersCoordinates().getY());
             tower.setLayoutX(CoordinatesData.getTowersCoordinates().getX());
+            islands.get(index).getChildren().add(tower);
             if (update.towersOnIsland.get(index) > 1) {
                 islands.get(index).getChildren().add(new TowerCountPane(update.towersOnIsland.get(index)));
             }
@@ -153,13 +144,13 @@ public class BoardController{
                 motherNature.setOnMouseDragged((e) -> onMotherNatureDragged(e, motherNature));
                 motherNature.setOnDragDetected(this::MNDragHandling);
             }
-            if(update.numTDOnIsland.get(i)){
-                Pane pn=new Pane();
+            if (update.numTDOnIsland.get(i)) {
+                Pane pn = new Pane();
                 pn.setLayoutX(CoordinatesData.getMotherNatureCoordinates().getX());
                 pn.setLayoutY(CoordinatesData.getMotherNatureCoordinates().getY());
                 pn.setPrefWidth(80);
                 pn.setPrefHeight(80);
-                ImageView td=new ImageView(new Image("Graphical_Assets/deny_island_icon.png"));
+                ImageView td = new ImageView(new Image("Graphical_Assets/deny_island_icon.png"));
                 td.setFitWidth(80);
                 td.setFitHeight(80);
                 pn.getChildren().add(td);
@@ -195,7 +186,7 @@ public class BoardController{
                 student.setLayoutX(CoordinatesData.getIsland("RED").getX());
                 student.setLayoutY(CoordinatesData.getIsland("RED").getY());
                 if (islands.get(index - 1).getRed() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("RED", islands.get(index-1).getRed()));
+                    islands.get(index - 1).getChildren().add(new CountPane("RED", islands.get(index - 1).getRed()));
                 }
             }
             if (islands.get(index - 1).getBlue() > 0) {
@@ -204,7 +195,7 @@ public class BoardController{
                 student.setLayoutX(CoordinatesData.getIsland("BLUE").getX());
                 student.setLayoutY(CoordinatesData.getIsland("BLUE").getY());
                 if (islands.get(index - 1).getBlue() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("BLUE", islands.get(index-1).getBlue()));
+                    islands.get(index - 1).getChildren().add(new CountPane("BLUE", islands.get(index - 1).getBlue()));
                 }
             }
             if (islands.get(index - 1).getGreen() > 0) {
@@ -213,7 +204,7 @@ public class BoardController{
                 student.setLayoutX(CoordinatesData.getIsland("GREEN").getX());
                 student.setLayoutY(CoordinatesData.getIsland("GREEN").getY());
                 if (islands.get(index - 1).getGreen() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("GREEN", islands.get(index-1).getGreen()));
+                    islands.get(index - 1).getChildren().add(new CountPane("GREEN", islands.get(index - 1).getGreen()));
                 }
             }
             if (islands.get(index - 1).getYellow() > 0) {
@@ -222,7 +213,7 @@ public class BoardController{
                 student.setLayoutX(CoordinatesData.getIsland("YELLOW").getX());
                 student.setLayoutY(CoordinatesData.getIsland("YELLOW").getY());
                 if (islands.get(index - 1).getYellow() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("YELLOW", islands.get(index-1).getYellow()));
+                    islands.get(index - 1).getChildren().add(new CountPane("YELLOW", islands.get(index - 1).getYellow()));
                 }
             }
             if (islands.get(index - 1).getPink() > 0) {
@@ -231,7 +222,7 @@ public class BoardController{
                 student.setLayoutX(CoordinatesData.getIsland("PINK").getX());
                 student.setLayoutY(CoordinatesData.getIsland("PINK").getY());
                 if (islands.get(index - 1).getPink() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("PINK", islands.get(index-1).getPink()));
+                    islands.get(index - 1).getChildren().add(new CountPane("PINK", islands.get(index - 1).getPink()));
                 }
             }
         }
@@ -246,7 +237,7 @@ public class BoardController{
             islands.get(index - 1).setLayoutX(CoordinatesData.getIslandsCoord(update.numIslands).get(index - 1).getX());
             islands.get(index - 1).setLayoutY(CoordinatesData.getIslandsCoord(update.numIslands).get(index - 1).getY());
             islands.get(index - 1).setOnDragDropped((dragEvent) -> onDragOnIsland(dragEvent, islands.get(index - 1)));
-            islands.get(index-1).setOnDragOver(this::onDragIslandOver);
+            islands.get(index - 1).setOnDragOver(this::onDragIslandOver);
 
         }
     }
@@ -357,9 +348,9 @@ public class BoardController{
     private void onDragOnIsland(DragEvent event, IslandGUI i) {
         if (event.getDragboard().getString().equals("MotherNature")) {
             ArrayList<Integer> par = new ArrayList<>();
-            par.add(i.getIndex() + (i.getIndex() < (update.motherNatureOnIsland.indexOf(true)+1) ? update.numIslands : 0) - (update.motherNatureOnIsland.indexOf(true)+1));
+            par.add(i.getIndex() + (i.getIndex() < (update.motherNatureOnIsland.indexOf(true) + 1) ? update.numIslands : 0) - (update.motherNatureOnIsland.indexOf(true) + 1));
             System.out.println(i.getIndex());
-            System.out.println(update.motherNatureOnIsland.indexOf(true)+1);
+            System.out.println(update.motherNatureOnIsland.indexOf(true) + 1);
             System.out.println(par);
             gui.perform(par, null, null, 3);
         } else {
@@ -371,21 +362,21 @@ public class BoardController{
         event.setDropCompleted(true);
         event.consume();
     }
-    private void onDragIslandOver(DragEvent e){
-        if(e.getDragboard().hasString()){
+
+    private void onDragIslandOver(DragEvent e) {
+        if (e.getDragboard().hasString()) {
             e.acceptTransferModes(TransferMode.ANY);
             e.consume();
         }
     }
 
     @FXML
-    private void onDragHallOver(DragEvent e){
-        if(e.getDragboard().hasString()){
+    private void onDragHallOver(DragEvent e) {
+        if (e.getDragboard().hasString()) {
             e.acceptTransferModes(TransferMode.ANY);
             e.consume();
         }
     }
-
 
 
     private void onStudentPressed(MouseEvent mouseEvent, StudentGUI s) {
@@ -395,7 +386,8 @@ public class BoardController{
             s.getParent().toFront();
         }
     }
-    private void studentDragHandling(MouseEvent e){
+
+    private void studentDragHandling(MouseEvent e) {
         if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
             Dragboard db = selectedStudent.startDragAndDrop(TransferMode.ANY);
             ClipboardContent cp = new ClipboardContent();
@@ -417,8 +409,9 @@ public class BoardController{
             m.getParent().toFront();
         }
     }
-    private void MNDragHandling(MouseEvent e){
-        if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
+
+    private void MNDragHandling(MouseEvent e) {
+        if (update.phase.equals("Action") && userNickname.equals(update.order.get(0)) && update.cloudtaken) {
             Dragboard db = motherNature.startDragAndDrop(TransferMode.ANY);
             ClipboardContent cp = new ClipboardContent();
             cp.putString("MotherNature");
@@ -428,14 +421,14 @@ public class BoardController{
     }
 
     private void onMotherNatureDragged(MouseEvent mouseEvent, MotherNatureGUI s) {
-        if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
+        if (update.phase.equals("Action") && userNickname.equals(update.order.get(0)) && update.cloudtaken) {
             s.dragged(mouseEvent.getSceneX(), mouseEvent.getSceneY());
         }
     }
 
     @FXML
     private void onDragOnHall(DragEvent event) {
-        if(event.getDragboard().hasString()) {
+        if (event.getDragboard().hasString()) {
             ArrayList<String> par = new ArrayList<>();
             par.add(selectedStudent.getColor());
             gui.perform(null, par, null, 1);
@@ -450,6 +443,7 @@ public class BoardController{
             selectedCloud = (CloudGUI) e.getSource();
             selectedCloud.button.setVisible(true);
             selectedCloud.button.setDisable(false);
+            selectedCloud.button.setCursor(Cursor.HAND);
         }
     }
 

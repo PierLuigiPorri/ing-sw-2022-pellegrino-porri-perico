@@ -51,12 +51,12 @@ public class CLI implements View, Runnable {
         changeNickname();
     }
 
-    private void changeNickname(){
+    private void changeNickname() {
         this.nick = getValidString("Enter the nickname you want to use");
         menu();
     }
 
-    private void menu(){
+    private void menu() {
         System.out.println("What would you like to do?" +
                 "\n0:Create a new Game" +
                 "\n1:Join a game" +
@@ -70,8 +70,7 @@ public class CLI implements View, Runnable {
             joinGame();
         } else if (g == 2) {
             seeAvailableGames();
-        }
-        else if(g==3){
+        } else if (g == 3) {
             changeNickname();
         }
     }
@@ -168,9 +167,8 @@ public class CLI implements View, Runnable {
                 inputInt.clear();
                 update(firstUpd);
                 initCLI();
-            }
-            else{
-                if (!msgHandler.getResponses().isEmpty()){
+            } else {
+                if (!msgHandler.getResponses().isEmpty()) {
                     ResponseMessage lastMessage = msgHandler.getResponses().remove(msgHandler.getResponses().size() - 1);
                     System.out.println(lastMessage.response);
                     menu();
@@ -207,7 +205,7 @@ public class CLI implements View, Runnable {
             reload();
         }
         System.out.println("The game has been killed");
-        this.kill=false;
+        this.kill = false;
         menu();
     }
 
@@ -215,21 +213,20 @@ public class CLI implements View, Runnable {
         synchronized (lock) {
             if (!msgHandler.getResponses().isEmpty()) {
                 for (ResponseMessage rsp : msgHandler.getResponses()) {
-                    System.out.println(rsp.response);
+                    System.out.println(ANSI_RED+rsp.response+ANSI_RESET);
                 }
             }
             if (!msgHandler.getUpdates().isEmpty()) {
                 for (UpdateMessage up : msgHandler.getUpdates()) {
-                    up.update.forEach((u)-> System.out.println(ANSI_CYAN+up+ANSI_RESET));
+                    up.update.forEach((u) -> System.out.println(ANSI_CYAN + u + ANSI_RESET));
                 }
                 update(msgHandler.getUpdates().get(msgHandler.getUpdates().size() - 1));
             }
             msgHandler.clearMessages();
         }
-        if(this.update.gameEnded){
+        if (this.update.gameEnded) {
             menu();
-        }
-        else {
+        } else {
             initCLI();
         }
     }
@@ -303,12 +300,12 @@ public class CLI implements View, Runnable {
     }
 
     @Override
-    public void signalUpdate(){
-        System.out.println(ANSI_CYAN+"Something's happened in the meantime! Hit Refresh!"+ANSI_RESET);
+    public void signalUpdate() {
+        System.out.println(ANSI_CYAN + "Something's happened in the meantime! Hit Refresh!" + ANSI_RESET);
     }
 
     @Override
-    public void signalResponse(){
+    public void signalResponse() {
         System.out.println("ERRORE!");
     }
 
@@ -804,7 +801,7 @@ public class CLI implements View, Runnable {
 
     private void seeCharacters() {
         System.out.println("\nThese guys can give you the boost you need to win! Here's what we've got today:");
-        System.out.println("\nIf the cost is "+ANSI_CYAN+"cyan"+ANSI_RESET+", it means that Character has already been used!");
+        System.out.println("\nIf the cost is " + ANSI_CYAN + "cyan" + ANSI_RESET + ", it means that Character has already been used!");
         System.out.println("\n" + ANSI_CYAN + "INDEX" + ANSI_RESET + "     " + ANSI_CYAN + "COST" + ANSI_RESET + "        " + ANSI_CYAN + "EFFECT" + ANSI_RESET);
         for (int i : update.idCharacter) {
             System.out.println("\n" + i + "         " + (update.activated.get(update.idCharacter.indexOf(i)) ? ANSI_CYAN : "") + characterCost(i) + (update.activated.get(update.idCharacter.indexOf(i)) ? ANSI_RESET : "") + "           " + characterEffect(i));

@@ -12,10 +12,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.CubicCurve;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class CharactersController {
 
@@ -36,6 +37,12 @@ public class CharactersController {
     private Text effect1, effect2, effect3;
     @FXML
     private Button confirmButton;
+    @FXML
+    private Text poorAlert;
+    @FXML
+    private CubicCurve arrowLine;
+    @FXML
+    private Polygon arrowHead;
 
     public void setGui(GUIAPP gui) {
         this.gui = gui;
@@ -200,6 +207,9 @@ public class CharactersController {
     @FXML
     private void activateCharacter() {
         if (update.coinsOnPlayer.get(userIndex()) >= characterCost(selectedChar)) {
+            poorAlert.setVisible(false);
+            arrowHead.setVisible(false);
+            arrowLine.setVisible(false);
             ArrayList<Integer> a = new ArrayList<>();
             ArrayList<String> b = new ArrayList<>();
             a.add(selectedChar);
@@ -225,7 +235,9 @@ public class CharactersController {
                     break;
             }
         } else {
-            //TODO:popup no soldi :)
+            poorAlert.setVisible(true);
+            arrowHead.setVisible(true);
+            arrowLine.setVisible(true);
         }
     }
 
