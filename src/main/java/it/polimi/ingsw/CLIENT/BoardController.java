@@ -6,13 +6,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
 
 import java.util.ArrayList;
 
-public class BoardController {
-
+public class BoardController{
 
     private GUIAPP gui;
     private UpdateMessage update;
@@ -21,6 +24,7 @@ public class BoardController {
     private MotherNatureGUI motherNature;
     private StudentGUI selectedStudent;
     private CloudGUI selectedCloud;
+
     private ArrayList<IslandGUI> islands;
 
     @FXML
@@ -148,6 +152,17 @@ public class BoardController {
                 motherNature.setOnMousePressed((e) -> onMotherNaturePressed(e, motherNature));
                 motherNature.setOnMouseDragged((e) -> onMotherNatureDragged(e, motherNature));
                 motherNature.setOnDragDetected(this::MNDragHandling);
+            }
+            if(update.numTDOnIsland.get(i)){
+                Pane pn=new Pane();
+                pn.setLayoutX(CoordinatesData.getMotherNatureCoordinates().getX());
+                pn.setLayoutY(CoordinatesData.getMotherNatureCoordinates().getY());
+                pn.setPrefWidth(80);
+                pn.setPrefHeight(80);
+                ImageView td=new ImageView(new Image("Graphical_Assets/deny_island_icon.png"));
+                td.setFitWidth(80);
+                td.setFitHeight(80);
+                pn.getChildren().add(td);
             }
         }
     }
