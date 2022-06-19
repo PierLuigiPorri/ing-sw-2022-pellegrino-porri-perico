@@ -50,7 +50,7 @@ public final class Effects {
                 player.getHall().activateCard();
                 return "\nBe aware that until the end of the turn " + player.nickname + " will be able to control the Professors even if they have the same amount of students in the hall!";
             case 2:
-                game.determineInfluence(intpar.get(0));
+                game.determineInfluence(intpar.get(0)+1);
                 return "";
             case 3:
                 game.setMNbonus();
@@ -99,7 +99,7 @@ public final class Effects {
                 }
                 return player.nickname + " just moved a " + c.students.get(intpar.get(0)).getColor() + " student on Island " + intpar.get(1) + "!";
             case 4:
-                game.getBoard().islands.getIsland(intpar.get(0)).addTD();
+                game.getBoard().islands.getIsland(intpar.get(0)+1).addTD();
                 c.removeTD();
                 return "\nUh-oh. " + player.nickname + " placed a Prohibition Token on Island " + intpar.get(0) + "!";
             case 10:

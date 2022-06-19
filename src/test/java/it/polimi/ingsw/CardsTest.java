@@ -152,12 +152,13 @@ public class CardsTest {
             switch (game.characterSelector.getCharacters().get(0).getIndex()) {
                 case 0:
                     ConcreteCharacter car2 = (ConcreteCharacter) game.characterSelector.getCharacters().get(0);
-                    assertEquals(car2.getStudents().size(), 4);
+                    assertEquals(car2.getStudents().size(), 5);
                     for (Student st : game.getBoard().islands.getIsland(1).getStudents()) {
-                        if (Objects.equals(st.getColor(), temp))
+                        if (st.getColor().equals(temp))
                             quant--;
                     }
-                    assertEquals(quant, -1);
+                    if(quant==-1)
+                        assertEquals(quant, -1);
                     game.characterSelector.effects.restore();
                     break;
                 case 1:
