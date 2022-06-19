@@ -240,7 +240,7 @@ public class Game extends Observable {
             Player player1 = playerTranslator(name);
             if (order.get(0).equals(player1)) {
                 if (player1.getGate().getColorsInGate().contains(player1.getGate().getStudents().get(index).getColor())) {
-                    if (player1.getGate().students.size() >= player1.getGate().MAX - 2) {
+                    if (player1.getGate().students.size() >= player1.getGate().MAX - playerCount ) {
                         if(player1.maxMoves>0) {
                             addStudentToIsland(player1.getGate().getStudents().get(index).getColor(), indexIsland);
                             String color=player1.getGate().getStudents().get(index).getColor();
