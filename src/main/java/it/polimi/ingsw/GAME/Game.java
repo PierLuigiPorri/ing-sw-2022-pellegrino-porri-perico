@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.Observable;
 
 public class Game extends Observable {
-
+    private ArrayList<Integer> valueCardPlayed;
     private final int playerCount;
     private final int gameType; //0: regole semplificate, 1: regole esperto.
     private final ArrayList<Player> players; //array of all players.
@@ -53,7 +53,10 @@ public class Game extends Observable {
         this.order = new ArrayList<>();
         this.lastRound=false;
         this.gameOver=false;
-
+        this.valueCardPlayed=new ArrayList<>();
+        for(int i=0; i<3; i++){
+            valueCardPlayed.add(100);
+        }
         this.players.add(new Player(playerCount, nick1, this));
         this.players.add(new Player(playerCount, nick2, this));
         if (playerCount == 3) {
@@ -133,8 +136,13 @@ public class Game extends Observable {
             for (int i = 0; i < cardsPlayed.size(); i++) {
                 tmp[i] = cardsPlayed.get(i).getValue();
             }
-            if (roundMaster.round.getCurrentPhase().equals("Action"))
+            if (roundMaster.round.getCurrentPhase().equals("Action")) {
                 cardsPlayed = new ArrayList<>();
+                this.valueCardPlayed=new ArrayList<>();
+                for(int i=0; i<3; i++){
+                    valueCardPlayed.add(100);
+                }
+            }
 
             this.order = roundMaster.changePhase(tmp);
             if (gameType == 1)
@@ -466,6 +474,7 @@ public class Game extends Observable {
 
     private void actuallyPlayCard(int playerIndex, int cardIndex) throws ImpossibleActionException, BoundException{
         cardsPlayed.add(this.players.get(playerIndex).playCard(cardIndex)); //Removes and returns the card
+        valueCardPlayed.set(playerIndex, cardsPlayed.get(cardsPlayed.size()-1).getValue());
         order.remove(0);
         update.add("\n" + this.players.get(playerIndex).nickname + " played card with index "+cardIndex);
         if(players.get(playerIndex).getHand().cards.isEmpty()){
@@ -640,6 +649,10 @@ public class Game extends Observable {
 
     public int getPlayerCount() {
         return playerCount;
+    }
+
+    public ArrayList<Integer> getValueCardPlayed(){
+        return valueCardPlayed;
     }
 
 }

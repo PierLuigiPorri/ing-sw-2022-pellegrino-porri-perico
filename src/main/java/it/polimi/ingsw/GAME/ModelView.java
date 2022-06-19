@@ -56,6 +56,8 @@ public class ModelView extends Observable implements Observer {
             update.lastCardsPlayed.add(c.getValue());
         }
 
+        update.valueCardsPlayed.addAll(game.getValueCardPlayed());
+
         for (int k = 1; k <= game.getBoard().islands.size(); k++) {
             if (game.getBoard().islands.getIsland(k).motherNature)
                 update.motherNatureOnIsland.add(true);

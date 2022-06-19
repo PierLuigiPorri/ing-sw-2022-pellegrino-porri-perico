@@ -92,8 +92,6 @@ public class BoardController {
             seePlayer2Hall.setVisible(true);
             seePlayer2Hall.setDisable(false);
             player2.setText(player2Nickname);
-            tower8.setVisible(false);
-            tower7.setVisible(false);
         }
         professorsUpdate();
         hallUpdate();

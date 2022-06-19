@@ -14,6 +14,7 @@ public class UpdateMessage extends MessageType{
     public int turnNumber;
     public int cloudsNumber;
     public boolean cloudtaken=false;
+    public ArrayList<Integer> valueCardsPlayed;
 
     public LinkedHashMap<Integer, ArrayList<Integer>> handPlayer; //In order: player, movement, value
 
@@ -88,5 +89,6 @@ public class UpdateMessage extends MessageType{
         this.studentsOnCloud= new LinkedHashMap<>();
         this.studentsOnCard= new LinkedHashMap<>();
         this.gameEnded=false;
+        this.valueCardsPlayed=new ArrayList<>();
     }
 }

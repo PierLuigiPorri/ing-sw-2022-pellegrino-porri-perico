@@ -14,8 +14,10 @@ public class PlayersBoardController {
 
     private GUIAPP gui;
     private UpdateMessage update;
-    private String playerNickname;
+    private String playerNickname, userNickname, player2Nickname;
 
+    @FXML
+    private ImageView tower1, tower2, tower3, tower4, tower5, tower6, tower7, tower8;
     @FXML
     private Text nameField, coinsOwned;
     @FXML
@@ -43,7 +45,10 @@ public class PlayersBoardController {
         update = gui.getUpdate();
         CoordinatesData.loadCoordinates();
         playerNickname=gui.getPlayerNickname();
+        userNickname=gui.getUserNickname();
 
+        towersUpdate();
+        playersNicknames();
         studentsOnGateUpdate();
         professorsUpdate();
         hallUpdate();
@@ -64,41 +69,53 @@ public class PlayersBoardController {
 
     private void setLastCardPlayed(){
         if(update.lastCardsPlayed.size() > (playerIndex()*2) + 1) {
-            int value = update.lastCardsPlayed.get((playerIndex()*2) + 1);
-            switch (value) {
-                case 1:
-                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (1).png"));
-                    break;
-                case 2:
-                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (2).png"));
-                    break;
-                case 3:
-                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (3).png"));
-                    break;
-                case 4:
-                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (4).png"));
-                    break;
-                case 5:
-                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (5).png"));
-                    break;
-                case 6:
-                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (6).png"));
-                    break;
-                case 7:
-                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (7).png"));
-                    break;
-                case 8:
-                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (8).png"));
-                    break;
-                case 9:
-                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (9).png"));
-                    break;
-                case 10:
-                    lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (10).png"));
-                    break;
+            if (update.valueCardsPlayed.get(playerIndex()) != 100) {
+                int value = update.valueCardsPlayed.get((playerIndex()));
+                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (" + value + ").png"));
             }
         }
     }
+
+    public void playersNicknames() {
+        ArrayList<String> nicknames = new ArrayList<>(update.players);
+        nicknames.remove(update.players.indexOf(userNickname));
+
+        if(playerNickname.equals(update.players.get(0))) {
+            nicknames.remove(playerIndex());
+        }
+        else if (!nicknames.isEmpty()) {
+            setTowerImage("Graphical_Assets/grey_tower.png");
+        }
+    }
+
+
+    private void towersUpdate() {
+        int k = 8 - update.towersOnPlayer.get(playerIndex());
+        ArrayList<ImageView> towers = new ArrayList<>();
+        towers.add(tower1);
+        towers.add(tower2);
+        towers.add(tower3);
+        towers.add(tower4);
+        towers.add(tower5);
+        towers.add(tower6);
+        towers.add(tower7);
+        towers.add(tower8);
+        for (int i = 0; i < k; i++) {
+            towers.get(i).setVisible(false);
+        }
+    }
+
+    private void setTowerImage(String address) {
+        tower1.setImage(new Image(address));
+        tower2.setImage(new Image(address));
+        tower3.setImage(new Image(address));
+        tower4.setImage(new Image(address));
+        tower5.setImage(new Image(address));
+        tower6.setImage(new Image(address));
+        tower7.setImage(new Image(address));
+        tower8.setImage(new Image(address));
+    }
+
 
     private void professorsUpdate() {
         redProfessor.setVisible(update.professors.get(playerIndex()).get(0));
