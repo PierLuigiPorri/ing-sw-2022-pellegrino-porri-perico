@@ -189,6 +189,7 @@ public class BoardController {
                     td.setFitWidth(80);
                     td.setFitHeight(80);
                     pn.getChildren().add(td);
+                    islands.get(i).getChildren().add(pn);
                 }
             }
         }
