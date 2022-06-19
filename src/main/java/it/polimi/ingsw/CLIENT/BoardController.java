@@ -315,13 +315,14 @@ public class BoardController {
         button.setOnMousePressed((e) -> onCloudButtonPressed());
         cloud.getChildren().add(button);
         cloud.setButton(button);
+        System.out.println(cloud.getChildren().toString());
     }
 
     private void studentsOnCloud3Update() {
         for (int index : update.studentsOnCloud.keySet()) {
             CloudGUI cloud = new CloudGUI(playersNumber, index);
             root.getChildren().add(cloud);
-            for (int i = 0; i < update.studentsOnCloud.get(index).size(); i = i + 2) {
+            for (int i = 1; i < update.studentsOnCloud.get(index).size(); i = i + 2) {
                 StudentGUI student = new StudentGUI(update.studentsOnCloud.get(index).get(i));
                 cloud.getChildren().add(student);
                 student.setLayoutX(CoordinatesData.getClouds3().get(i / 2).getX());
@@ -478,6 +479,7 @@ public class BoardController {
             selectedCloud.button.setVisible(true);
             selectedCloud.button.setDisable(false);
             selectedCloud.button.setCursor(Cursor.HAND);
+            selectedCloud.toFront();
         }
     }
 
