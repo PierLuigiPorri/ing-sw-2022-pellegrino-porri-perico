@@ -148,7 +148,7 @@ public class CardsTest {
                 default:
                     break;
             }
-            game.activateCharacter("FRANCO", game.characterSelector.getCharacters().get(0).getIndex(), 1, "RED", a, c, 1, b);
+            game.activateCharacter("FRANCO", game.characterSelector.getCharacters().get(0).getIndex(),  a, c,  b);
             switch (game.characterSelector.getCharacters().get(0).getIndex()) {
                 case 0:
                     ConcreteCharacter car2 = (ConcreteCharacter) game.characterSelector.getCharacters().get(0);

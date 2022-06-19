@@ -67,26 +67,9 @@ public class Controller implements Observer{
 
     public void activateCharacter(String name, ArrayList<String> a, ArrayList<Integer> b, ArrayList<Integer> c){
             try {
-                String pl=a.get(0);
-                a.remove(0);
-                String parA2=null;
-                if(!a.isEmpty()){
-                    parA2=a.get(0);
-                    a.remove(0);
-                }
-                int id=b.get(0);
-                b.remove(0);
-                int parAC1= 0;
-                if(!b.isEmpty()){
-                    parAC1=b.get(0);
-                    b.remove(0);
-                }
-                int parC2=0;
-                if(!b.isEmpty()){
-                    parC2=b.get(0);
-                    b.remove(0);
-                }
-                game.activateCharacter(pl, id, parAC1, parA2, b, a, parC2, c);
+                String pl=a.remove(0);
+                int id=b.remove(0);
+                game.activateCharacter(pl, id, b, a, c);
             } catch (ImpossibleActionException e) {
                 Objects.requireNonNull(getCorrectCm(name)).send(new ResponseMessage(e.getMessage(),false, null, false));
             }

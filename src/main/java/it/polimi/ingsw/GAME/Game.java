@@ -480,14 +480,14 @@ public class Game extends Observable {
         update.clear();
     }
 
-    public void activateCharacter(String player, int id, int parAC1, String parA2, ArrayList<Integer> parAC3, ArrayList<String> parA4, int parC2, ArrayList<Integer> parC4) throws ImpossibleActionException {
+    public void activateCharacter(String player, int id, ArrayList<Integer> intpar, ArrayList<String> strpar, ArrayList<Integer> intpar2) throws ImpossibleActionException {
         //Keep the unused parameters null, and always use the first parameter in numeric order by type.
         //Parameters will be filled client-side. Parameters marked with "A" are used by AbstractCharacters, with "C" by ConcreteCharacters, and with "AC" by both.
         Player p = playerTranslator(player);
         if (p.getCoins() >= characterSelector.getCost(id)) {
             p.removeCoin(characterSelector.getCost(id));
             update.add("\n Heads up! " + player + " just activated the Character card " + id + "!" + "\n" +
-                    characterSelector.applyEffect(id, p, parAC1, parA2, parAC3, parA4, parC2, parC4));
+                    characterSelector.applyEffect(id, p, intpar, strpar, intpar2));
         } else throw new ImpossibleActionException("\nNot enough coins!\n");
         setChanged();
         notifyObservers(update);
