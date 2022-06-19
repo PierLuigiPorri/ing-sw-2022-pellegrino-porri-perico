@@ -471,7 +471,7 @@
                 </children>
             </Pane>
         </Pane>
-        <Pane fx:id="selectionPane" layoutX="313.0" layoutY="539.0" prefHeight="277.0" prefWidth="949.0">
+        <Pane fx:id="selectionPane" layoutX="313.0" layoutY="543.0" prefHeight="273.0" prefWidth="949.0">
          <children>
             <Text fx:id="desc" layoutX="268.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="413.13671875">
                <font>

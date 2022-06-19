@@ -91,7 +91,7 @@ public class CharacterParametersController {
         professorsUpdate();
         hallUpdate();
         switch (selection) {
-            case 0: //Student AND Island selection
+            case 0: //Student AND Island selection           WORKS
                 desc.setText("CHOOSE A STUDENT AND AN ISLAND!");
                 for(IslandGUI i:islands){
                     i.setOnMousePressed(this::onIslandSelected);
@@ -117,8 +117,8 @@ public class CharacterParametersController {
                 imageView.setFitHeight(240);
                 p.getChildren().add(imageView);
                 CharacterGUI studs=new CharacterGUI(4);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(10)).size(); i+=2){
-                    StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(10)).get(i));
+                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i+=2){
+                    StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(index)).get(i));
                     student.setOnMousePressed(this::studentPressed);
                     student.setLayoutX(CoordinatesData.getCardStudents(4).get(i/2).getX());
                     student.setLayoutY(CoordinatesData.getCardStudents(4).get(i/2).getY());
@@ -149,7 +149,8 @@ public class CharacterParametersController {
                 break;
             case 6: //Student swapping, case 1
                 desc.setText("CHOOSE HOW MANY STUDENTS TO SWAP!");
-                max=new TextField("How many?");
+                max=new TextField();
+                max.setPromptText("How many?");
                 max.setLayoutX(404);
                 max.setLayoutY(126);
                 confirmMax=new Button("NEXT!");
@@ -206,7 +207,7 @@ public class CharacterParametersController {
                 selectionPane.getChildren().add(t);
                 activate.setOnMousePressed(this::gateHallSwapConfirmed);
                 break;
-            case 10: //Student selection
+            case 10: //Student selection                    WORKS
                 desc.setText("CHOOSE A STUDENT ON THE CARD!");
                 selectedText=new Text();
                 selectedText.setFont(Font.font("papyrus",16));
@@ -230,7 +231,7 @@ public class CharacterParametersController {
                 p.getChildren().add(imageView);
                 studs=new CharacterGUI(4);
                 for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i+=2){
-                    StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(10)).get(i));
+                    StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(index)).get(i));
                     student.setOnMousePressed(this::studentPressed);
                     student.setLayoutX(CoordinatesData.getCardStudents(4).get(i/2).getX());
                     student.setLayoutY(CoordinatesData.getCardStudents(4).get(i/2).getY());
@@ -605,27 +606,28 @@ public class CharacterParametersController {
         }
     }
     private void studentPressedOnGate(MouseEvent e){
+        StudentGUI sel= (StudentGUI) e.getSource();
         if(index==6) {
-            if (selectedStudents2.contains((StudentGUI) e.getSource())) {
-                selectedStudents2.remove(((StudentGUI) e.getSource()));
-                ((StudentGUI) e.getSource()).deselect();
+            if (selectedStudents2.contains(sel)) {
+                selectedStudents2.remove(sel);
+                sel.deselect();
             } else {
                 if (selectedStudents2.size() < maxSwappable) {
-                    ((StudentGUI) e.getSource()).setSelected();
-                    selectedStudents2.add(((StudentGUI) e.getSource()));
+                    sel.setSelected();
+                    selectedStudents2.add(sel);
                 }
                 if (selectedStudents1.size() == maxSwappable && selectedStudents2.size() == maxSwappable) {
                     activate.setDisable(false);
                 }
             }
         }else{
-            if (selectedStudents1.contains((StudentGUI) e.getSource())) {
-                selectedStudents1.remove(((StudentGUI) e.getSource()));
-                ((StudentGUI) e.getSource()).deselect();
+            if (selectedStudents1.contains(sel)) {
+                selectedStudents1.remove(sel);
+                sel.deselect();
             } else {
                 if (selectedStudents1.size() < maxSwappable) {
-                    ((StudentGUI) e.getSource()).setSelected();
-                    selectedStudents1.add(((StudentGUI) e.getSource()));
+                    sel.setSelected();
+                    selectedStudents1.add(sel);
                 }
                 if((maxSwappable==1 && selectedColor!=null && selectedStudents1.size()==maxSwappable) || (maxSwappable>1 && selectedColor!=null && selectedColor2!=null && selectedStudents1.size()==maxSwappable)){
                     activate.setDisable(false);

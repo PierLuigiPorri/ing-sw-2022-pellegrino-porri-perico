@@ -189,6 +189,7 @@ public class BoardController {
                     td.setFitWidth(80);
                     td.setFitHeight(80);
                     pn.getChildren().add(td);
+                    islands.get(i).getChildren().add(pn);
                 }
             }
         }
@@ -274,7 +275,6 @@ public class BoardController {
             islands.get(index - 1).setLayoutY(CoordinatesData.getIslandsCoord(update.numIslands).get(index - 1).getY());
             islands.get(index - 1).setOnDragDropped((dragEvent) -> onDragOnIsland(dragEvent, islands.get(index - 1)));
             islands.get(index - 1).setOnDragOver(this::onDragIslandOver);
-
         }
     }
 

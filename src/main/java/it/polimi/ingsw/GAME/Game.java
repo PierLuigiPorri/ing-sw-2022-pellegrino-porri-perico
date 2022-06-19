@@ -349,13 +349,15 @@ public class Game extends Observable {
                 for (int z = 0; z < playerCount; z++) {
                     if (t.getPlayer().equals(this.players.get(z)))
                         p.set(z, p.get(z) + Tower.getInfluence());
-                    if (this.players.get(z).equals(this.PwBonus))
-                        p.set(z, p.get(z) + InfluenceBonus);
                 }
             }
             for (Student s : this.board.islands.getIsland(index).getStudents()) {
                 if (colorTranslator(s.getColor()).getPlayer() != null)
                     p.set(players.indexOf(colorTranslator(s.getColor()).getPlayer()), p.get(players.indexOf(colorTranslator(s.getColor()).getPlayer())) + colorTranslator(s.getColor()).getInfluence());
+            }
+            for (int z = 0; z < playerCount; z++) {
+                if (this.players.get(z).equals(this.PwBonus))
+                    p.set(z, p.get(z) + InfluenceBonus);
             }
             ArrayList<Integer> q = new ArrayList<>(p);
             Collections.sort(p);
