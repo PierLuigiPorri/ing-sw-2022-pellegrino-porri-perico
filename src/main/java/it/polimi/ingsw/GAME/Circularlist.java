@@ -66,6 +66,7 @@ public class Circularlist {
         }
         i.next=second.next;
         p.next=i;
+        Island bef=p; //before
         p=i.next;
         if(first == head) {
             head = i;
@@ -78,13 +79,8 @@ public class Circularlist {
             }
         }
         else if(second==head){
-            tail=i;
-            head=i.next;
-            i.id--;
-            while(p!=tail){
-                p.id--;
-                p=p.next;
-            }
+            tail=bef;
+            head=i;
         }
         else if(second==tail){
             tail=i;

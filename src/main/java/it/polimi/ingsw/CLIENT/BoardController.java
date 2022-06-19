@@ -270,11 +270,11 @@ public class BoardController {
 
         for (int index : update.studentsOnIsland.keySet()) {
             islands.add(new IslandGUI(index));
-            root.getChildren().add(islands.get(index - 1));
             islands.get(index - 1).setLayoutX(CoordinatesData.getIslandsCoord(update.numIslands).get(index - 1).getX());
             islands.get(index - 1).setLayoutY(CoordinatesData.getIslandsCoord(update.numIslands).get(index - 1).getY());
             islands.get(index - 1).setOnDragDropped((dragEvent) -> onDragOnIsland(dragEvent, islands.get(index - 1)));
             islands.get(index - 1).setOnDragOver(this::onDragIslandOver);
+            root.getChildren().add(islands.get(index - 1));
         }
     }
 
