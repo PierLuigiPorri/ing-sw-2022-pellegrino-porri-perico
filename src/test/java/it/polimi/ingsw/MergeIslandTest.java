@@ -43,7 +43,9 @@ public class MergeIslandTest {
             game.getBoard().islands.getIsland(1).addTower(player);
             game.mergeIslands(1, 11);
             Assert.assertEquals(10, game.getBoard().islands.size());
-            Assert.assertEquals(game.getBoard().islands.getIsland(10).getIslandCount(), 3);
+            Assert.assertEquals(game.getBoard().islands.getIsland(10).getIslandCount(), 1);
+            Assert.assertEquals(game.getBoard().islands.getIsland(1).getIslandCount(), 3);
+            Assert.assertEquals(game.getBoard().islands.getIsland(1).getTowers().size(), 3);
 
             System.out.println("TEST PASSATO!");
         }

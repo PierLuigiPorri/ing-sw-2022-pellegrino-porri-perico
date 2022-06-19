@@ -53,7 +53,7 @@ public class GameTest {
 
                 game.gateToHall("PIER", tmp2[0].getColor());
                 game.gateToIsland("PIER", 0, 11);
-                game.gateToIsland("PIER", 0, 4);
+                game.gateToIsland("PIER", 0, 9);
 
 
                 for (int i = 0; i < 3; i++) {
@@ -70,8 +70,8 @@ public class GameTest {
 
 
                 game.gateToHall("PAOLO", tmp1[0].getColor());
-                game.gateToIsland("PAOLO", 0, 7);
-                game.gateToIsland("PAOLO", 0, 7);
+                game.gateToIsland("PAOLO", 0, 1);
+                game.gateToIsland("PAOLO", 0, 1);
 
 
                 game.CloudToGate("PAOLO", 1);
@@ -80,14 +80,12 @@ public class GameTest {
                 Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
                 game.moveMotherNature("PAOLO", game.order.get(0).getLastCardPlayed().getMovement());
-                //Assert.assertEquals(game.motherNature.getIsola().getId(), game.getCardsPlayed().remove(game.getCardsPlayed().size()-1).getMovement() + 1);
-
 
                 Assert.assertEquals("Planning", game.roundMaster.round.getCurrentPhase());
                 Assert.assertEquals(game.roundMaster.getRoundCount(), 1);
-                //Assert.assertEquals(9,  game.getPlayers().get(0).getHand().cards.size());
+                Assert.assertEquals(9,  game.getPlayers().get(0).getHand().cards.size());
                 game.playCard("PIER", 1);
-                //Assert.assertEquals(8,  game.getPlayers().get(0).getHand().cards.size());
+                Assert.assertEquals(8,  game.getPlayers().get(0).getHand().cards.size());
 
                 Assert.assertTrue(game.getCardsPlayed().contains(game.getPlayers().get(0).getLastCardPlayed()));
 
@@ -103,8 +101,8 @@ public class GameTest {
                 }
 
                 game.gateToHall("PIER", tmp2[0].getColor());
-                game.gateToIsland("PIER", 0, 7);
-                game.gateToIsland("PIER", 0, 7);
+                game.gateToIsland("PIER", 0, 2);
+                game.gateToIsland("PIER", 0, 2);
 
                 for (int i = 0; i < 3; i++) {
                     tm1[i] = game.getBoard().clouds.get(0).getStudents().get(i);
@@ -116,7 +114,11 @@ public class GameTest {
                 Assert.assertEquals(game.getPlayers().get(1).studentsMoved, 0);
 
                 game.moveMotherNature("PIER", game.order.get(0).getLastCardPlayed().getMovement());
-                Assert.assertEquals(8, game.motherNature.getIsland().getId());
+
+                if(game.getBoard().islands.size()==12)
+                    Assert.assertEquals(8, game.motherNature.getIsland().getId());
+                else if(game.getBoard().islands.size()==11)
+                    Assert.assertEquals(7, game.motherNature.getIsland().getId());
 
                 game.gateToHall("PAOLO", tmp1[0].getColor());
                 game.gateToIsland("PAOLO", 0, 9);
