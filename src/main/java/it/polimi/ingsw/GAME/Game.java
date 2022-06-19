@@ -318,7 +318,7 @@ public class Game extends Observable {
                             }
                         }
                         order.remove(0);
-                    } else throw new ImpossibleActionException("\nNo card has this movement value.");
+                    } else throw new ImpossibleActionException("\nThe card you played doesn't allow you to move Mother Nature so far!");
 
                 } else throw new ImpossibleActionException("\nIs not your turn or you still have to place students.");
             }else throw new ImpossibleActionException("\nPick your cloud before moving mother nature!");

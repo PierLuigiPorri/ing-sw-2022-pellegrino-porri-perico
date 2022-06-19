@@ -385,6 +385,9 @@ public class BoardController {
         if (event.getDragboard().getString().equals("MotherNature")) {
             ArrayList<Integer> par = new ArrayList<>();
             par.add(i.getIndex() + (i.getIndex() < (update.motherNatureOnIsland.indexOf(true) + 1) ? update.numIslands : 0) - (update.motherNatureOnIsland.indexOf(true) + 1));
+            System.out.println("Da: "+update.motherNatureOnIsland.indexOf(true) + 1);
+            System.out.println("A: "+i.getIndex());
+            System.out.println("Movement: "+par);
             gui.perform(par, null, null, 3);
         } else {
             ArrayList<Integer> par = new ArrayList<>();

@@ -59,7 +59,7 @@ public class Circularlist {
             first=i2;
             second=i1;
         }
-        i.id=first.id;
+        i.id=Math.min(first.id, second.id);
         Island p=head;
         while(p.next!=first){
             p=p.next;
