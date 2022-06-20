@@ -478,7 +478,7 @@
                   <Font name="Papyrus" size="24.0" />
                </font>
                <fill>
-                  <LinearGradient endX="1.0" endY="1.0">
+                  <LinearGradient>
                      <stops>
                         <Stop>
                            <color>

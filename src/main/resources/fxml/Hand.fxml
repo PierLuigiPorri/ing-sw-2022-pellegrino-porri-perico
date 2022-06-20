@@ -8,120 +8,81 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.HandController">
-   <children>
-      <ImageView fitHeight="452.0" fitWidth="644.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Graphical_Assets/sky_bg.jpg" />
-         </image>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.polimi.ingsw.CLIENT.HandController">
+   <ImageView fitHeight="452.0" fitWidth="644.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../Graphical_Assets/sky_bg.jpg"/>
+   </ImageView>
+   <AnchorPane fx:id="card0" layoutX="13.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Graphical_Assets/Assistente (1).png"/>
       </ImageView>
-      <AnchorPane fx:id="card0" layoutX="13.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Graphical_Assets/Assistente (1).png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="card1" layoutX="137.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Graphical_Assets/Assistente (2).png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="card2" layoutX="257.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Graphical_Assets/Assistente (3).png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="card3" layoutX="386.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Graphical_Assets/Assistente (4).png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="card4" layoutX="519.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Graphical_Assets/Assistente (5).png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="card9" layoutX="519.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Graphical_Assets/Assistente (10).png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="card8" layoutX="386.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Graphical_Assets/Assistente (9).png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="card7" layoutX="257.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Graphical_Assets/Assistente (18).png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="card5" layoutX="13.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Graphical_Assets/Assistente (6).png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="card6" layoutX="137.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Graphical_Assets/Assistente (7).png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <Text fill="#ebde2d" layoutX="169.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THIS IS YOUR HAND!" wrappingWidth="297.966796875">
-         <font>
-            <Font name="Papyrus" size="22.0" />
-         </font>
-      </Text>
-      <Text fill="#d30101" layoutX="36.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT THE CARD YOU WANT TO PLAY!">
-         <font>
-            <Font name="Papyrus" size="17.0" />
-         </font>
-      </Text>
-      <Button layoutX="499.0" layoutY="391.0" mnemonicParsing="false" onAction="#backToBoard" onMouseClicked="#backToBoard" prefHeight="54.0" prefWidth="123.0" style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="BACK TO BOARD">
-         <font>
-            <Font name="Papyrus" size="9.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-   </children>
+   </AnchorPane>
+   <AnchorPane fx:id="card1" layoutX="137.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Graphical_Assets/Assistente (2).png"/>
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane fx:id="card2" layoutX="257.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Graphical_Assets/Assistente (3).png"/>
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane fx:id="card3" layoutX="386.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Graphical_Assets/Assistente (4).png"/>
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane fx:id="card4" layoutX="519.0" layoutY="56.0" prefHeight="92.0" prefWidth="103.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Graphical_Assets/Assistente (5).png"/>
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane fx:id="card9" layoutX="519.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Graphical_Assets/Assistente (10).png"/>
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane fx:id="card8" layoutX="386.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Graphical_Assets/Assistente (9).png"/>
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane fx:id="card7" layoutX="257.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Graphical_Assets/Assistente (18).png"/>
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane fx:id="card5" layoutX="13.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Graphical_Assets/Assistente (6).png"/>
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane fx:id="card6" layoutX="137.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../Graphical_Assets/Assistente (7).png"/>
+      </ImageView>
+   </AnchorPane>
+   <Text fill="#ebde2d" layoutX="169.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THIS IS YOUR HAND!"
+         wrappingWidth="297.966796875">
+      <font>
+         <Font name="Papyrus" size="22.0"/>
+      </font>
+   </Text>
+   <Text fill="#d30101" layoutX="36.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0"
+         text="SELECT THE CARD YOU WANT TO PLAY!">
+      <font>
+         <Font name="Papyrus" size="17.0"/>
+      </font>
+   </Text>
+   <Button layoutX="499.0" layoutY="391.0" mnemonicParsing="false" onAction="#backToBoard" onMouseClicked="#backToBoard"
+           prefHeight="54.0" prefWidth="123.0"
+           style="-fx-background-color: rgba(160, 40, 236, 0.7); -fx-background-radius: 100;" text="BACK TO BOARD">
+      <font>
+         <Font name="Papyrus" size="9.0"/>
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND"/>
+      </cursor>
+   </Button>
 </AnchorPane>
