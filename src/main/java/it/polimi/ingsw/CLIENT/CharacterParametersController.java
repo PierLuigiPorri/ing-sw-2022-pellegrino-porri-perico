@@ -582,6 +582,7 @@ public class CharacterParametersController {
             if(selectedStudents1.contains((StudentGUI) e.getSource())){
                 selectedStudents1.remove(((StudentGUI) e.getSource()));
                 ((StudentGUI) e.getSource()).deselect();
+                activate.setDisable(true);
             }else{
                 if(selectedStudents1.size()<maxSwappable){
                     ((StudentGUI) e.getSource()).setSelected();
@@ -594,6 +595,8 @@ public class CharacterParametersController {
         } else {
             if (selectedStudent != null) {
                 selectedStudent.deselect();
+                if(index==0)
+                    activate.setDisable(true);
             }
             ((StudentGUI) e.getSource()).setSelected();
             selectedStudent = (StudentGUI) e.getSource();
@@ -611,6 +614,7 @@ public class CharacterParametersController {
             if (selectedStudents2.contains(sel)) {
                 selectedStudents2.remove(sel);
                 sel.deselect();
+                activate.setDisable(true);
             } else {
                 if (selectedStudents2.size() < maxSwappable) {
                     sel.setSelected();
@@ -624,6 +628,7 @@ public class CharacterParametersController {
             if (selectedStudents1.contains(sel)) {
                 selectedStudents1.remove(sel);
                 sel.deselect();
+                activate.setDisable(true);
             } else {
                 if (selectedStudents1.size() < maxSwappable) {
                     sel.setSelected();

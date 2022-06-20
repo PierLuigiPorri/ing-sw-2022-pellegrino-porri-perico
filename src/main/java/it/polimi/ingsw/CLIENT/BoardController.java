@@ -315,7 +315,6 @@ public class BoardController {
         button.setOnMousePressed((e) -> onCloudButtonPressed());
         cloud.getChildren().add(button);
         cloud.setButton(button);
-        System.out.println(cloud.getChildren().toString());
     }
 
     private void studentsOnCloud3Update() {
