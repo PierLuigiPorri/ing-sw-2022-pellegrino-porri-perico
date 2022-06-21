@@ -11,7 +11,7 @@ public class CLIAPP {
         ip="127.0.0.1";
         //TODO: Decommentare questa riga per inserire l'ip manualmente
         //ip=getValidString("Write the IP of the server");
-        ClientMsgHandler msgHandler = new ClientMsgHandler(ip, 4000, lock); //Connection setup with this IP and Port numbers
+        ClientMsgHandler msgHandler = new ClientMsgHandler(ip, 50000, lock); //Connection setup with this IP and Port numbers
         AckSender ackSender = new AckSender(msgHandler, 2000);
         msgHandler.setAckSender(ackSender);
         new Thread(ackSender).start();
