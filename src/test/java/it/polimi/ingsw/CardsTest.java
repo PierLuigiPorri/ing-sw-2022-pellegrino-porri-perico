@@ -61,7 +61,7 @@ public class CardsTest {
             }
             ArrayList<Integer> a = new ArrayList<>(), b = new ArrayList<>();
             ArrayList<String> c = new ArrayList<>();
-            for (int t = 0; t < 2; t++) {
+            for (int t = 1; t < 3; t++) {
                 a.add(t);
                 b.add(t);
                 c.add("RED");
@@ -73,7 +73,7 @@ public class CardsTest {
                 case 0:
                     ConcreteCharacter car = (ConcreteCharacter) game.characterSelector.getCharacters().get(0);
                     temp = car.getStudents().get(1).getColor();
-                    for (Student st : game.getBoard().islands.getIsland(1).getStudents()) {
+                    for (Student st : game.getBoard().islands.getIsland(2).getStudents()) {
                         if (Objects.equals(st.getColor(), temp))
                             quant++;
                     }
@@ -115,8 +115,8 @@ public class CardsTest {
                     game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
                     game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
                     game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
-                    game.getPlayers().get(0).getGate().getStudents().set(0, new Student("GREEN"));
                     game.getPlayers().get(0).getGate().getStudents().set(1, new Student("GREEN"));
+                    game.getPlayers().get(0).getGate().getStudents().set(2, new Student("GREEN"));
                     game.addStudentToIsland("RED", 1);
                     game.addStudentToIsland("RED", 1);
                     game.determineInfluence(1);
@@ -152,13 +152,12 @@ public class CardsTest {
             switch (game.characterSelector.getCharacters().get(0).getIndex()) {
                 case 0:
                     ConcreteCharacter car2 = (ConcreteCharacter) game.characterSelector.getCharacters().get(0);
-                    assertEquals(car2.getStudents().size(), 5);
-                    for (Student st : game.getBoard().islands.getIsland(1).getStudents()) {
+                    assertEquals(car2.getStudents().size(), 4);
+                    for (Student st : game.getBoard().islands.getIsland(2).getStudents()) {
                         if (st.getColor().equals(temp))
                             quant--;
                     }
-                    if(quant==-1)
-                        assertEquals(quant, -1);
+                    assertEquals(quant, -1);
                     game.characterSelector.effects.restore();
                     break;
                 case 1:

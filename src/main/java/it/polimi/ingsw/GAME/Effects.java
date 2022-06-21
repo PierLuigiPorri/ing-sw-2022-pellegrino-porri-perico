@@ -50,7 +50,7 @@ public final class Effects {
                 player.getHall().activateCard();
                 return "\nBe aware that until the end of the turn " + player.nickname + " will be able to control the Professors even if they have the same amount of students in the hall!";
             case 2:
-                game.determineInfluence(intpar.get(0)+1);
+                game.determineInfluence(intpar.get(0));
                 return "";
             case 3:
                 game.setMNbonus();
@@ -91,7 +91,7 @@ public final class Effects {
         switch (index) {
             case 0:
                 game.addStudentToIsland(c.students.get(intpar.get(0)).getColor(), intpar.get(1));
-                c.students.remove(intpar.get(0));
+                c.students.remove((int) intpar.get(0));
                 try {
                     c.students.add(this.game.getBag().extractStudent());
                 } catch (BagEmptyException e) {
@@ -99,13 +99,13 @@ public final class Effects {
                 }
                 return player.nickname + " just moved a " + c.students.get(intpar.get(0)).getColor() + " student on Island " + intpar.get(1) + "!";
             case 4:
-                game.getBoard().islands.getIsland(intpar.get(0)+1).addTD();
+                game.getBoard().islands.getIsland(intpar.get(0)).addTD();
                 c.removeTD();
                 return "\nUh-oh. " + player.nickname + " placed a Prohibition Token on Island " + intpar.get(0) + "!";
             case 10:
                 game.addStudentToHall(c.students.get(intpar.get(0)).getColor(), player);
                 String color = c.students.get(intpar.get(0)).getColor();
-                c.getStudents().remove(intpar.get(0));
+                c.getStudents().remove((int) intpar.get(0));
                 try {
                     c.students.add(this.game.getBag().extractStudent());
                 } catch (BagEmptyException e) {
