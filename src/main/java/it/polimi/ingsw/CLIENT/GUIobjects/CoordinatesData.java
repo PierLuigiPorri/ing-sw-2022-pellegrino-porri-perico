@@ -9,7 +9,7 @@ public abstract class CoordinatesData {
 
     private final static ArrayList<Coordinates> islandStudents= new ArrayList<>();
 
-    private final static Coordinates towers=new Coordinates(67,57);
+    private final static Coordinates towers=new Coordinates(42,57);
 
     private final static Coordinates motherNature=new Coordinates(87,-15);
     private final static ArrayList<Coordinates> clouds3=new ArrayList<>();
