@@ -11,7 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 
 import java.util.ArrayList;
@@ -161,6 +162,16 @@ public class BoardController {
             islands.get(index).getChildren().add(tower);
             if (update.towersOnIsland.get(index) > 1) {
                 islands.get(index).getChildren().add(new TowerCountPane(update.towersOnIsland.get(index)));
+                Pane sPane=new Pane();
+                sPane.setPrefWidth(109);
+                sPane.setPrefHeight(51);
+                sPane.setLayoutX(36);
+                sPane.setLayoutY(134);
+                ImageView img=new ImageView(new Image("Graphical_Assets/SuperIslandScroll.png"));
+                img.setFitWidth(109);
+                img.setFitHeight(51);
+                sPane.getChildren().add(img);
+                islands.get(index).getChildren().add(sPane);
             }
         }
     }
