@@ -57,6 +57,7 @@ public class Starter{
                                     games.get(i).setnJoined(); //nJoined++
                                     games.get(i).setNick2(nick);
                                     games.get(i).setCm2(cm);
+                                    return games.get(i).getId();
                                 }
                                 else throw new NickException("Your nickname is already in use in the selected game");
 
