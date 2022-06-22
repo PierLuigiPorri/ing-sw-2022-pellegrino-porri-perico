@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -159,10 +160,11 @@ public class MainMenuController{
         popupWindow = new Stage();
         popupWindow.initModality(Modality.APPLICATION_MODAL);
         popupWindow.setTitle(title);
-        popupWindow.setMinHeight(100);
-        popupWindow.setMinWidth(100);
+        popupWindow.setMinHeight(200);
+        popupWindow.setMinWidth(200);
         Label label = new Label();
         label.setText(message);
+        label.setFont(Font.font("papyrus",16));
         popupButton1 =new Button("OK");
         VBox layout = new VBox(15);
         layout.getChildren().addAll(label, popupButton1);
