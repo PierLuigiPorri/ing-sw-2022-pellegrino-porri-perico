@@ -55,10 +55,17 @@ public class MainMenuController{
             }
             else if(idGame.isSelected()){
                 try {
-                    Integer id=Integer.parseInt(idTextField.getText());
-                    gui.send(new CreationMessage(2, nicknameTextField.getText(),id));
-                    //gui.startGame();
-                    delay(1000, () -> checkJoin(id.toString()));
+                    if(!idTextField.getText().isEmpty()) {
+                        Integer id = Integer.parseInt(idTextField.getText());
+                        gui.send(new CreationMessage(2, nicknameTextField.getText(), id));
+                        //gui.startGame();
+                        delay(1000, () -> checkJoin(id.toString()));
+                    }
+                    else{
+                        showPopup("ERROR", "Set the game ID first!");
+                        popupButton1.setOnAction(e -> popupWindow.close());
+                        popupWindow.showAndWait();
+                    }
                 }
                 catch (Exception e){
                     System.out.println(e.getMessage());
