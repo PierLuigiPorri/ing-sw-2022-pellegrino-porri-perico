@@ -95,11 +95,6 @@ public class MainMenuController{
                 gui.setGameid(gameid);
                 gui.setScene("fxml/waitGameToStart.fxml");
                 gui.setUserNickname(nicknameTextField.getText());
-            } else {
-                ResponseMessage lastMessage = gui.getResponses().remove(gui.getResponses().size() - 1);
-                showPopup(lastMessage.response, lastMessage.response);
-                popupButton1.setOnAction(e -> popupWindow.close());
-                popupWindow.showAndWait();
             }
         }
     }
