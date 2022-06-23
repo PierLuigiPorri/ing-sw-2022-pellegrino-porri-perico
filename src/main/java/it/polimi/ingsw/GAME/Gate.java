@@ -3,9 +3,9 @@ package it.polimi.ingsw.GAME;
 import java.util.ArrayList;
 
 /**
- * Gate class represents the space in which are placed the students the player can move.
- * It contains the attribute students and the attribute MAX, which says the maximum number of students that can be in the Gate.
- * It extends StudentSpace since is an object in which you can add or remove students to an attribute 'students'.
+ * Gate class represents the space in which the students the player can move are placed.
+ * It contains the attribute students and the attribute MAX, which sets the maximum number of students that can be in the Gate.
+ * It extends StudentSpace since is an object in which you can add or remove students.
  * @author GC56
  */
 public class Gate extends StudentSpace {
@@ -52,9 +52,9 @@ public class Gate extends StudentSpace {
     }
 
     /**
-     * This method is used to know which color are in the Player's Gate.
-     * It is mainly used to check if an action which requires a color is correct, checking the color with the colors in Gate.
-     * For example, to move a student from the Gate to the Hall, is required the color of the student the Player wants to move, so if getColorsInGate.contains(color) then the action can be performed.
+     * This method is used to know which colors are in the Player's Gate.
+     * It is mainly used to check if an action which requires a color is correct, comparing the color with the colors in Gate.
+     * For example, to move a student from the Gate to the Hall, the color of the student the Player wants to move is required, so if getColorsInGate.contains(color) then the action can be performed.
      * @return the colors of the students in the Gate, in a list.
      * @author Pier Luigi Porri
      */
