@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * This class represents the hand of a player. It contains at most 10 Cards.
- * @author Pier Luigi Porri.
+ * @author GC56.
  */
 public class Hand {
     private ArrayList<Card> cards;
@@ -12,7 +12,7 @@ public class Hand {
     /**
      * Hand constructor. It is called once a game, at the beginning.
      * It builds all the ten cards owned by a player.
-     * @author Pier Luigi Porri.
+     * @author GC56.
      */
     public Hand() {
         cards = new ArrayList<>();
@@ -30,7 +30,6 @@ public class Hand {
 
     /**
      * @return the cards attribute.
-     * @author Pier Luigi Porri.
      */
     public ArrayList<Card> getCards() {
         return cards;

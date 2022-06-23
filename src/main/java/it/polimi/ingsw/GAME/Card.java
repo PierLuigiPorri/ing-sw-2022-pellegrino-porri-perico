@@ -14,7 +14,7 @@ public class Card {
      * Set the attributes movement and value of the card.
      * @param movement the card movement. (movement >= 1 && movement <= 5)
      * @param value the card value. (value >= 1 && value <= 10)
-     * @author Pier Luigi Porri.
+     * @author GC56.
      */
     public Card(int movement, int value){
         this.movement = movement;
@@ -23,7 +23,6 @@ public class Card {
 
     /**
      * @return the value attribute of the Card.
-     * @author Pier Luigi Porri.
      */
     public int getValue() {
         return value;
@@ -32,7 +31,6 @@ public class Card {
 
     /**
      * @return the movement attribute of the Card.
-     * @author Pier Luigi Porri.
      */
     public int getMovement() {
         return movement;

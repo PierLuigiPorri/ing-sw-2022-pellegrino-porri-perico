@@ -6,6 +6,7 @@ import java.util.ArrayList;
 /**
  * This class represents the game's board, which is the same for all the players.
  * So it contains the islands and the clouds.
+ * @author GC56
  */
 public class Board {
     public ArrayList<Cloud> clouds;
@@ -15,6 +16,7 @@ public class Board {
      * Board constructor. It is called once a game, when the game is created.
      * This method, depending on how many players are playing, builds the islands, the clouds and set MotherNature on an Island.
      * @param pcount number of players in the game. (pcount == 2 || pcount == 3)
+     * @author GC56
      */
     public Board(int pcount){
 

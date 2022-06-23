@@ -66,7 +66,7 @@ public class Game extends Observable {
         for (Player p : players) {
             for (int i = 0; i < p.getGate().getMAX(); i++) {
                 try {
-                    p.getGate().addInitialStud(this.getBag().extractStudent());
+                    p.getGate().addStudent(this.getBag().extractStudent().getColor());
                 }catch (BagEmptyException e){
                     bagEmptyHandler();
                 }
