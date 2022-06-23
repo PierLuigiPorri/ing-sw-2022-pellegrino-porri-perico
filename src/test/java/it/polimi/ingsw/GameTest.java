@@ -31,16 +31,16 @@ public class GameTest {
                 Assert.assertEquals(2, game.getPlayers().size());
                 Assert.assertEquals("Planning", game.roundMaster.round.getCurrentPhase());
                 Assert.assertEquals(game.roundMaster.getRoundCount(), 0);
-                Assert.assertEquals(10, game.getPlayers().get(0).getHand().cards.size());
+                Assert.assertEquals(10, game.getPlayers().get(0).getHand().getCards().size());
                 Assert.assertEquals("PIER", game.getPlayers().get(0).getNickname());
                 Assert.assertEquals(8, game.getPlayers().get(0).getTower_count());
                 game.playCard("PIER", 2);
                 Assert.assertEquals("Planning", game.roundMaster.round.getCurrentPhase());
-                Assert.assertEquals(9, game.getPlayers().get(0).getHand().cards.size());
+                Assert.assertEquals(9, game.getPlayers().get(0).getHand().getCards().size());
 
                 game.playCard("PAOLO", 7);
 
-                Assert.assertEquals(9, game.getPlayers().get(0).getHand().cards.size());
+                Assert.assertEquals(9, game.getPlayers().get(0).getHand().getCards().size());
 
                 Assert.assertEquals("Action", game.roundMaster.round.getCurrentPhase());
 
@@ -83,9 +83,9 @@ public class GameTest {
 
                 Assert.assertEquals("Planning", game.roundMaster.round.getCurrentPhase());
                 Assert.assertEquals(game.roundMaster.getRoundCount(), 1);
-                Assert.assertEquals(9,  game.getPlayers().get(0).getHand().cards.size());
+                Assert.assertEquals(9,  game.getPlayers().get(0).getHand().getCards().size());
                 game.playCard("PIER", 1);
-                Assert.assertEquals(8,  game.getPlayers().get(0).getHand().cards.size());
+                Assert.assertEquals(8,  game.getPlayers().get(0).getHand().getCards().size());
 
                 Assert.assertTrue(game.getCardsPlayed().contains(game.getPlayers().get(0).getLastCardPlayed()));
 

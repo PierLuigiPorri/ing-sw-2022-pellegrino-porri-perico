@@ -2,11 +2,20 @@ package it.polimi.ingsw.GAME;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the hand of a player. It contains at most 10 Cards.
+ * @author Pier Luigi Porri.
+ */
 public class Hand {
-    public ArrayList<Card> cards;
+    private ArrayList<Card> cards;
 
-    public Hand(){
-        cards=new ArrayList<>();
+    /**
+     * Hand constructor. It is called once a game, at the beginning.
+     * It builds all the ten cards owned by a player.
+     * @author Pier Luigi Porri.
+     */
+    public Hand() {
+        cards = new ArrayList<>();
         cards.add(new Card(1, 1));
         cards.add(new Card(1, 2));
         cards.add(new Card(2, 3));
@@ -17,5 +26,13 @@ public class Hand {
         cards.add(new Card(4, 8));
         cards.add(new Card(5, 9));
         cards.add(new Card(5, 10));
-        }
+    }
+
+    /**
+     * @return the cards attribute.
+     * @author Pier Luigi Porri.
+     */
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
 }

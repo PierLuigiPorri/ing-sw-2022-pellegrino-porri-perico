@@ -443,13 +443,13 @@ public class Game extends Observable {
                         if(cardsPlayed.size()==2)
                             card2=cardsPlayed.get(1).getValue();
                     }
-                    int value=player1.getHand().cards.get(index).getValue();
+                    int value=player1.getHand().getCards().get(index).getValue();
                     if(value!=card1 && value!=card2) {
                         actuallyPlayCard(i, index);
                     } else {
                         //The card has already been played
                         boolean onlyUsedCards=true;
-                        for (Card handCard : players.get(i).getHand().cards)
+                        for (Card handCard : players.get(i).getHand().getCards())
                         {
                             boolean found=false;
                             for(Card playedCard : cardsPlayed){
@@ -477,7 +477,7 @@ public class Game extends Observable {
         valueCardPlayed.set(playerIndex, cardsPlayed.get(cardsPlayed.size()-1).getValue());
         order.remove(0);
         update.add("\n" + this.players.get(playerIndex).nickname + " played card with index "+cardIndex);
-        if(players.get(playerIndex).getHand().cards.isEmpty()){
+        if(players.get(playerIndex).getHand().getCards().isEmpty()){
             lastRound=true;
         }
         //When order is empty, it means that every player has played. So it's time to change phase into "Action";

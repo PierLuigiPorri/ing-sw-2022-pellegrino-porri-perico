@@ -156,7 +156,7 @@ public class ModelView extends Observable implements Observer {
 
         for (int i = 0; i < game.getPlayers().size(); i++) {
             tmp = new ArrayList<>();
-            for (Card c : game.getPlayers().get(i).getHand().cards) {
+            for (Card c : game.getPlayers().get(i).getHand().getCards()) {
                 tmp.add(c.getMovement());
                 tmp.add(c.getValue());
             }

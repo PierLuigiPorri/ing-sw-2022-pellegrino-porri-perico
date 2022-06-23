@@ -32,8 +32,8 @@ public class Player {
     }
 
     public Card playCard(int index){
-        Card tmp=this.hand.cards.get(index);
-        this.lastCardPlayed=this.hand.cards.remove(index);
+        Card tmp=this.hand.getCards().get(index);
+        this.lastCardPlayed=this.hand.getCards().remove(index);
         return tmp;
     }
 
