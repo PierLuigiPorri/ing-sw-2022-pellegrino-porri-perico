@@ -31,6 +31,7 @@ public class MotherNature {
      * @param island island on which MotherNature will be placed.
      * @requires (island!=null)
      * @ensures (this.island.equals(island))
+     * @author GC56
      */
     public void setIsland(Island island){
         this.island = island;
