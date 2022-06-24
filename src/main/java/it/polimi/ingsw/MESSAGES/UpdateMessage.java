@@ -3,6 +3,10 @@ package it.polimi.ingsw.MESSAGES;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+/**
+ * The UpdateMessage contains all the information about the current state of the game.
+ * @author GC56
+ */
 public class UpdateMessage extends MessageType{
 
     public ArrayList<String> update;
