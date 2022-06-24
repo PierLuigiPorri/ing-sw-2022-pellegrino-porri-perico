@@ -9,6 +9,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * This class is the one that sends and receives all messages exchanged with the server
+ * @author GC56
+ */
 public class ClientMsgHandler implements Runnable {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -24,6 +28,13 @@ public class ClientMsgHandler implements Runnable {
     private ArrayList<UpdateMessage> updates;
     private final ArrayList<ResponseMessage> responses;
 
+    /**
+     * Constructor.
+     * @param host IP or URL of the server
+     * @param port Port number of the server
+     * @param lock An Object that is used as a lock and shared between the main App and the MessageHandler thread
+     * @author GC56
+     */
     public ClientMsgHandler(String host, int port, Object lock) {
         try {
             socket = new Socket(host, port);
@@ -45,6 +56,11 @@ public class ClientMsgHandler implements Runnable {
         this.responses = new ArrayList<>();
     }
 
+    /**
+     * Send a message to the server
+     * @param message The message to send
+     * @author GC56
+     */
     public void send(MessageType message) {
         try {
             out.writeObject(message);
@@ -83,6 +99,11 @@ public class ClientMsgHandler implements Runnable {
         System.out.println("Saluti dal Client Msg Handler");
     }
 
+    /**
+     * Method that sorts messages based on their Type
+     * @param message the message to sort
+     *                @author GC56
+     */
     public void sort(MessageType message) {
         if (message.type == 4) {
             this.updates.add((UpdateMessage) message);
@@ -103,7 +124,7 @@ public class ClientMsgHandler implements Runnable {
         return this.responses;
     }
 
-    public void clearMessages() {
+    public void clearAllMessages() {
         this.updates.clear();
         this.responses.clear();
     }
