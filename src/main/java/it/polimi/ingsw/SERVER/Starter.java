@@ -8,6 +8,10 @@ import it.polimi.ingsw.MESSAGES.ResponseMessage;
 
 import java.util.ArrayList;
 
+/**
+ * This class manages game creations. It includes the list of all the games in the creation phase.
+ * @author GC56
+ */
 public class Starter{
 
     private static final ArrayList<Creation> games =new ArrayList<>(); //List of all joinable games
@@ -15,10 +19,26 @@ public class Starter{
 
     private ConnectionManager cm;
 
+    /**
+     * Constructor.
+     * @param cm The ConnectionManager of the client
+     * @author GC56
+     */
     public Starter(ConnectionManager cm){
         this.cm=cm;
     }
 
+    /**
+     * Called when the player wants to create a new game.
+     * @param gt GameType: 0 -> normal game, 1 -> expert game
+     * @param np Number of Players
+     * @param nick Player's nickname
+     * @requires gt==0 || gt==1
+     * @requires np==2 || np==3
+     * @return the ID of the game that has been created
+     * @throws ImpossibleActionException if parameters aren't valid
+     * @author GC56
+     */
     public int newGame(int gt, int np, String nick) throws ImpossibleActionException{
         //Creation phase of the game
         synchronized (games) {
@@ -31,6 +51,15 @@ public class Starter{
         }
     }
 
+    /**
+     * Called when the player wants to join a specific game via its ID.
+     * @param id ID of the game to join
+     * @param nick Player's nickname
+     * @return the ID of the game that has been joined
+     * @throws NoSuchGameException if the specified game doesn't exist or isn't joinable
+     * @throws NickException if the player's nickname is already in use in the selected game
+     * @author GC56
+     */
     public int joinGameWithId(int id, String nick) throws NoSuchGameException, NickException{
         synchronized (games){
             int i=0;
@@ -84,6 +113,12 @@ public class Starter{
         }
     }
 
+    /**
+     * Private method that gets called when the game can actually begin
+     * @param temp Creation type representing the game to start
+     * @return The ID of the created game
+     * @author GC56
+     */
     private int startGame(Creation temp){
         //Returns the ID of the created game
         GameManager gm=new GameManager(temp.getCm1(), temp.getCm2(), temp.getCm3(), temp.getnPlayers());
@@ -100,6 +135,13 @@ public class Starter{
         return temp.getId();
     }
 
+    /**
+     * Called when the player wants to join a random game.
+     * @param nick Player's nickname
+     * @return The ID of the joined game. In case of problems, it returns -1
+     * @throws NoSuchGameException If there are no games to join with current nickname
+     * @author GC56
+     */
     public int joinRandomGame(String nick) throws NoSuchGameException{
         //Returns the ID of the joined game. In case of problems, it returns -1
         synchronized (games){
@@ -151,6 +193,12 @@ public class Starter{
         throw new NoSuchGameException("There are no joinable games, at least with your current nickname");
     }
 
+    /**
+     * Kills the game during the creation phase by removing it from the list of games after having sent a message to all clients
+     * @param id ID of the game to kill
+     * @throws NoSuchGameException if there isn't a game with this ID
+     * @author GC56
+     */
     public void killGame(int id) throws NoSuchGameException{
         //Kills the game during the creation phase by removing it from games after having sent a message to all clients
         synchronized (games){

@@ -1,5 +1,9 @@
 package it.polimi.ingsw.SERVER;
 
+/**
+ * This class represents a game while in the creation phase.
+ * @author GC56
+ */
 public class Creation {
     private int id;
     private int nPlayers;
@@ -12,8 +16,19 @@ public class Creation {
     private ConnectionManager cm2;
     private ConnectionManager cm3;
 
-    public Creation(int id, int ng, int gt, String nick, ConnectionManager cm){
-        nPlayers=ng;
+    /**
+     * Constructor
+     * @param id The ID of the game
+     * @param np Number of Players
+     * @param gt GameType: 0 -> normal game, 1 -> expert game
+     * @param nick Nickname of the first player
+     * @param cm ConnectionManager of the first player
+     * @requires np==2 || np==3
+     * @requires gt==0 || gt==1
+     * @author GC56
+     */
+    public Creation(int id, int np, int gt, String nick, ConnectionManager cm){
+        nPlayers=np;
         gametype=gt;
         nJoined=1;
         nick1=nick;
