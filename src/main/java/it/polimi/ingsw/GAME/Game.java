@@ -6,63 +6,82 @@ import it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException;
 import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 import it.polimi.ingsw.SERVER.GameManager;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
 
+/**
+ * Represents the Controller in the MVC architecture. It acts as a bridge between the model and the controller.
+ * Here are all the methods the user, by the View, can invoke to perform actions and all the logic game's ones. It has information about the game status.
+ * Thanks to this class, the ModelView is notified and ready to send update messages to the clients.
+ * @author GC56
+ */
 public class Game extends Observable {
-    private ArrayList<Integer> valueCardPlayed;
-    private final int playerCount;
-    private final int gameType; //0: normal game, 1: expert game
+    private ArrayList<Integer> valueCardPlayed; //value of the cards played this round, in the same order as list players is.
+    private final int playerCount; // number of players in the game.
+    private final int gameType; //0: normal game, 1: expert game.
     private final ArrayList<Player> players; //array of all players.
     public ArrayList<Player> order; // says the order of each turn in which the players are going to play.
-    private ArrayList<Card> cardsPlayed;  //Cards played in this round
-    private final Bag bag;
-    private final Board board;
+    private ArrayList<Card> cardsPlayed;  //Cards played in this round.
+    private final Bag bag; // where all the students are at the beginning.
+    private final Board board; // main board in which there are all the common things between players (as islands, clouds...)
     public final ColorTracker red, blue, green, yellow, pink; // professors.
     public RoundMaster roundMaster; //rounds manager.
-    private String winner;
-    public CharacterSelector characterSelector = null;
-    public final MotherNature motherNature;
+    private String winner; // the winner of the game
+    public CharacterSelector characterSelector = null; // the object who choose the 3 characters in the game
+    public final MotherNature motherNature; //main pawn of the game.
     private int MNbonus = 0; // additional movement to Mother Nature; is called by a Character.
-    private int InfluenceBonus = 0;
-    private Player PwBonus;
+    private int InfluenceBonus = 0; // bonus of influence given by some characters
+    private Player PwBonus; // bonus given by some characters
     public boolean cloudEmptied=false;
-    private final ModelView modelView;
-    private boolean lastRound;
-    private boolean gameOver;
+    private final ModelView modelView; //notified by this.
+    private boolean lastRound; // Says if we are in the last round.
+    private boolean gameOver; // Says if the game is ended.
 
-    private final ArrayList<String> update;
+    private final ArrayList<String> update; //list of strings to send to the clients
 
+    /**
+     * Game constructor. It constructs every object of the game. It is called only when the correct number of players has joined the game.
+     * @param pcount number of players playing.
+     * @param gt type of the game (1: expert rules, 0: normal rules).
+     * @param nick1 nickname of the first player logged.
+     * @param nick2 nickname of the second player logged.
+     * @param nick3 nickname of the third player logged.
+     * @param gm the GameManager.
+     * @requires (pcount==2 || pcount==3) && nick1!=null && nick2!=null && !nick1.equals(nick2) && !nick2.equals(nick3) && !nick1.equals(nick3) && gm!=null
+     */
     public Game(int pcount, int gt, String nick1, String nick2, String nick3, GameManager gm)  {
-        //Parameters: num of players, gametype, nickname and MsgHandler for every player
         this.playerCount = pcount;
         this.modelView = new ModelView(this, gm);
         this.addObserver(modelView);
         this.gameType = gt;
         this.players = new ArrayList<>();
         this.cardsPlayed = new ArrayList<>();
+        //building professors
         this.red = new ColorTracker("RED");
         this.blue = new ColorTracker("BLUE");
         this.green = new ColorTracker("GREEN");
         this.yellow = new ColorTracker("YELLOW");
         this.pink = new ColorTracker("PINK");
+
         this.bag = new Bag();
         this.board = new Board(playerCount);
         this.order = new ArrayList<>();
         this.lastRound=false;
         this.gameOver=false;
         this.valueCardPlayed=new ArrayList<>();
+        //default value for the list which contains the value of the last card played by every player
         for(int i=0; i<3; i++){
             valueCardPlayed.add(100);
         }
+        //building players
         this.players.add(new Player(playerCount, nick1, this));
         this.players.add(new Player(playerCount, nick2, this));
         if (playerCount == 3) {
             this.players.add(new Player(playerCount, nick3, this));
         }
 
+        // building gate for every player.
         for (Player p : players) {
             for (int i = 0; i < p.getGate().getMAX(); i++) {
                 try {
@@ -80,24 +99,39 @@ public class Game extends Observable {
         if (gameType == 1)
             this.characterSelector = new CharacterSelector(this);
         this.update=new ArrayList<>();
+
+        //notifying the game creation.
         update.add("Game created! LET'S GO!");
         setChanged();
         notifyObservers(update);
         update.clear();
     }
 
+    /**
+     * Returns true if and only if the game is over.
+     * @return the boolean attribute gameOver.
+     */
     public boolean getGameOver(){
         return gameOver;
     }
 
+    /**
+     * Returns the ModelView object that is notified by this.
+     * @return the ModelView object that is notified by this.
+     */
     public ModelView getModelView() {
         return modelView;
     }
 
+    /**
+     * This STATIC method generates a shuffled array of Students, equally distributed between colors.
+     * @param numStud number of students to be generated.
+     * @return a not sorted list of students.
+     */
     public static ArrayList<Student> randomStudGenerator(int numStud) {
-        //This STATIC method generates a shuffled array of Students, equally distributed between colors
         int numColors = 5;
         ArrayList<Student> students = new ArrayList<>();
+        //building (numStud/numColors) RED students. So on for every color.
         for (int i = 0; i < numStud / numColors; i++) {
             students.add(new Student("RED"));
         }
@@ -113,10 +147,17 @@ public class Game extends Observable {
         for (int i = 0; i < numStud / numColors; i++) {
             students.add(new Student("PINK"));
         }
+        //shuffles the list.
         Collections.shuffle(students);
         return students;
     }
 
+    /**
+     * It changes the phase of the current Round and fills all the clouds, if we are in Planning phase. Otherwise, it creates a new round, restore the characters effects and creates a new list of cards played by players.
+     * In both cases sets the order in which the players are going to play in the new phase.
+     * @throws BoundException
+     * @throws ImpossibleActionException
+     */
     public void changePhase() throws BoundException, ImpossibleActionException {
         if(lastRound && roundMaster.round.getCurrentPhase().equals("Action")) {
             gameEnd();
@@ -132,10 +173,7 @@ public class Game extends Observable {
                     }
                 }
             }
-            int[] tmp = new int[3];
-            for (int i = 0; i < cardsPlayed.size(); i++) {
-                tmp[i] = cardsPlayed.get(i).getValue();
-            }
+
             if (roundMaster.round.getCurrentPhase().equals("Action")) {
                 cardsPlayed = new ArrayList<>();
                 this.valueCardPlayed=new ArrayList<>();
@@ -144,7 +182,7 @@ public class Game extends Observable {
                 }
             }
 
-            this.order = roundMaster.changePhase(tmp);
+            this.order = roundMaster.changePhase();
             if (gameType == 1)
                 characterSelector.effects.restore();
 
@@ -220,7 +258,7 @@ public class Game extends Observable {
         update.clear();
     }
 
-    public void bagToCloud(int index) throws BoundException, ImpossibleActionException {
+    public void bagToCloud(int index) throws BoundException {
         if (index >= 0 && index <= 3 && board.clouds.get(index).students.size() < playerCount + 1) {
             try {
                 board.clouds.get(index).addStudent(bag.extractStudent().getColor());

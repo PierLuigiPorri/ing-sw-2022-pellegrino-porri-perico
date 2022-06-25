@@ -40,12 +40,6 @@ public class ColorTracker {
         return influence;
     }
 
-    /**
-     * @return the color of a ColorTracker
-     */
-    public String getColor() {
-        return color;
-    }
 
     /**
      * @return the player who owns the ColorTracker

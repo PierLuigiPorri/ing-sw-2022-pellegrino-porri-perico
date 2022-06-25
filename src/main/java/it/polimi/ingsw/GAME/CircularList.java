@@ -121,6 +121,8 @@ public class CircularList {
 
         //Decrease all the id to shift all the subsequence of islands with id > SuperIsland.getId()
         if(first == head) {
+            //if the island with less id between the two merged is head, than the SuperIsland is the new head.
+            //All the other islands in CircularList need to decrease their id.
             head = i;
             while(p!=tail){
                 p.id--;
@@ -131,13 +133,17 @@ public class CircularList {
             }
         }
         else if(second==head){
+            // if the island with major id between the two merged is head
+            // than is needed to update the tail to the previous value and the head with the new SuperIsland.
             tail=bef;
             head=i;
         }
         else if(second==tail){
+            //if the island with major id between the two merged is tail, then the new SuperIsland will be the tail.
             tail=i;
         }
         else{
+            //All the other cases in which no one of the merged islands is head or tail.
             while(p!=tail){
                 p.id--;
                 p=p.next;
