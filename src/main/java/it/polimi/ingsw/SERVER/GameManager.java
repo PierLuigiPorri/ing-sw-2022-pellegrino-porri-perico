@@ -7,12 +7,25 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * This class manages the game after it actually began. There's one GameManager for every game.
+ * @author GC56
+ */
 public class GameManager extends Observable implements Runnable, Observer {
 
     private final ArrayList<ActionMessage> actionQueue;
     private final ArrayList<ConnectionManager> connectionManagers;
     private boolean kill;
 
+    /**
+     * Constructor.
+     * @param cm1 ConnectionManager of the first player
+     * @param cm2 ConnectionManager of the second player
+     * @param cm3 ConnectionManager of the third player. If it's a two player game, null
+     * @param players Number of Players
+     * @requires players==2 || players==3
+     * @author GC56
+     */
     public GameManager(ConnectionManager cm1, ConnectionManager cm2, ConnectionManager cm3, int players){
         actionQueue=new ArrayList<>();
         connectionManagers=new ArrayList<>();
@@ -42,6 +55,11 @@ public class GameManager extends Observable implements Runnable, Observer {
         System.out.println("Saluti dal thread game manager");
     }
 
+    /**
+     * Adds an Action message to the Action message queue
+     * @param message The Action message to add to the queue
+     * @author GC56
+     */
     public void addAction(ActionMessage message){
         synchronized (actionQueue){
             actionQueue.add(message);
@@ -64,6 +82,11 @@ public class GameManager extends Observable implements Runnable, Observer {
         }
     }
 
+    /**
+     * This method gets called when one player disconnects from the game. It terminates the game after sending a messagge to all connected clients
+     * @param player The nickname of the player that disconnected
+     * @author GC56
+     */
     public void playerDisconnected(String player){
         //Avviso tutti gli altri player che uno si è disconnesso
         for (ConnectionManager cm: connectionManagers) {

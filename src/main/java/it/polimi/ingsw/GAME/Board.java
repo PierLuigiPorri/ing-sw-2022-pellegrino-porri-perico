@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Board {
     public ArrayList<Cloud> clouds;
-    public final Circularlist islands;
+    public final CircularList islands;
 
     /**
      * Board constructor. It is called once a game, when the game is created.
@@ -23,11 +23,11 @@ public class Board {
         //clouds building.
         clouds= new ArrayList<>();
         for(int i=0; i<pcount; i++){
-            clouds.add(new Cloud(pcount+1));
+            clouds.add(new Cloud());
         }
 
         //islands building.
-        islands=new Circularlist();
+        islands=new CircularList();
         for(int i=1; i<=12;i++){
             islands.add(new Island(i));
         }

@@ -2,11 +2,20 @@ package it.polimi.ingsw.SERVER;
 
 import java.net.*;
 
+/**
+ * The server application.
+ * @author GC56
+ */
 public class ServerApp
 {
     private static int port=50000; //Connection port
     private static int connectedClients=0;
 
+    /**
+     * Server starts up and waits for client connections on port 50000.
+     * It creates and runs a connection manager thread for every client that connects.
+     * @author GC56
+     */
     public static void main(String[] args)
     {
         ServerSocket ssock=null;

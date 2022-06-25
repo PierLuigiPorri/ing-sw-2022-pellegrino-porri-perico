@@ -222,7 +222,7 @@ public class CLI implements View, Runnable {
                 }
                 update(msgHandler.getUpdates().get(msgHandler.getUpdates().size() - 1));
             }
-            msgHandler.clearMessages();
+            msgHandler.clearAllMessages();
         }
         if (this.update.gameEnded) {
             menu();

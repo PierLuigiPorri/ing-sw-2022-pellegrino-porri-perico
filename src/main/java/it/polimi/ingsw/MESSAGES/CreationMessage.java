@@ -2,6 +2,14 @@ package it.polimi.ingsw.MESSAGES;
 
 import it.polimi.ingsw.EXCEPTIONS.MessageCreationError;
 
+/**
+ * A CreationMessage represents a Client request that takes place before the actual game begins (New game, join game etc.)
+ * The ID of the creation messages represent the kind of request. Valid IDs are:
+ *     0: newGame(nick, gt, np)
+ *     1: joinRandomGame(nick)
+ *     2: joinGameWithId(nick, id)
+ * @author GC56
+ */
 public class CreationMessage extends MessageType{
     public int creationid;
     //0: newGame(nick, gt, np)
@@ -46,5 +54,5 @@ public class CreationMessage extends MessageType{
         else throw new MessageCreationError("Impossible to create this message");
     }
 
-    //TODO: costruttore per seeAvailableGames
+    //Possibilità di espansione: costruttore per seeAvailableGames
 }

@@ -9,6 +9,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * This class represent the thread that manages message exchanges between client and server during the game setup and during the game itself
+ * @author GC56
+ */
 public class ConnectionManager implements Runnable{
 
     private final Starter start;
@@ -26,6 +30,11 @@ public class ConnectionManager implements Runnable{
     //Queue
     private final ArrayList<AckMessage> ackQueue;
 
+    /**
+     * ConnectionManager constructor.
+     * @param sock The IP socket for the client.
+     * @author GC56
+     */
     public ConnectionManager(Socket sock){
         clientSocket=sock;
         gameHasBeenCreated=false;
@@ -139,6 +148,11 @@ public class ConnectionManager implements Runnable{
         System.out.println("Saluti dal Connection Manager");
     }
 
+    /**
+     * This method clears the ack queue
+     * @throws EmptyQueueException if the queue is empty
+     * @author GC56
+     */
     public void clearAck() throws EmptyQueueException{
         synchronized (ackQueue) {
             if (!ackQueue.isEmpty()) {
@@ -147,6 +161,11 @@ public class ConnectionManager implements Runnable{
         }
     }
 
+    /**
+     * This is the method that sends any MessageType message to the client
+     * @param message The message to send
+     * @author GC56
+     */
     public void send(MessageType message){
         try {
             if(out!=null)
@@ -175,6 +194,10 @@ public class ConnectionManager implements Runnable{
         ackReceiver.setKill();
     }
 
+    /**
+     * The method that gets called if a client disconnects. If necessary, it passes this information to the GameManager
+     * @author GC56
+     */
     public void clientDisconnected(){
         if(gameHasBeenCreated) {
             gameManager.playerDisconnected(playerName);
