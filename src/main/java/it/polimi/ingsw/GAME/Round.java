@@ -3,12 +3,24 @@ package it.polimi.ingsw.GAME;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * The main purpose of the class is to manage the order in which the players are going to play.
+ * It also contains the information about the current phase.
+ */
 public class Round {
     private final ArrayList<Player> player;
     private ArrayList<Player> order;
     private String currentPhase;
 
-
+    /**
+     * Round constructor. It constructs the list Order, in which will be identified the order of the next phase.
+     * It sets the current phase to Planning phase, since when a round is created is always in this one.
+     * The method is called at most 10 times each Game.
+     * @param players the list of players that are playing.
+     * @requires players!=null && (players.size()==2 || players.size()==3)
+     * @ensures this.order.equals(players) && this.currentPhase.equals("Planning")
+     * @author GC56
+     */
     public Round(ArrayList<Player> players){
         order=new ArrayList<>();
         this.player=new ArrayList<>();
@@ -21,35 +33,37 @@ public class Round {
         this.currentPhase="Planning";
     }
 
+    /**
+     * Returns the current phase of this Round.
+     * @return the current phase of this Round.
+     * @author GC56
+     */
     public String getCurrentPhase() {
         return currentPhase;
     }
 
+    /**
+     * Sets the specified phase to this Turn's phase.
+     * @param currentPhase the phase to be assigned to the Turn.
+     * @requires currentPhase!=null
+     * @ensures this.currentPhase.equals(currentPhase)
+     * @author GC56
+     */
     public void setCurrentPhase(String currentPhase) {
         this.currentPhase = currentPhase;
     }
 
-    public ArrayList<Player> nextOrder(int[] index) {
-        if (player.size() == 3) {
-            this.order.addAll(this.player);
-            order.sort(Comparator.comparingInt(o -> o.getLastCardPlayed().getValue()));
-        }
-        else {
-            Card x, y;
-            x = player.get(0).getLastCardPlayed();
-            y = player.get(1).getLastCardPlayed();
-            compare(x, y);
-        }
+    /**
+     * This method returns the order in which the players are going to play.
+     * It's usually called twice per Round to determine the next phase's order.
+     * @ensures (\forAll int i; i>=0 && i<this.player.size(); this.order.contains(this.player.get(i)))
+     * @author GC56
+     */
+    public ArrayList<Player> nextOrder() {
+        //sorting the players list by the value of their last card played.
+        this.order.addAll(this.player);
+        order.sort(Comparator.comparingInt(o -> o.getLastCardPlayed().getValue()));
         return this.order;
     }
 
-    private void compare(Card x, Card y) {
-        int i = Math.min(x.getValue(), y.getValue());
-        if (i == x.getValue())
-            this.order.add(player.get(0));
-        else this.order.add(player.get(1));
-        if(this.order.contains(player.get(0)))
-            this.order.add(player.get(1));
-        else this.order.add(player.get(0));
-    }
 }
