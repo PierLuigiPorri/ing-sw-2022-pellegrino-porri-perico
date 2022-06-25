@@ -3,7 +3,7 @@ package it.polimi.ingsw.GAME;
 /**
  * This class represents the object Card, which is contained in each player's Hand class. Every player has, at most, 10 objects Card.
  * Card contains the value of the card itself (unique for each Card) and the maximum movement to give to MotherNature.
- * @author Pier Luigi Porri
+ * @author GC56
  */
 public class Card {
     private final int movement;

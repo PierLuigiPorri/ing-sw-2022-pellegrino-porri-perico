@@ -6,14 +6,29 @@ import it.polimi.ingsw.EXCEPTIONS.ImpossibleActionException;
 
 import java.util.ArrayList;
 
+/**
+ * Effects final class that contains and manages the effects of the Character Cards. It initializes the cards that need to be initialized, applies the effects and
+ * restores the status quo at the end of the round.
+ * It's not abstract because it depends on the instance of game and needs to be passed to the CharacterSelector class.
+ * @author GC56
+ */
 public final class Effects {
 
     private final Game game;
 
+    /**
+     * Constructor class. Sets the Game attribute.
+     * @param game Game class instance of the current game. Needed to apply the effects.
+     */
     public Effects(Game game) {
         this.game = game;
     }
 
+    /**
+     * Initializes the Concrete character cards. Basically, puts the students on the cards that need to be filled with students.
+     * @param index index of the card to be initialized. Comes from the ConcreteCard class, which passes its own index.
+     * @param c the card itself. Comes from the ConcreteCard class, which passes itself.
+     */
     public void initializeConcrete(int index, ConcreteCharacter c) {
         c.students = new ArrayList<>();
         switch (index) {
@@ -43,8 +58,18 @@ public final class Effects {
         }
     }
 
-
-    public String apply(int index, Player player, ArrayList<Integer> intpar, ArrayList<String> strpar) throws ImpossibleActionException {
+    /**
+     * Applies the effect of an AbstractCharacter. Called by the AbstractCharacter itself, when instructed to activate its effect by the CharacterSelector. The switch-case
+     * statement applies a different effect based on the index of the card.
+     * @param index the index of the card to be activated. Integer value between 1-11.
+     * @param player the Player class instance associated with the Player that activated the card. Needed for some effects that target the Player.
+     * @param intpar Arraylist of Integer values needed for the effects. Contains each and every Integer value needed, in order. If an effect needs only one int, it will
+     *               access the first element of the Arraylist. If they need two, they will then access the second, and so on.
+     * @param strpar Same as above, but for String parameters. Accessed in order of need like intpar.
+     * @return returns a String with the description of the action that has been performed. Basically, an info message on what happened for the players.
+     * @throws ImpossibleActionException thrown by the Game class if an action called by this method cannot be performed.
+     */
+    public String applyAbstract(int index, Player player, ArrayList<Integer> intpar, ArrayList<String> strpar) throws ImpossibleActionException {
         switch (index) {
             case 1:
                 player.getHall().activateCard();
@@ -87,6 +112,18 @@ public final class Effects {
         }
     }
 
+    /**
+     * Applies the effect of a ConcreteCharacter. Called by the ConcreteCharacter itself, when instructed to activate its effect by the CharacterSelector. The switch-case
+     * statement applies a different effect based on the index of the card.
+     * @param index the index of the card to be activated. Integer value between 0-10.
+     * @param player the Player class instance associated with the Player that activated the card. Needed for some effects that target the Player.
+     * @param c the ConcreteCharacter class instance that called the method. Needed for the effects that manipulate the students on the card itself.
+     * @param intpar Arraylist of Integer values needed for the effects. Contains each and every Integer value needed, in order. If an effect needs only one int, it will
+     *               access the first element of the Arraylist. If they need two, they will then access the second, and so on.
+     * @param intpar2 a second ArrayList of Integer values needed for one specific effect that manipulates students between two indexed locations. Null when activating any
+     *                other effect.
+     * @return returns a String with the description of the action that has been performed. Basically, an info message on what happened for the players.
+     */
     public String applyConcrete(int index, Player player, ConcreteCharacter c, ArrayList<Integer> intpar, ArrayList<Integer> intpar2) {
         switch (index) {
             case 0:
@@ -126,6 +163,9 @@ public final class Effects {
         }
     }
 
+    /**
+     * Restores the values that could have been modified by an effect activation at the end of the phase. Called by the Game class when changing phases.
+     */
     public void restore() {
         Tower.enable();
         game.disableMNbonus();
@@ -140,6 +180,10 @@ public final class Effects {
         }
     }
 
+    /**
+     * Restores a Prohibition Token on the card that stores them when it's been used on the board. Used only if a card with index 4 is in play.
+     * @param c the card with the Tokens.
+     */
     public void setTD(ConcreteCharacter c) {
         c.addTD();
     }

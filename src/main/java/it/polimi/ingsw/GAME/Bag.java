@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * This class represents the game's bag, so it contains 130 students.
- * From this class the students are taken to be putted in the players' gates, on the clouds and, at the beginning, on the islands.
+ * From this class the students are taken to be put in the players' gates, on the clouds and, in the beginning, on the islands.
  * @author GC56
  */
 public class Bag {
@@ -14,7 +14,7 @@ public class Bag {
 
 
     /**
-     *  Bag constructor. Initialize the students inside the bag, they will be in a random order.
+     *  Bag constructor. Initializes the students inside the bag, they will be in a random order.
      *  It is called every time a new game is created.
      * @author GC56
      */
