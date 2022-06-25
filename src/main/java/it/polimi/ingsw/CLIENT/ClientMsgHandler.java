@@ -23,7 +23,7 @@ public class ClientMsgHandler implements Runnable {
     private final Object lock;
     private AckSender ackSender;
 
-    private ArrayList<UpdateMessage> updates;
+    private final ArrayList<UpdateMessage> updates;
     private final ArrayList<ResponseMessage> responses;
 
     /**

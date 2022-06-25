@@ -4,9 +4,17 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * GUI object representing a Button associated with a specific color.
+ * @author GC56
+ */
 public class ColorButton extends ToggleButton {
     public String color;
 
+    /**
+     * Constructor method. Sets the button style based on the color.
+     * @param c The color chosen. String parameter.
+     */
     public ColorButton(String c){
         this.color=c;
         switch (color){

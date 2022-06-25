@@ -6,13 +6,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 
-
+/**
+ * GUI object representing a Cloud in the GUI. Can contain a variable number of students. Has a button to perform the cloudToGate action.
+ * @author GC56
+ */
 public class CloudGUI extends Pane {
 
     private final int index;
     public Button button;
 
 
+    /**
+     * Constructor class. Sets the layout based on the count, then sets the image.
+     * @param count The number of players in the game. Int value.
+     * @param index Index of the cloud. Int value.
+     */
     public CloudGUI(int count, int index){
         this.index=index;
         this.setWidth(150);

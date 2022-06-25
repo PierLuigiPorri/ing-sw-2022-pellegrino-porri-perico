@@ -4,6 +4,10 @@ package it.polimi.ingsw.CLIENT.GUIobjects;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Stores and returns the Coordinates of all the GUI objects. Static class so it can be accessed from anywhere. Abstract because it does not need to be instantiated.
+ * @author GC56
+ */
 public abstract class CoordinatesData {
     private final static ArrayList<Coordinates> gateStudents=new ArrayList<>();
 
@@ -20,6 +24,9 @@ public abstract class CoordinatesData {
 
     private final static HashMap<Integer, ArrayList<Coordinates>> islands=new HashMap<>();
 
+    /**
+     * Loads and stores the coordinates of all objects.
+     */
     public static void loadCoordinates(){
         loadGate();
         loadIslands();
@@ -185,6 +192,11 @@ public abstract class CoordinatesData {
         return gateStudents;
     }
 
+    /**
+     * Returns the coordinates on an IslandGUI of a Student of the given color.
+     * @param color The chosen color. String parameter.
+     * @return Returns the coordinates of the given color on the class IslandGUI, if the color is correct. Returns Coordinates(0,0) otherwise.
+     */
     public static Coordinates getIsland(String color) {
         switch (color){
             case "RED":
@@ -201,6 +213,11 @@ public abstract class CoordinatesData {
         return new Coordinates(0,0);
     }
 
+    /**
+     * Returns the index of a given student in the gate based off its coordinates.
+     * @param c The coordinates of the given student.
+     * @return  The index of the student in the gate. Int value. -1 if the coordinates do not match.
+     */
     public static int getIndex(Coordinates c){
         for (Coordinates x : gateStudents) {
             if(c.getX() == x.getX() && c.getY() == x.getY())
@@ -208,6 +225,7 @@ public abstract class CoordinatesData {
         }
         return -1;
     }
+
     public static Coordinates getButtons(String color){
         switch (color){
             case "RED":

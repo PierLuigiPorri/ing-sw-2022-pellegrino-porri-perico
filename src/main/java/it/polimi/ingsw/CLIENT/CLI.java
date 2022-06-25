@@ -137,7 +137,7 @@ public class CLI implements View, Runnable {
             }
         } else if (choice == 1) {
             int id;
-            id = getValidInt("What's the ID of the game you wanna join?");
+            id = getValidInt();
             try {
                 msgHandler.send(new CreationMessage(2, nick, id));
                 System.out.println("Great! The request has been sent");
@@ -1092,13 +1092,13 @@ public class CLI implements View, Runnable {
     /**
      * This method gets a valid int while asking the "request"
      */
-    private int getValidInt(String request) {
+    private int getValidInt() {
         boolean inv = true; //Input Not Valid
         String input;
         int n = 0;
         Scanner s = new Scanner(System.in);
         while (inv) {
-            System.out.println(request);
+            System.out.println("What's the ID of the game you wanna join?");
             try {
                 input = s.nextLine();
                 n = Integer.parseInt(input);

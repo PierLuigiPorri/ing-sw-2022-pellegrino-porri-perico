@@ -1,5 +1,8 @@
 package it.polimi.ingsw.CLIENT.GUIobjects;
-
+/**
+ * Represent the coordinates of an object in the GUI space.
+ * @author GC56
+ */
 public class Coordinates {
 
     private final double X;
