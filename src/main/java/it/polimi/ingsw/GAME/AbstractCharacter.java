@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Class that stores all information about a specific Abstract (a card that can't contain students) that is in play. Stores cost, index and if it's been used already.
+ * @author GC56
  */
 public class AbstractCharacter implements CharacterType{
     private int cost;

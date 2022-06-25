@@ -2,6 +2,7 @@ package it.polimi.ingsw.GAME;
 
 /**
  * This interface represents every class that can be considered as a space that can contain prohibition cards.
+ * @author GC56
  */
 public interface TDSpace {
     /**

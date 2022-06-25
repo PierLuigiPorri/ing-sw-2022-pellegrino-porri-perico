@@ -14,8 +14,6 @@ import java.util.ArrayList;
  * @author GC56
  */
 public class ClientMsgHandler implements Runnable {
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_RESET = "\u001B[0m";
 
     private Socket socket;
     private ObjectOutputStream out;
@@ -79,14 +77,13 @@ public class ClientMsgHandler implements Runnable {
         while (!kill) {
             try {
                 MessageType latestMessage = (MessageType) in.readObject();
-                System.out.println("Ho ricevuto un messaggio " + latestMessage.type);
+                System.out.println("Received message " + latestMessage.type);
                 synchronized (lock) {
                     sort(latestMessage);
                 }
                 try {
                     synchronized (lock) {
                         lock.notifyAll();
-                        //System.out.println("SVEGLIATI");
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -96,13 +93,12 @@ public class ClientMsgHandler implements Runnable {
                 kill = true;
             }
         }
-        System.out.println("Saluti dal Client Msg Handler");
     }
 
     /**
      * Method that sorts messages based on their Type
      * @param message the message to sort
-     *                @author GC56
+     * @author GC56
      */
     public void sort(MessageType message) {
         if (message.type == 4) {

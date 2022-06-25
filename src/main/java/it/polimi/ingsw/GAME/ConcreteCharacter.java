@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Class that stores all information about a specific Concrete (a card that can contain students), or a card that can contain
  * Prohibition Tokens, that is in play. Stores cost, index and if it's been used already.
+ * @author GC56
  */
 public class ConcreteCharacter extends StudentSpace implements CharacterType, TDSpace{
     private int cost;

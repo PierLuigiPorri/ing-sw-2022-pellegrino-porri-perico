@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Runnable class that acts as the CLI View for the Client. Receives and handles the inputs from the user, and generates the output in the form of a command line.
+ * @author GC56
+ */
 public class CLI implements View, Runnable {
 
     private final ClientMsgHandler msgHandler;
@@ -31,6 +35,9 @@ public class CLI implements View, Runnable {
     private String currentPlayer = "";
     private boolean kill = false;
 
+    /**
+     * Constructor method.
+     */
     public CLI(ClientMsgHandler clientMsgHandler, Object lock) {
         this.msgHandler = clientMsgHandler;
         this.inputInt = new ArrayList<>();
@@ -38,6 +45,9 @@ public class CLI implements View, Runnable {
         this.lock = lock;
     }
 
+    /**
+     * Starts the CLI and calls the first method in the chain to get the user's input.
+     */
     @Override
     public void run() {
         msgHandler.setView(this);
@@ -48,20 +58,22 @@ public class CLI implements View, Runnable {
                 " / /___/ _, _// // ___ |/ /|  / / /     / /___/ /\n" +
                 "/_____/_/ |_/___/_/  |_/_/ |_/ /_/     /_//____/\n"
                 + ANSI_RESET);
-        changeNickname();
+        setNickname();
     }
 
-    private void changeNickname() {
+    private void setNickname() {
         this.nick = getValidString("Enter the nickname you want to use");
         menu();
     }
 
+    /**
+     * Asks the user the fist input to determine the next method to call, receiving an index corresponding to the chosen action.
+     */
     private void menu() {
         System.out.println("What would you like to do?" +
                 "\n0:Create a new Game" +
                 "\n1:Join a game" +
-                "\n2: See all available games" +
-                "\n3: Change your nickname" +
+                "\n2: Change your nickname" +
                 "\nDigit the appropriate number:");
         int g = getSingleIntInput(3);
         if (g == 0) {
@@ -69,12 +81,14 @@ public class CLI implements View, Runnable {
         } else if (g == 1) {
             joinGame();
         } else if (g == 2) {
-            seeAvailableGames();
-        } else if (g == 3) {
-            changeNickname();
+            setNickname();
         }
     }
 
+    /**
+     * Collects user input, then creates a request to create a new game and instructs the ClientMsgHandler class to send it to the Server. When a response from the
+     * Server is notified, moves on to the next method.
+     */
     private void newGame() {
         System.out.println("New Game");
         int gt; //Game Type
@@ -107,6 +121,10 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Collects user input, then creates a request to join a game and instructs ClientMsgHandler to send it to the Server.When a response from the
+     * Server is notified, moves on to the next method.
+     */
     private void joinGame() {
         int choice;
         choice = getCorrectInput("Digit 0 to join a random game or 1 to join a specific game with its ID", 0, 1);
@@ -134,7 +152,6 @@ public class CLI implements View, Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        //System.out.println("JG svegliato");
         if (msgHandler.getResponses().isEmpty()) {
             startGame();
         } else {
@@ -144,6 +161,9 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Called when the Server has confirmed that the game has been created. Applies the first update and initializes the CLI.
+     */
     private void startGame() {
         if (!msgHandler.getUpdates().isEmpty()) {
             UpdateMessage firstUpd = msgHandler.getUpdates().remove(msgHandler.getUpdates().size() - 1);
@@ -177,12 +197,11 @@ public class CLI implements View, Runnable {
         }
     }
 
-    private void seeAvailableGames() {
-        //TODO
-        System.out.println("Questa funzione non esiste per ora");
-        menu();
-    }
 
+    /**
+     * Main running method. Refreshes the message shown in the command line, and waits for a response from the server if one is needed.
+     * Kills the game and goes back to menu() if instructed to.
+     */
     public void initCLI() {
         while (!kill) {
             try {
@@ -209,6 +228,9 @@ public class CLI implements View, Runnable {
         menu();
     }
 
+    /**
+     * Shows the last messages received by the server. Called when an action has been performed and before notifying to be ready to perform a new one.
+     */
     public void reload() {
         synchronized (lock) {
             if (!msgHandler.getResponses().isEmpty()) {
@@ -231,11 +253,19 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Overridden method from the View Interface.
+     */
     @Override
     public void update(UpdateMessage update) {
         this.update = update;
     }
 
+
+    /**
+     * Main I/O method. Prints the user interface and asks the user for input, then calls the corresponding method to perform the request.
+     * Shows to user only the performable action in every specific phase of the game.
+     */
     public void refresh() throws InterruptedException, IOException {
         System.out.println("\n" + ANSI_CYAN + "*********************************************************************************" + ANSI_RESET);
         int choice;
@@ -249,7 +279,6 @@ public class CLI implements View, Runnable {
         }
         System.out.println("\nPlayers that have to play, in order:" + update.order);
         if (update.phase.equals("Planning")) {    //Planning Phase
-            //TODO:fixare l'ordine di stampa delle carte
             if (!update.lastCardsPlayed.isEmpty()) {
                 ArrayList<String> played = new ArrayList<>(update.players);
                 played.removeAll(update.order);
@@ -299,16 +328,26 @@ public class CLI implements View, Runnable {
         perform(actions.get(choice));
     }
 
+    /**
+     * Overridden method from the View interface.
+     */
     @Override
     public void signalUpdate() {
         System.out.println(ANSI_CYAN + "Something's happened in the meantime! Hit Refresh!" + ANSI_RESET);
     }
 
+    /**
+     * Overridden method from the View interface.
+     */
     @Override
     public void signalResponse() {
         System.out.println("ERRORE!");
     }
 
+    /**
+     * Contains the String parameters to be shown to the user in specific phases of the game.
+     * @param phase The current phase of the game, as String.
+     */
     private void introducePhase(int phase) {
         System.out.println("\nTurn " + update.turnNumber + "!");
         switch (phase) {
@@ -324,6 +363,10 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Shows to the user the correct String based on the turn characteristics.
+     * @param turn The turn information needed. Int parameter between 0-5.
+     */
     private void introduceTurn(int turn) {
         switch (turn) {
             case 0://Player's turn, Planning phase
@@ -356,7 +399,12 @@ public class CLI implements View, Runnable {
         }
     }
 
-    private void perform(String request) throws IOException {
+    /**
+     * Performs the requested action, by calling the corresponding method.
+     * WARNING: Might contain unwanted actions! (It's an Easter egg don't worry).
+     * @param request String parameter containing the request.
+     */
+    private void perform(String request) {
         switch (request) {
             case "Refresh":
                 responseNeeded = false;
@@ -438,6 +486,11 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Contains the actions that could be requested by the user. Builds an ArrayList with the performable actions based on the turn characteristics.
+     * @param spot Integer value containing the information needed. Between 0-5.
+     * @return Returns an ArrayList of Strings to be shown to the user.
+     */
     private ArrayList<String> actions(int spot) {
         ArrayList<String> list = new ArrayList<>();
         LocalTime time = LocalTime.now();
@@ -483,7 +536,9 @@ public class CLI implements View, Runnable {
         return list;
     }
 
-
+    /**
+     * Overridden method from the View Interface.
+     */
     public void moveMotherNature() {
         //this method needs the movement [int].
         int i;
@@ -497,7 +552,9 @@ public class CLI implements View, Runnable {
         }
     }
 
-
+    /**
+     * Overridden method from the View Interface.
+     */
     public void gateToIsland() {
         // this method needs the name of the player who calls it, the color of the student to move,
         // the index from the gate and the index of the island. [String, String, int, int]
@@ -521,6 +578,9 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Overridden method from the View Interface.
+     */
     public void gateToHall() {
         //this method needs the name of the player who calls it, the color of the student to move.
         String s;
@@ -535,6 +595,9 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Overridden method from the View Interface.
+     */
     public void cloudToGate() {
         // this method needs the name of the player who calls it, the color of the student to move,
         // the index of the student in the cloud and the index of the cloud.
@@ -554,6 +617,9 @@ public class CLI implements View, Runnable {
         } else responseNeeded = false;
     }
 
+    /**
+     * Overridden method from the View Interface.
+     */
     public void playCard() {
         // this method needs the name of the player who calls it, the index of the card to play.
         int i;
@@ -565,6 +631,9 @@ public class CLI implements View, Runnable {
         } else responseNeeded = false;
     }
 
+    /**
+     * Overridden method from the View Interface.
+     */
     public void activateCharacter() {
         boolean cancel = false;
         System.out.println("Which character would you like to activate? Digit the appropriate index:");
@@ -727,6 +796,10 @@ public class CLI implements View, Runnable {
         inputStr.clear();
     }
 
+    /**
+     * Prints the information regarding the board of a chosen player.
+     * @param choice Integer value, corresponding to a specific player.
+     */
     private void seePlayerBoards(int choice) {
         System.out.println("\n" + ANSI_CYAN + "GATE:" + ANSI_RESET);
         for (int i = 0; i < update.gatePlayer.get(choice).size(); i = i + 2) {
@@ -742,6 +815,9 @@ public class CLI implements View, Runnable {
         System.out.println("\nTowers left:" + update.towersOnPlayer.get(choice) + ((update.game_Type == 1) ? "   Coins left:" + update.coinsOnPlayer.get(choice) : ""));
     }
 
+    /**
+     * Handles the request to see the boards of other players.
+     */
     private void seeOtherBoards() {
         System.out.println("\nSure! Which board would you like to see? As always, digit the appropriate number:");
         for (String n : update.players) {
@@ -756,11 +832,17 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Handles the request to see the board of the user.
+     */
     private void seeOwnBoard() {
         System.out.println("\nHere's what you have:");
         seePlayerBoards(update.players.indexOf(nick));
     }
 
+    /**
+     * Prints the game board as it is in the stored update.
+     */
     private void seeBoard() {
         System.out.println("\nSure! Here's what we're at:");
         System.out.println("\n                " + ANSI_CYAN + "ISLANDS" + ANSI_RESET + (update.game_Type == 1 ? "(if you see a " + ANSI_RED + "[X]" + ANSI_RESET + " it means there's a Prohibition counter there!)" : ""));
@@ -781,6 +863,9 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Prints the user's hand.
+     */
     private void seeHand() {
         System.out.println("\nHere's your hand(Index->Movement,Value):");
         int ind = 0;
@@ -791,6 +876,9 @@ public class CLI implements View, Runnable {
         System.out.println("\n");
     }
 
+    /**
+     * Handles the request to exit the game.
+     */
     private void exitGame() {
         String resp = getValidString("So...are you sure about this? [Y/N]");
         if (resp.equals("Y")) {
@@ -799,6 +887,9 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Prints the Characters in play.
+     */
     private void seeCharacters() {
         System.out.println("\nThese guys can give you the boost you need to win! Here's what we've got today:");
         System.out.println("\nIf the cost is " + ANSI_CYAN + "cyan" + ANSI_RESET + ", it means that Character has already been used!");
@@ -816,6 +907,11 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Stores and returns the Characters' effects.
+     * @param index The index of the chosen Character. Between 0-11.
+     * @return Returns a String containing a description of the Character's effect.
+     */
     private String characterEffect(int index) {
         switch (index) {
             case 0:
@@ -847,6 +943,11 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Stores and returns the Characters' costs.
+     * @param index The index of the chosen Character. Between 0-11.
+     * @return Returns the cost of the Character, handling the case in which it has been already activated.
+     */
     private int characterCost(int index) {
         switch (index) {
             case 0:
@@ -869,6 +970,10 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Creates the message and passes it to the msgHandler to be sent to the Server.
+     * @param type The type of message to be created. Integer value between 0-5.
+     */
     private void messageConfirmed(int type) {
         ArrayList<String> mex = new ArrayList<>();
         mex.add(nick);
@@ -883,6 +988,10 @@ public class CLI implements View, Runnable {
         this.kill = true;
     }
 
+    /**
+     * Handles input and checks if it's valid, then adds it to the global Integer array to be used later.
+     * @return The correct input. Integer value.
+     */
     private int getIntInput() {
         try {
             Scanner s = new Scanner(System.in);
@@ -896,6 +1005,11 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Handles input and checks if it's in a certain range.
+     * @param b The integer right bound of the range.
+     * @return The correct input. Integer value.
+     */
     private int getSingleIntInput(int b) {
         try {
             Scanner s = new Scanner(System.in);
@@ -910,6 +1024,10 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Handles input and checks if it's valid, then adds it to the global String Arraylist to be used later.
+     * @return The correct input. String value.
+     */
     private String getStrInput() {
         Scanner s = new Scanner(System.in);
         String in = s.nextLine();
@@ -919,6 +1037,13 @@ public class CLI implements View, Runnable {
         } else return in;
     }
 
+    /**
+     * Handles input and checks if it's in a certain range, then adds it to the global Arraylist to be used later.
+     * @param a The left int bound.
+     * @param b The right int bound.
+     * @param input The input. Integer value.
+     * @param string The request to be shown to the user. String value.
+     */
     private void checkIntInput(int a, int b, int input, String string) {
         while (input < a || input > b) {
             inputInt.remove(inputInt.size() - 1);
@@ -927,6 +1052,11 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * Handles input and checks if it's a correct color, then adds it to the global Arraylist to be used later.
+     * @param s The input. String value.
+     * @param c The request to be shown to be user. String value.
+     */
     private void checkStrInput(String s, String c) {
         while (!s.equals("RED") && !s.equals("BLUE") && !s.equals("GREEN") && !s.equals("YELLOW") && !s.equals("PINK")) {
             inputStr.remove(inputStr.size() - 1);
@@ -935,8 +1065,11 @@ public class CLI implements View, Runnable {
         }
     }
 
+    /**
+     * This method gets a non-empty reply String while asking the "request"
+     *
+     */
     private String getValidString(String request) {
-        //This method gets a non-empty reply String while asking the "request"
         boolean inv = true; //Input Not Valid
         String input = "";
         Scanner s = new Scanner(System.in);
@@ -956,8 +1089,10 @@ public class CLI implements View, Runnable {
         return input;
     }
 
+    /**
+     * This method gets a valid int while asking the "request"
+     */
     private int getValidInt(String request) {
-        //This method gets a valid int while asking the "request"
         boolean inv = true; //Input Not Valid
         String input;
         int n = 0;

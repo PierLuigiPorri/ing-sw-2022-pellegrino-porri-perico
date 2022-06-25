@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Interface that defines methods used by Abstract and Concrete Characters. Implemented by AbstractCharacter and ConcreteCharacter.
+ * @author GC56
  */
 public interface CharacterType {
     /**

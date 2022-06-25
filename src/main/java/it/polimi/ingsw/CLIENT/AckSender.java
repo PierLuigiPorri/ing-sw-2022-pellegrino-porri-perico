@@ -8,12 +8,12 @@ import it.polimi.ingsw.MESSAGES.AckMessage;
  */
 public class AckSender implements Runnable{
 
-    private ClientMsgHandler mh;
-    private int timeout; //millis
+    private final ClientMsgHandler mh;
+    private final int timeout; //millis
     private boolean kill;
 
     /**
-     * Constructor
+     * Constructor method.
      * @param mh The ClientMessageHandler
      * @param timeout Timeout between ACKs in milliseconds
      * @author GC56
@@ -28,16 +28,12 @@ public class AckSender implements Runnable{
     public void run() {
         while(!kill) {
             mh.send(new AckMessage());
-            //System.out.println("ACK mandato");
             try {
                 Thread.sleep(timeout);
             } catch (InterruptedException e) {
+                kill=true;
             }
         }
-        System.out.println("Saluti dall'ackSender");
     }
 
-    /*public void setKill() {
-        this.kill = true;
-    }*/
 }

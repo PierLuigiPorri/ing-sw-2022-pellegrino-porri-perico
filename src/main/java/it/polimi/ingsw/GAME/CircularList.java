@@ -12,8 +12,8 @@ public class CircularList {
 
     /**
      * This method is called at the beginning, to build the CircularList adding islands to it.
-     * As the model stands at the moment, is called 12 times, one each island.
-     * @param i the island to be added
+     * As the model stands at the moment, is called 12 times, one for each island.
+     * @param i Index of the island to be added. Int value between 1-12.
      * @requires (i!=null)
      * @ensures (\old(CircularList.size()) == CircularList.size()-1)
      * @author GC56
@@ -38,7 +38,7 @@ public class CircularList {
     /**
      * Returns the island at the specified position in the CircularList.
      * @param index the index of the island to return.
-     * @return the Island specified with the index.
+     * @return the Island class instance specified with the index.
      * @requires (index>=1 && index<=12)
      * @author GC56
      */

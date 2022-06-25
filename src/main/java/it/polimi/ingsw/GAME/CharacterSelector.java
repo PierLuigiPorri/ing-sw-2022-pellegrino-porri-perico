@@ -9,6 +9,7 @@ import java.util.Random;
 /**
  * Selects and generates the 3 CharacterCards that are in play in each Expert Game, and stores them in a CharacterType ArrayList. This is also the class
  * that is called by the Game class when an effect has to be activated.
+ * @author GC56
  */
 public class CharacterSelector {
 
