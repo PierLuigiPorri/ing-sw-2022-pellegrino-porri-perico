@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+/**
+ * GUI object representing a Tower token in the GUI View.
+ */
 public class TowerGUI extends Pane {
 
     private final String color;

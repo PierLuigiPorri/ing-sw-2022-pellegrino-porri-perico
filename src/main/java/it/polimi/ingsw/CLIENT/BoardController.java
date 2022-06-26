@@ -12,11 +12,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.*;
-
 import java.util.ArrayList;
 
+/**
+ * FXML Controller class for the main game board. Sets and manages the scene during the game. Manages and shows the updates
+ * when one arrives. Creates the appropriate GUI objects every time an update is notified, based on the received board state,
+ * to avoid inconsistencies between Server and Client. Sets the method that handle user input to the appropriate GUI objects,
+ * and executes them. Finally, this is the class that notifies the main GUI class when a message should be sent to the server.
+ * @author GC56
+ */
 public class BoardController {
 
     private GUIAPP gui;
@@ -60,6 +65,10 @@ public class BoardController {
         gui = guiApp;
     }
 
+    /**
+     * Main method of the View. Builds and shows to the user all the appropriate GUI objects and the FXML scene.
+     * Called by the GUIAPP when an update is received.
+     */
     public void refresh() {
         update = gui.getUpdate();
         System.out.println(update.order);
@@ -109,6 +118,10 @@ public class BoardController {
     }
 
 
+    /**
+     * Sets the towers on the board based off the last update received. Called by
+     * the refresh() method.
+     */
     private void towersUpdate() {
         for (int i = 0; i < update.numIslands; i++) {
             String nick = update.whoOwnTowers.get(i);
@@ -154,6 +167,11 @@ public class BoardController {
         tower8.setImage(new Image(address));
     }
 
+    /**
+     * Sets a tower on a specific Island. If the island has no tower on it, a TowerGUI object is created
+     * and put on it with the right coordinates. Otherwise, a TowerCountPane object is also created and set
+     * next to the existing tower, with the right tower count, and the island is set as SuperIsland.
+     */
     private void setTowerOnIsland(int index, String color) {
         if (update.towersOnIsland.get(index) != 0) {
             TowerGUI tower = new TowerGUI(color);
@@ -176,6 +194,10 @@ public class BoardController {
         }
     }
 
+    /**
+     * Sets the MotherNatureGUI object on the right Island. Also checks if any island has a
+     * Prohibition counter on it, and handles the affermative case.
+     */
     private void motherNatureUpdate() {
         motherNature = new MotherNatureGUI();
         for (int i = 0; i < update.numIslands; i++) {
@@ -204,6 +226,11 @@ public class BoardController {
         }
     }
 
+    /**
+     * Creates and sets the students on the islands based off the last update received. If there's more than
+     * one student of a given color on an island, a CountPane of that color is also created and set next to the student,
+     * showing the right student count.
+     */
     private void studentsOnIslandUpdate() {
 
         for (int index : update.studentsOnIsland.keySet()) {
@@ -313,6 +340,10 @@ public class BoardController {
         }
     }
 
+    /**
+     * Sets the style of a given cloud. Creates a button associated with the cloud that shows up when
+     * the cloud is pressed, that when pressed tries to perform the cloudToGate action request.
+     */
     private void cloudStyle(CloudGUI cloud) {
         cloud.setOnMousePressed(this::onCloudPressed);
         cloud.setOnMouseExited(this::onCloudExited);
@@ -350,6 +381,9 @@ public class BoardController {
         pinkProfessor.setVisible(update.professors.get(userIndex()).get(4));
     }
 
+    /**
+     * Creates and sets the Panes and the Students of the Hall.
+     */
     private void hallUpdate() {
         ArrayList<Pane> redHall = new ArrayList<>();
         ArrayList<Pane> blueHall = new ArrayList<>();
@@ -386,10 +420,21 @@ public class BoardController {
         }
     }
 
+    /**
+     * Utility method used to build an array given the parameters.
+     */
     private void arrayBuild(ArrayList<Pane> array, Pane element1, Pane element2, Pane element3, Pane element4, Pane element5, Pane element6, Pane element7, Pane element8, Pane element9, Pane element10) {
         HandController.arrayBuild(array, element1, element2, element3, element4, element5, element6, element7, element8, element9, element10);
     }
 
+    /**
+     * Drag event method that handles the drop of a GUI object on an IslandGUI. If the object is
+     * a MotherNatureGUI instance, calculates the distance that the token traveled and performs the
+     * moveMotherNature action request. Otherwise, it has to be a StudentGUI, so in that case
+     * retrieves the index of the student in the gate and performs the gateToIsland action request.
+     * @param event DragEvent object.
+     * @param i The Island on which the event happened.
+     */
     private void onDragOnIsland(DragEvent event, IslandGUI i) {
         if (event.getDragboard().getString().equals("MotherNature")) {
             ArrayList<Integer> par = new ArrayList<>();
@@ -408,6 +453,10 @@ public class BoardController {
         event.consume();
     }
 
+    /**
+     * Method called when a drag over an IslandGUI object is detected.
+     * Prepares the object to a drop.
+     */
     private void onDragIslandOver(DragEvent e) {
         if (e.getDragboard().hasString()) {
             e.acceptTransferModes(TransferMode.ANY);
@@ -415,6 +464,10 @@ public class BoardController {
         }
     }
 
+    /**
+     * Method called when a drag over the Hall (a FXML Pane) is detected.
+     * Prepares the Hall to a drop.
+     */
     @FXML
     private void onDragHallOver(DragEvent e) {
         if (e.getDragboard().hasString()) {
@@ -423,7 +476,10 @@ public class BoardController {
         }
     }
 
-
+    /**
+     * Method called when a StudentGUI object is pressed. Sets it up for a drag if the game logic permits it.
+     * @param s The selected student.
+     */
     private void onStudentPressed(MouseEvent mouseEvent, StudentGUI s) {
         if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
             s.pressed(mouseEvent.getX(), mouseEvent.getY());
@@ -432,6 +488,9 @@ public class BoardController {
         }
     }
 
+    /**
+     * Handles the drag event of a StudentGUI object. Saves the necessary parameters and starts the event.
+     */
     private void studentDragHandling(MouseEvent e) {
         if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
             Dragboard db = selectedStudent.startDragAndDrop(TransferMode.ANY);
@@ -442,12 +501,20 @@ public class BoardController {
         }
     }
 
+    /**
+     * Method called when a StudentGUI object is dragged. Sets it up for a drag if the game logic permits it.
+     * @param s The selected student.
+     */
     private void onStudentDragged(MouseEvent mouseEvent, StudentGUI s) {
         if (update.phase.equals("Action") && userNickname.equals(update.order.get(0))) {
             s.dragged(mouseEvent.getSceneX(), mouseEvent.getSceneY());
         }
     }
 
+    /**
+     * Method called when a MotherNatureGUI object is pressed. Sets it up for a drag if the game logic permits it.
+     * @param m The selected token.
+     */
     private void onMotherNaturePressed(MouseEvent mouseEvent, MotherNatureGUI m) {
         if (update.phase.equals("Action") && userNickname.equals(update.order.get(0)) && update.cloudtaken) {
             m.pressed(mouseEvent.getSceneX(), mouseEvent.getSceneY());
@@ -455,6 +522,9 @@ public class BoardController {
         }
     }
 
+    /**
+     * Handles the drag event of a MotherNatureGUI object. Saves the necessary parameters and starts the event.
+     */
     private void MNDragHandling(MouseEvent e) {
         if (update.phase.equals("Action") && userNickname.equals(update.order.get(0)) && update.cloudtaken) {
             Dragboard db = motherNature.startDragAndDrop(TransferMode.ANY);
@@ -465,12 +535,20 @@ public class BoardController {
         }
     }
 
+    /**
+     * Method called when a MotherNatureGUI object is pressed. Sets it up for a drag if the game logic permits it.
+     * @param s The selected token.
+     */
     private void onMotherNatureDragged(MouseEvent mouseEvent, MotherNatureGUI s) {
         if (update.phase.equals("Action") && userNickname.equals(update.order.get(0)) && update.cloudtaken) {
             s.dragged(mouseEvent.getSceneX(), mouseEvent.getSceneY());
         }
     }
 
+    /**
+     * Method called when a drop is detected over the Hall FXML pane. If it's a StudentGUI object,
+     * retrieves the color of the student and performs a gateToHall action request.
+     */
     @FXML
     private void onDragOnHall(DragEvent event) {
         if (event.getDragboard().hasString()) {
@@ -482,7 +560,9 @@ public class BoardController {
         }
     }
 
-
+    /**
+     * Method called when a cloud is pressed. Sets its button as visible and enables it.
+     */
     private void onCloudPressed(MouseEvent e) {
         if (update.playersMoves.get(0) == 0) {
             selectedCloud = (CloudGUI) e.getSource();
@@ -493,6 +573,9 @@ public class BoardController {
         }
     }
 
+    /**
+     * Method called when the mouse exits the CloudGUI pane. Disables its button.
+     */
     public void onCloudExited(MouseEvent e) {
         if (selectedCloud != null) {
             selectedCloud.button.setVisible(false);
@@ -500,6 +583,9 @@ public class BoardController {
         }
     }
 
+    /**
+     * Method called when a CloudGUI button is pressed. Performs a cloudToGate action request.
+     */
     private void onCloudButtonPressed() {
         ArrayList<Integer> par = new ArrayList<>();
         par.add(selectedCloud.getIndex());
@@ -510,22 +596,35 @@ public class BoardController {
         return update.players.indexOf(userNickname);
     }
 
+    /**
+     * Method associated with an FXML button. Sets the scene to the hall information of one of the opponents.
+     */
     @FXML
     public void seePlayer1Hall() {
         gui.setPlayerNickname(player1Nickname);
         gui.setScene("fxml/PlayersBoard.fxml");
     }
 
+    /**
+     * Method associated with an FXML button. Sets the scene to the hall information of one of the opponents.
+     */
     @FXML
     public void seePlayer2Hall() {
         gui.setPlayerNickname(player2Nickname);
         gui.setScene("fxml/PlayersBoard.fxml");
     }
 
+    /**
+     * Method called when an update is received. Updates the log.
+     */
     private void setUpdateText() {
         updateMessageLog.setText(gui.updateLog);
     }
 
+    /**
+     * Sets and updates the log of messages received from the server in the UpdateMessage objects.
+     * Shows also system messages associated with the game logic.
+     */
     private void setLogMessage() {
 
         String currentPhase = update.phase;
@@ -596,11 +695,17 @@ public class BoardController {
         }
     }
 
+    /**
+     * Method associated with an FXML button. Sets the scene to the player's hand information scene.
+     */
     @FXML
     public void SeeYourHand() {
         gui.setScene("fxml/Hand.fxml");
     }
 
+    /**
+     * Method associated with an FXML button. Sets the scene to the Characters' information scene.
+     */
     @FXML
     public void SeeCharacter() {
         gui.setScene("fxml/Characters.fxml");

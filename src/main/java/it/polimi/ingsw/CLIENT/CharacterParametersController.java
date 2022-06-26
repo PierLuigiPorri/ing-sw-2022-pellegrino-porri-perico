@@ -15,9 +15,14 @@ import javafx.scene.paint.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-
 import java.util.ArrayList;
 
+/**
+ * FXML Controller class for the Characters Parameters selection scene. Shows a stripped down version
+ * of the board to the player, in order to collect specific user inputs based on what Character effect has been
+ * activated. Once the input is collected, performs a activateCharacter request to the GUIAPP class.
+ * @author GC56
+ */
 public class CharacterParametersController {
 
     @FXML
@@ -32,14 +37,14 @@ public class CharacterParametersController {
     private UpdateMessage update;
     private int playersNumber;
     private String userNickname;
-    private StudentGUI selectedStudent=null;
-    private final ArrayList<StudentGUI> selectedStudents1=new ArrayList<>();
-    private final ArrayList<StudentGUI> selectedStudents2=new ArrayList<>();
-    private String selectedColor=null;
-    private String selectedColor2=null;
-    private IslandGUI selectedIsland=null;
-    private final ArrayList<StudentGUI> studentsOnCard=new ArrayList<>();
-    private final ArrayList<StudentGUI> studentsOnGate=new ArrayList<>();
+    private StudentGUI selectedStudent = null;
+    private final ArrayList<StudentGUI> selectedStudents1 = new ArrayList<>();
+    private final ArrayList<StudentGUI> selectedStudents2 = new ArrayList<>();
+    private String selectedColor = null;
+    private String selectedColor2 = null;
+    private IslandGUI selectedIsland = null;
+    private final ArrayList<StudentGUI> studentsOnCard = new ArrayList<>();
+    private final ArrayList<StudentGUI> studentsOnGate = new ArrayList<>();
 
     private ArrayList<IslandGUI> islands;
 
@@ -68,6 +73,14 @@ public class CharacterParametersController {
         gui = guiApp;
     }
 
+    /**
+     * Main method of the View. Builds and shows to the user all the appropriate GUI objects and the FXML scene.
+     * Called by the GUIAPP when the scene is set. The switch-case statement builds a different scene
+     * based on the Character which has been activated.
+     *
+     * @param selection The index of the activated Character Card. The scene shown to the user
+     *                  is different for each Character.
+     */
     public void refresh(int selection) {
         this.index = selection;
         update = gui.getUpdate();
@@ -91,13 +104,13 @@ public class CharacterParametersController {
         professorsUpdate();
         hallUpdate();
         switch (selection) {
-            case 0: //Student AND Island selection           WORKS
+            case 0: //Student AND Island selection
                 desc.setText("CHOOSE A STUDENT AND AN ISLAND!");
-                for(IslandGUI i:islands){
+                for (IslandGUI i : islands) {
                     i.setOnMousePressed(this::onIslandSelected);
                 }
-                selectedText=new Text();
-                selectedText.setFont(Font.font("papyrus",16));
+                selectedText = new Text();
+                selectedText.setFont(Font.font("papyrus", 16));
                 LinearGradient paint = new LinearGradient(
                         0.0, 0.0, 1.0, 1.0, true, CycleMethod.NO_CYCLE,
                         new Stop(0.0, new Color(0.0, 0.0, 0.0, 1.0)),
@@ -106,22 +119,22 @@ public class CharacterParametersController {
                 selectedText.setLayoutX(373);
                 selectedText.setLayoutY(130);
                 selectionPane.getChildren().add(selectedText);
-                Pane p=new Pane();
+                Pane p = new Pane();
                 p.setPrefWidth(159);
                 p.setPrefHeight(240);
                 p.setLayoutX(103);
                 p.setLayoutY(40);
-                ImageView imageView=new ImageView();
+                ImageView imageView = new ImageView();
                 imageView.setImage(new Image("Graphical_Assets/CarteTOT_front0.jpg"));
                 imageView.setFitWidth(159);
                 imageView.setFitHeight(240);
                 p.getChildren().add(imageView);
-                CharacterGUI studs=new CharacterGUI(4);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i+=2){
-                    StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(index)).get(i));
+                CharacterGUI studs = new CharacterGUI(4);
+                for (int i = 1; i < update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i += 2) {
+                    StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(index)).get(i));
                     student.setOnMousePressed(this::studentPressed);
-                    student.setLayoutX(CoordinatesData.getCardStudents(4).get(i/2).getX());
-                    student.setLayoutY(CoordinatesData.getCardStudents(4).get(i/2).getY());
+                    student.setLayoutX(CoordinatesData.getCardStudents(4).get(i / 2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(4).get(i / 2).getY());
                     studentsOnCard.add(student);
                     studs.getChildren().add(student);
                 }
@@ -132,8 +145,8 @@ public class CharacterParametersController {
             case 2: //Island selection
             case 4:
                 desc.setText("CHOOSE AN ISLAND!");
-                selectedText=new Text();
-                selectedText.setFont(Font.font("papyrus",16));
+                selectedText = new Text();
+                selectedText.setFont(Font.font("papyrus", 16));
                 paint = new LinearGradient(
                         0.0, 0.0, 1.0, 1.0, true, CycleMethod.NO_CYCLE,
                         new Stop(0.0, new Color(0.0, 0.0, 0.0, 1.0)),
@@ -142,43 +155,43 @@ public class CharacterParametersController {
                 selectedText.setLayoutY(130);
                 selectedText.setLayoutX(245);
                 selectionPane.getChildren().add(selectedText);
-                for(IslandGUI i:islands){
+                for (IslandGUI i : islands) {
                     i.setOnMousePressed(this::onIslandSelected);
                 }
                 activate.setOnMousePressed(this::islandConfirmed);
                 break;
             case 6: //Student swapping, case 1
                 desc.setText("CHOOSE HOW MANY STUDENTS TO SWAP!");
-                max=new TextField();
+                max = new TextField();
                 max.setPromptText("How many?");
                 max.setLayoutX(404);
                 max.setLayoutY(126);
-                confirmMax=new Button("NEXT!");
+                confirmMax = new Button("NEXT!");
                 confirmMax.setLayoutY(126);
                 confirmMax.setLayoutX(555);
                 confirmMax.setPrefWidth(140);
                 confirmMax.setPrefHeight(40);
                 confirmMax.setStyle("-fx-background-radius:100; -fx-background-color: cyan");
-                confirmMax.setFont(Font.font("papyrus",14));
+                confirmMax.setFont(Font.font("papyrus", 14));
                 confirmMax.setOnMousePressed(this::confirmMaxPressed);
                 selectionPane.getChildren().add(max);
                 selectionPane.getChildren().add(confirmMax);
-                p=new Pane();
+                p = new Pane();
                 p.setPrefWidth(159);
                 p.setPrefHeight(240);
                 p.setLayoutX(103);
                 p.setLayoutY(40);
-                imageView=new ImageView();
+                imageView = new ImageView();
                 imageView.setImage(new Image("Graphical_Assets/CarteTOT_front6.jpg"));
                 imageView.setFitWidth(159);
                 imageView.setFitHeight(240);
                 p.getChildren().add(imageView);
-                studs=new CharacterGUI(6);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i+=2){
-                    StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(index)).get(i));
+                studs = new CharacterGUI(6);
+                for (int i = 1; i < update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i += 2) {
+                    StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(index)).get(i));
                     student.setOnMousePressed(this::studentPressed);
-                    student.setLayoutX(CoordinatesData.getCardStudents(6).get(i/2).getX());
-                    student.setLayoutY(CoordinatesData.getCardStudents(6).get(i/2).getY());
+                    student.setLayoutX(CoordinatesData.getCardStudents(6).get(i / 2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(6).get(i / 2).getY());
                     student.setDisable(true);
                     studentsOnCard.add(student);
                     studs.getChildren().add(student);
@@ -189,28 +202,28 @@ public class CharacterParametersController {
                 break;
             case 9: //Student swapping, case 2
                 desc.setText("CHOOSE HOW MANY STUDENTS TO SWAP!");
-                Text t=new Text("Choose here which colors to swap in the hall:");
-                t.setFont(Font.font("papyrus",14));
-                max=new TextField();
+                Text t = new Text("Choose here which colors to swap in the hall:");
+                t.setFont(Font.font("papyrus", 14));
+                max = new TextField();
                 max.setLayoutX(404);
                 max.setLayoutY(126);
-                confirmMax=new Button("NEXT!");
+                confirmMax = new Button("NEXT!");
                 confirmMax.setLayoutY(126);
                 confirmMax.setLayoutX(555);
                 confirmMax.setPrefWidth(140);
                 confirmMax.setPrefHeight(40);
                 confirmMax.setStyle("-fx-background-radius:100; -fx-background-color: cyan");
-                confirmMax.setFont(Font.font("papyrus",14));
+                confirmMax.setFont(Font.font("papyrus", 14));
                 confirmMax.setOnMousePressed(this::confirmMaxPressed);
                 selectionPane.getChildren().add(max);
                 selectionPane.getChildren().add(confirmMax);
                 selectionPane.getChildren().add(t);
                 activate.setOnMousePressed(this::gateHallSwapConfirmed);
                 break;
-            case 10: //Student selection                    WORKS
+            case 10: //Student selection
                 desc.setText("CHOOSE A STUDENT ON THE CARD!");
-                selectedText=new Text();
-                selectedText.setFont(Font.font("papyrus",16));
+                selectedText = new Text();
+                selectedText.setFont(Font.font("papyrus", 16));
                 paint = new LinearGradient(
                         0.0, 0.0, 1.0, 1.0, true, CycleMethod.NO_CYCLE,
                         new Stop(0.0, new Color(0.0, 0.0, 0.0, 1.0)),
@@ -219,22 +232,22 @@ public class CharacterParametersController {
                 selectedText.setLayoutX(373);
                 selectedText.setLayoutY(130);
                 selectionPane.getChildren().add(selectedText);
-                p=new Pane();
+                p = new Pane();
                 p.setPrefWidth(159);
                 p.setPrefHeight(240);
                 p.setLayoutX(103);
                 p.setLayoutY(40);
-                 imageView=new ImageView();
+                imageView = new ImageView();
                 imageView.setImage(new Image("Graphical_Assets/CarteTOT_front10.jpg"));
                 imageView.setFitWidth(159);
                 imageView.setFitHeight(240);
                 p.getChildren().add(imageView);
-                studs=new CharacterGUI(4);
-                for(int i=1; i<update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i+=2){
-                    StudentGUI student=new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(index)).get(i));
+                studs = new CharacterGUI(4);
+                for (int i = 1; i < update.studentsOnCard.get(update.idCharacter.indexOf(index)).size(); i += 2) {
+                    StudentGUI student = new StudentGUI(update.studentsOnCard.get(update.idCharacter.indexOf(index)).get(i));
                     student.setOnMousePressed(this::studentPressed);
-                    student.setLayoutX(CoordinatesData.getCardStudents(4).get(i/2).getX());
-                    student.setLayoutY(CoordinatesData.getCardStudents(4).get(i/2).getY());
+                    student.setLayoutX(CoordinatesData.getCardStudents(4).get(i / 2).getX());
+                    student.setLayoutY(CoordinatesData.getCardStudents(4).get(i / 2).getY());
                     studentsOnCard.add(student);
                     studs.getChildren().add(student);
                 }
@@ -283,6 +296,10 @@ public class CharacterParametersController {
         }
     }
 
+    /**
+     * Sets the towers on the board based off the last update received. Called by
+     * the refresh() method.
+     */
     private void towersUpdate() {
         for (int i = 0; i < update.numIslands; i++) {
             String nick = update.whoOwnTowers.get(i);
@@ -297,7 +314,11 @@ public class CharacterParametersController {
         }
     }
 
-
+    /**
+     * Sets a tower on a specific Island. If the island has no tower on it, a TowerGUI object is created
+     * and put on it with the right coordinates. Otherwise, a TowerCountPane object is also created and set
+     * next to the existing tower, with the right tower count, and the island is set as SuperIsland.
+     */
     private void setTowerOnIsland(int index, String color) {
         if (update.towersOnIsland.get(index) != 0) {
             TowerGUI tower = new TowerGUI(color);
@@ -310,6 +331,10 @@ public class CharacterParametersController {
         }
     }
 
+    /**
+     * Sets the MotherNatureGUI object on the right Island. Also checks if any island has a
+     * Prohibition counter on it, and handles the affermative case.
+     */
     private void motherNatureUpdate() {
         MotherNatureGUI motherNature = new MotherNatureGUI();
         for (int i = 0; i < update.numIslands; i++) {
@@ -318,9 +343,26 @@ public class CharacterParametersController {
                 motherNature.setLayoutX(CoordinatesData.getMotherNatureCoordinates().getX());
                 motherNature.setLayoutY(CoordinatesData.getMotherNatureCoordinates().getY());
             }
+            if (update.numTDOnIsland.get(i)) {
+                Pane pn = new Pane();
+                pn.setLayoutX(CoordinatesData.getMotherNatureCoordinates().getX());
+                pn.setLayoutY(CoordinatesData.getMotherNatureCoordinates().getY());
+                pn.setPrefWidth(80);
+                pn.setPrefHeight(80);
+                ImageView td = new ImageView(new Image("Graphical_Assets/deny_island_icon.png"));
+                td.setFitWidth(80);
+                td.setFitHeight(80);
+                pn.getChildren().add(td);
+                islands.get(i).getChildren().add(pn);
+            }
         }
     }
 
+    /**
+     * Creates and sets the students on the islands based off the last update received. If there's more than
+     * one student of a given color on an island, a CountPane of that color is also created and set next to the student,
+     * showing the right student count.
+     */
     private void studentsOnIslandUpdate() {
 
         for (int index : update.studentsOnIsland.keySet()) {
@@ -349,7 +391,7 @@ public class CharacterParametersController {
                 student.setLayoutX(CoordinatesData.getIsland("RED").getX());
                 student.setLayoutY(CoordinatesData.getIsland("RED").getY());
                 if (islands.get(index - 1).getRed() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("RED", islands.get(index-1).getRed()));
+                    islands.get(index - 1).getChildren().add(new CountPane("RED", islands.get(index - 1).getRed()));
                 }
             }
             if (islands.get(index - 1).getBlue() > 0) {
@@ -358,7 +400,7 @@ public class CharacterParametersController {
                 student.setLayoutX(CoordinatesData.getIsland("BLUE").getX());
                 student.setLayoutY(CoordinatesData.getIsland("BLUE").getY());
                 if (islands.get(index - 1).getBlue() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("BLUE", islands.get(index-1).getBlue()));
+                    islands.get(index - 1).getChildren().add(new CountPane("BLUE", islands.get(index - 1).getBlue()));
                 }
             }
             if (islands.get(index - 1).getGreen() > 0) {
@@ -367,7 +409,7 @@ public class CharacterParametersController {
                 student.setLayoutX(CoordinatesData.getIsland("GREEN").getX());
                 student.setLayoutY(CoordinatesData.getIsland("GREEN").getY());
                 if (islands.get(index - 1).getGreen() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("GREEN", islands.get(index-1).getGreen()));
+                    islands.get(index - 1).getChildren().add(new CountPane("GREEN", islands.get(index - 1).getGreen()));
                 }
             }
             if (islands.get(index - 1).getYellow() > 0) {
@@ -376,7 +418,7 @@ public class CharacterParametersController {
                 student.setLayoutX(CoordinatesData.getIsland("YELLOW").getX());
                 student.setLayoutY(CoordinatesData.getIsland("YELLOW").getY());
                 if (islands.get(index - 1).getYellow() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("YELLOW", islands.get(index-1).getYellow()));
+                    islands.get(index - 1).getChildren().add(new CountPane("YELLOW", islands.get(index - 1).getYellow()));
                 }
             }
             if (islands.get(index - 1).getPink() > 0) {
@@ -385,7 +427,7 @@ public class CharacterParametersController {
                 student.setLayoutX(CoordinatesData.getIsland("PINK").getX());
                 student.setLayoutY(CoordinatesData.getIsland("PINK").getY());
                 if (islands.get(index - 1).getPink() > 1) {
-                    islands.get(index - 1).getChildren().add(new CountPane("PINK", islands.get(index-1).getPink()));
+                    islands.get(index - 1).getChildren().add(new CountPane("PINK", islands.get(index - 1).getPink()));
                 }
             }
         }
@@ -446,6 +488,9 @@ public class CharacterParametersController {
         pinkProfessor.setVisible(update.professors.get(userIndex()).get(4));
     }
 
+    /**
+     * Creates and sets the Panes and the Students of the Hall.
+     */
     private void hallUpdate() {
         ArrayList<Pane> redHall = new ArrayList<>();
         ArrayList<Pane> blueHall = new ArrayList<>();
@@ -482,6 +527,9 @@ public class CharacterParametersController {
         }
     }
 
+    /**
+     * Utility method used to build an array given the parameters.
+     */
     private void arrayBuild(ArrayList<Pane> array, Pane element1, Pane element2, Pane element3, Pane element4, Pane element5, Pane element6, Pane element7, Pane element8, Pane element9, Pane element10) {
         HandController.arrayBuild(array, element1, element2, element3, element4, element5, element6, element7, element8, element9, element10);
     }
@@ -492,8 +540,12 @@ public class CharacterParametersController {
         return update.players.indexOf(userNickname);
     }
 
+    /**
+     * Method called when a ColorButton object is pressed. Sets as selected and highlights every StudentGUI objects
+     * of the color of the pressed ColorButton on the gate and on every Island.
+     */
     private void colorHighlight(MouseEvent e) {
-        if(e.getSource().equals(group.getSelectedToggle())){
+        if (e.getSource().equals(group.getSelectedToggle())) {
             activate.setDisable(true);
             for (IslandGUI i : islands) {
                 for (Node s : i.getChildren()) {
@@ -507,7 +559,7 @@ public class CharacterParametersController {
                     ((StudentGUI) s).deselect();
                 }
             }
-        }else {
+        } else {
             for (IslandGUI i : islands) {
                 for (Node s : i.getChildren()) {
                     if (s instanceof StudentGUI) {
@@ -526,11 +578,15 @@ public class CharacterParametersController {
                         ((StudentGUI) s).deselect();
                 }
             }
-            selectedColor=((ColorButton) e.getSource()).color;
+            selectedColor = ((ColorButton) e.getSource()).color;
             this.activate.setDisable(false);
         }
     }
 
+    /**
+     * Method called when a selection of a Color parameter is confirmed by pressing the confirm button.
+     * Collects the parameters, builds the parameter ArrayLists and performs the activateCharacter action request.
+     */
     private void colorConfirmed(MouseEvent e) {
         activate.setDisable(true);
         ArrayList<Integer> a = new ArrayList<>();
@@ -552,21 +608,29 @@ public class CharacterParametersController {
         gui.perform(a, b, null, 5);
     }
 
-    private void onIslandSelected(MouseEvent e){
-        if(selectedIsland!=null){
+    /**
+     * Method called when an Island is selected as a parameter by pressing on it. Highlights the island and saves
+     * it as a parameter.
+     */
+    private void onIslandSelected(MouseEvent e) {
+        if (selectedIsland != null) {
             selectedIsland.deselect();
         }
-        ((IslandGUI)e.getSource()).setSelected();
-        selectedIsland=((IslandGUI) e.getSource());
-        selectedText.setText("SELECTED ISLAND "+selectedIsland.getIndex()+"!");
-        if(index==0){
-            if(selectedStudent!=null&&selectedIsland!=null)
+        ((IslandGUI) e.getSource()).setSelected();
+        selectedIsland = ((IslandGUI) e.getSource());
+        selectedText.setText("SELECTED ISLAND " + selectedIsland.getIndex() + "!");
+        if (index == 0) {
+            if (selectedStudent != null && selectedIsland != null)
                 activate.setDisable(false);
-        }else
+        } else
             activate.setDisable(false);
     }
 
-    private void islandConfirmed(MouseEvent e){
+    /**
+     * Method called when a selection of an Island as a parameter is confirmed by pressing the confirm button.
+     * Collects the parameters, builds the parameter ArrayLists and performs the activateCharacter action request.
+     */
+    private void islandConfirmed(MouseEvent e) {
         selectedText.setText("CONFIRMED!");
         activate.setDisable(true);
         ArrayList<Integer> a = new ArrayList<>();
@@ -574,28 +638,32 @@ public class CharacterParametersController {
         a.add(index);
         a.add(selectedIsland.getIndex());
         selectedIsland.deselect();
-        gui.perform(a,b,null,5);
+        gui.perform(a, b, null, 5);
     }
 
-    private void studentPressed(MouseEvent e){
-        if(index==6){
-            if(selectedStudents1.contains((StudentGUI) e.getSource())){
+    /**
+     * Method called when a student is selected by pressing on it. Highlights the student and sets it as selected,
+     * then saves it as a parameter in different data structures depending on the index of the activated Card.
+     */
+    private void studentPressed(MouseEvent e) {
+        if (index == 6) {
+            if (selectedStudents1.contains((StudentGUI) e.getSource())) {
                 selectedStudents1.remove(((StudentGUI) e.getSource()));
                 ((StudentGUI) e.getSource()).deselect();
                 activate.setDisable(true);
-            }else{
-                if(selectedStudents1.size()<maxSwappable){
+            } else {
+                if (selectedStudents1.size() < maxSwappable) {
                     ((StudentGUI) e.getSource()).setSelected();
                     selectedStudents1.add(((StudentGUI) e.getSource()));
                 }
-                if (selectedStudents1.size()==maxSwappable&&selectedStudents2.size()==maxSwappable){
+                if (selectedStudents1.size() == maxSwappable && selectedStudents2.size() == maxSwappable) {
                     activate.setDisable(false);
                 }
             }
         } else {
             if (selectedStudent != null) {
                 selectedStudent.deselect();
-                if(index==0)
+                if (index == 0)
                     activate.setDisable(true);
             }
             ((StudentGUI) e.getSource()).setSelected();
@@ -608,9 +676,14 @@ public class CharacterParametersController {
                 activate.setDisable(false);
         }
     }
-    private void studentPressedOnGate(MouseEvent e){
-        StudentGUI sel= (StudentGUI) e.getSource();
-        if(index==6) {
+
+    /**
+     * Method called when a student on the Gate is selected by pressing on it. Highlights the student and sets it as selected,
+     * then saves it as a parameter in different data structures depending on the index of the activated Card.
+     */
+    private void studentPressedOnGate(MouseEvent e) {
+        StudentGUI sel = (StudentGUI) e.getSource();
+        if (index == 6) {
             if (selectedStudents2.contains(sel)) {
                 selectedStudents2.remove(sel);
                 sel.deselect();
@@ -624,7 +697,7 @@ public class CharacterParametersController {
                     activate.setDisable(false);
                 }
             }
-        }else{
+        } else {
             if (selectedStudents1.contains(sel)) {
                 selectedStudents1.remove(sel);
                 sel.deselect();
@@ -634,14 +707,18 @@ public class CharacterParametersController {
                     sel.setSelected();
                     selectedStudents1.add(sel);
                 }
-                if((maxSwappable==1 && selectedColor!=null && selectedStudents1.size()==maxSwappable) || (maxSwappable>1 && selectedColor!=null && selectedColor2!=null && selectedStudents1.size()==maxSwappable)){
+                if ((maxSwappable == 1 && selectedColor != null && selectedStudents1.size() == maxSwappable) || (maxSwappable > 1 && selectedColor != null && selectedColor2 != null && selectedStudents1.size() == maxSwappable)) {
                     activate.setDisable(false);
                 }
             }
         }
     }
 
-    private void studentConfirmed(MouseEvent e){
+    /**
+     * Method called when a selection of a Student as a parameter is confirmed by pressing the confirm button.
+     * Collects the parameters, builds the parameter ArrayLists and performs the activateCharacter action request.
+     */
+    private void studentConfirmed(MouseEvent e) {
         selectedText.setText("CONFIRMED!");
         activate.setDisable(true);
         ArrayList<Integer> a = new ArrayList<>();
@@ -649,10 +726,14 @@ public class CharacterParametersController {
         a.add(index);
         a.add(studentsOnCard.indexOf(selectedStudent));
         selectedStudent.deselect();
-        gui.perform(a,b,null,5);
+        gui.perform(a, b, null, 5);
     }
 
-    private void studentIslandConfirmed(MouseEvent e){
+    /**
+     * Method called when a selection of a Student and an Island as parameters is confirmed by pressing the confirm button.
+     * Collects the parameters, builds the parameter ArrayLists and performs the activateCharacter action request.
+     */
+    private void studentIslandConfirmed(MouseEvent e) {
         selectedText.setText("CONFIRMED!");
         activate.setDisable(true);
         ArrayList<Integer> a = new ArrayList<>();
@@ -662,20 +743,26 @@ public class CharacterParametersController {
         a.add(selectedIsland.getIndex());
         selectedIsland.deselect();
         selectedStudent.deselect();
-        gui.perform(a,b,null,5);
+        gui.perform(a, b, null, 5);
     }
-    private void confirmMaxPressed(MouseEvent e){
-        if (max.getText().equals("1") || max.getText().equals("2") || (max.getText().equals("3") && index==6)){
-            maxSwappable= Integer.parseInt(max.getText());
+
+    /**
+     * Method called when the user confirms their choice of maximum number of students to swap by pressing on
+     * the max confirm button. If the input is correct, sets the scene to accomodate the right user inputs for
+     * the selection of the parameters, depending on the index of the activated card.
+     */
+    private void confirmMaxPressed(MouseEvent e) {
+        if (max.getText().equals("1") || max.getText().equals("2") || (max.getText().equals("3") && index == 6)) {
+            maxSwappable = Integer.parseInt(max.getText());
             max.setDisable(true);
             confirmMax.setText("CONFIRMED!");
             confirmMax.setDisable(true);
             desc.setText("CHOOSE THE STUDENTS!");
-            if(index==6){
-                for (StudentGUI s:studentsOnCard){
+            if (index == 6) {
+                for (StudentGUI s : studentsOnCard) {
                     s.setDisable(false);
                 }
-            }else{
+            } else {
                 selectionPane.getChildren().remove(confirmMax);
                 selectionPane.getChildren().remove(max);
                 ColorButton red = new ColorButton("RED");
@@ -709,7 +796,7 @@ public class CharacterParametersController {
                 selectionPane.getChildren().add(green);
                 selectionPane.getChildren().add(yellow);
                 selectionPane.getChildren().add(pink);
-                if (maxSwappable==2){
+                if (maxSwappable == 2) {
                     ColorButton red2 = new ColorButton("RED");
                     ColorButton blue2 = new ColorButton("BLUE");
                     ColorButton yellow2 = new ColorButton("YELLOW");
@@ -743,27 +830,32 @@ public class CharacterParametersController {
                     selectionPane.getChildren().add(pink2);
                 }
             }
-            for (StudentGUI j: studentsOnGate){
+            for (StudentGUI j : studentsOnGate) {
                 j.setOnMousePressed(this::studentPressedOnGate);
             }
-        } else{
-            if (index==6)
+        } else {
+            if (index == 6)
                 desc.setText("COME ON. A NUMBER UP TO 3.");
             else
                 desc.setText("COME ON. A NUMBER UP TO 2.");
             confirmMax.setText("RETRY!");
         }
     }
-    private void gateCardSwapConfirmed(MouseEvent e){
+
+    /**
+     * Method called when the selection of the parameters for a Student swap with the Card is confirmed by pressing the confirm button.
+     * Collects the parameters, builds the parameter ArrayLists and performs the activateCharacter action request.
+     */
+    private void gateCardSwapConfirmed(MouseEvent e) {
         activate.setDisable(true);
         ArrayList<Integer> a = new ArrayList<>(), c;
         ArrayList<String> b = new ArrayList<>();
         a.add(index);
-        for (StudentGUI s:selectedStudents1){
+        for (StudentGUI s : selectedStudents1) {
             a.add(studentsOnCard.indexOf(s));
             s.deselect();
         }
-        c=new ArrayList<>();
+        c = new ArrayList<>();
         for (StudentGUI k : selectedStudents2) {
             c.add(studentsOnGate.indexOf(k));
             k.deselect();
@@ -771,32 +863,37 @@ public class CharacterParametersController {
         gui.perform(a, b, c, 5);
     }
 
-    private void colorSelection1(MouseEvent e){
-        selectedColor=((ColorButton) e.getSource()).color;
-        if((maxSwappable==1 && selectedColor!=null && selectedStudents1.size()==maxSwappable) || (maxSwappable>1 && selectedColor!=null && selectedColor2!=null && selectedStudents1.size()==maxSwappable)){
-            activate.setDisable(false);
-        }
-    }
-    private void colorSelection2(MouseEvent e){
-        selectedColor2=((ColorButton) e.getSource()).color;
-        if(selectedColor!=null && selectedColor2!=null && selectedStudents1.size()==maxSwappable){
+    private void colorSelection1(MouseEvent e) {
+        selectedColor = ((ColorButton) e.getSource()).color;
+        if ((maxSwappable == 1 && selectedColor != null && selectedStudents1.size() == maxSwappable) || (maxSwappable > 1 && selectedColor != null && selectedColor2 != null && selectedStudents1.size() == maxSwappable)) {
             activate.setDisable(false);
         }
     }
 
-    private void gateHallSwapConfirmed(MouseEvent e){
+    private void colorSelection2(MouseEvent e) {
+        selectedColor2 = ((ColorButton) e.getSource()).color;
+        if (selectedColor != null && selectedColor2 != null && selectedStudents1.size() == maxSwappable) {
+            activate.setDisable(false);
+        }
+    }
+
+    /**
+     * Method called when the selection of the parameters for a Student swap with the Hall is confirmed by pressing the confirm button.
+     * Collects the parameters, builds the parameter ArrayLists and performs the activateCharacter action request.
+     */
+    private void gateHallSwapConfirmed(MouseEvent e) {
         activate.setDisable(true);
         ArrayList<Integer> a = new ArrayList<>();
         ArrayList<String> b = new ArrayList<>();
         a.add(index);
-        for (StudentGUI s:selectedStudents1){
+        for (StudentGUI s : selectedStudents1) {
             a.add(studentsOnGate.indexOf(s));
             s.deselect();
         }
         b.add(selectedColor);
-        if(selectedColor2!=null)
+        if (selectedColor2 != null)
             b.add(selectedColor2);
-        gui.perform(a,b,null,5);
+        gui.perform(a, b, null, 5);
     }
 
 

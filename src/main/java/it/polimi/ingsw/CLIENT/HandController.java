@@ -5,9 +5,13 @@ import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
 
+/**
+ * FXML Controller class for the Hand information scene. Displays the user's hand information and lets the user
+ * select a card to play if the game logic permits it.
+ * @author GC56
+ */
 public class HandController {
     private GUIAPP gui;
     private UpdateMessage update;
@@ -17,12 +21,17 @@ public class HandController {
 
     @FXML
     private Pane card0, card1, card2, card3, card4, card5, card6, card7, card8, card9;
-    private ArrayList<Integer> originalIndexes=new ArrayList<>();
+    private final ArrayList<Integer> originalIndexes=new ArrayList<>();
 
     public void setGUI(GUIAPP guiApp) {
         gui = guiApp;
     }
 
+    /**
+     * Main method of the View. Builds and shows to the user all the appropriate GUI objects and the FXML scene.
+     * Called by the GUIAPP when the scene is set. Builds the GUI objects and assigns them the methods for
+     * the Mouse events.
+     */
     public void refresh(){
         update=gui.getUpdate();
         this.userNickname=gui.getUserNickname();
@@ -44,6 +53,9 @@ public class HandController {
         onMouseClicked(cards);
     }
 
+    /**
+     * Performs the playCard action request.
+     */
     public void playCard(){
         strPar.add(userNickname);
         gui.perform(intPar, strPar, null,4);
@@ -52,6 +64,11 @@ public class HandController {
         strPar.clear();
     }
 
+    /**
+     * Called when a card is selected by the user. If the game logic permits it, starts the playCard action
+     * request sequence.
+     * @param cards The cards in the current hand of the user.
+     */
     public void onMouseClicked(ArrayList<Pane> cards){
         for (Pane card:cards) {
             if(!card.isDisable()) {
@@ -64,6 +81,9 @@ public class HandController {
         }
     }
 
+    /**
+     * Utility method used to build an array given the parameters.
+     */
     static void arrayBuild(ArrayList<Pane> cards, Pane card1, Pane card2, Pane card3, Pane card4, Pane card5, Pane card6, Pane card7, Pane card8, Pane card9, Pane card10) {
         cards.add(card1);
         cards.add(card2);
@@ -112,6 +132,9 @@ public class HandController {
         card9.setCursor(c);
     }
 
+    /**
+     * Builds the scene and shows the cards in the current hand of the user.
+     */
     public void setCards(){
         for(int i=1; i<update.handPlayer.get(userIndex()).size(); i=i+2){
             switch (update.handPlayer.get(userIndex()).get(i)) {
@@ -192,6 +215,9 @@ public class HandController {
         card9.setVisible(b);
     }
 
+    /**
+     * Method associated with an FXML button. Sets the scene back to the Board scene.
+     */
     public void backToBoard(){
         gui.setScene("fxml/board.fxml");
         gui.boardController.refresh();

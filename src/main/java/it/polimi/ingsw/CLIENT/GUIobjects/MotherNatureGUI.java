@@ -5,9 +5,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-import java.io.Serializable;
-
-public class MotherNatureGUI extends Pane implements Serializable {
+/**
+ * GUI object representing the token of Mother Nature in the GUI View. Can be placed and dragged/dropped around the board.
+ * @author GC56
+ */
+public class MotherNatureGUI extends Pane {
 
     private double stageX, stageY;
 
@@ -18,11 +20,17 @@ public class MotherNatureGUI extends Pane implements Serializable {
         this.setCursor(Cursor.HAND);
     }
 
+    /**
+     * Method called when the object is pressed. Stores the current coordinates for later use.
+     */
     public void pressed(double x,double y){
         stageX=x;
         stageY=y;
     }
 
+    /**
+     * Method called when the object is dragged. Sets the coordinates based on the movement.
+     */
     public void dragged(double x, double y){
         this.setTranslateX(x-this.stageX);
         this.setTranslateY(y-this.stageY);

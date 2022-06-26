@@ -15,9 +15,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
-
 import java.util.ArrayList;
 
+/**
+ * FXML Controller class for the Characters' information scene. Shows the 3 Character cards in play, their effect
+ * and their cost, and lets the user activate their effects if the game logic permits it.
+ * @author GC56
+ */
 public class CharactersController {
 
     private GUIAPP gui;
@@ -49,6 +53,11 @@ public class CharactersController {
     }
 
 
+    /**
+     * Main method of the View. Builds and shows to the user all the appropriate GUI objects and the FXML scene.
+     * Called by the GUIAPP when the scene is set. Builds the GUI objects and assigns them the methods for
+     * the Mouse events.
+     */
     public void refresh() {
         update = gui.getUpdate();
         userNickname = gui.getUserNickname();
@@ -138,6 +147,9 @@ public class CharactersController {
         imageView.setCursor(Cursor.HAND);
     }
 
+    /**
+     * Builds and sets the students on the cards that contains them, by building a CharacterGUI object.
+     */
     private void setStudents() {
         if (update.idCharacter.get(0) == 0 || update.idCharacter.get(0) == 6 || update.idCharacter.get(0) == 10) {
             CharacterGUI studs;
@@ -204,6 +216,11 @@ public class CharactersController {
         }
     }
 
+    /**
+     * Method associated with an FXML button. Checks if the user has enough coins to activate the selected card,
+     * then either performs an activateCharacter action request, or sets the scene to the Characters' parameters
+     * selection scene, depending on the index of the activated card.
+     */
     @FXML
     private void activateCharacter() {
         if (update.coinsOnPlayer.get(userIndex()) >= characterCost(selectedChar)) {
@@ -220,7 +237,7 @@ public class CharactersController {
                 case 5:
                     gui.perform(a, b, null, 5);
                     break;
-                case 6:   //Questo è impossibile ma in qualche modo l'ho fatto
+                case 6:
                 case 9:
                 case 0:
                 case 2:
@@ -241,6 +258,11 @@ public class CharactersController {
         }
     }
 
+    /**
+     * Stores and returns the effects of the Characters.
+     * @param index The index of the given Card. Int parameter between 0-11.
+     * @return Returns a string containing the effect of the given Character.
+     */
     private String characterEffect(int index) {
         switch (index) {
             case 0:
@@ -272,6 +294,11 @@ public class CharactersController {
         }
     }
 
+    /**
+     * Stores and returns the Characters' costs.
+     * @param index The index of the chosen Character. Between 0-11.
+     * @return Returns the cost of the Character, handling the case in which it has been already activated.
+     */
     private int characterCost(int index) {
         switch (index) {
             case 0:
@@ -294,6 +321,9 @@ public class CharactersController {
         }
     }
 
+    /**
+     * Method associated with an FXML button. Sets the scene back to the Board scene.
+     */
     public void backToBoard() {
         gui.setScene("fxml/board.fxml");
         gui.boardController.refresh();

@@ -3,10 +3,13 @@ package it.polimi.ingsw.CLIENT.GUIobjects;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-
 import java.util.Random;
 
+/**
+ * GUI object representing an Island in the GUI View. It's a pane with set anchor points for students and towers. Stores also the number
+ * of students of each color and the towers on the Island. Can be selected of iterated in a List if needed.
+ * @author GC56
+ */
 public class IslandGUI extends Pane {
 
     private int index;
@@ -18,6 +21,10 @@ public class IslandGUI extends Pane {
     private int towers=0;
     private boolean selected=false;
 
+    /**
+     * Constructor method. Sets layout and coordinates, then randomly sets an image.
+     * @param i The index of the island. Int parameter between 1-12.
+     */
     public IslandGUI(int i) {
         this.index = i;
         this.setHeight(180);

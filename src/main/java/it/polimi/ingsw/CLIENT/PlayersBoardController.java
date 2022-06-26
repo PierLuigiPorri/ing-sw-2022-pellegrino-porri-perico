@@ -7,14 +7,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-
 import java.util.ArrayList;
 
+/**
+ * FXML Controller class for the Players Board information scene. Displays information about the selected opponent's
+ * board and general game status.
+ * @author GC56
+ */
 public class PlayersBoardController {
 
     private GUIAPP gui;
     private UpdateMessage update;
-    private String playerNickname, userNickname, player2Nickname;
+    private String playerNickname, userNickname;
 
     @FXML
     private ImageView tower1, tower2, tower3, tower4, tower5, tower6, tower7, tower8;
@@ -41,6 +45,10 @@ public class PlayersBoardController {
         gui = guiApp;
     }
 
+    /**
+     * Main method of the View. Builds and shows to the user all the appropriate GUI objects and the FXML scene.
+     * Called by the GUIAPP when the scene is set.
+     */
     public void refresh() {
         update = gui.getUpdate();
         CoordinatesData.loadCoordinates();
@@ -67,6 +75,9 @@ public class PlayersBoardController {
         }
     }
 
+    /**
+     * Displays the last card played by the selected opponent.
+     */
     private void setLastCardPlayed(){
         if(update.lastCardsPlayed.size() > (playerIndex()*2) + 1) {
             if (update.valueCardsPlayed.get(playerIndex()) != 100) {
@@ -84,7 +95,7 @@ public class PlayersBoardController {
             nicknames.remove(playerIndex());
         }
         else if (!nicknames.isEmpty()) {
-            setTowerImage("Graphical_Assets/grey_tower.png");
+            setTowerImage();
         }
     }
 
@@ -105,15 +116,15 @@ public class PlayersBoardController {
         }
     }
 
-    private void setTowerImage(String address) {
-        tower1.setImage(new Image(address));
-        tower2.setImage(new Image(address));
-        tower3.setImage(new Image(address));
-        tower4.setImage(new Image(address));
-        tower5.setImage(new Image(address));
-        tower6.setImage(new Image(address));
-        tower7.setImage(new Image(address));
-        tower8.setImage(new Image(address));
+    private void setTowerImage() {
+        tower1.setImage(new Image("Graphical_Assets/grey_tower.png"));
+        tower2.setImage(new Image("Graphical_Assets/grey_tower.png"));
+        tower3.setImage(new Image("Graphical_Assets/grey_tower.png"));
+        tower4.setImage(new Image("Graphical_Assets/grey_tower.png"));
+        tower5.setImage(new Image("Graphical_Assets/grey_tower.png"));
+        tower6.setImage(new Image("Graphical_Assets/grey_tower.png"));
+        tower7.setImage(new Image("Graphical_Assets/grey_tower.png"));
+        tower8.setImage(new Image("Graphical_Assets/grey_tower.png"));
     }
 
 
@@ -170,6 +181,10 @@ public class PlayersBoardController {
         HandController.arrayBuild(array, element1, element2, element3, element4, element5, element6, element7, element8, element9, element10);
     }
 
+    /**
+     * Method associated with an FXML button. Sets the scene back to the Board scene.
+     */
+    @FXML
     public void backToBoard(){
         gui.setScene("fxml/board.fxml");
         gui.boardController.refresh();

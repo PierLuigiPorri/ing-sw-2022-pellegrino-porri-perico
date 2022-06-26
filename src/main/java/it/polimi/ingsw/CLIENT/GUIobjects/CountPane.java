@@ -5,11 +5,21 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 
+/**
+ * GUI object representing a Pane containing a counter tracking the number of students of a specific color on an Island. Created every time an update is received,
+ * sets automatically the color and the current student count.
+ * @author GC56
+ */
 public class CountPane extends Pane {
 
     public String color;
     public Text text;
 
+    /**
+     * Constructor method. Sets the color, the current student count, the coordinates and the layout.
+     * @param color The chosen color. String parameter.
+     * @param count The number of students of the chosen color on that island.
+     */
     public CountPane(String color, int count){
         this.color=color;
         this.setHeight(27);

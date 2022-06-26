@@ -20,18 +20,21 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
 
+/**
+ * Main runnable GUI View class. Handles and relays the updates to the FXML controllers, sets and shows the appropriate scenes,
+ * and handles and maintains the connection with the Server via ClientMsgHandler.
+ * @author GC56
+ */
 public class GUIAPP extends Application implements View {
 
     private String userNickname, playerNickname;
     private final Object lock;
     private ClientMsgHandler msgHandler;
-    private AckSender ackSender;
     private final ArrayList<Integer> inputInt;
     private ArrayList<Integer> third;
     private final ArrayList<String> inputStr;
@@ -39,9 +42,6 @@ public class GUIAPP extends Application implements View {
     public boolean gameStarted;
     public WaitController waitController;
     public BoardController boardController;
-    private PlayersBoardController playersBoardController;
-    private HandController handController;
-    private CharactersController charactersController;
     public CharacterParametersController characterParametersController;
     @FXML
     private Stage currentStage;
@@ -59,6 +59,10 @@ public class GUIAPP extends Application implements View {
         this.gameid = gameid;
     }
 
+    /**
+     * FXML method called at the start of the application. Sets and shows the stage with the first introductory
+     * scene.
+     */
     @FXML
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -75,6 +79,10 @@ public class GUIAPP extends Application implements View {
         currentStage.show();
     }
 
+    /**
+     * Method called when trying to close the window. Performs the action and notifies the event if the action is
+     * confirmed.
+     */
     private void closeWindowEvent(WindowEvent event) {
         System.out.println("Window close request ...");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -91,9 +99,13 @@ public class GUIAPP extends Application implements View {
         }
     }
 
+    /**
+     * Sets the connection with the server, then sets the Main Menu scene. Receives the IP for the connection
+     * from the introductory scene.
+     */
     public void connect(String ip) {
         msgHandler = new ClientMsgHandler(ip, 50000, lock); //Connection setup with this IP and Port numbers
-        ackSender = new AckSender(msgHandler, 2000);
+        AckSender ackSender = new AckSender(msgHandler, 2000);
         msgHandler.setAckSender(ackSender);
         new Thread(ackSender).start();
         new Thread(msgHandler).start();
@@ -102,6 +114,10 @@ public class GUIAPP extends Application implements View {
         setScene("fxml/mainMenu.fxml");
     }
 
+    /**
+     * Sets the given scene based on the address of the FXML file.
+     * @param address String containing the address of the FXML whose scene will be set.
+     */
     @FXML
     public void setScene(String address) {
         try {
@@ -117,17 +133,17 @@ public class GUIAPP extends Application implements View {
                     boardController.setGUI(this);
                     break;
                 case "fxml/PlayersBoard.fxml":
-                    playersBoardController = fxmlLoader.getController();
+                    PlayersBoardController playersBoardController = fxmlLoader.getController();
                     playersBoardController.setGUI(this);
                     playersBoardController.refresh();
                     break;
                 case "fxml/Hand.fxml":
-                    handController = fxmlLoader.getController();
+                    HandController handController = fxmlLoader.getController();
                     handController.setGUI(this);
                     handController.refresh();
                     break;
                 case "fxml/Characters.fxml":
-                    charactersController = fxmlLoader.getController();
+                    CharactersController charactersController = fxmlLoader.getController();
                     charactersController.setGui(this);
                     charactersController.refresh();
                     break;
@@ -135,18 +151,12 @@ public class GUIAPP extends Application implements View {
                     characterParametersController = fxmlLoader.getController();
                     characterParametersController.setGUI(this);
             }
-            //GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-            //double width = gd.getDisplayMode().getWidth()*0.9;
-            //double height = gd.getDisplayMode().getHeight()*0.9;
-            //Scene scene = new Scene(root, width, height);
             Scene scene = new Scene(root);
             currentStage.setScene(scene);
-            //currentStage.setMaximized(true);
             currentStage.centerOnScreen();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        //delay(1000, () -> startGame());
     }
 
     public void waitForMessage() {
@@ -182,6 +192,10 @@ public class GUIAPP extends Application implements View {
         return this.userNickname;
     }
 
+    /**
+     * Performs a specific action request given from a GUI Controller class.
+     * @param action Int parameter which contains the information about the action to perform.
+     */
     public void perform(ArrayList<Integer> intpar, ArrayList<String> strpar, ArrayList<Integer> third, int action) {
         inputStr.add(userNickname);
         if (strpar != null)
@@ -218,7 +232,9 @@ public class GUIAPP extends Application implements View {
             this.third.clear();
     }
 
-
+    /**
+     * Collects the parameter necessary and sends the action request message to the server via the ClientMsgHandler.
+     */
     @Override
     public void moveMotherNature() {
         ArrayList<Integer> integers = new ArrayList<>(inputInt);
@@ -226,6 +242,9 @@ public class GUIAPP extends Application implements View {
         msgHandler.send(new ActionMessage(integers, strings, third, 3));
     }
 
+    /**
+     * Collects the parameter necessary and sends the action request message to the server via the ClientMsgHandler.
+     */
     @Override
     public void gateToIsland() {
         ArrayList<Integer> integers = new ArrayList<>(inputInt);
@@ -233,6 +252,9 @@ public class GUIAPP extends Application implements View {
         msgHandler.send(new ActionMessage(integers, strings, third, 0));
     }
 
+    /**
+     * Collects the parameter necessary and sends the action request message to the server via the ClientMsgHandler.
+     */
     @Override
     public void gateToHall() {
         ArrayList<Integer> integers = new ArrayList<>(inputInt);
@@ -240,6 +262,9 @@ public class GUIAPP extends Application implements View {
         msgHandler.send(new ActionMessage(integers, strings, third, 1));
     }
 
+    /**
+     * Collects the parameter necessary and sends the action request message to the server via the ClientMsgHandler.
+     */
     @Override
     public void cloudToGate() {
         ArrayList<Integer> integers = new ArrayList<>(inputInt);
@@ -247,6 +272,9 @@ public class GUIAPP extends Application implements View {
         msgHandler.send(new ActionMessage(integers, strings, third, 2));
     }
 
+    /**
+     * Collects the parameter necessary and sends the action request message to the server via the ClientMsgHandler.
+     */
     @Override
     public void activateCharacter() {
         ArrayList<Integer> integers = new ArrayList<>(inputInt);
@@ -254,6 +282,9 @@ public class GUIAPP extends Application implements View {
         msgHandler.send(new ActionMessage(integers, strings, third, 5));
     }
 
+    /**
+     * Collects the parameter necessary and sends the action request message to the server via the ClientMsgHandler.
+     */
     @Override
     public void playCard() {
         ArrayList<Integer> integers = new ArrayList<>(inputInt);
@@ -261,6 +292,9 @@ public class GUIAPP extends Application implements View {
         msgHandler.send(new ActionMessage(integers, strings, third, 4));
     }
 
+    /**
+     * Overridden method from the View Interface.
+     */
     @Override
     public void signalUpdate() {
         //Runs on Message Handler Thread
@@ -268,6 +302,10 @@ public class GUIAPP extends Application implements View {
         Platform.runLater(() -> update(msgHandler.getUpdates().remove(0)));
     }
 
+    /**
+     * Receives the update and applies it, then sets the appropriate scene depending on the update received.
+     * @param up The update in the form of an UpdateMessage.
+     */
     @Override
     public void update(UpdateMessage up) {
         this.update = up;

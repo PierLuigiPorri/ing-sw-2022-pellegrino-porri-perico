@@ -5,15 +5,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-import java.io.Serializable;
-
-public class StudentGUI extends Pane implements Serializable {
+/**
+ * GUI object representing a Student in the GUI View. Can be placed and drag/dropped around the board. Can also be selected and deselected.
+ * @author GC56
+ */
+public class StudentGUI extends Pane{
     private final String color;
     private double stageX, stageY;
     private Coordinates coord;
     public boolean selected=false;
 
 
+    /**
+     * Constructor method. Sets the color, the coordinates and the layout.
+     * @param color The color of the student. String parameter.
+     */
     public StudentGUI(String color){
         this.color=color;
         this.setStyle("-fx-background-color: rgba(255, 255, 255, 0.2)");
@@ -47,12 +53,18 @@ public class StudentGUI extends Pane implements Serializable {
         return coord;
     }
 
+    /**
+     * Method called when the object is pressed. Stores the current coordinates for later use.
+     */
     public void pressed(double x,double y){
         stageX=x;
         stageY=y;
         coord=new Coordinates(this.getLayoutX(),this.getLayoutY());
     }
 
+    /**
+     * Method called when the object is dragged. Sets the coordinates based on the movement.
+     */
     public void dragged(double x, double y){
         this.setLayoutX(x-this.stageX);
         this.setLayoutY(y-this.stageY);

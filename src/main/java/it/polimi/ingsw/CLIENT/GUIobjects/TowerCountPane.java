@@ -6,6 +6,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * GUI object representing a Pane containing a counter tracking the number of towers on an Island. Created every time an update is received,
+ * sets automatically the current tower count.
+ * @author GC56
+ */
 public class TowerCountPane extends Pane {
     public Text text;
 

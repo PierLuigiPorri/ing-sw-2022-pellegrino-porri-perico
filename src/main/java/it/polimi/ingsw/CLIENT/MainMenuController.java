@@ -14,9 +14,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
+/**
+ * FXML Controller class for the Main Menu scene. Lets the user decide between creating a new game or joining
+ * an existing one, each option with their own parameters to be given. Then moves on to the Wait scene if
+ * the action is performed correctly.
+ * @author GC56
+ */
 public class MainMenuController{
-    private int gt; //Game Type
-    private int np; //Number of players
 
     private static GUIAPP gui;
     @FXML
@@ -40,6 +44,11 @@ public class MainMenuController{
         gui=guiApp;
     }
 
+    /**
+     * Method associated with an FXML button. Initiates the join process. If "random game" is selected, it will attempt
+     * to join the first available game. Otherwise, it will attempt to join a game with the given id.
+     * Will return an error if no games are available with the given parameters.
+     */
     @FXML
     private void startJoin(){
         if (!nicknameTextField.getText().equals("")) {
@@ -56,10 +65,10 @@ public class MainMenuController{
             else if(idGame.isSelected()){
                 try {
                     if(!idTextField.getText().isEmpty()) {
-                        Integer id = Integer.parseInt(idTextField.getText());
+                        int id = Integer.parseInt(idTextField.getText());
                         gui.send(new CreationMessage(2, nicknameTextField.getText(), id));
                         //gui.startGame();
-                        delay(1000, () -> checkJoin(id.toString()));
+                        delay(1000, () -> checkJoin(Integer.toString(id)));
                     }
                     else{
                         showPopup("ERROR", "Set the game ID first!");
@@ -84,12 +93,19 @@ public class MainMenuController{
         }
     }
 
+    /**
+     * Applies a delay to a given action.
+     * @param millis The delay to be applied. Long parameter.
+     * @param continuation The action to be performed after the delay.
+     */
     public void delay(long millis, Runnable continuation) {
-        Task<Void> sleeper = new Task<Void>() {
+        Task<Void> sleeper = new Task<>() {
             @Override
-            protected Void call() throws Exception {
-                try { Thread.sleep(millis); }
-                catch (InterruptedException e) { }
+            protected Void call() {
+                try {
+                    Thread.sleep(millis);
+                } catch (InterruptedException ignored) {
+                }
                 return null;
             }
         };
@@ -97,6 +113,9 @@ public class MainMenuController{
         new Thread(sleeper).start();
     }
 
+    /**
+     * Checks if the joining process with the given id has gone through successfully.
+     */
     private void checkJoin(String gameid) {
         if(!gui.gameStarted){
             if (gui.getResponses().isEmpty()) {
@@ -107,23 +126,31 @@ public class MainMenuController{
         }
     }
 
+    /**
+     * Method associated with an FXML button. Starts the creation process. Attempts to send a creation request
+     * to the server with the given parameters. If done successfully, moves on to the Wait scene.
+     */
     @FXML
     private void startNew(){
 
+        //Game Type
+        int gt;
         if (expertCheck.isSelected()) {
             gt = 1;
         } else gt = 0;
         //Number of players
+        //Number of players
+        int np;
         if(nPlayers.getSelectedToggle().equals(twoPlayers)){
-            np=2;
+            np =2;
         }
         else if(nPlayers.getSelectedToggle().equals(threePlayers)){
-            np=3;
+            np =3;
         }
         else{
             System.out.println("Errore");
             System.exit(0);
-            np=0;
+            np =0;
         }
         if(!nicknameTextField.getText().equals("")) {
             try {
