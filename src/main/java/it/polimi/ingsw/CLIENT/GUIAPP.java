@@ -33,13 +33,13 @@ import java.util.Optional;
 public class GUIAPP extends Application implements View {
 
     private String userNickname, playerNickname;
-    private final Object lock;
+    private final Object lock= new Object();;
     private ClientMsgHandler msgHandler;
-    private final ArrayList<Integer> inputInt;
+    private final ArrayList<Integer> inputInt=new ArrayList<>();
     private ArrayList<Integer> third;
-    private final ArrayList<String> inputStr;
+    private final ArrayList<String> inputStr=new ArrayList<>();
     private UpdateMessage update;
-    public boolean gameStarted;
+    public boolean gameStarted=false;
     public WaitController waitController;
     public BoardController boardController;
     public CharacterParametersController characterParametersController;
@@ -48,12 +48,11 @@ public class GUIAPP extends Application implements View {
     public String updateLog = "";
     public String gameid;
 
-    public GUIAPP() {
-        lock = new Object();
-        inputInt = new ArrayList<>();
-        inputStr = new ArrayList<>();
-        gameStarted = false;
+
+    public static void main() {
+        launch();
     }
+
 
     public void setGameid(String gameid) {
         this.gameid = gameid;

@@ -7,6 +7,7 @@
   <groupId>it.polimi.ingsw</groupId>
   <artifactId>softeng-GC56</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
   <name>softeng-GC56</name>
   <!-- FIXME change it to the project's website -->
@@ -61,6 +62,27 @@
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>3.2.4</version>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+              <configuration>
+                <transformers>
+                  <transformer implementation=
+                                       "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                    <mainClass>it.polimi.ingsw.CLIENT.GUILauncher</mainClass>
+                  </transformer>
+                </transformers>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
         <plugin>
         <groupId>org.sonarsource.scanner.maven</groupId>
         <artifactId>sonar-maven-plugin</artifactId>
