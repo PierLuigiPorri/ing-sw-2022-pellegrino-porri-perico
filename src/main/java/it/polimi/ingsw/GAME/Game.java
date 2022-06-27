@@ -323,7 +323,7 @@ public class Game extends Observable {
             Player player1 = playerTranslator(name);
             if(cloudEmptied) {
                 if (player1.maxMoves == 0 && order.get(0).equals(player1)) {
-                    if (movement <= order.get(0).getLastCardPlayed().getMovement() + MNbonus) {
+                    if ((movement <= order.get(0).getLastCardPlayed().getMovement() + MNbonus) && (movement>0)) {
                         motherNature.getIsland().setMotherNature(false);
                         Island tmp = motherNature.getIsland();
                         for (int i = 0; i < movement; i++) {
