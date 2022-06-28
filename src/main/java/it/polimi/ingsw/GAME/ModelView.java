@@ -9,29 +9,34 @@ import java.util.Observer;
 public class ModelView extends Observable implements Observer {
     private UpdateMessage update;
     private final Game game;
+    private boolean gameOver;
 
 
     public ModelView(Game game, GameManager gameManager) {
         this.update = new UpdateMessage();
         this.game = game;
         this.addObserver(gameManager);
+        gameOver=false;
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        this.update = new UpdateMessage();
-        if(game.getGameOver()){
-            update.gameEnded=true;
-        }
-        update.update = (ArrayList<String>) arg;
-        update.update= new ArrayList<>(update.update);
-        setGameAttributes();
-        setBoardAttributes();
-        setPlayersAttributes();
-        setExpertGameAttributes();
+        if(!gameOver) {
+            this.update = new UpdateMessage();
+            if (game.getGameOver()) {
+                update.gameEnded = true;
+                gameOver = true;
+            }
+            update.update = (ArrayList<String>) arg;
+            update.update = new ArrayList<>(update.update);
+            setGameAttributes();
+            setBoardAttributes();
+            setPlayersAttributes();
+            setExpertGameAttributes();
 
-        setChanged();
-        notifyObservers(update);
+            setChanged();
+            notifyObservers(update);
+        }
     }
 
 
