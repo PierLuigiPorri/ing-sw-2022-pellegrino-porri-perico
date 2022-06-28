@@ -12,8 +12,8 @@ coverage dei test come riportato dal tool di IntelliJ
 
 Package GAME (Model + Controller + ModelView):
 Classes 100% (24/24)
-Methods 79% (142/178)
-Lines 75% (737/979)
+Methods 95% (170/178)
+Lines 88% (871/979)
 Package MESSAGES (Messaggi di rete):
 Classes 28% (2/7) -> MessageType astratta e UpdateMessage, usate da ModelView
 Methods 22% (2/9)
@@ -23,6 +23,8 @@ Classes 42% (3/7) -> ConnectionManager, GameManager, Starter
 Methods 15% (8/52)
 Lines 9% (32/328)
 
+Per ottenere questi valori è necessario runnare i test molte volte (run until failure o until stopped)
+perché alcuni test hanno una componente casuale
 
 modalità per lanciare server e client dalla linea di comando (usando i jar)
 
