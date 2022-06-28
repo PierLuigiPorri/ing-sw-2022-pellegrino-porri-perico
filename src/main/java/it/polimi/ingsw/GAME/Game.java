@@ -464,7 +464,6 @@ public class Game extends Observable {
     }
 
     public void playCard(String player, int index) throws ImpossibleActionException, BoundException {
-        System.out.println(index);
         if (roundMaster.round.getCurrentPhase().equals("Planning")) {
             if (index >= 0 && index < 10) {
                 Player player1 = playerTranslator(player);

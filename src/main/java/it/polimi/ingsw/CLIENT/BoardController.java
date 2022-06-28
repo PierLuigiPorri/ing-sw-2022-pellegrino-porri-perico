@@ -301,7 +301,6 @@ public class BoardController {
 
     private void createIslands() {
         islands = new ArrayList<>();
-
         for (int index : update.studentsOnIsland.keySet()) {
             IslandGUI in= new IslandGUI(index);
             in.setLayoutX(CoordinatesData.getIslandsCoord(update.studentsOnIsland.keySet().size()).get(index - 1).getX());
