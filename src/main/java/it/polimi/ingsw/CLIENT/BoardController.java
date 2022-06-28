@@ -1,6 +1,7 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.CLIENT.GUIobjects.*;
+import it.polimi.ingsw.GAME.Island;
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -302,12 +303,13 @@ public class BoardController {
         islands = new ArrayList<>();
 
         for (int index : update.studentsOnIsland.keySet()) {
-            islands.add(new IslandGUI(index));
-            islands.get(index - 1).setLayoutX(CoordinatesData.getIslandsCoord(update.numIslands).get(index - 1).getX());
-            islands.get(index - 1).setLayoutY(CoordinatesData.getIslandsCoord(update.numIslands).get(index - 1).getY());
-            islands.get(index - 1).setOnDragDropped((dragEvent) -> onDragOnIsland(dragEvent, islands.get(index - 1)));
-            islands.get(index - 1).setOnDragOver(this::onDragIslandOver);
-            root.getChildren().add(islands.get(index - 1));
+            IslandGUI in= new IslandGUI(index);
+            in.setLayoutX(CoordinatesData.getIslandsCoord(update.studentsOnIsland.keySet().size()).get(index - 1).getX());
+            in.setLayoutY(CoordinatesData.getIslandsCoord(update.studentsOnIsland.keySet().size()).get(index - 1).getY());
+            in.setOnDragDropped((dragEvent) -> onDragOnIsland(dragEvent, islands.get(index - 1)));
+            in.setOnDragOver(this::onDragIslandOver);
+            islands.add(in);
+            root.getChildren().add(in);
         }
     }
 

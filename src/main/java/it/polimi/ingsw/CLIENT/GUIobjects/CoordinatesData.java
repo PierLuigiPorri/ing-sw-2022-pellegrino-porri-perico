@@ -78,20 +78,20 @@ public abstract class CoordinatesData {
         coord.add(new Coordinates(864,404));
         coord.add(new Coordinates(504,404));
         islands.put(3,coord);
-        coord.clear();
+        coord=new ArrayList<>();
         coord.add(new Coordinates(684,14));
         coord.add(new Coordinates(1044,214));
         coord.add(new Coordinates(684,404));
         coord.add(new Coordinates(324,214));
         islands.put(4,coord);
-        coord.clear();
+        coord=new ArrayList<>();
         coord.add(new Coordinates(566,14));
         coord.add(new Coordinates(808,14));
         coord.add(new Coordinates(1044,214));
         coord.add(new Coordinates(684,404));
         coord.add(new Coordinates(324,214));
         islands.put(5,coord);
-        coord.clear();
+        coord=new ArrayList<>();
         coord.add(new Coordinates(566,14));
         coord.add(new Coordinates(808,14));
         coord.add(new Coordinates(1044,214));
@@ -99,7 +99,7 @@ public abstract class CoordinatesData {
         coord.add(new Coordinates(566,404));
         coord.add(new Coordinates(324,214));
         islands.put(6,coord);
-        coord.clear();
+        coord=new ArrayList<>();
         coord.add(new Coordinates(466,14));
         coord.add(new Coordinates(684,14));
         coord.add(new Coordinates(907,14));
@@ -108,7 +108,7 @@ public abstract class CoordinatesData {
         coord.add(new Coordinates(566,404));
         coord.add(new Coordinates(324,214));
         islands.put(7,coord);
-        coord.clear();
+        coord=new ArrayList<>();
         coord.add(new Coordinates(466,14));
         coord.add(new Coordinates(684,14));
         coord.add(new Coordinates(907,14));
@@ -118,7 +118,7 @@ public abstract class CoordinatesData {
         coord.add(new Coordinates(466,404));
         coord.add(new Coordinates(324,214));
         islands.put(8,coord);
-        coord.clear();
+        coord=new ArrayList<>();
         coord.add(new Coordinates(403,14));
         coord.add(new Coordinates(579,14));
         coord.add(new Coordinates(759,14));
@@ -129,7 +129,7 @@ public abstract class CoordinatesData {
         coord.add(new Coordinates(466,404));
         coord.add(new Coordinates(324,214));
         islands.put(9,coord);
-        coord.clear();
+        coord=new ArrayList<>();
         coord.add(new Coordinates(403,14));
         coord.add(new Coordinates(579,14));
         coord.add(new Coordinates(759,14));
@@ -141,7 +141,7 @@ public abstract class CoordinatesData {
         coord.add(new Coordinates(403,404));
         coord.add(new Coordinates(324,214));
         islands.put(10,coord);
-        coord.clear();
+        coord=new ArrayList<>();
         coord.add(new Coordinates(324,14));
         coord.add(new Coordinates(504,14));
         coord.add(new Coordinates(684,14));
@@ -154,7 +154,7 @@ public abstract class CoordinatesData {
         coord.add(new Coordinates(403,404));
         coord.add(new Coordinates(324,214));
         islands.put(11,coord);
-        coord.clear();
+        coord=new ArrayList<>();
         coord.add(new Coordinates(324,14));
         coord.add(new Coordinates(504,14));
         coord.add(new Coordinates(684,14));
