@@ -447,7 +447,6 @@ public class Game extends Observable {
     }
 
     public void mergeIslands(int index1, int index2){
-        //TODO: restituire la nuova isola creata. Controllare MoveMotherNature.
         Island i1, i2;
         i1 = board.islands.getIsland(index1);
         i2 = board.islands.getIsland(index2);
