@@ -103,6 +103,7 @@ public class BoardController {
         }
         professorsUpdate();
         hallUpdate();
+        System.gc();
     }
 
 
