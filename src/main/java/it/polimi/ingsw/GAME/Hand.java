@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author GC56.
  */
 public class Hand {
-    private ArrayList<Card> cards;
+    private final ArrayList<Card> cards;
 
     /**
      * Hand constructor. It is called once a game, at the beginning.

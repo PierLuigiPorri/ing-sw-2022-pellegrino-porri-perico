@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class HandController {
     private GUIAPP gui;
     private UpdateMessage update;
-    ArrayList<Integer> intPar=new ArrayList<>();
-    ArrayList<String> strPar=new ArrayList<>();
+    final ArrayList<Integer> intPar=new ArrayList<>();
+    final ArrayList<String> strPar=new ArrayList<>();
     private String userNickname;
 
     @FXML

@@ -36,9 +36,4 @@ public class Card {
         return movement;
     }
 
-
-    /*public void setValue(int value) {
-        this.value = value;
-    }*/
-
 }

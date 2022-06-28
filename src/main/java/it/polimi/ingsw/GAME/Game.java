@@ -26,8 +26,7 @@ public class Game extends Observable {
     private final Bag bag; // where all the students are at the beginning.
     private final Board board; // main board in which there are all the common things between players (as islands, clouds...)
     public final ColorTracker red, blue, green, yellow, pink; // professors.
-    public RoundMaster roundMaster; //rounds manager.
-    private String winner; // the winner of the game
+    public final RoundMaster roundMaster; //rounds manager.
     public CharacterSelector characterSelector = null; // the object who choose the 3 characters in the game
     public final MotherNature motherNature; //main pawn of the game.
     private int MNbonus = 0; // additional movement to Mother Nature; is called by a Character.
@@ -156,9 +155,8 @@ public class Game extends Observable {
      * It changes the phase of the current Round and fills all the clouds, if we are in Planning phase. Otherwise, it creates a new round, restore the characters effects and creates a new list of cards played by players.
      * In both cases sets the order in which the players are going to play in the new phase.
      * @throws BoundException
-     * @throws ImpossibleActionException
      */
-    public void changePhase() throws BoundException, ImpossibleActionException {
+    public void changePhase() throws BoundException {
         if(lastRound && roundMaster.round.getCurrentPhase().equals("Action")) {
             gameEnd();
         }
@@ -198,8 +196,9 @@ public class Game extends Observable {
     }
 
     private void gameEnd() {
-        winner=calculateWinner();
-        update.add("GAME OVER! Winner: "+winner);
+        // the winner of the game
+        String winner = calculateWinner();
+        update.add("GAME OVER! Winner: "+ winner);
         gameOver=true;
         setChanged();
         notifyObservers(update);
@@ -231,7 +230,6 @@ public class Game extends Observable {
         }
         else{
             return "It's a draw!";
-            //TODO: Controllo di chi ha più professori per risolvere i pareggi
         }
     }
 
@@ -491,12 +489,14 @@ public class Game extends Observable {
                         {
                             boolean found=false;
                             for(Card playedCard : cardsPlayed){
-                                if(handCard.getValue()==playedCard.getValue()){
-                                    found=true;
+                                if (handCard.getValue() == playedCard.getValue()) {
+                                    found = true;
+                                    break;
                                 }
                             }
-                            if(!found){
-                                onlyUsedCards=false;
+                            if (!found) {
+                                onlyUsedCards = false;
+                                break;
                             }
                         }
                         if(onlyUsedCards){
@@ -510,11 +510,11 @@ public class Game extends Observable {
         } else throw new ImpossibleActionException("\nIt's not planning phase!\n");
     }
 
-    private void actuallyPlayCard(int playerIndex, int cardIndex) throws ImpossibleActionException, BoundException{
+    private void actuallyPlayCard(int playerIndex, int cardIndex) throws BoundException{
         cardsPlayed.add(this.players.get(playerIndex).playCard(cardIndex)); //Removes and returns the card
         valueCardPlayed.set(playerIndex, cardsPlayed.get(cardsPlayed.size()-1).getValue());
         order.remove(0);
-        update.add("\n" + this.players.get(playerIndex).nickname + " played card with index "+cardIndex);
+        update.add("\n" + this.players.get(playerIndex).nickname + " played a card!");
         if(players.get(playerIndex).getHand().getCards().isEmpty()){
             lastRound=true;
         }
@@ -555,11 +555,6 @@ public class Game extends Observable {
 
     public int getGameType() {
         return gameType;
-    }
-
-    ///
-    public void addStudentToCloud(String color, int index) {
-        board.clouds.get(index).addStudent(color);
     }
 
     public void addStudentToHall(String color, Player player) {

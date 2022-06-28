@@ -19,7 +19,6 @@ public class ConnectionManager implements Runnable{
     private GameManager gameManager; //Assigned by Starter
     private String playerName; //The nickname of the player associated to this MessageHandler
     private final Socket clientSocket;
-    private MessageType latestMessage;
     private boolean kill;
     private boolean gameHasBeenCreated;
     private int joinedGameId;
@@ -58,9 +57,7 @@ public class ConnectionManager implements Runnable{
         }
         while(!kill){
             try {
-                latestMessage = (MessageType) in.readObject();
-                if(latestMessage.type!=0)
-                    System.out.println("Ho ricevuto un messaggio "+latestMessage.type);
+                MessageType latestMessage = (MessageType) in.readObject();
                 if(latestMessage.type==5){
                     //I received a KillMessage
                     if(joinedGameId!=-1) {
@@ -86,18 +83,15 @@ public class ConnectionManager implements Runnable{
                     }
                 }
                 else{
-                    //System.out.println("GHBC: "+gameHasBeenCreated);
                     if(!gameHasBeenCreated){
                         //If I receive CreationMessage, I handle it; if I receive other messages I ignore them
                         if(latestMessage.type==1){
-                            System.out.println("Creation message");
                             CreationMessage mex= (CreationMessage) latestMessage;
                             switch (mex.creationid){
                                 case 0:
                                     //New Game
                                     try {
                                         joinedGameId = start.newGame(mex.gameType, mex.players, mex.nick);
-                                        System.out.println("New Game");
                                         this.send(new ResponseMessage("You successfully created a new game with id: "+joinedGameId, true, joinedGameId, false));
                                     }catch (Exception e){
                                         this.send(new ResponseMessage(e.getMessage(), false, null, false));
@@ -107,7 +101,6 @@ public class ConnectionManager implements Runnable{
                                     //Join Random Game
                                     try {
                                         joinedGameId = start.joinRandomGame(mex.nick);
-                                        //this.send(new ResponseMessage("You successfully joined the game with id: "+joinedGameId, true));
                                     }catch (Exception e){
                                         this.send(new ResponseMessage(e.getMessage(), false, null, false));
                                     }
@@ -116,26 +109,21 @@ public class ConnectionManager implements Runnable{
                                     //Join Game with ID
                                     try {
                                         joinedGameId = start.joinGameWithId(mex.gameid, mex.nick);
-                                        //this.send(new ResponseMessage("You successfully joined the game with id: "+joinedGameId, true));
                                     }catch (Exception e){
                                         this.send(new ResponseMessage(e.getMessage(), false, null, false));
                                     }
                                     break;
-                                case 3:
-                                    //See available games
-                                    //TODO
-                                    break;
                             }
 
                         }
-                        else System.out.println("Nope");
+                        else System.out.println("ERROR!");
                     }
                     else {
                         //If I receive ActionMessage, I add it to the queue; if I receive other messages I ignore them
                         if(latestMessage.type==3){
                             gameManager.addAction((ActionMessage) latestMessage);
                         }
-                        else System.out.println("Nope during game");
+                        else System.out.println("ERROR");
                     }
                 }
             }
@@ -145,7 +133,6 @@ public class ConnectionManager implements Runnable{
                 clientDisconnected();
             }
         }
-        System.out.println("Saluti dal Connection Manager");
     }
 
     /**

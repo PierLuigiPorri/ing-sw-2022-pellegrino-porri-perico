@@ -81,11 +81,10 @@ public class MainMenuController{
                 }
             }
             else{
-                System.out.println("Errore");
+                System.out.println("Error");
                 System.exit(0);
             }
             gui.setUserNickname(nicknameTextField.getText());
-            System.out.println((nicknameTextField.getText()));
         } else {
             showPopup("NICKNAME REQUIRED", "You need to set your nickname first!");
             popupButton1.setOnAction(e -> popupWindow.close());
@@ -148,7 +147,7 @@ public class MainMenuController{
             np =3;
         }
         else{
-            System.out.println("Errore");
+            System.out.println("Error");
             System.exit(0);
             np =0;
         }

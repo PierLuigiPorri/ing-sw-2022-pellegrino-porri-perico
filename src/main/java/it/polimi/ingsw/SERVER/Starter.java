@@ -17,7 +17,7 @@ public class Starter{
     private static final ArrayList<Creation> games =new ArrayList<>(); //List of all joinable games
     private static Integer currID=0;
 
-    private ConnectionManager cm;
+    private final ConnectionManager cm;
 
     /**
      * Constructor.

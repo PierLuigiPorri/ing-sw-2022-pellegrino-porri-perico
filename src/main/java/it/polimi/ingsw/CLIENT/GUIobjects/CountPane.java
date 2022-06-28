@@ -12,8 +12,8 @@ import javafx.scene.text.*;
  */
 public class CountPane extends Pane {
 
-    public String color;
-    public Text text;
+    public final String color;
+    public final Text text;
 
     /**
      * Constructor method. Sets the color, the current student count, the coordinates and the layout.

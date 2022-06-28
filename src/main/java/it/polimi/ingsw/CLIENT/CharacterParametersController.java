@@ -84,7 +84,6 @@ public class CharacterParametersController {
     public void refresh(int selection) {
         this.index = selection;
         update = gui.getUpdate();
-        System.out.println(update.players);
         this.userNickname = gui.getUserNickname();
         this.playersNumber = update.players.size();
         CoordinatesData.loadCoordinates();
@@ -536,7 +535,6 @@ public class CharacterParametersController {
 
 
     public int userIndex() {
-        System.out.println(userNickname);
         return update.players.indexOf(userNickname);
     }
 

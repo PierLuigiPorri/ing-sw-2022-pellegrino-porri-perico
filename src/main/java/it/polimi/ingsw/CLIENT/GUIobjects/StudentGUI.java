@@ -13,7 +13,6 @@ public class StudentGUI extends Pane{
     private final String color;
     private double stageX, stageY;
     private Coordinates coord;
-    public boolean selected=false;
 
 
     /**
@@ -72,11 +71,9 @@ public class StudentGUI extends Pane{
 
     public void setSelected(){
         this.setStyle("-fx-background-color: yellow");
-        selected=true;
     }
 
     public void deselect(){
-        selected=false;
         this.setStyle("-fx-background-color: rgba(255, 255, 255, 0.2)");
     }
 }

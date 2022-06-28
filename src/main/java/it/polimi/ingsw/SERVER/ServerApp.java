@@ -8,7 +8,6 @@ import java.net.*;
  */
 public class ServerApp
 {
-    private static int port=50000; //Connection port
     private static int connectedClients=0;
 
     /**
@@ -19,8 +18,10 @@ public class ServerApp
     public static void main(String[] args)
     {
         ServerSocket ssock=null;
-        Socket sock=null;
+        Socket sock;
         try {
+            //Connection port
+            int port = 50000;
             ssock = new ServerSocket(port);
             System.out.println("Server Socket creation successful");
         }

@@ -52,7 +52,6 @@ public class GameManager extends Observable implements Runnable, Observer {
                 }
             }
         }
-        System.out.println("Saluti dal thread game manager");
     }
 
     /**
@@ -73,7 +72,6 @@ public class GameManager extends Observable implements Runnable, Observer {
         for (ConnectionManager cm: connectionManagers) {
             cm.send(update);
         }
-        System.out.println("Server sends the update to all clients");
         if(update.gameEnded){
             for (ConnectionManager cm: connectionManagers) {
                 cm.setGameHasBeenCreated(false);

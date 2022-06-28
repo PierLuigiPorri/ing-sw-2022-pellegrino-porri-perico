@@ -21,7 +21,6 @@ public class ClientMsgHandler implements Runnable {
     private View view;
     private boolean kill;
     private final Object lock;
-    private AckSender ackSender;
 
     private final ArrayList<UpdateMessage> updates;
     private final ArrayList<ResponseMessage> responses;
@@ -62,7 +61,6 @@ public class ClientMsgHandler implements Runnable {
     public void send(MessageType message) {
         try {
             out.writeObject(message);
-            //System.out.println(message.type);
         } catch (Exception e) {
             System.out.println("Message send failed");
         }
@@ -77,7 +75,6 @@ public class ClientMsgHandler implements Runnable {
         while (!kill) {
             try {
                 MessageType latestMessage = (MessageType) in.readObject();
-                System.out.println("Received message " + latestMessage.type);
                 synchronized (lock) {
                     sort(latestMessage);
                 }
@@ -123,9 +120,5 @@ public class ClientMsgHandler implements Runnable {
     public void clearAllMessages() {
         this.updates.clear();
         this.responses.clear();
-    }
-
-    public void setAckSender(AckSender ackSender) {
-        this.ackSender = ackSender;
     }
 }

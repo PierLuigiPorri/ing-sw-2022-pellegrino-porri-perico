@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author GC56
  */
 public class Gate extends StudentSpace {
-    public int MAX;
+    public final int MAX;
 
     /**
      * Gate constructor. It constructs the list of students and sets the attribute MAX based on pcount.

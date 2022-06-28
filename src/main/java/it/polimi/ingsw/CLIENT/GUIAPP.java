@@ -33,7 +33,7 @@ import java.util.Optional;
 public class GUIAPP extends Application implements View {
 
     private String userNickname, playerNickname;
-    private final Object lock= new Object();;
+    private final Object lock= new Object();
     private ClientMsgHandler msgHandler;
     private final ArrayList<Integer> inputInt=new ArrayList<>();
     private ArrayList<Integer> third;
@@ -105,7 +105,6 @@ public class GUIAPP extends Application implements View {
     public void connect(String ip) {
         msgHandler = new ClientMsgHandler(ip, 50000, lock); //Connection setup with this IP and Port numbers
         AckSender ackSender = new AckSender(msgHandler, 2000);
-        msgHandler.setAckSender(ackSender);
         new Thread(ackSender).start();
         new Thread(msgHandler).start();
         msgHandler.setView(this);
@@ -297,7 +296,6 @@ public class GUIAPP extends Application implements View {
     @Override
     public void signalUpdate() {
         //Runs on Message Handler Thread
-        System.out.println("è arrivato un update");
         Platform.runLater(() -> update(msgHandler.getUpdates().remove(0)));
     }
 
@@ -318,8 +316,6 @@ public class GUIAPP extends Application implements View {
             }
             setScene("fxml/board.fxml");
             boardController.refresh();
-            System.out.println("Ho applicato l'update");
-            System.out.println(update.update);
             currentStage.show();
         } else {
             gameStarted = false;

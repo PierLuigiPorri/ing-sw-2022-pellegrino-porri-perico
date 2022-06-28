@@ -38,16 +38,4 @@ public class Bag {
         }
         else throw new BagEmptyException("Bag empty");
     }
-
-    /*final int MAX=130;
-
-    public int getMAX() {
-        return MAX;
-    }
-
-    public void addStudent(String color) throws ImpossibleActionException {
-        if(this.students.size()<MAX) {
-            this.students.add(new Student(color));
-        }else throw new ImpossibleActionException("The Bag is full, impossible to add students");
-    }*/
 }

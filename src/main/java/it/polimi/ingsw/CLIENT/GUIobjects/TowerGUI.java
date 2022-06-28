@@ -9,10 +9,8 @@ import javafx.scene.layout.Pane;
  */
 public class TowerGUI extends Pane {
 
-    private final String color;
 
     public TowerGUI(String color){
-        this.color=color;
         this.setWidth(46);
         this.setHeight(46);
         switch (color){
@@ -27,7 +25,4 @@ public class TowerGUI extends Pane {
         }
     }
 
-    public String getColor() {
-        return color;
-    }
 }

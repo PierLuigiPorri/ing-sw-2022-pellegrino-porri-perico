@@ -13,31 +13,30 @@ public class UpdateMessage extends MessageType{
     public boolean gameEnded;
     public int game_Type;
     public int nPlayers;
-    public ArrayList<String> order;
+    public final ArrayList<String> order;
     public String phase;
     public int turnNumber;
-    public int cloudsNumber;
     public boolean cloudtaken=false;
-    public ArrayList<Integer> valueCardsPlayed;
+    public final ArrayList<Integer> valueCardsPlayed;
 
-    public LinkedHashMap<Integer, ArrayList<Integer>> handPlayer; //In order: player, movement, value
-
-
-    public ArrayList<Integer> coinsOnPlayer;     //[positions] 0:order.get(0); 1: order.get(1); 2: order.get(2);
-    public ArrayList<Integer> towersOnPlayer;    //[positions] 0:order.get(0); 1: order.get(1); 2: order.get(2);
+    public final LinkedHashMap<Integer, ArrayList<Integer>> handPlayer; //In order: player, movement, value
 
 
-    public LinkedHashMap<Integer, ArrayList<String>> gatePlayer;
+    public final ArrayList<Integer> coinsOnPlayer;     //[positions] 0:order.get(0); 1: order.get(1); 2: order.get(2);
+    public final ArrayList<Integer> towersOnPlayer;    //[positions] 0:order.get(0); 1: order.get(1); 2: order.get(2);
 
-    //[positions] 0: red; 1: blue; 2: green; 3: yellow; 4:pink;
-    public LinkedHashMap<Integer, ArrayList<Integer>> hallPlayer;
 
+    public final LinkedHashMap<Integer, ArrayList<String>> gatePlayer;
 
     //[positions] 0: red; 1: blue; 2: green; 3: yellow; 4:pink;
-    public LinkedHashMap<Integer, ArrayList<Boolean>> professors;
+    public final LinkedHashMap<Integer, ArrayList<Integer>> hallPlayer;
 
 
-    public ArrayList<Integer> lastCardsPlayed;
+    //[positions] 0: red; 1: blue; 2: green; 3: yellow; 4:pink;
+    public final LinkedHashMap<Integer, ArrayList<Boolean>> professors;
+
+
+    public final ArrayList<Integer> lastCardsPlayed;
     //[positions] of lastCardsPlayed:
     // 0:Movement of the last card played by game.getOrder(0); 1: Value of the last card played by game.getOrder(0);
     // 2: Movement of the last card played by game.getOrder(1); 3: Value of the last card played by game.getOrder(1);
@@ -45,27 +44,25 @@ public class UpdateMessage extends MessageType{
 
     public int numIslands;
 
-    public LinkedHashMap<Integer, ArrayList<String>> studentsOnIsland;
+    public final LinkedHashMap<Integer, ArrayList<String>> studentsOnIsland;
 
-    public ArrayList<Boolean> motherNatureOnIsland; //[positions] 0: island1; 1: island2 ... True if and only if MotherNature is on THAT island;
+    public final ArrayList<Boolean> motherNatureOnIsland; //[positions] 0: island1; 1: island2 ... True if and only if MotherNature is on THAT island;
 
-    public ArrayList<Integer> towersOnIsland; //[positions] 0: island1; 1: island2 ... number of tower on every island;
-    public ArrayList<String> whoOwnTowers; //[positions] 0: who owns island1, 1: who owns island2...
+    public final ArrayList<Integer> towersOnIsland; //[positions] 0: island1; 1: island2 ... number of tower on every island;
+    public final ArrayList<String> whoOwnTowers; //[positions] 0: who owns island1, 1: who owns island2...
 
-    public LinkedHashMap<Integer, ArrayList<String>> studentsOnCloud;
+    public final LinkedHashMap<Integer, ArrayList<String>> studentsOnCloud;
 
-    public int charactersNum; // can be 0 or 3, depends on GameType.
-    public ArrayList<Integer> idCharacter; //if GameType=1, then here there will be the three id of the three characters in game.
-    public ArrayList<Boolean> activated;   // 0: true if and only if character in position 0 has been already activated. 1: true if and only if character in position 1 has been already activated...
-    public ArrayList<Integer> cardCost;
+    public final ArrayList<Integer> idCharacter; //if GameType=1, then here there will be the three id of the three characters in game.
+    public final ArrayList<Boolean> activated;   // 0: true if and only if character in position 0 has been already activated. 1: true if and only if character in position 1 has been already activated...
+    public final ArrayList<Integer> cardCost;
     public int numTD;
 
-    public ArrayList<String> players;
-    public ArrayList<Boolean> numTDOnIsland;
+    public final ArrayList<String> players;
+    public final ArrayList<Boolean> numTDOnIsland;
 
-    public LinkedHashMap<Integer, ArrayList<String>> studentsOnCard;
-    public int MNbonus;
-    public ArrayList<Integer> playersMoves;
+    public final LinkedHashMap<Integer, ArrayList<String>> studentsOnCard;
+    public final ArrayList<Integer> playersMoves;
 
     public UpdateMessage() {
         super(4);

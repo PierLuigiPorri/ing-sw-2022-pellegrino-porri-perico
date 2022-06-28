@@ -17,7 +17,7 @@
     </ImageView>
     <ButtonBar layoutX="310.0" layoutY="436.0" prefHeight="182.0" prefWidth="297.0">
         <buttons>
-            <Button fx:id="connectButton" mnemonicParsing="false" onMouseClicked="#connect" prefHeight="52.0"
+            <Button mnemonicParsing="false" onMouseClicked="#connect" prefHeight="52.0"
                     prefWidth="147.0" style="-fx-background-color: rgba(48,110,204,0.81); -fx-background-radius: 100;"
                     text="Connect" textAlignment="CENTER">
             </Button>

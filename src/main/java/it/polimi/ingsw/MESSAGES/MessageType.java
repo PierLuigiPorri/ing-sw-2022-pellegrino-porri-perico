@@ -7,7 +7,7 @@ import java.io.Serializable;
  *  @author GC56
  */
 public abstract class MessageType implements Serializable {
-    public int type;
+    public final int type;
     //0: AckMessage (Client -> Server)
     //1: CreationMessage (Client -> Server)
     //2: ResponseMessage (Server -> Client)

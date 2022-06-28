@@ -8,7 +8,6 @@ import it.polimi.ingsw.SERVER.GameManager;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -17,7 +16,6 @@ import static org.junit.Assert.*;
 public class CardsTest {
     public Game game;
     public Player p1, p2;
-    private ServerSocket k1;
 
     @Test
     public void cardsCreation() {
@@ -232,7 +230,6 @@ public class CardsTest {
     public void setUp()  {
         try {
             int i = 4000 + (int) (Math.random() * ((10000 - 4000) + 1));
-            k1 = new ServerSocket(i);
             Socket s = new Socket("127.0.0.1", i);
             GameManager gm = new GameManager(new ConnectionManager(s), new ConnectionManager(s), new ConnectionManager(s), 2);
             game = new Game(2, 1, "FRANCO", "CARMINE", null, gm);

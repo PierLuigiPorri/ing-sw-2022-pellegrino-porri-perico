@@ -17,7 +17,6 @@ public class CLIAPP {
         ip=getValidIP();
         ClientMsgHandler msgHandler = new ClientMsgHandler(ip, 50000, lock); //Connection setup with this IP and Port numbers
         AckSender ackSender = new AckSender(msgHandler, 2000);
-        msgHandler.setAckSender(ackSender);
         new Thread(ackSender).start();
         new Thread(msgHandler).start();
         new Thread(new CLI(msgHandler, lock)).start();

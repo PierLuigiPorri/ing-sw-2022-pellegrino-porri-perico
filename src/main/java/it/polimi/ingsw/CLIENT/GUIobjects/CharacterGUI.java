@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
  * @author GC56
  */
 public class CharacterGUI extends Pane {
-    int students;
+    public final int students;
 
     /**
      * Constructor parameter. Sets the coordinates and the layout.

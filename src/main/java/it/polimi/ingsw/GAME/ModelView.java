@@ -2,11 +2,9 @@ package it.polimi.ingsw.GAME;
 
 import it.polimi.ingsw.MESSAGES.UpdateMessage;
 import it.polimi.ingsw.SERVER.GameManager;
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.stream.Collectors;
 
 public class ModelView extends Observable implements Observer {
     private UpdateMessage update;
@@ -25,9 +23,8 @@ public class ModelView extends Observable implements Observer {
         if(game.getGameOver()){
             update.gameEnded=true;
         }
-        update.charactersNum = 0;
         update.update = (ArrayList<String>) arg;
-        update.update= update.update.stream().collect(Collectors.toCollection(ArrayList::new));
+        update.update= new ArrayList<>(update.update);
         setGameAttributes();
         setBoardAttributes();
         setPlayersAttributes();
@@ -78,8 +75,6 @@ public class ModelView extends Observable implements Observer {
             }
             update.studentsOnCloud.put(i, tmp);
         }
-
-        update.cloudsNumber = game.getBoard().clouds.size();
 
         for (int i = 1; i <= game.getBoard().islands.size(); i++) {
             if (game.getBoard().islands.getIsland(i).getPlayer() != null)
@@ -171,7 +166,6 @@ public class ModelView extends Observable implements Observer {
 
     private void setExpertGameAttributes() {
         if (update.game_Type == 1) {
-            update.charactersNum = 3;
             for (Player p : game.getPlayers()) {
                 update.coinsOnPlayer.add(p.getCoins());
             }
@@ -184,7 +178,6 @@ public class ModelView extends Observable implements Observer {
             update.activated.add(game.characterSelector.getCharacters().get(0).getUsed());
             update.activated.add(game.characterSelector.getCharacters().get(1).getUsed());
             update.activated.add(game.characterSelector.getCharacters().get(2).getUsed());
-            update.MNbonus = game.getMNbonus();
             update.numTD = 0;
 
             for (CharacterType c :

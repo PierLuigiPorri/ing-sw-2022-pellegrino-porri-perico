@@ -9,7 +9,7 @@ import java.util.Comparator;
  */
 public class Round {
     private final ArrayList<Player> player;
-    private ArrayList<Player> order;
+    private final ArrayList<Player> order;
     private String currentPhase;
 
     /**

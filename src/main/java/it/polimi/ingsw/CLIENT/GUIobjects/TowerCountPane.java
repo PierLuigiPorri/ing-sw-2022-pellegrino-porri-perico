@@ -12,7 +12,7 @@ import javafx.scene.text.TextAlignment;
  * @author GC56
  */
 public class TowerCountPane extends Pane {
-    public Text text;
+    public final Text text;
 
     public TowerCountPane(int count){
         this.setHeight(42);

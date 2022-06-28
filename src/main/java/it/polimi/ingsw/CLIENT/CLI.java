@@ -209,7 +209,7 @@ public class CLI implements View, Runnable {
                     lock.wait(1000);
                 }
                 refresh();
-            } catch (InterruptedException | IOException e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             if (responseNeeded) {
@@ -266,7 +266,7 @@ public class CLI implements View, Runnable {
      * Main I/O method. Prints the user interface and asks the user for input, then calls the corresponding method to perform the request.
      * Shows to user only the performable action in every specific phase of the game.
      */
-    public void refresh() throws InterruptedException, IOException {
+    public void refresh() {
         System.out.println("\n" + ANSI_CYAN + "*********************************************************************************" + ANSI_RESET);
         int choice;
         ArrayList<String> actions;

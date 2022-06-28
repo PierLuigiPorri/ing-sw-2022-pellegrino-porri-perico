@@ -9,7 +9,7 @@ import it.polimi.ingsw.EXCEPTIONS.EmptyQueueException;
  */
 public class AckReceiver implements Runnable{
 
-    private ConnectionManager cm;
+    private final ConnectionManager cm;
     private boolean kill;
 
     /**
@@ -27,16 +27,17 @@ public class AckReceiver implements Runnable{
         while(!kill){
             try {
                 Thread.sleep(60000);
-            } catch (InterruptedException e){}
+            } catch (InterruptedException e){
+                kill=true;
+                cm.clientDisconnected();
+            }
             try {
                 cm.clearAck();
-                System.out.println("ACK ricevuti da "+cm.toString());
             }catch (EmptyQueueException e){
                 kill=true;
                 cm.clientDisconnected();
             }
         }
-        System.out.println("AckReceiver killed");
     }
 
     public void setKill() {

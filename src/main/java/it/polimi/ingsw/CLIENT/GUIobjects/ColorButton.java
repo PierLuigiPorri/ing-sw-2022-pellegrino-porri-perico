@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
  * @author GC56
  */
 public class ColorButton extends ToggleButton {
-    public String color;
+    public final String color;
 
     /**
      * Constructor method. Sets the button style based on the color.

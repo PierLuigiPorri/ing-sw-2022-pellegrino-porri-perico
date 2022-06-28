@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author GC56
  */
 public class Board {
-    public ArrayList<Cloud> clouds;
+    public final ArrayList<Cloud> clouds;
     public final CircularList islands;
 
     /**

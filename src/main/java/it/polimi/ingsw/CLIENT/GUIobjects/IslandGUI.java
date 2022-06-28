@@ -12,14 +12,12 @@ import java.util.Random;
  */
 public class IslandGUI extends Pane {
 
-    private int index;
+    private final int index;
     private int red=0;
     private int blue=0;
     private int green=0;
     private int yellow=0;
     private int pink=0;
-    private int towers=0;
-    private boolean selected=false;
 
     /**
      * Constructor method. Sets layout and coordinates, then randomly sets an image.
@@ -55,10 +53,6 @@ public class IslandGUI extends Pane {
 
     public int getIndex() {
         return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     public int getRed() {
@@ -101,21 +95,11 @@ public class IslandGUI extends Pane {
         this.pink++;
     }
 
-    public int getTowers() {
-        return towers;
-    }
-
-    public void setTowers(int towers) {
-        this.towers = towers;
-    }
-
     public void setSelected(){
         this.setStyle("-fx-background-color: yellow");
-        selected=true;
     }
 
     public void deselect(){
         this.setStyle(null);
-        selected=false;
     }
 }

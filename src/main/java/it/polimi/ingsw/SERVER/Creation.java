@@ -5,14 +5,14 @@ package it.polimi.ingsw.SERVER;
  * @author GC56
  */
 public class Creation {
-    private int id;
-    private int nPlayers;
-    private int gametype; //0: simplified rules, 1: expert rules
+    private final int id;
+    private final int nPlayers;
+    private final int gametype; //0: simplified rules, 1: expert rules
     private int nJoined;
-    private String nick1;
+    private final String nick1;
     private String nick2=null;
     private String nick3=null;
-    private ConnectionManager cm1;
+    private final ConnectionManager cm1;
     private ConnectionManager cm2;
     private ConnectionManager cm3;
 

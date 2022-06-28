@@ -54,5 +54,4 @@ public class CreationMessage extends MessageType{
         else throw new MessageCreationError("Impossible to create this message");
     }
 
-    //Possibilità di espansione: costruttore per seeAvailableGames
 }
