@@ -653,9 +653,6 @@ public class Game extends Observable {
         } else throw new IllegalArgumentException("\n" + color + " does not exist as a color in this game.\n");
     }
 
-    public int getMNbonus() {
-        return MNbonus;
-    }
 
     public void setMNbonus() {
         this.MNbonus = 2;
