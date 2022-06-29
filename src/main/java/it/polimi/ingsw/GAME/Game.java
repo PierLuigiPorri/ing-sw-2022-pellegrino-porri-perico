@@ -462,6 +462,13 @@ public class Game extends Observable {
         }
     }
 
+    /**
+     * Method called when a player wants to play an assistant card.
+     * @param player The player who plays the card
+     * @param index The position of the Card in the list of cards in Hand; it does not always correspond to the attribute Value of a Card.
+     * @throws ImpossibleActionException if the card can't be played
+     * @throws BoundException from ChangePhase();
+     */
     public void playCard(String player, int index) throws ImpossibleActionException, BoundException {
         if (roundMaster.round.getCurrentPhase().equals("Planning")) {
             if (index >= 0 && index < 10) {
@@ -508,6 +515,12 @@ public class Game extends Observable {
         } else throw new ImpossibleActionException("\nIt's not planning phase!\n");
     }
 
+    /**
+     * Method called by playCard() after checking that the move is "legal".
+     * @param playerIndex Index of the player in the ArrayList players
+     * @param cardIndex The position of the Card in the list of cards in Hand; it does not always correspond to the attribute Value of a Card.
+     * @throws BoundException in case of unexpected errors
+     */
     private void actuallyPlayCard(int playerIndex, int cardIndex) throws BoundException{
         cardsPlayed.add(this.players.get(playerIndex).playCard(cardIndex)); //Removes and returns the card
         valueCardPlayed.set(playerIndex, cardsPlayed.get(cardsPlayed.size()-1).getValue());

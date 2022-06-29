@@ -50,7 +50,7 @@ public class Player {
     }
 
     /**
-     * Plays a card with the specified index. The index specify the position of the Card in the list of cards in Hand, so it does not correspond to the attribute Value of a Card.
+     * Plays a card with the specified index. The index specify the position of the Card in the list of cards in Hand, so it does not always correspond to the attribute Value of a Card.
      * @param index the index, in Hand, of the card to play.
      * @return the Card played.
      * @requires index>=0 && index<=10
