@@ -12,9 +12,21 @@ import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * This class manages the exceptions found by the Game class (our Model+Controller in MVC), sending Response messages when necessary
+ * @author GC56
+ */
 public class Controller implements Observer{
     private final Game game;
     private final ArrayList<ConnectionManager> connectionManagers; //Potranno essere usati per rispondere alle loro stesse richieste
+
+    /**
+     * Constructor.
+     * @param game The game
+     * @param cm1 Connection Manager of player 1
+     * @param cm2 Connection Manager of player 2
+     * @param cm3 Connection Manager of player 3. null if it's a 2-player game
+     */
     public Controller(Game game, ConnectionManager cm1, ConnectionManager cm2, ConnectionManager cm3){
         this.game=game;
         connectionManagers=new ArrayList<>();
