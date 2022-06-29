@@ -68,7 +68,8 @@ public class CardsTest {
             int quant = 0;
             System.out.println("\n " + game.characterSelector.getCharacters().get(0).getIndex());
             switch (game.characterSelector.getCharacters().get(0).getIndex()) { //not all the cards are tested due to not being necessary
-                case 0:
+                //Setup of the test
+                case 0: //This memorizes the number of student of a given color, then afterwards check if the number is changed by +1
                     ConcreteCharacter car = (ConcreteCharacter) game.characterSelector.getCharacters().get(0);
                     temp = car.getStudents().get(1).getColor();
                     for (Student st : game.getBoard().islands.getIsland(2).getStudents()) {
@@ -85,7 +86,7 @@ public class CardsTest {
                     assertEquals(car3.getTD(), 4);
                     assertFalse(game.getBoard().islands.getIsland(1).TD);
                     break;
-                case 5:
+                case 5: //This puts a tower on a given island, then afterwards checks the influence again to confirm the tower doesn't count
                     game.addStudentToIsland("RED", 1);
                     game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
                     game.addStudentToHall("GREEN", game.playerTranslator("CARMINE"));
@@ -98,7 +99,7 @@ public class CardsTest {
                     assertEquals(car5.getStudents().size(), 6);
                     assertEquals(game.getPlayers().get(0).getGate().getStudents().size(), 7);
                     break;
-                case 8:
+                case 8: //same as Index 5, but with a color.
                     game.addStudentToIsland("RED", 1);
                     game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
                     game.addStudentToHall("GREEN", game.playerTranslator("CARMINE"));
@@ -108,7 +109,8 @@ public class CardsTest {
                     game.addStudentToIsland("GREEN", 1);
                     game.addStudentToIsland("GREEN", 1);
                     break;
-                case 9:
+                case 9:    //this sets a specific game state with the colors, then afterwards checks if the card effect changed the state by removing the professor from
+                           //the player that had it.
                     game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
                     game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
                     game.addStudentToHall("RED", game.playerTranslator("CARMINE"));
@@ -130,7 +132,7 @@ public class CardsTest {
                     game.determineInfluence(1);
                     assertTrue(game.getBoard().islands.getIsland(1).getTowers().isEmpty());
                     break;
-                case 11:
+                case 11:    //same as Index 9.
                     game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
                     game.addStudentToHall("RED", game.playerTranslator("FRANCO"));
                     game.addStudentToHall("RED", game.playerTranslator("FRANCO"));

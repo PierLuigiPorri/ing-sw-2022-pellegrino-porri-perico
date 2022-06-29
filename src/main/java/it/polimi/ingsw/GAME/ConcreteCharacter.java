@@ -121,7 +121,6 @@ public class ConcreteCharacter extends StudentSpace implements CharacterType, TD
      */
     @Override
     public void removeTD(){
-        //TODO: assert che non siano 0
         if(this.index==4&& this.TD>0) this.TD--;
     }
 
