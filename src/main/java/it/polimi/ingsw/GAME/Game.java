@@ -746,11 +746,21 @@ public class Game extends Observable {
     }
     ///
 
+    /**
+     *
+     * @param player
+     * @param id
+     * @param intpar
+     * @param strpar
+     * @param intpar2
+     * @throws ImpossibleActionException
+     */
     public void activateCharacter(String player, int id, ArrayList<Integer> intpar, ArrayList<String> strpar, ArrayList<Integer> intpar2) throws ImpossibleActionException {
         //Keep the unused parameters null, and always use the first parameter in numeric order by type.
         //Parameters will be filled client-side. Parameters marked with "A" are used by AbstractCharacters, with "C" by ConcreteCharacters, and with "AC" by both.
         Player p = playerTranslator(player);
         if (p.getCoins() >= characterSelector.getCost(id)) {
+            // removes the coins from the player and activate the effect of the called character.
             p.removeCoin(characterSelector.getCost(id));
             update.add("\n Heads up! " + player + " just activated the Character card " + id + "!" + "\n" +
                     characterSelector.applyEffect(id, p, intpar, strpar, intpar2));
@@ -784,8 +794,17 @@ public class Game extends Observable {
         }
     }
 
+    /**
+     * Returns an object Player from the specified name. The Player returned is the one with nickname equals to the specified one.
+     * It is used to translate the specified nickname to the corresponding Player.
+     * @param name the nickname of a Player.
+     * @return the Player whom nickname is name.
+     * @throws IllegalArgumentException if no Player has 'name' as nickname
+     * @requires name!=null
+     */
     public Player playerTranslator(String name) throws IllegalArgumentException {
         if (name.equals(players.get(0).nickname) || name.equals(players.get(1).nickname) || name.equals(players.get(2).nickname)) {
+            // one and only one Player has 'name' as nickname.
             if (players.get(0).nickname.equals(name))
                 return players.get(0);
             else if (players.get(1).nickname.equals(name))
@@ -795,9 +814,18 @@ public class Game extends Observable {
         } else throw new IllegalArgumentException("\n" + name + " does not exists as a nickname.\n");
     }
 
+    /**
+     * Returns a ColorTracker from the specified color. The ColorTracker returned is the one with the same color as the specified one.
+     * It is used to translate the specified color to the corresponding ColorTracker. Mainly used to calculate influence on an island.
+     * @param color the color to be "translated" into a ColorTracker
+     * @return the corresponding ColorTracker.
+     * @throws IllegalArgumentException if the specified color does not exist as a color in this game.
+     * @requires color!=null
+     */
     public ColorTracker colorTranslator(String color) throws IllegalArgumentException {
         ColorTracker color1;
         if (color.equals("RED") || color.equals("BLUE") || color.equals("YELLOW") || color.equals("GREEN") || color.equals("PINK")) {
+            // one and only one ColorTracker has 'color' as its color.
             switch (color) {
                 case "RED":
                     color1 = red;
@@ -819,32 +847,60 @@ public class Game extends Observable {
         } else throw new IllegalArgumentException("\n" + color + " does not exist as a color in this game.\n");
     }
 
-
+    /**
+     * It sets the MotherNature movement bonus to 2, which is the only one value possible, since it can be set by only one character.
+     * @ensures this.MNbonus==2;
+     */
     public void setMNbonus() {
         this.MNbonus = 2;
     }
 
+    /**
+     * It sets the MotherNature movement bonus to 0, which is the default value. It is called at the end of every turn in which a character as been activated.
+     * @ensures this.MNbonus==0;
+     */
     public void disableMNbonus() {
         this.MNbonus = 0;
     }
 
+    /**
+     * It sets the bonus influence to a specified Player. The bonus influence is always equals to 2 and can be set by only one character.
+     * @param p the Player who is going to receive the bonus on influence.
+     * @ensures this.PwBonus.equals(p) && this.InfluenceBonus==2
+     */
     public void enableInfluenceBonus(Player p) {
         this.PwBonus = p;
         this.InfluenceBonus = 2;
     }
 
+    /**
+     * Returns the list of last card played by each player. The list's order follows the order in which the players have played their card.
+     * @return the list of last card played by each player.
+     */
     public ArrayList<Card> getCardsPlayed() {
         return cardsPlayed;
     }
 
+    /**
+     * It disables the bonus on influence, setting it to 0.
+     * @ensures this.InfluenceBonus == 0
+     */
     public void disableInfluenceBonus() {
         this.InfluenceBonus = 0;
     }
 
+    /**
+     * Returns the number of players in this game.
+     * @return the number of players in this game.
+     */
     public int getPlayerCount() {
         return playerCount;
     }
 
+    /**
+     * Returns the list of values of the last card played by each player. The list's order follows the players list's order. So the order of the values is always the same: in the first position there will always be the value of the card played by the player who is in first position of the list players, and so on.
+     * @return the list of values of the last card played by each player.
+     */
     public ArrayList<Integer> getValueCardPlayed(){
         return valueCardPlayed;
     }

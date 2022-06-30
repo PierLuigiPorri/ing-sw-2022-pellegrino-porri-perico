@@ -18,7 +18,7 @@ import java.util.Observer;
  */
 public class Controller implements Observer{
     private final Game game;
-    private final ArrayList<ConnectionManager> connectionManagers; //Potranno essere usati per rispondere alle loro stesse richieste
+    private final ArrayList<ConnectionManager> connectionManagers; //Can be used to answer to itself requests
 
     /**
      * Constructor.
@@ -37,6 +37,12 @@ public class Controller implements Observer{
         }
     }
 
+    /**
+     * It calls the class Game to perform the action of moving a student from the Gate to an Island.
+     * @param name
+     * @param index
+     * @param indexIsland
+     */
     public void gateToIsland(String name, int index, int indexIsland) {
             try {
                 game.gateToIsland(name, index, indexIsland);
@@ -45,6 +51,12 @@ public class Controller implements Observer{
             }
     }
 
+    /**
+     * It calls the class Game to perform the action of moving a student from the Gate to the player's Hall.
+     *  It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
+     * @param name
+     * @param color
+     */
     public void gateToHall(String name, String color) {
             try {
                 game.gateToHall(name, color);
@@ -53,6 +65,12 @@ public class Controller implements Observer{
             }
     }
 
+    /**
+     * It calls the class Game to perform the action of moving students from a cloud to player's Gate.
+     *  It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
+     * @param player
+     * @param cIndex
+     */
     public void CloudToGate(String player, int cIndex) {
             try {
                 game.CloudToGate(player, cIndex);
@@ -61,6 +79,12 @@ public class Controller implements Observer{
             }
     }
 
+    /**
+     * It calls the class Game to perform the action of moving MotherNature from an Island to another one.
+     *  It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
+     * @param name
+     * @param movement
+     */
     public void moveMotherNature(String name, int movement) {
             try {
                 game.moveMotherNature(name, movement);
@@ -69,6 +93,12 @@ public class Controller implements Observer{
             }
     }
 
+    /**
+     * It calls the class Game to perform the action of playing a card from the player's Hand.
+     *  It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
+     * @param player
+     * @param index
+     */
     public void playCard(String player, int index){
             try {
                 game.playCard(player, index);
@@ -77,6 +107,14 @@ public class Controller implements Observer{
             }
     }
 
+    /**
+     * It calls the class Game to perform the action of activating a character card.
+     * It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
+     * @param name
+     * @param a
+     * @param b
+     * @param c
+     */
     public void activateCharacter(String name, ArrayList<String> a, ArrayList<Integer> b, ArrayList<Integer> c){
             try {
                 String pl=a.remove(0);
@@ -87,6 +125,11 @@ public class Controller implements Observer{
             }
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     private ConnectionManager getCorrectCm(String name){
         for (ConnectionManager cm:
              connectionManagers) {
