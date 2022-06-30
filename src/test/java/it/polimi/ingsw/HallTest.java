@@ -23,6 +23,7 @@ public class HallTest {
     @Test
     public void setColor() {
         if(game!=null) {
+            // adds some student to players hall
             game.addStudentToHall("RED", player);
             game.addStudentToHall("RED", player);
             game.addStudentToHall("BLUE", player);
@@ -38,6 +39,7 @@ public class HallTest {
             y = game.getColor(player, "YELLOW");
             p = game.getColor(player, "PINK");
 
+            // verifying the number of students for each color is correct
             Assert.assertEquals(0, y);
             Assert.assertEquals(3, r);
             Assert.assertEquals(1, b);
@@ -50,6 +52,7 @@ public class HallTest {
     @Test
     public void desetColor() {
         if (game != null) {
+            // setting a certain number of students in a hall
             player.getHall().setColor("PINK");
             player.getHall().setColor("RED");
             player.getHall().setColor("RED");
@@ -73,6 +76,7 @@ public class HallTest {
             player.getHall().setColor("YELLOW");
             player.getHall().setColor("YELLOW");
 
+            // removing a certain number of students
             game.removeFromHall(player, "RED");
             game.removeFromHall(player, "RED");
             game.removeFromHall(player, "BLUE");
@@ -88,6 +92,7 @@ public class HallTest {
             y = game.getColor(player, "YELLOW");
             p = game.getColor(player, "PINK");
 
+            //verifying the final values are correct.
             Assert.assertEquals(5, y);
             Assert.assertEquals(2, r);
             Assert.assertEquals(1, b);

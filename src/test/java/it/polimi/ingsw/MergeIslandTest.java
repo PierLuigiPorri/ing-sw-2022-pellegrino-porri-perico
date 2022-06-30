@@ -29,23 +29,28 @@ public class MergeIslandTest {
     @Test
     public void mergeIslandsTest() {
         if (game != null) {
-            Assert.assertEquals(12, game.getBoard().islands.size());
+            Assert.assertEquals(12, game.getBoard().islands.size()); // there are 12 islands
             //game.mergeIslands(1, 3); returns the correct exceptions. it.polimi.ingsw.EXCEPTIONS.ConsecutiveIslandException:
             // The islands are not consecutive, impossible to merge!
             Assert.assertEquals(12, game.getBoard().islands.size());
+            // merging two islands without having towers on them
             game.mergeIslands(1, 2);
-            Assert.assertEquals(12, game.getBoard().islands.size());
+            Assert.assertEquals(12, game.getBoard().islands.size()); //verifying the merge has not happened
+            //placing towers
             game.getBoard().islands.getIsland(11).addTower(player);
             game.getBoard().islands.getIsland(12).addTower(player);
+            //merging islands
             game.mergeIslands(11, 12);
-            Assert.assertFalse(game.getBoard().islands.contains(game.getBoard().islands.getIsland(12)));
-            Assert.assertEquals(11, game.getBoard().islands.size());
+            Assert.assertFalse(game.getBoard().islands.contains(game.getBoard().islands.getIsland(12))); // there is no more island 12
+            Assert.assertEquals(11, game.getBoard().islands.size()); // island size is 11
+            // add a tower on a new island
             game.getBoard().islands.getIsland(1).addTower(player);
+            //merging the previous SuperIsland (which is the last one) with the head of the CircularList
             game.mergeIslands(1, 11);
-            Assert.assertEquals(10, game.getBoard().islands.size());
-            Assert.assertEquals(game.getBoard().islands.getIsland(10).getIslandCount(), 1);
-            Assert.assertEquals(game.getBoard().islands.getIsland(1).getIslandCount(), 3);
-            Assert.assertEquals(game.getBoard().islands.getIsland(1).getTowers().size(), 3);
+            Assert.assertEquals(10, game.getBoard().islands.size()); // verifying there are 10 island left
+            Assert.assertEquals(game.getBoard().islands.getIsland(10).getIslandCount(), 1); //the number of islands that compose island10 is 1
+            Assert.assertEquals(game.getBoard().islands.getIsland(1).getIslandCount(), 3); //the number of islands that compose island1 is 3 (3 island merged)
+            Assert.assertEquals(game.getBoard().islands.getIsland(1).getTowers().size(), 3); // number of towers on island 1 is 3
 
             System.out.println("TEST PASSATO!");
         }
