@@ -1,15 +1,10 @@
 # ing-sw-2022-pellegrino-porri-perico
 
-Inoltre il readme su github dovrà indicare:
-
-cosa si è implementato (facendo riferimento alla tabella dei voti presente nel file dei requisiti)
-
 Abbiamo implementato: Regole Complete + CLI + GUI + Socket + 2 FA
 Le 2 FA sono: Carte Personaggio (tutte), Partite Multiple
 
 
-coverage dei test come riportato dal tool di IntelliJ
-
+Coverage dei test come riportato dal tool di IntelliJ:
 Package GAME (Model + Controller + ModelView):
 Classes 100% (24/24)
 Methods 95% (170/178)
@@ -26,15 +21,14 @@ Lines 9% (32/328)
 Per ottenere questi valori è necessario runnare i test molte volte (run until failure o until stopped)
 perché alcuni test hanno una componente casuale
 
-modalità per lanciare server e client dalla linea di comando (usando i jar)
 
-Server: comando java -jar "JAR_PATH" su cmd o PowerShell
-CLI: comando java -jar "JAR_PATH" su PowerShell (x86). Su cmd, i colori ASCII non si vedono correttamente
-GUI: doppio click sul JAR -> apertura con Java ; oppure comando java -jar "JAR_PATH" su cmd o PowerShell
+Modalità per lanciare server e client dalla linea di comando (usando i jar):
+Server: comando java -jar "JAR_PATH" su cmd
+CLI: comando java -jar "JAR_PATH" su Windows Terminal. Su cmd, i colori ASCII non si vedono correttamente
+GUI: doppio click sul JAR -> apertura con Java ; oppure comando java -jar "JAR_PATH" su cmd
 
 
-ogni altra indicazione che possa essere utile a testare l'applicazione
-
+Altre indicazioni utili a testare l'applicazione:
 Come specificato anche da Daniele Cattaneo su Slack è necessario aver scaricato il JDK.
 Inoltre, naturalmente, è necessario che il server sia avviato prima di cercare di connettersi da uno dei client.
 Il server non prevede un comando di chiusura, si chiude alla chiusura della finestra cmd o PowerShell associata.
