@@ -771,6 +771,13 @@ public class Game extends Observable {
         update.clear();
     }
 
+    /**
+     * This method is called every time the number of students in any hall is changed.
+     * Checks the current ownership of each Professor following a particular rule depending on
+     * if a specific Character Effect is activated or not.
+     * @param rule Boolean indicating if the Character effect that lets a Professor change ownership even
+     *             if the number of students of its color is the same in both hall is activated or not.
+     */
     public void checkColorChanges(boolean rule) {
         ArrayList<String> colors = new ArrayList<>();
         colors.add("RED");
