@@ -747,13 +747,14 @@ public class Game extends Observable {
     ///
 
     /**
-     *
-     * @param player
-     * @param id
-     * @param intpar
-     * @param strpar
-     * @param intpar2
-     * @throws ImpossibleActionException
+     * Method called by the Controller class when an effect activation request is received. Checks if the player has enough coins, then relays the
+     * request to the characterSelector. When the effect is applied, stores the String received to be added to the updateMessage.
+     * @param player The player who activated the effect.
+     * @param id The id of the activated card.
+     * @param intpar The first ArrayList of integer parameters needed for the effects.
+     * @param strpar The Arraylist of String parameters needed for the effects.
+     * @param intpar2 The second Arraylist of integer parameters, needed for some effects.
+     * @throws ImpossibleActionException Thrown when the player who activated the card doesn't have enough coins to actually activate it.
      */
     public void activateCharacter(String player, int id, ArrayList<Integer> intpar, ArrayList<String> strpar, ArrayList<Integer> intpar2) throws ImpossibleActionException {
         //Keep the unused parameters null, and always use the first parameter in numeric order by type.

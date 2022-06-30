@@ -113,9 +113,9 @@ public class Controller implements Observer{
      * It calls the class Game to perform the action of activating a character card.
      * It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
      * @param name the nickname of the player who wants to activate a character.
-     * @param a
-     * @param b
-     * @param c
+     * @param a The first ArrayList of integer parameters needed for the effects.
+     * @param b The Arraylist of String parameters needed for the effects.
+     * @param c The second Arraylist of integer parameters, needed for some effects.
      */
     public void activateCharacter(String name, ArrayList<String> a, ArrayList<Integer> b, ArrayList<Integer> c){
             try {
