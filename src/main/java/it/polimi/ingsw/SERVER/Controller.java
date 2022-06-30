@@ -26,6 +26,7 @@ public class Controller implements Observer{
      * @param cm1 Connection Manager of player 1
      * @param cm2 Connection Manager of player 2
      * @param cm3 Connection Manager of player 3. null if it's a 2-player game
+     * @requires game!=null && cm1!=null && cm2!=null
      */
     public Controller(Game game, ConnectionManager cm1, ConnectionManager cm2, ConnectionManager cm3){
         this.game=game;
@@ -39,9 +40,10 @@ public class Controller implements Observer{
 
     /**
      * It calls the class Game to perform the action of moving a student from the Gate to an Island.
-     * @param name
-     * @param index
-     * @param indexIsland
+     * It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
+     * @param name the nickname of the player who wants to move a student.
+     * @param index the index of the student in the gate
+     * @param indexIsland the index of the island in which the students could be moved.
      */
     public void gateToIsland(String name, int index, int indexIsland) {
             try {
@@ -53,9 +55,9 @@ public class Controller implements Observer{
 
     /**
      * It calls the class Game to perform the action of moving a student from the Gate to the player's Hall.
-     *  It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
-     * @param name
-     * @param color
+     * It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
+     * @param name the nickname of the player who wants to move a student.
+     * @param color the color of the student to be moved to player's hall.
      */
     public void gateToHall(String name, String color) {
             try {
@@ -68,8 +70,8 @@ public class Controller implements Observer{
     /**
      * It calls the class Game to perform the action of moving students from a cloud to player's Gate.
      *  It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
-     * @param player
-     * @param cIndex
+     * @param player the nickname of the player who wants to take students.
+     * @param cIndex the index of the cloud from which the students are taken.
      */
     public void CloudToGate(String player, int cIndex) {
             try {
@@ -82,8 +84,8 @@ public class Controller implements Observer{
     /**
      * It calls the class Game to perform the action of moving MotherNature from an Island to another one.
      *  It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
-     * @param name
-     * @param movement
+     * @param name the nickname of the player who wants to move a MotherNature.
+     * @param movement the movement given to MotherNature.
      */
     public void moveMotherNature(String name, int movement) {
             try {
@@ -96,8 +98,8 @@ public class Controller implements Observer{
     /**
      * It calls the class Game to perform the action of playing a card from the player's Hand.
      *  It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
-     * @param player
-     * @param index
+     * @param player the nickname of the player who wants to play a card.
+     * @param index the index of the card in player's hand.
      */
     public void playCard(String player, int index){
             try {
@@ -110,7 +112,7 @@ public class Controller implements Observer{
     /**
      * It calls the class Game to perform the action of activating a character card.
      * It checks if everything is correct: if is not sends a Response message to the client who called this method. Otherwise, it calls the Game class to perform it.
-     * @param name
+     * @param name the nickname of the player who wants to activate a character.
      * @param a
      * @param b
      * @param c
@@ -126,9 +128,9 @@ public class Controller implements Observer{
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * Returns the connection manager of a specified player with nickname as specified
+     * @param name the nickname of the player.
+     * @return the connection manager of the player.
      */
     private ConnectionManager getCorrectCm(String name){
         for (ConnectionManager cm:
