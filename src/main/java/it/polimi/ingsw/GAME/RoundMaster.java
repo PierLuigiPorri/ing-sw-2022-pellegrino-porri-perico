@@ -16,7 +16,7 @@ public class RoundMaster {
     /**
      * RoundMaster constructor. It constructs the order list and creates the first Round.
      * @param players the list of players that are playing the Game.
-     * @requires players!=null
+     * requires players!=null
      */
     public RoundMaster(ArrayList<Player> players) {
         this.roundCount = 0;
@@ -35,8 +35,9 @@ public class RoundMaster {
      * Changes the current phase of a Round. If the current phase is Planning, then is time to go to the Action phase of the Round.
      * If is Action phase, then is time to construct a new Round. It returns the order in which the players are going to play in the next phase.
      * It is called when every player has correctly finished the current phase.
+     * ensures !this.round.getCurrentPhase.equals(\old(this.round.getCurrentPhase)) && (\forAll int i; i>=0 && i<this.order.size(); this.order.contains(this.order.get(i)))
+     *
      * @return the order in which the players are going to play in the new phase.
-     * @ensures !this.round.getCurrentPhase.equals(\old(this.round.getCurrentPhase)) && (\forAll int i; i>=0 && i<this.order.size(); this.order.contains(this.order.get(i)))
      */
     public ArrayList<Player> changePhase() {
 

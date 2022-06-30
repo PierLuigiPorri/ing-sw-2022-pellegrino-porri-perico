@@ -13,9 +13,9 @@ public class CircularList {
     /**
      * This method is called at the beginning, to build the CircularList adding islands to it.
      * As the model stands at the moment, is called 12 times, one for each island.
+     * ensures (\old(CircularList.size()) == CircularList.size()-1)
      * @param i Index of the island to be added. Int value between 1-12.
-     * @requires (i!=null)
-     * @ensures (\old(CircularList.size()) == CircularList.size()-1)
+     * (i!=null)
      * @author GC56
      */
     public void add(Island i){
@@ -38,8 +38,9 @@ public class CircularList {
     /**
      * Returns the island at the specified position in the CircularList.
      * @param index the index of the island to return.
+     *              requires (index>=1 && index<=12)
      * @return the Island class instance specified with the index.
-     * @requires (index>=1 && index<=12)
+     *
      * @author GC56
      */
     public Island getIsland(int index){
@@ -76,10 +77,10 @@ public class CircularList {
 
     /**
      * Merges two islands into one. It is called whenever two consecutive islands have to merge following conditions dictated by the game's logic.
+     * requires (i1!= null && i2!=null && (i1.getId()==i2.getId()+1 || i1.getId()+1=i2.getId()))
+     * ensures (!CircularList.contains(i1) && !CircularList.contains(i2) && CircularList.size()-1==\old(CircularList.size()))
      * @param i1 one of the two islands to be merged.
      * @param i2 the other island of the two to be merged.
-     * @requires (i1!= null && i2!=null && (i1.getId()==i2.getId()+1 || i1.getId()+1=i2.getId()))
-     * @ensures (!CircularList.contains(i1) && !CircularList.contains(i2) && CircularList.size()-1==\old(CircularList.size()))
      * @author GC56
      */
     public void mergeIslands(Island i1, Island i2){
@@ -158,7 +159,7 @@ public class CircularList {
     /**
      * Says if the specified island is contained in the CircularList.
      * @param i the island to be searched in the CircularList.
-     * @requires (i!=null && i.getId()>=head.getID() && i.getId<=tail.getId())
+     * requires (i!=null && i.getId()>=head.getID() && i.getId<=tail.getId())
      * @return true if and only if the specified island is contained in the CircularList.
      * @author GC56
      */

@@ -13,8 +13,8 @@ public class Gate extends StudentSpace {
 
     /**
      * Gate constructor. It constructs the list of students and sets the attribute MAX based on pcount.
+     * requires (pcount==2 || pcount ==3)
      * @param pcount players number.
-     * @requires (pcount==2 || pcount ==3)
      * @author GC56
      */
     public Gate(int pcount) {

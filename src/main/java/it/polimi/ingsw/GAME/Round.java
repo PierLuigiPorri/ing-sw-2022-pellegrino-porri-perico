@@ -16,9 +16,9 @@ public class Round {
      * Round constructor. It constructs the list Order, in which will be identified the order of the next phase.
      * It sets the current phase to Planning phase, since when a round is created is always in this one.
      * The method is called at most 10 times each Game.
+     * requires players!=null && (players.size()==2 || players.size()==3)
+     * ensures this.order.equals(players) && this.currentPhase.equals("Planning")
      * @param players the list of players that are playing.
-     * @requires players!=null && (players.size()==2 || players.size()==3)
-     * @ensures this.order.equals(players) && this.currentPhase.equals("Planning")
      * @author GC56
      */
     public Round(ArrayList<Player> players){
@@ -44,9 +44,9 @@ public class Round {
 
     /**
      * Sets the specified phase to this Turn's phase.
+     * requires currentPhase!=null
+     * ensures this.currentPhase.equals(currentPhase)
      * @param currentPhase the phase to be assigned to the Turn.
-     * @requires currentPhase!=null
-     * @ensures this.currentPhase.equals(currentPhase)
      * @author GC56
      */
     public void setCurrentPhase(String currentPhase) {
@@ -56,7 +56,7 @@ public class Round {
     /**
      * This method returns the order in which the players are going to play.
      * It's usually called twice per Round to determine the next phase's order.
-     * @ensures (\forAll int i; i>=0 && i<this.player.size(); this.order.contains(this.player.get(i)))
+     * ensures (\forAll int i; i>=0 && i<this.player.size(); this.order.contains(this.player.get(i)))
      * @author GC56
      */
     public ArrayList<Player> nextOrder() {

@@ -41,13 +41,13 @@ public class Game extends Observable {
 
     /**
      * Game constructor. It constructs every object of the game. It is called only when the correct number of players has joined the game.
+     * requires (pcount==2 || pcount==3) && nick1!=null && nick2!=null && !nick1.equals(nick2) && !nick2.equals(nick3) && !nick1.equals(nick3) && gm!=null
      * @param pcount number of players playing.
      * @param gt type of the game (1: expert rules, 0: normal rules).
      * @param nick1 nickname of the first player logged.
      * @param nick2 nickname of the second player logged.
      * @param nick3 nickname of the third player logged.
      * @param gm the GameManager.
-     * @requires (pcount==2 || pcount==3) && nick1!=null && nick2!=null && !nick1.equals(nick2) && !nick2.equals(nick3) && !nick1.equals(nick3) && gm!=null
      */
     public Game(int pcount, int gt, String nick1, String nick2, String nick3, GameManager gm)  {
         this.playerCount = pcount;
@@ -245,11 +245,11 @@ public class Game extends Observable {
 
     /**
      * Performs the action of moving a student from the Gate to the Player's Hall.
+     * ensures (player1.getNickname().equals(name) && player1.hall.getColor(color)==\old(player1.hall.getColor(color))+1)
+     * requires name!=null && color!=null
      * @param name the nickname of the user who wants to move a students to the Hall.
      * @param color the color of the students the user wants to move.
      * @throws ImpossibleActionException if the phase is not Action, or if the Player has no colors as specified in the parameters in his Gate. It can be called even if the player has finished his moves or if is not the turn of the player who called the method.
-     * @requires name!=null && color!=null
-     * @ensures player1.getNickname().equals(name) && player1.hall.getColor(color)==\old(player1.hall.getColor(color))+1
      */
     public void gateToHall(String name, String color) throws ImpossibleActionException {
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
@@ -278,9 +278,9 @@ public class Game extends Observable {
 
     /**
      * Performs the action of moving a student from the Bag to the specified Cloud.
+     * ensures (!bag.isEmpty())
      * @param index the index of the cloud in which is needed to place students.
      * @throws BoundException when the bag is empty and is impossible to take students from it or when the index specified is not allowed.
-     * @ensures !bag.isEmpty()
      */
     public void bagToCloud(int index) throws BoundException {
         if (index >= 0 && index <= 3 && board.clouds.get(index).students.size() < playerCount + 1) {
@@ -302,11 +302,11 @@ public class Game extends Observable {
 
     /**
      * Performs the action of moving a student from the Gate to a specified Island.
+     * requires name!=null
+     * ensures (player.getNickname().equals(name) && !\old(player.getGate().getStudents.get(index)).equals(player.getGate().getStudents.get(index)) && player.getHall.getColor(\old(player.getGate().getStudents.get(index)).getColor)==player.getHall.getColor(\old(player.getGate().getStudents.get(index)).getColor)+1)
      * @param name the nickname of the user who wants to move a students to an Island.
      * @param indexIsland the index of the island the user wants to move students to.
      * @throws ImpossibleActionException if the phase is not Action, or if the Player has no colors as specified in the parameters in his Gate. It can be called even if the player has finished his moves or if is not the turn of the player who called the method.
-     * @requires name!=null
-     * @ensures player.getNickname().equals(name) && !\old(player.getGate().getStudents.get(index)).equals(player.getGate().getStudents.get(index)) && player.getHall.getColor(\old(player.getGate().getStudents.get(index)).getColor)==player.getHall.getColor(\old(player.getGate().getStudents.get(index)).getColor)+1
      */
     public void gateToIsland(String name, int index, int indexIsland) throws BoundException, ImpossibleActionException {
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
@@ -334,11 +334,11 @@ public class Game extends Observable {
 
     /**
      * Performs the action of moving a student from a specified Cloud to the Player's Gate.
+     * requires player!=null
+     * ensures (player.getNickname().equals(player) && (\forAll int i=0; i<player.getGate.getStudents.contains(\old(this.getBoard().getClouds.get(cIndex).students.get(i))))
      * @param player the nickname of the user who wants to move students to the Gate.
      * @param cIndex the index of the Cloud the user wants to take students from.
      * @throws ImpossibleActionException if the phase is not Action, or if the Player has not enough space in his Gate. It can be called even if is not the turn of the player who called the Action.
-     * @requires name!=null
-     * @ensures player.getNickname().equals(player) && (\forAll int i=0; i<player.getGate.getStudents.contains(\old(this.getBoard().getClouds.get(cIndex).students.get(i)))
      */
     public void CloudToGate(String player, int cIndex) throws BoundException, ImpossibleActionException {
         if (roundMaster.round.getCurrentPhase().equals("Action")) {
@@ -440,9 +440,9 @@ public class Game extends Observable {
 
     /**
      * It's called everytime MotherNature lands on an island. it determines the influence of every player on the specified island. If is there a player who dominates all the others, then a tower of that Player need to be placed.
+     * requires index>=1 && index<=12
      * @param index the index of the island on which is needed to calculate the influence.
      * @throws ImpossibleActionException if there are no towers on the island in which the game's logic is trying to swap the towers between two players.
-     * @requires index>=1 && index<=12
      */
     public void determineInfluence(int index) throws ImpossibleActionException {
         if (this.board.islands.getIsland(index).TD) {
@@ -513,10 +513,10 @@ public class Game extends Observable {
 
     /**
      * It's called if, on the specified SuperIsland, the influence of a player is higher than the influence of the owner of the tower one. So it swaps the towers from the player who has used to own the towers to the one who has higher influence on the island.
+     * requires index>=0 && index<=12 && player1!=null.
      * @param index the index of the SuperIsland in which is needed to swap towers.
      * @param player1 the player who has higher influence on the island.
      * @throws ImpossibleActionException if the island has no towers.
-     * @requires index>=0 && index<=12 && player1!=null.
      */
     public void swapTowers(int index, Player player1) throws ImpossibleActionException {
         if (board.islands.getIsland(index).towers != null) {
@@ -531,9 +531,9 @@ public class Game extends Observable {
 
     /**
      * Performs the action called by game's logic to merge two islands. Two island will no more be part of CircularList, but a new SuperIsland is created and added to the CircularList.
+     * requires (index1>=1 && index1<=12 && index2>=1 && index2<=12)
      * @param index1 the index of an island to be merged.
      * @param index2 the index of the other island to be merged with the one with index equals to index1
-     * @requires index1>=1 && index1<=12 && index2>=1 && index2<=12 &&
      */
     public void mergeIslands(int index1, int index2){
         Island i1, i2;
@@ -663,9 +663,9 @@ public class Game extends Observable {
 
     /**
      * adds a student of the specified color to the Hall of the specified Player
+     * requires color!=null && player!=null
      * @param color the color of the student to be added
      * @param player the player who recives the student
-     * @requires color!=null && player!=null
      */
     public void addStudentToHall(String color, Player player) {
         player.getHall().setColor(color);
@@ -686,10 +686,10 @@ public class Game extends Observable {
     }
 
     /**
-     * Adds a student of the specified color to the specified players gate-
+     * Adds a student of the specified color to the specified players gate.
+     * requires p1!=null && color!=null
      * @param p1 the player to whom the students will be added.
      * @param color the color of the student to be added.
-     * @requires p1!=null && color!=null
      */
     public void addToGate(Player p1, String color) {
         p1.getGate().addStudent(color);
@@ -697,9 +697,9 @@ public class Game extends Observable {
 
     /**
      * adds a student of the specified color to the specified island.
+     * requires index>=1 && index<=12 && color!=null
      * @param color the color of the student to be added
      * @param index the index of the island to which the student will be added.
-     * @requires index>=1 && index<=12 && color!=null
      */
     public void addStudentToIsland(String color, int index) {
         board.islands.getIsland(index).addStudent(color);
@@ -708,18 +708,18 @@ public class Game extends Observable {
 
     /**
      * Removes a specified student from a specified island. It's mainly used in test.
+     * requires index>=1 && index<=12 && sIndex>=0
      * @param sIndex the index of the student to be removed.
      * @param index the index of the island from which is needed to remove students.
-     * @requires index>=1 && index<=12 && sIndex>=0
      */
     public void removeFromIsland(int sIndex, int index) {
         board.islands.getIsland(index).removeStudent(sIndex);
     }
     /**
      * Removes a specified student from a Gate. It's mainly used by Characters.
+     * requires index>=0 && p1!=null
      * @param p1 the player from whom a student will be removed from their gate.
      * @param index the index of the student to be removed.
-     * @requires index>=0 && p1!=null
      */
     public void removeFromGate(Player p1, int index) {
         p1.getGate().removeStudent(index);
@@ -727,9 +727,9 @@ public class Game extends Observable {
 
     /**
      * Removes a specified student from a Gate. It's mainly used by Characters.
+     * requires indexCloud>=0 && indexCloud<=3 && indexStudent>=0 && indexStudent<=3
      * @param indexCloud the Cloud from which a student will be removed from.
      * @param indexStudent the index of the student to be removed.
-     * @requires indexCloud>=0 && indexCloud<=3 && indexStudent>=0 && indexStudent<=3
      */
     public void removeFromCloud(int indexCloud, int indexStudent) {
         board.clouds.get(indexCloud).removeStudent(indexStudent);
@@ -737,9 +737,9 @@ public class Game extends Observable {
 
     /**
      * Mainly used in tests, removes a student from hall.
+     * requires p!=null && color!=null
      * @param p the Player from whom is needed to remove a student.
      * @param color the color of the student to be removed.
-     * @requires p!=null && color!=null
      */
     public void removeFromHall(Player p, String color) { //Probabilmente con le modifiche a Student questo metodo diventa inutile
         p.getHall().desetColor(color);
@@ -798,10 +798,10 @@ public class Game extends Observable {
     /**
      * Returns an object Player from the specified name. The Player returned is the one with nickname equals to the specified one.
      * It is used to translate the specified nickname to the corresponding Player.
+     * requires name!=null
      * @param name the nickname of a Player.
      * @return the Player whom nickname is name.
      * @throws IllegalArgumentException if no Player has 'name' as nickname
-     * @requires name!=null
      */
     public Player playerTranslator(String name) throws IllegalArgumentException {
         if (name.equals(players.get(0).nickname) || name.equals(players.get(1).nickname) || name.equals(players.get(2).nickname)) {
@@ -818,10 +818,10 @@ public class Game extends Observable {
     /**
      * Returns a ColorTracker from the specified color. The ColorTracker returned is the one with the same color as the specified one.
      * It is used to translate the specified color to the corresponding ColorTracker. Mainly used to calculate influence on an island.
+     * requires color!=null
      * @param color the color to be "translated" into a ColorTracker
      * @return the corresponding ColorTracker.
      * @throws IllegalArgumentException if the specified color does not exist as a color in this game.
-     * @requires color!=null
      */
     public ColorTracker colorTranslator(String color) throws IllegalArgumentException {
         ColorTracker color1;
@@ -850,7 +850,7 @@ public class Game extends Observable {
 
     /**
      * It sets the MotherNature movement bonus to 2, which is the only one value possible, since it can be set by only one character.
-     * @ensures this.MNbonus==2;
+     * ensures this.MNbonus==2;
      */
     public void setMNbonus() {
         this.MNbonus = 2;
@@ -858,7 +858,7 @@ public class Game extends Observable {
 
     /**
      * It sets the MotherNature movement bonus to 0, which is the default value. It is called at the end of every turn in which a character as been activated.
-     * @ensures this.MNbonus==0;
+     * ensures this.MNbonus==0;
      */
     public void disableMNbonus() {
         this.MNbonus = 0;
@@ -866,8 +866,8 @@ public class Game extends Observable {
 
     /**
      * It sets the bonus influence to a specified Player. The bonus influence is always equals to 2 and can be set by only one character.
+     * ensures this.PwBonus.equals(p) && this.InfluenceBonus==2
      * @param p the Player who is going to receive the bonus on influence.
-     * @ensures this.PwBonus.equals(p) && this.InfluenceBonus==2
      */
     public void enableInfluenceBonus(Player p) {
         this.PwBonus = p;
@@ -884,7 +884,7 @@ public class Game extends Observable {
 
     /**
      * It disables the bonus on influence, setting it to 0.
-     * @ensures this.InfluenceBonus == 0
+     * ensures this.InfluenceBonus == 0
      */
     public void disableInfluenceBonus() {
         this.InfluenceBonus = 0;

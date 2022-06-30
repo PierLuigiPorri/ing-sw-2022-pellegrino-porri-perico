@@ -10,9 +10,9 @@ public class Tower {
 
     /**
      * Tower constructor. It sets the Player who owns the tower.
+     * requires p!=null.
+     * ensures this.player.equals(p)
      * @param p the Player who owns the Tower.
-     * @requires p!=null.
-     * @ensures this.player.equals(p)
      * @author GC56
      */
     public Tower(Player p){
@@ -46,7 +46,7 @@ public class Tower {
 
     /**
      * Sets the value influence to 0. It is mainly used by Characters.
-     * @ensures this.influence==0
+     * ensures this.influence==0
      */
     public static void disable(){
         Tower.influence=0;
@@ -54,7 +54,7 @@ public class Tower {
 
     /**
      * Sets the value influence to 1. It is mainly used to restore the value at the end of a turn i which has been used the method disable().
-     * @ensures this.influence==1
+     * ensures this.influence==1
      */
     public static void enable(){
         Tower.influence=1;

@@ -22,11 +22,11 @@ public class Controller implements Observer{
 
     /**
      * Constructor.
+     * (game!=null && cm1!=null && cm2!=null)
      * @param game The game
      * @param cm1 Connection Manager of player 1
      * @param cm2 Connection Manager of player 2
      * @param cm3 Connection Manager of player 3. null if it's a 2-player game
-     * @requires game!=null && cm1!=null && cm2!=null
      */
     public Controller(Game game, ConnectionManager cm1, ConnectionManager cm2, ConnectionManager cm3){
         this.game=game;

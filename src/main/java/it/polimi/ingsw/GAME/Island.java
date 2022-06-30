@@ -23,7 +23,7 @@ public class Island extends StudentSpace implements TDSpace{
      * Island constructor. it constructs the list of students and towers, set the id to the specified one with parameter index.
      * As the model stands at the moment, the index has to be between 1 and 12 (extremity included).
      * @param index the id of the island to be created.
-     *              @author GC56
+     * @author GC56
      */
     public Island(int index){
         this.id=index;
@@ -90,9 +90,9 @@ public class Island extends StudentSpace implements TDSpace{
 
     /**
      * add to the list of towers, a tower of the specified player. There can be at most islandCount towers on an island.
+     * requires p!=null.
+     * ensures (\old(towers.size())==towers.size()-1 && \forAll (int i; i>=0 && i<this.towers.size(); this.get(i).getPlayer.equals(p))
      * @param p the Player who owns the tower to be added to the Island.
-     * @requires p!=null
-     * @ensures (\old(towers.size())==towers.size()-1 && \forAll (int i; i>=0 && i<this.towers.size(); this.get(i).getPlayer.equals(p))
      * @author GC56
      */
     public void addTower(Player p){

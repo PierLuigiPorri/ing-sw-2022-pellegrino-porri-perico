@@ -10,9 +10,9 @@ public class MotherNature {
 
     /**
      * MotherNature constructor. It sets the island in which MotherNature is when the game is created.
+     * ensures (this.island.equals(island)).
      * @param island the initial island on which MotherNature is going to be.
-     * @requires (island!=null)
-     * @ensures (this.island.equals(island))
+     * requires (island!=null)
      * @author GC56
      */
     public MotherNature(Island island){
@@ -28,9 +28,9 @@ public class MotherNature {
 
     /**
      * Set (this.island) to the parameter.
+     * ensures (this.island.equals(island))
      * @param island island on which MotherNature will be placed.
-     * @requires (island!=null)
-     * @ensures (this.island.equals(island))
+     * requires (island!=null)
      * @author GC56
      */
     public void setIsland(Island island){

@@ -35,9 +35,9 @@ public class Hall {
     /**
      * This method is called every time is needed to add a student to a player's hall.
      * For example, when a player moves a student from his Gate to his Hall, then this method is called to add that student to his Hall.
-     * @ensures ( \old(hall.getColor(color)) == hall.getColor(color)-1 )
+     * requires (color != null).
+     * ensures ( \old(hall.getColor(color)) == hall.getColor(color)-1 )
      * @param color the String of the color to be added to the Hall.
-     * @requires (color != null)
      * @author GC56
      */
     public void setColor(String color){
@@ -61,9 +61,9 @@ public class Hall {
     /**
      * The method is called only by a specific Character's effect.
      * It removes a specific color from the Hall.
-     * @ensures ( \old(hall.getColor(color)) == hall.getColor(color)+1 )
+     * ensures ( \old(hall.getColor(color)) == hall.getColor(color)+1 ).
+     * requires (color != null)
      * @param color the String of the color to be removed from the Hall.
-     * @requires (color != null)
      * @author GC56
      */
     public void desetColor(String color){
@@ -86,8 +86,8 @@ public class Hall {
 
     /**
      * The method returns how many students of the parameter color given are in the Hall.
+     * ensures (color != null).
      * @param color the String of the color you want to get the number in the Hall.
-     * @ensures (color != null)
      * @return the number of students of that color in the Hall.
      * @author GC56
      */

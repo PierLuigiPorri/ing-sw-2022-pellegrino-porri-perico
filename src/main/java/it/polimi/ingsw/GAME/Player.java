@@ -43,7 +43,7 @@ public class Player {
 
     /**
      * Add a coin to this.
-     * @ensures this.coins-1=\old(this.coins)
+     * ensures this.coins-1=\old(this.coins)
      */
     public void addCoin(){
         this.coins++;
@@ -51,10 +51,10 @@ public class Player {
 
     /**
      * Plays a card with the specified index. The index specify the position of the Card in the list of cards in Hand, so it does not always correspond to the attribute Value of a Card.
+     * requires index>=0 && index<=10.
+     * ensures (!\old(this.hand.getCards.get(index)).equals(this.hand.getCards.get(index)) && (!this.hand.getCard.contains(\old(this.hand.getCards.get(index)))) && (this.lastCardPlayed.equals(\old(this.hand.getCards.get(index))))
      * @param index the index, in Hand, of the card to play.
      * @return the Card played.
-     * @requires index>=0 && index<=10
-     * @ensures !\old(this.hand.getCards.get(index)).equals(this.hand.getCards.get(index)) && (!this.hand.getCard.contains(\old(this.hand.getCards.get(index)))) && (this.lastCardPlayed.equals(\old(this.hand.getCards.get(index)))
      * @author GC56
      */
     public Card playCard(int index){
@@ -123,9 +123,9 @@ public class Player {
 
     /**
      * Reduce the number of coins owned by Player by the specified number.
+     * requires (cost<this.coins).
+     * ensures (this.coins == \old(this.coins)-cost)
      * @param cost the number of coins to be decreased from coins.
-     * @requires (cost<this.coins)
-     * @ensures (this.coins == \old(this.coins)-cost)
      */
     public void removeCoin(int cost){
         if(this.coins-cost>=0) this.coins=this.coins-cost;
@@ -133,13 +133,13 @@ public class Player {
 
     /**
      * Removes a tower from the list towers.
-     * @ensures (\old(this.towers.size())==this.towers.size()+1)
+     * ensures (\old(this.towers.size())==this.towers.size()+1)
      */
     public void removeTower(){this.tower_count--;}
 
     /**
      * Adds a tower to the list towers.
-     * @ensures (\old(this.towers.size())==this.towers.size()-1)
-     * */
+     * ensures (\old(this.towers.size())==this.towers.size()-1)
+     */
     public void addTower(){this.tower_count++;}
 }

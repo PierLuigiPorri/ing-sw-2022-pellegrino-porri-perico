@@ -11,17 +11,17 @@ public abstract class StudentSpace{
 
     /**
      * Add a student to the list students. It is used every time the player move a student to a StudentSpace.
+     * requires (color!=null).
+     * ensures (\old(this.students.size())==this.students.size()-1 ).
      * @param color the color of the student to be added to students.
-     * @requires (color!=null)
-     * @ensures (\old(this.students.size())==this.students.size()-1 )
      * @author GC56
      */
     public abstract void addStudent(String color);
     /**
      * Removes a student from the list students. It is used every time the player move a student from a StudentSpace.
+     * requires (index>=0 && index<=students.size()-1).
+     * ensures (\old(this.students.size())==this.students.size()+1 )
      * @param index the index of the student to be removed from students.
-     * @requires (index>=0 && index<=students.size()-1)
-     * @ensures (\old(this.students.size())==this.students.size()+1 )
      * @author GC56
      */
     public abstract void removeStudent(int index);

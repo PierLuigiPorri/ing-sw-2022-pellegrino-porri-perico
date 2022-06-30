@@ -13,9 +13,9 @@ public class ColorTracker {
 
     /**
      * ColorTracker constructor. It sets the color and the default player who own it (null).
+     * this.color.equals(color)
      * @param color the color to be set.
-     * @requires (color ! = null)
-     * @ensures this.color.equals(color)
+     * (color ! = null)
      * @author GC56
      */
     public ColorTracker(String color) {
@@ -26,7 +26,7 @@ public class ColorTracker {
     /**
      * sets an owner (player) to the ColorTracker
      * @param player the player to set to the ColorTracker
-     * @requires player!=null
+     * player!=null
      * @author GC56
      */
     public void setPlayer(Player player) {
@@ -50,7 +50,7 @@ public class ColorTracker {
 
     /**
      * sets the influence of a color to 0. This method is most of the time called by a character who disable the influence of a color for a turn.
-     * @ensures this.influence==0;
+     * (this.influence==0;)
      */
     public void disableInfluence() {
         influence = 0;
@@ -58,7 +58,7 @@ public class ColorTracker {
 
     /**
      * sets the influence of a color to 1. This method is most of the time called at the end of a turn in which the influence of a color was set to 0.
-     * @ensures this.influence==1.
+     * (this.influence==1)
      */
     public void restoreInfluence() {
         influence = 1;
