@@ -29,7 +29,7 @@ perché alcuni test hanno una componente casuale
 modalità per lanciare server e client dalla linea di comando (usando i jar)
 
 Server: comando java -jar "JAR_PATH" su cmd o PowerShell
-CLI: comando java -jar "JAR_PATH" su PowerShell. Su cmd, i colori ASCII non si vedono correttamente
+CLI: comando java -jar "JAR_PATH" su PowerShell (x86). Su cmd, i colori ASCII non si vedono correttamente
 GUI: doppio click sul JAR -> apertura con Java ; oppure comando java -jar "JAR_PATH" su cmd o PowerShell
 
 
