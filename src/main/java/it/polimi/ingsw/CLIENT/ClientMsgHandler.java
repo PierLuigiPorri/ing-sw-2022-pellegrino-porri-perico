@@ -30,7 +30,6 @@ public class ClientMsgHandler implements Runnable {
      * @param host IP or URL of the server
      * @param port Port number of the server
      * @param lock An Object that is used as a lock and shared between the main App and the MessageHandler thread
-     * @author GC56
      */
     public ClientMsgHandler(String host, int port, Object lock) {
         try {

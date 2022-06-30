@@ -22,7 +22,7 @@ public class Controller implements Observer{
 
     /**
      * Constructor.
-     * (game!=null && cm1!=null && cm2!=null)
+     * Requires game!=null && cm1!=null && cm2!=null.
      * @param game The game
      * @param cm1 Connection Manager of player 1
      * @param cm2 Connection Manager of player 2
@@ -142,6 +142,14 @@ public class Controller implements Observer{
         return null;
     }
 
+    /**
+     * Method overridden from the Observer interface. Called when a message is received. Analyses the message and
+     * calls the appropriate method, passing the player nickname (am.strParam.get(0)) and the index of the card
+     * (am.intParam.get(0)), adding the appropriate parameters if needed.
+     * @param o     the observable object.
+     * @param arg   an argument passed to the {@code notifyObservers}
+     *                 method.
+     */
     @Override
     public void update(Observable o, Object arg) {
         ActionMessage am=(ActionMessage) arg;
