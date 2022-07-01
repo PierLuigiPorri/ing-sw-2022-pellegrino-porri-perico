@@ -81,12 +81,10 @@ public class PlayersBoardController {
      * Displays the last card played by the selected opponent.
      */
     private void setLastCardPlayed() {
-        if (update.lastCardsPlayed.size() > (playerIndex() * 2)) {
-            if (update.valueCardsPlayed.get(playerIndex()) != 100) {
-                int value = update.valueCardsPlayed.get((playerIndex()));
-                System.out.println(value);
-                lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (" + value + ").png"));
-            }
+        if (update.valueCardsPlayed.get(playerIndex()) != 100) {
+            int value = update.valueCardsPlayed.get((playerIndex()));
+            System.out.println(value);
+            lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (" + value + ").png"));
         }
     }
 
