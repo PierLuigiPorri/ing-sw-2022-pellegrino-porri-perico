@@ -7,11 +7,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+
 import java.util.ArrayList;
 
 /**
  * FXML Controller class for the Players Board information scene. Displays information about the selected opponent's
  * board and general game status.
+ *
  * @author GC56
  */
 public class PlayersBoardController {
@@ -52,8 +54,8 @@ public class PlayersBoardController {
     public void refresh() {
         update = gui.getUpdate();
         CoordinatesData.loadCoordinates();
-        playerNickname=gui.getPlayerNickname();
-        userNickname=gui.getUserNickname();
+        playerNickname = gui.getPlayerNickname();
+        userNickname = gui.getUserNickname();
 
         towersUpdate();
         playersNicknames();
@@ -62,8 +64,8 @@ public class PlayersBoardController {
         hallUpdate();
         setLastCardPlayed();
         nameField.setText(playerNickname);
-        if(!update.coinsOnPlayer.isEmpty())
-            coinsOwned.setText(""+update.coinsOnPlayer.get(playerIndex())+"");
+        if (!update.coinsOnPlayer.isEmpty())
+            coinsOwned.setText("" + update.coinsOnPlayer.get(playerIndex()) + "");
     }
 
     private void studentsOnGateUpdate() {
@@ -78,8 +80,8 @@ public class PlayersBoardController {
     /**
      * Displays the last card played by the selected opponent.
      */
-    private void setLastCardPlayed(){
-        if(update.lastCardsPlayed.size() > (playerIndex()*2) + 1) {
+    private void setLastCardPlayed() {
+        if (update.lastCardsPlayed.size() > (playerIndex() * 2) + 1) {
             if (update.valueCardsPlayed.get(playerIndex()) != 100) {
                 int value = update.valueCardsPlayed.get((playerIndex()));
                 lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (" + value + ").png"));
@@ -91,10 +93,9 @@ public class PlayersBoardController {
         ArrayList<String> nicknames = new ArrayList<>(update.players);
         nicknames.remove(update.players.indexOf(userNickname));
 
-        if(playerNickname.equals(update.players.get(0))) {
+        if (playerNickname.equals(update.players.get(0))) {
             nicknames.remove(playerIndex());
-        }
-        else if (!nicknames.isEmpty()) {
+        } else if (!nicknames.isEmpty()) {
             setTowerImage();
         }
     }
@@ -185,7 +186,7 @@ public class PlayersBoardController {
      * Method associated with an FXML button. Sets the scene back to the Board scene.
      */
     @FXML
-    public void backToBoard(){
+    public void backToBoard() {
         gui.setScene("fxml/board.fxml");
         gui.boardController.refresh();
     }
