@@ -28,7 +28,7 @@
                 </filters>
                 <transformers>
                   <transformer>
-                    <mainClass>it.polimi.ingsw.SERVER.ServerApp</mainClass>
+                    <mainClass>it.polimi.ingsw.CLIENT.GUILauncher</mainClass>
                   </transformer>
                 </transformers>
               </configuration>
