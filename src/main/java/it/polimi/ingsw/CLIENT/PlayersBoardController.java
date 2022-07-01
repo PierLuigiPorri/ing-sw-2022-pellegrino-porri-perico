@@ -83,7 +83,6 @@ public class PlayersBoardController {
     private void setLastCardPlayed() {
         if (update.valueCardsPlayed.get(playerIndex()) != 100) {
             int value = update.valueCardsPlayed.get((playerIndex()));
-            System.out.println(value);
             lastCardPlayed.setImage(new Image("Graphical_Assets/Assistente (" + value + ").png"));
         }
     }

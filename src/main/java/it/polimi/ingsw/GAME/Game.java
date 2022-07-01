@@ -491,6 +491,7 @@ public class Game extends Observable {
                     }
                 } else if (!players.get(q.indexOf(p.get(p.size() - 1))).equals(this.board.islands.getIsland(index).getPlayer())) {
                     //Could be a superIsland, so it could be needed to swap towers between players.
+                    String oldOwner = this.board.islands.getIsland(index).getPlayer().nickname;
                     swapTowers(index, players.get(q.indexOf(p.get(p.size() - 1))));
                     for(int i=0; i<board.islands.getIsland(index).getTowers().size(); i++) {
                         //I remove a tower for any tower placed
@@ -501,7 +502,7 @@ public class Game extends Observable {
                             gameEnd();
                         }
                     }
-                    update.add("\nPOWER PLAY! " + players.get(q.indexOf(p.get(p.size() - 1))).nickname + " just took all of " + this.board.islands.getIsland(index).getPlayer().nickname + "'s Towers on Island " + index + "!");
+                    update.add("\nPOWER PLAY! " + players.get(q.indexOf(p.get(p.size() - 1))).nickname + " just took all of " + oldOwner + "'s Towers on Island " + index + "!");
                     if(players.get(q.indexOf(p.get(p.size() - 1))).getTower_count()==0){
                         gameEnd();
                     }
@@ -616,7 +617,7 @@ public class Game extends Observable {
         cardsPlayed.add(this.players.get(playerIndex).playCard(cardIndex)); //Removes and returns the card
         valueCardPlayed.set(playerIndex, cardsPlayed.get(cardsPlayed.size()-1).getValue());
         order.remove(0);
-        update.add("\n" + this.players.get(playerIndex).nickname + " played a card!");
+        update.add("\n" + this.players.get(playerIndex).nickname + " played a card with value: "+cardsPlayed.get(cardsPlayed.size() - 1).getValue()+" and movement: "+cardsPlayed.get(cardsPlayed.size() - 1).getMovement());
         if(players.get(playerIndex).getHand().getCards().isEmpty()){
             lastRound=true;
         }
