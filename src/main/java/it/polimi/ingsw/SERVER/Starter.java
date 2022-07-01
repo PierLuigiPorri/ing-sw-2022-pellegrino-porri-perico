@@ -33,8 +33,6 @@ public class Starter{
      * @param gt GameType: 0 -> normal game, 1 -> expert game
      * @param np Number of Players
      * @param nick Player's nickname
-     * @requires gt==0 || gt==1
-     * @requires np==2 || np==3
      * @return the ID of the game that has been created
      * @throws ImpossibleActionException if parameters aren't valid
      * @author GC56

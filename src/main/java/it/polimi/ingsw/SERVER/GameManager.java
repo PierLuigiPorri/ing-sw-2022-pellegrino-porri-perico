@@ -23,7 +23,6 @@ public class GameManager extends Observable implements Runnable, Observer {
      * @param cm2 ConnectionManager of the second player
      * @param cm3 ConnectionManager of the third player. If it's a two player game, null
      * @param players Number of Players
-     * @requires players==2 || players==3
      * @author GC56
      */
     public GameManager(ConnectionManager cm1, ConnectionManager cm2, ConnectionManager cm3, int players){

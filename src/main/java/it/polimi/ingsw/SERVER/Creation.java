@@ -23,8 +23,6 @@ public class Creation {
      * @param gt GameType: 0 -> normal game, 1 -> expert game
      * @param nick Nickname of the first player
      * @param cm ConnectionManager of the first player
-     * @requires np==2 || np==3
-     * @requires gt==0 || gt==1
      * @author GC56
      */
     public Creation(int id, int np, int gt, String nick, ConnectionManager cm){

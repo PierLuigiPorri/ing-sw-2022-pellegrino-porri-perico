@@ -24,7 +24,6 @@ public abstract class MessageType implements Serializable {
      *       3: ActionMessage (Client -> Server)
      *       4: UpdateMessage (Server -> Client)
      *       5: KillMessage (Client -> Server)
-     * @requires type>=0 && type<=5
      * @author GC56
      */
     public MessageType(int type){

@@ -22,7 +22,6 @@ public class Player {
      * @param pCount the number of Players in the game.
      * @param string the nickname of the Player.
      * @param game the Game in which the player is playing
-     * @requires pCount==2 || pCount==3 && string!=null and game!=null
      * @author GC56
      */
     public Player(int pCount, String string, Game game){

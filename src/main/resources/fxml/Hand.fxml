@@ -50,7 +50,7 @@
    </AnchorPane>
    <AnchorPane fx:id="card7" layoutX="257.0" layoutY="225.0" prefHeight="92.0" prefWidth="103.0">
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../Graphical_Assets/Assistente (18).png"/>
+         <Image url="@../Graphical_Assets/Assistente (8).png"/>
       </ImageView>
    </AnchorPane>
    <AnchorPane fx:id="card5" layoutX="13.0" layoutY="226.0" prefHeight="92.0" prefWidth="103.0">
