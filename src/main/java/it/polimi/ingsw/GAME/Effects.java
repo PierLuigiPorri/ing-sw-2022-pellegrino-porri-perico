@@ -37,7 +37,7 @@ public final class Effects {
                 c.setMAX(4);
                 for (int i = 0; i < c.getMAX(); i++) {
                     try {
-                        c.students.add(this.game.getBag().extractStudent());
+                        c.students.add(this.game.extractStudent());
                     } catch (BagEmptyException e) {
                         System.out.println(e.getMessage());
                     }
@@ -47,7 +47,7 @@ public final class Effects {
                 c.setMAX(6);
                 for (int i = 0; i < c.getMAX(); i++) {
                     try {
-                        c.students.add(this.game.getBag().extractStudent());
+                        c.students.add(this.game.extractStudent());
                     } catch (BagEmptyException e) {
                         System.out.println(e.getMessage());
                     }
@@ -131,7 +131,7 @@ public final class Effects {
                 game.addStudentToIsland(c.students.get(intpar.get(0)).getColor(), intpar.get(1));
                 c.students.remove((int) intpar.get(0));
                 try {
-                    c.students.add(this.game.getBag().extractStudent());
+                    c.students.add(this.game.extractStudent());
                 } catch (BagEmptyException e) {
                     System.out.println(e.getMessage());
                 }
@@ -145,7 +145,7 @@ public final class Effects {
                 String color = c.students.get(intpar.get(0)).getColor();
                 c.getStudents().remove((int) intpar.get(0));
                 try {
-                    c.students.add(this.game.getBag().extractStudent());
+                    c.students.add(this.game.extractStudent());
                 } catch (BagEmptyException e) {
                     System.out.println(e.getMessage());
                 }

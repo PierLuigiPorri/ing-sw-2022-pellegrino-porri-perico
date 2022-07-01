@@ -84,7 +84,7 @@ public class Game extends Observable {
         for (Player p : players) {
             for (int i = 0; i < p.getGate().getMAX(); i++) {
                 try {
-                    p.getGate().addStudent(this.getBag().extractStudent().getColor());
+                    p.getGate().addStudent(this.extractStudent().getColor());
                 }catch (BagEmptyException e){
                     System.out.println(e.getMessage());
                 }
@@ -157,7 +157,7 @@ public class Game extends Observable {
      * @throws BoundException when the bag is empty.
      */
     public void changePhase() throws BoundException {
-        if(lastRound && roundMaster.round.getCurrentPhase().equals("Action")) {
+        if(lastRound && roundMaster.round.getCurrentPhase().equals("Planning")) {
             gameEnd();
         }
         else {
@@ -188,6 +188,9 @@ public class Game extends Observable {
             //reset the maxmoves of all players.
             for (Player p : players) {
                 p.maxMoves = playerCount + 1;
+            }
+            if(this.getBag().getStudentsSize()==0){         //If the bag is empty, the game ends
+                lastRound=true;
             }
             // Notifies observers (ModelView)
             if(this.getBag().getStudentsSize()<=0){
@@ -288,7 +291,7 @@ public class Game extends Observable {
     public void bagToCloud(int index) throws BoundException {
         if (index >= 0 && index <= 3 && board.clouds.get(index).students.size() < playerCount + 1) {
             try {
-                board.clouds.get(index).addStudent(bag.extractStudent().getColor());
+                board.clouds.get(index).addStudent(extractStudent().getColor());
             }catch (BagEmptyException e){
                 System.out.println(e.getMessage());
             }
@@ -380,8 +383,8 @@ public class Game extends Observable {
                         }
                         tmp.setMotherNature(true);
                         motherNature.setIsland(tmp);
-                        cloudEmptied = false;
-
+                        if(this.getBag().getStudentsSize()>0)
+                            cloudEmptied = false;
                         //At the end of Mother Nature's movement, it's time to calculate influence on the island in which She stopped.
                         determineInfluence(tmp.getId());
 
@@ -623,6 +626,18 @@ public class Game extends Observable {
         setChanged();
         notifyObservers(update);
         update.clear();
+    }
+
+    /**
+     * Returns a random Student from the bag. If the bag is therefore empty, signals the empty bag game state.
+     * @return A random Student object from the Bag Arraylist.
+     * @throws BagEmptyException If the bag is already empty.
+     */
+    public Student extractStudent() throws BagEmptyException {
+        if(getBag().getStudentsSize()==1){
+            cloudEmptied=true;
+        }
+        return getBag().extractStudent();
     }
 
     /**

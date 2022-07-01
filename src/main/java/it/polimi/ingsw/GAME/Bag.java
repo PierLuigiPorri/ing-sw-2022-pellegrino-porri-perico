@@ -32,11 +32,9 @@ public class Bag {
      */
     public Student extractStudent() throws BagEmptyException {
         if(students.size()>0) {
-            Student last = this.students.get(this.students.size() - 1);
-            this.students.remove(this.students.size() - 1);
-            return last;
+            return this.students.remove(this.students.size() - 1);
         }
-        else throw new BagEmptyException("Bag empty");
+        else throw new BagEmptyException("Bag empty! \nGame ends at the end of the round!");
     }
 
     public int getStudentsSize(){
