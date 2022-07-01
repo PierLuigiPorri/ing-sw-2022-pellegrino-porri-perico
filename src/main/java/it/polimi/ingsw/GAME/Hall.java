@@ -16,7 +16,7 @@ public class Hall {
     private int yellow;
     //cardActivated is needed to see if the character who decrease the students number of a certain color is active in this turn.
     // when cardActivated turns to false value from true value, then is needed to restore the previous state of the Hall.
-    public boolean cardActivated=false; //True if and only if there is a character active in this turn which decrease the number of students of a certain color.
+    public boolean cardActivated=false; //True if and only if there is a character active in this turn which lets the player control a Professor with the same amount of students.
 
 
     /**

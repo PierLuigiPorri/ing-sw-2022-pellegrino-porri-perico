@@ -73,6 +73,7 @@ public final class Effects {
         switch (index) {
             case 1:
                 player.getHall().activateCard();
+                game.checkColorChanges(true);
                 return "\nBe aware that until the end of the turn " + player.nickname + " will be able to control the Professors even if they have the same amount of students in the hall!";
             case 2:
                 game.determineInfluence(intpar.get(0));

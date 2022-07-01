@@ -758,7 +758,6 @@ public class Game extends Observable {
      */
     public void activateCharacter(String player, int id, ArrayList<Integer> intpar, ArrayList<String> strpar, ArrayList<Integer> intpar2) throws ImpossibleActionException {
         //Keep the unused parameters null, and always use the first parameter in numeric order by type.
-        //Parameters will be filled client-side. Parameters marked with "A" are used by AbstractCharacters, with "C" by ConcreteCharacters, and with "AC" by both.
         Player p = playerTranslator(player);
         if (p.getCoins() >= characterSelector.getCost(id)) {
             // removes the coins from the player and activate the effect of the called character.
