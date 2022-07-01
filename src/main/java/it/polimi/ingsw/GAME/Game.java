@@ -86,7 +86,7 @@ public class Game extends Observable {
                 try {
                     p.getGate().addStudent(this.getBag().extractStudent().getColor());
                 }catch (BagEmptyException e){
-                    bagEmptyHandler();
+                    System.out.println(e.getMessage());
                 }
             }
         }
@@ -290,17 +290,9 @@ public class Game extends Observable {
             try {
                 board.clouds.get(index).addStudent(bag.extractStudent().getColor());
             }catch (BagEmptyException e){
-                bagEmptyHandler();
+                System.out.println(e.getMessage());
             }
         } else throw new BoundException("\nINDEX OUT OF BOUND!\n");
-    }
-
-    /**
-     * It's called every time the game is going to be empty.
-     */
-    public void bagEmptyHandler(){
-        lastRound=true;
-        System.out.println("Bag vuota");
     }
 
     /**

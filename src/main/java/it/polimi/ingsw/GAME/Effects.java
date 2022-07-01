@@ -39,7 +39,7 @@ public final class Effects {
                     try {
                         c.students.add(this.game.getBag().extractStudent());
                     } catch (BagEmptyException e) {
-                        game.bagEmptyHandler();
+                        System.out.println(e.getMessage());
                     }
                 }
                 break;
@@ -49,7 +49,7 @@ public final class Effects {
                     try {
                         c.students.add(this.game.getBag().extractStudent());
                     } catch (BagEmptyException e) {
-                        game.bagEmptyHandler();
+                        System.out.println(e.getMessage());
                     }
                 }
                 break;
@@ -133,7 +133,7 @@ public final class Effects {
                 try {
                     c.students.add(this.game.getBag().extractStudent());
                 } catch (BagEmptyException e) {
-                    game.bagEmptyHandler();
+                    System.out.println(e.getMessage());
                 }
                 return player.nickname + " just moved a " + c.students.get(intpar.get(0)).getColor() + " student on Island " + intpar.get(1) + "!";
             case 4:
@@ -147,7 +147,7 @@ public final class Effects {
                 try {
                     c.students.add(this.game.getBag().extractStudent());
                 } catch (BagEmptyException e) {
-                    game.bagEmptyHandler();
+                    System.out.println(e.getMessage());
                 }
                 return "\nHeads up! " + player.nickname + " placed a " + color + " in their Hall! They're getting ahead!";
             case 6:
