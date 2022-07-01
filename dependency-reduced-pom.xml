@@ -5,7 +5,6 @@
   <artifactId>softeng-GC56</artifactId>
   <name>softeng-GC56</name>
   <version>1.0-SNAPSHOT</version>
-  <url>http://www.example.com</url>
   <build>
     <pluginManagement>
       <plugins>

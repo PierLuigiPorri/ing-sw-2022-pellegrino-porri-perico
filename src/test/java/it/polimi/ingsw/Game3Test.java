@@ -30,27 +30,29 @@ public class Game3Test {
 
     @Test
     public void game3Simulation() {
+        //simulates a game with 3 players.
         if (game3 != null) {
-            Assert.assertEquals(3, game3.getPlayers().size());
-            Assert.assertEquals(12, game3.getBoard().islands.size());
-            Assert.assertEquals(3, game3.getBoard().clouds.size());
-            Assert.assertEquals(0, game3.getBoard().islands.getIsland(1).getStudents().size());
-            Assert.assertEquals(0, game3.getBoard().islands.getIsland(6).getStudents().size());
-            Assert.assertEquals(0, game3.roundMaster.getRoundCount());
+            Assert.assertEquals(3, game3.getPlayers().size()); //number of players==3
+            Assert.assertEquals(12, game3.getBoard().islands.size()); // number of islands ==12
+            Assert.assertEquals(3, game3.getBoard().clouds.size()); // number of clouds==3
+            Assert.assertEquals(0, game3.getBoard().islands.getIsland(1).getStudents().size()); //island 1 is empty
+            Assert.assertEquals(0, game3.getBoard().islands.getIsland(6).getStudents().size()); //island 6 is empty
+            Assert.assertEquals(0, game3.roundMaster.getRoundCount()); // the round is 0.
             try {
-                Assert.assertEquals("Planning", game3.roundMaster.round.getCurrentPhase());
+                Assert.assertEquals("Planning", game3.roundMaster.round.getCurrentPhase()); // we are in planning phase
                 game3.playCard("PIER", 2);
-                Assert.assertEquals("Planning", game3.roundMaster.round.getCurrentPhase());
+                Assert.assertEquals("Planning", game3.roundMaster.round.getCurrentPhase()); //we still are in planning phase, only the first player has played a card.
                 game3.playCard("PAOLO", 7);
-                Assert.assertEquals("Planning", game3.roundMaster.round.getCurrentPhase());
+                Assert.assertEquals("Planning", game3.roundMaster.round.getCurrentPhase()); // we still are in planning phase, only the first two players has played a card
                 game3.playCard("Gandalf", 5);
-                Assert.assertEquals("Action", game3.roundMaster.round.getCurrentPhase());
+                Assert.assertEquals("Action", game3.roundMaster.round.getCurrentPhase()); // now the phase is changed, everyone has played a card.
 
                 for (int i = 0; i < 4; i++) {
                     tmp1[i] = game3.getPlayers().get(0).getGate().getStudents().get(i);
                     tmp2[i] = game3.getPlayers().get(1).getGate().getStudents().get(i);
                     tmp3[i] = game3.getPlayers().get(2).getGate().getStudents().get(i);
                 }
+                //the one who is first in order starts placing students.
                 game3.gateToHall("PIER", tmp1[0].getColor());
                 game3.gateToIsland("PIER", 0, 7);
                 game3.gateToIsland("PIER", 0, 7);
@@ -61,13 +63,14 @@ public class Game3Test {
                     tm2[i] = game3.getBoard().clouds.get(1).getStudents().get(i);
                     tm3[i] = game3.getBoard().clouds.get(2).getStudents().get(i);
                 }
-
+                // takes students from a cloud
                 game3.CloudToGate("PIER", 0);
 
+                // moves mother nature
                 game3.moveMotherNature("PIER", game3.order.get(0).getLastCardPlayed().getMovement());
-                Assert.assertEquals(game3.motherNature.getIsland().getId(), 3);
+                Assert.assertEquals(game3.motherNature.getIsland().getId(), 3);// due to the card the Player has played, MotherNature is on island 3
 
-
+                //second player in order time to play.
                 game3.gateToHall("Gandalf", tmp2[0].getColor());
                 game3.gateToIsland("Gandalf", 0, 7);
                 game3.gateToIsland("Gandalf", 0, 7);
@@ -78,8 +81,9 @@ public class Game3Test {
 
 
                 game3.moveMotherNature("Gandalf", game3.order.get(0).getLastCardPlayed().getMovement());
-                Assert.assertEquals(game3.motherNature.getIsland().getId(), 6);
+                Assert.assertEquals(game3.motherNature.getIsland().getId(), 6);// due to the card the Player has played, MotherNature is on island 6
 
+                // time for the last one player to play
                 game3.gateToHall("PAOLO", tmp2[0].getColor());
                 game3.gateToIsland("PAOLO", 0, 7);
                 game3.gateToIsland("PAOLO", 0, 7);
@@ -90,7 +94,7 @@ public class Game3Test {
 
 
                 game3.moveMotherNature("PAOLO", game3.order.get(0).getLastCardPlayed().getMovement());
-                Assert.assertEquals(game3.motherNature.getIsland().getId(), 10);
+                Assert.assertEquals(game3.motherNature.getIsland().getId(), 10); //mother nature is on island 10
 
                 System.out.println("TEST PASSATO!");
             } catch (ImpossibleActionException | BoundException | ConsecutiveIslandException e) {
