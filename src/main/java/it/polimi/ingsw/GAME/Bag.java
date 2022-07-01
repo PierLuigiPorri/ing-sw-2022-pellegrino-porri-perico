@@ -38,4 +38,8 @@ public class Bag {
         }
         else throw new BagEmptyException("Bag empty");
     }
+
+    public int getStudentsSize(){
+        return students.size();
+    }
 }

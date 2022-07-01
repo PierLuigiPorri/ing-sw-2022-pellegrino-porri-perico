@@ -190,6 +190,9 @@ public class Game extends Observable {
                 p.maxMoves = playerCount + 1;
             }
             // Notifies observers (ModelView)
+            if(this.getBag().getStudentsSize()<=0){
+                gameEnd();
+            }
             update.add("\nNext phase!");
             setChanged();
             notifyObservers(update);
