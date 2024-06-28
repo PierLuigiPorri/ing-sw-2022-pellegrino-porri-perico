@@ -1,35 +1,39 @@
-# ing-sw-2022-pellegrino-porri-perico
+# Software Engineering Project: Eriantys Board Game
 
-Abbiamo implementato: Regole Complete + CLI + GUI + Socket + 2 FA
-Le 2 FA sono: Carte Personaggio (tutte), Partite Multiple
+![](src/main/resources/Graphical_Assets/sfondo.jpg)
 
+The goal of the project was to implement the board game [Eriantys](https://www.craniocreations.it/prodotto/eriantys) as a client-server based Java program.
+The implementation net us a score of 30/30.
 
-Coverage dei test come riportato dal tool di IntelliJ:
-Package GAME (Model + Controller + ModelView):
-Classes 100% (24/24)
-Methods 95% (170/178)
-Lines 88% (871/979)
-Package MESSAGES (Messaggi di rete):
-Classes 28% (2/7) -> MessageType astratta e UpdateMessage, usate da ModelView
-Methods 22% (2/9)
-Lines 47% (27/57)
-Package SERVER:
-Classes 42% (3/7) -> ConnectionManager, GameManager, Starter
-Methods 15% (8/52)
-Lines 9% (32/328)
+## How to play
+### Requirements
+- Java 17
+- Maven 3+
 
-Per ottenere questi valori è necessario runnare i test molte volte (run until failure o until stopped)
-perché alcuni test hanno una componente casuale
+### Play with the CLI
+1. First, clone this repository:
+  
+   ```shell
+   git clone https://github.com/PierLuigiPorri/ing-sw-2022-pellegrino-porri-perico
+   cd ing-sw-2022-pellegrino-porri-perico
+   ```
 
+2. Then, move to the 'deliverables' folder and start the server:
+   
+   ```shell
+   java -jar Eriantys-GC56-Server.jar
+   ```
+   
+3. Finally, start the client:
 
-Modalità per lanciare server e client dalla linea di comando (usando i jar):
-Server: comando java -jar "JAR_PATH" su cmd
-CLI: comando java -jar "JAR_PATH" su Windows Terminal. Su cmd, i colori ASCII non si vedono correttamente
-GUI: doppio click sul JAR -> apertura con Java ; oppure comando java -jar "JAR_PATH" su cmd
+   ```shell
+   java -jar Eriantys-GC56-CLI.jar
+   ```
+### Play with the GUI
 
+Follow the above process through step 2, then start the GUI client:
 
-Altre indicazioni utili a testare l'applicazione:
-Come specificato anche da Daniele Cattaneo su Slack è necessario aver scaricato il JDK.
-Inoltre, naturalmente, è necessario che il server sia avviato prima di cercare di connettersi da uno dei client.
-Il server non prevede un comando di chiusura, si chiude alla chiusura della finestra cmd o PowerShell associata.
-Una istanza del client non può cambiare il server di riferimento dopo averlo impostato.
+   ```shell
+   java -jar Eriantys-GC56-GUI.jar
+   ```
+Or double-click the same file.
